@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.adapter.MovieOverviewAdapter;
+import tobiapplications.com.moviebase.utils.Helper;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -23,8 +26,9 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBarLoading;
     private TextView mNoInternetConnectionTextView;
-    private Context mContext;
+    private Context context;
     private PopularMoviePresenter presenter;
+    private MovieOverviewAdapter adapter;
 
     public static Fragment newInstance() {
         PopularMovieFragment popularMovieFragment = new PopularMovieFragment();
@@ -35,7 +39,7 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getContext();
+        context = getContext();
         presenter = new PopularMoviePresenter(this);
     }
 
@@ -63,11 +67,15 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
 
     @Override
     public void setGridViewAndAdapter() {
+        adapter = new MovieOverviewAdapter(context);
+        int howMuchColumns = Helper.getHowMuchColumnsForMovies(context);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(context, howMuchColumns));
 
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
     public void makeToast(String message) {
-        Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 }
