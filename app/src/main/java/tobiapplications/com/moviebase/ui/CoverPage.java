@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.ui.movie_overview.MovieOverview;
+import tobiapplications.com.moviebase.ui.movie_overview.MovieOverviewActivity;
 
 public class CoverPage extends AppCompatActivity {
 
@@ -38,7 +38,7 @@ public class CoverPage extends AppCompatActivity {
             @Override
             public void run()
             {
-                Intent intent = new Intent(CoverPage.this, MovieOverview.class);
+                Intent intent = new Intent(CoverPage.this, MovieOverviewActivity.class);
                 startActivity(intent);
                 finish();
             }
