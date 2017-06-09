@@ -1,11 +1,11 @@
-package com.applications.tobi.moviebase.ui.movie_overview;
+package tobiapplications.com.moviebase.ui.movie_overview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.applications.tobi.moviebase.R;
+import tobiapplications.com.moviebase.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MovieOverview extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

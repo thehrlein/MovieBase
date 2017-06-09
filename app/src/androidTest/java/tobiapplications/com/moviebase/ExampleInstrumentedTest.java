@@ -1,4 +1,4 @@
-package com.applications.tobi.moviebase;
+package tobiapplications.com.moviebase;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.applications.tobi.moviebase", appContext.getPackageName());
+        assertEquals("tobiapplications.com.moviebase", appContext.getPackageName());
     }
 }

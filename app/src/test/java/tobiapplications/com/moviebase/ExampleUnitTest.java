@@ -1,4 +1,4 @@
-package com.applications.tobi.moviebase;
+package tobiapplications.com.moviebase;
 
 import org.junit.Test;
 
