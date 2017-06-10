@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.Movie;
+import tobiapplications.com.moviebase.model.MovieResponse;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -45,7 +46,10 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdap
 
     @Override
     public int getItemCount() {
-        return mMovies.size();
+        if (mMovies != null) {
+            return mMovies.size();
+        }
+        return 0;
     }
 
     public void setMovies(ArrayList<Movie> movies) {

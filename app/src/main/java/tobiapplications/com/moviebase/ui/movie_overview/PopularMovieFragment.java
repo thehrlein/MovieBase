@@ -40,7 +40,8 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-        presenter = new PopularMoviePresenter(this);
+        presenter = new PopularMoviePresenter(this, context);
+        presenter.loadMovies();
     }
 
     @Nullable
@@ -54,6 +55,7 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
         super.onViewCreated(view, savedInstanceState);
 
         findMyViews();
+        setGridViewAndAdapter();
     }
 
     @Override
@@ -70,12 +72,17 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
         adapter = new MovieOverviewAdapter(context);
         int howMuchColumns = Helper.getHowMuchColumnsForMovies(context);
         mRecyclerView.setLayoutManager(new GridLayoutManager(context, howMuchColumns));
-
         mRecyclerView.setAdapter(adapter);
     }
 
     @Override
     public void makeToast(String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showNoNetworkError(boolean isConnected) {
+        mNoInternetConnectionTextView.setVisibility(isConnected ? View.GONE : View.VISIBLE);
+        mRecyclerView.setVisibility(isConnected ? View.VISIBLE : View.GONE);
     }
 }
