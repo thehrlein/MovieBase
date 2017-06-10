@@ -12,7 +12,7 @@ public interface MovieOverview {
     void makeToast(String message);
     void findMyViews();
     void setGridViewAndAdapter();
-    void showNoNetworkError(boolean isConnected);
+    void showNetworkError(boolean isConnected);
     void setMovies(ArrayList<Movie> movies);
     void showLoading(boolean load);
 }

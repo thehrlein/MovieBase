@@ -16,6 +16,9 @@ import tobiapplications.com.moviebase.model.MovieResponse;
 public interface TheMovieApi {
 
     @GET ("movie/popular")
-    Call<MovieResponse> movieResponseCall(@Query("api_key") String api_key);
+    Call<MovieResponse> popularMovieResponseCall(@Query("api_key") String api_key);
+
+    @GET ("movie/top_rated")
+    Call<MovieResponse> topRatedMovieResponseCall(@Query("api_key") String api_key);
 
 }

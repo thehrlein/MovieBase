@@ -24,6 +24,9 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
 public class DataManager {
     private TheMovieApi movieApi;
     private static DataManager dataManager;
+    public static final int POPULAR_MOVIES = 44;
+    public static final int TOP_RATED_MOVIES = 45;
+
 
     public static DataManager getInstance() {
         if (dataManager == null) {
@@ -69,8 +72,13 @@ public class DataManager {
         return movieApi;
     }
 
-    public void requestMovies(MoviePresenter presenter) {
-        Call<MovieResponse> movieCall = getMovieApi().movieResponseCall(NetworkUtils.getKey());
-        movieCall.enqueue(new MovieCallback(presenter));
+    public void requestPopularMovies(MoviePresenter presenter) {
+        Call<MovieResponse> movieCall = getMovieApi().popularMovieResponseCall(NetworkUtils.getKey());
+        movieCall.enqueue(new MovieCallback(presenter, POPULAR_MOVIES));
+    }
+
+    public void requestTopRatedMovies(MoviePresenter presenter) {
+        Call<MovieResponse> movieCall = getMovieApi().topRatedMovieResponseCall(NetworkUtils.getKey());
+        movieCall.enqueue(new MovieCallback(presenter, TOP_RATED_MOVIES));
     }
 }

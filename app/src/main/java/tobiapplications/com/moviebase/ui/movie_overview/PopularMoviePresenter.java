@@ -20,14 +20,17 @@ public class PopularMoviePresenter implements MoviePresenter {
     public PopularMoviePresenter(MovieOverview parent, Context context) {
         this.parent = parent;
         this.context = context;
-     //   parent.makeToast("YOLO SWAG");
     }
 
     @Override
     public void loadMovies() {
         if (hasInternetConnection()) {
+            parent.showLoading(true);
+            parent.showNetworkError(false);
             requestMovieDownload();
         } else {
+            parent.showLoading(false);
+            parent.showNetworkError(true);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -44,13 +47,13 @@ public class PopularMoviePresenter implements MoviePresenter {
 
     @Override
     public void isConnectedToInternet(boolean connected) {
-        parent.showNoNetworkError(connected);
+        parent.showNetworkError(connected);
     }
 
     @Override
     public void requestMovieDownload() {
         Log.d("Pop Presenter", "requestMovieDownload");
-        DataManager.getInstance().requestMovies(this);
+        DataManager.getInstance().requestPopularMovies(this);
     }
 
     @Override

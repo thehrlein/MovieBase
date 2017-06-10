@@ -85,9 +85,11 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
     }
 
     @Override
-    public void showNoNetworkError(boolean isConnected) {
-        mNoInternetConnectionTextView.setVisibility(isConnected ? View.GONE : View.VISIBLE);
-        mRecyclerView.setVisibility(isConnected ? View.VISIBLE : View.GONE);
+    public void showNetworkError(boolean noNetwork) {
+        if (mNoInternetConnectionTextView != null && mRecyclerView != null) {
+            mRecyclerView.setVisibility(noNetwork ? View.GONE : View.VISIBLE);
+            mNoInternetConnectionTextView.setVisibility(noNetwork ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override
@@ -98,7 +100,9 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
 
     @Override
     public void showLoading(boolean load) {
-        mProgressBarLoading.setVisibility(load ? View.VISIBLE : View.GONE);
-        mRecyclerView.setVisibility(load ? View.GONE : View.VISIBLE);
+        if (mProgressBarLoading != null && mRecyclerView != null) {
+            mProgressBarLoading.setVisibility(load ? View.VISIBLE : View.GONE);
+            mRecyclerView.setVisibility(load ? View.GONE : View.VISIBLE);
+        }
     }
 }

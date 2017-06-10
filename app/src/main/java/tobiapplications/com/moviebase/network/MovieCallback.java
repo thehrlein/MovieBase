@@ -1,5 +1,6 @@
 package tobiapplications.com.moviebase.network;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 
 
@@ -16,15 +17,26 @@ import tobiapplications.com.moviebase.ui.movie_overview.MoviePresenter;
 class MovieCallback implements Callback<MovieResponse> {
 
     private MoviePresenter presenter;
+    private int category;
 
-    public MovieCallback(MoviePresenter presenter) {
+    public MovieCallback(MoviePresenter presenter, int category) {
         this.presenter = presenter;
+        this.category = category;
     }
 
     @Override
     public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-        Log.d("MovieCallback", "onResponse");
-        presenter.displayMovies(response.body());
+        if (response.isSuccessful()) {
+            displaySuccess(response.body());
+        }
+    }
+
+    private void displaySuccess(MovieResponse response) {
+        if (category == DataManager.POPULAR_MOVIES) {
+            presenter.displayMovies(response);
+        } else  if (category == DataManager.TOP_RATED_MOVIES) {
+
+        }
     }
 
     @Override
