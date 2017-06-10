@@ -13,8 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.MovieOverviewAdapter;
+import tobiapplications.com.moviebase.model.Movie;
 import tobiapplications.com.moviebase.utils.Helper;
 
 /**
@@ -73,6 +76,7 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
         int howMuchColumns = Helper.getHowMuchColumnsForMovies(context);
         mRecyclerView.setLayoutManager(new GridLayoutManager(context, howMuchColumns));
         mRecyclerView.setAdapter(adapter);
+
     }
 
     @Override
@@ -84,5 +88,17 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
     public void showNoNetworkError(boolean isConnected) {
         mNoInternetConnectionTextView.setVisibility(isConnected ? View.GONE : View.VISIBLE);
         mRecyclerView.setVisibility(isConnected ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setMovies(ArrayList<Movie> movies) {
+        adapter.setMovies(movies);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showLoading(boolean load) {
+        mProgressBarLoading.setVisibility(load ? View.VISIBLE : View.GONE);
+        mRecyclerView.setVisibility(load ? View.GONE : View.VISIBLE);
     }
 }

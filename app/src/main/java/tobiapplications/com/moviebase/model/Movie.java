@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import tobiapplications.com.moviebase.utils.NetworkUtils;
+
 /**
  * Created by Tobias on 10.06.2017.
  */
@@ -34,7 +36,7 @@ public class Movie {
     }
 
     public String getTitleImagePath() {
-        return titleImagePath;
+        return NetworkUtils.IMAGE_BASE_URL_HIGH + titleImagePath + NetworkUtils.appendApiKey();
     }
 
     public String getId() {

@@ -2,6 +2,7 @@ package tobiapplications.com.moviebase.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,8 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.Movie;
-import tobiapplications.com.moviebase.model.MovieResponse;
+import tobiapplications.com.moviebase.utils.NetworkUtils;
+import tobiapplications.com.moviebase.utils.RoundedTransformation;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -32,16 +34,14 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdap
     @Override
     public MovieHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.movie_item, parent, false);
-        MovieHolder movieHolder = new MovieHolder(view);
-        return movieHolder;
+        return new MovieHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MovieHolder holder, int position) {
         Movie movie = mMovies.get(position);
         holder.mMovieTitle.setText(movie.getTitle());
-        Picasso.with(mContext).load(movie.getTitleImagePath()).into(holder.mPosterImage);
-
+        Picasso.with(mContext).load(movie.getTitleImagePath()).transform(new RoundedTransformation(5, 3)).into(holder.mPosterImage);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<MovieOverviewAdap
         public MovieHolder(View itemView) {
             super(itemView);
 
-            mPosterImage = (ImageView) itemView.findViewById(R.id.movie_poster_cardview);
+            mPosterImage = (ImageView) itemView.findViewById(R.id.movie_image);
             mMovieTitle = (TextView) itemView.findViewById(R.id.movie_title_no_picture);
 
             itemView.setOnClickListener(this);
