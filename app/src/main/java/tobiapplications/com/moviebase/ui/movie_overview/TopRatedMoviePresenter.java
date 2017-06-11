@@ -7,20 +7,19 @@ import android.widget.Toast;
 
 import tobiapplications.com.moviebase.model.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
-import tobiapplications.com.moviebase.utils.MovieDetailUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
- * Created by Tobias on 09.06.2017.
+ * Created by Tobias on 11.06.2017.
  */
 
-public class PopularMoviePresenter implements MoviePresenter {
+public class TopRatedMoviePresenter implements MoviePresenter {
 
     private MovieOverview parent;
     private Context context;
     private int pageToLoadNext = 1;
 
-    public PopularMoviePresenter(MovieOverview parent, Context context) {
+    public TopRatedMoviePresenter(MovieOverview parent, Context context) {
         this.parent = parent;
         this.context = context;
     }
@@ -62,8 +61,8 @@ public class PopularMoviePresenter implements MoviePresenter {
 
     @Override
     public void requestMovieDownload() {
-        Log.d("Pop Presenter", "requestSingleMovieDownload");
-        DataManager.getInstance().requestPopularMovies(this, pageToLoadNext);
+        Log.d("Top Presenter", "requestSingleMovieDownload");
+        DataManager.getInstance().requestTopRatedMovies(this, pageToLoadNext);
         pageToLoadNext++;
     }
 

@@ -36,9 +36,6 @@ public class PopularMovieFragment extends Fragment implements MovieOverview {
     private PopularMoviePresenter presenter;
     private MovieOverviewAdapter adapter;
 
-    private final int MOVIE_SPAN = 1;
-    private final int LOADING_SPAN = 2;
-
     public static Fragment newInstance() {
         PopularMovieFragment popularMovieFragment = new PopularMovieFragment();
 
@@ -80,32 +77,11 @@ public class PopularMovieFragment extends Fragment implements MovieOverview {
     public void setGridViewAndAdapter() {
         int howMuchColumns = RecyclerListUtils.getHowMuchColumnsForMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
-        gridLayoutManager.setSpanSizeLookup(onSpanSizeLookup);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         adapter = new MovieOverviewAdapter(context, mRecyclerView);
         adapter.setOnLoadMoreMoviesListener(this);
         adapter.setOnMovieClickListener(this);
         mRecyclerView.setAdapter(adapter);
-
-    }
-
-    GridLayoutManager.SpanSizeLookup onSpanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
-        @Override
-        public int getSpanSize(int position) {
-            int type = adapter.getItemViewType(position);
-            if (type == MovieOverviewAdapter.VIEW_TYPE_MOVIE) {
-                return MOVIE_SPAN;
-            } else if (type == MovieOverviewAdapter.VIEW_TYPE_LOADING) {
-                return LOADING_SPAN;
-            }
-
-            return 0;
-        }
-    };
-
-    @Override
-    public void makeToast(String message) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -132,17 +108,17 @@ public class PopularMovieFragment extends Fragment implements MovieOverview {
     }
 
     @Override
-    public void loadMoreMovies() {
-        presenter.loadMoreMovies();
-    }
-
-    @Override
     public int getCurrentMovieSize() {
         if (adapter != null) {
             return adapter.getItemCount();
         }
 
         return 0;
+    }
+
+    @Override
+    public void loadMoreMovies() {
+        presenter.loadMoreMovies();
     }
 
     @Override

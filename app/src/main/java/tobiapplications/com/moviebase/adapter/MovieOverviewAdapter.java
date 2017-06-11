@@ -36,10 +36,13 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
     private ArrayList<RecyclerItem> itemList;
     private OnLoadMoreMoviesListener movieLoadListener;
     private OnMovieClickListener movieClickListener;
+    private final GridLayoutManager mGridLayoutManager;
+
     private boolean triggerLoadMoreMovies = true;
     public static final int VIEW_TYPE_MOVIE = 100;
     public static final int VIEW_TYPE_LOADING = 101;
-    private final GridLayoutManager mGridLayoutManager;
+    private final int MOVIE_SPAN = 1;
+    private final int LOADING_SPAN = 2;
 
 
     public MovieOverviewAdapter(Context context, RecyclerView recyclerView) {
@@ -48,6 +51,25 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.itemList = new ArrayList<>();
         setRecyclerViewScrollListener();
         mGridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
+        mGridLayoutManager.setSpanSizeLookup(spanSizeLookupBuilder());
+    }
+
+    private GridLayoutManager.SpanSizeLookup spanSizeLookupBuilder() {
+        GridLayoutManager.SpanSizeLookup onSpanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                int type = getItemViewType(position);
+                if (type == MovieOverviewAdapter.VIEW_TYPE_MOVIE) {
+                    return MOVIE_SPAN;
+                } else if (type == MovieOverviewAdapter.VIEW_TYPE_LOADING) {
+                    return LOADING_SPAN;
+                }
+
+                return 0;
+            }
+        };
+
+        return onSpanSizeLookup;
     }
 
     private void setRecyclerViewScrollListener() {

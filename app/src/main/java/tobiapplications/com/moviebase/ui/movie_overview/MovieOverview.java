@@ -11,10 +11,9 @@ import tobiapplications.com.moviebase.model.MovieOverviewModel;
  */
 
 public interface MovieOverview extends OnLoadMoreMoviesListener, OnMovieClickListener {
-    void makeToast(String message);
     void findMyViews();
     void setGridViewAndAdapter();
-    void showNetworkError(boolean isConnected);
+    void showNetworkError(boolean noNetwork);
     void setMovies(ArrayList<MovieOverviewModel> movies);
     void showLoading(boolean load);
     int getCurrentMovieSize();
