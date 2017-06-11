@@ -7,7 +7,8 @@ import android.widget.Toast;
 
 import tobiapplications.com.moviebase.model.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
-import tobiapplications.com.moviebase.utils.Helper;
+import tobiapplications.com.moviebase.utils.MovieDetailUtils;
+import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -49,7 +50,7 @@ public class PopularMoviePresenter implements MoviePresenter{
 
     @Override
     public boolean hasInternetConnection() {
-        return Helper.isConnectedToInternet(context);
+        return NetworkUtils.isConnectedToInternet(context);
     }
 
     @Override
@@ -71,7 +72,6 @@ public class PopularMoviePresenter implements MoviePresenter{
     }
 
     public void loadMoreMovies() {
-        Toast.makeText(context, "Presenter load more", Toast.LENGTH_SHORT).show();
         requestMovieDownload();
     }
 

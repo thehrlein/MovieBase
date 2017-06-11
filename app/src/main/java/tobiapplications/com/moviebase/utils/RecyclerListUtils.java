@@ -12,7 +12,7 @@ import tobiapplications.com.moviebase.R;
  * Created by Tobias on 23.03.2017.
  */
 
-public class Helper {
+public class RecyclerListUtils {
     private static final int LANDSCAPE = Configuration.ORIENTATION_LANDSCAPE;
 
     public static int getHowMuchColumnsForMovies(Context context) {
@@ -79,14 +79,5 @@ public class Helper {
         }
     }
 
-    public static boolean isConnectedToInternet(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager != null) {
-            //Check Mobile data or Wifi net is present
-            return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
-        } else  {
-            return false;
-        }
-    }
+
 }

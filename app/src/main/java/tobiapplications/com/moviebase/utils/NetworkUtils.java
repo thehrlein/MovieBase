@@ -1,5 +1,9 @@
 package tobiapplications.com.moviebase.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import tobiapplications.com.moviebase.BuildConfig;
 
 /**
@@ -31,5 +35,16 @@ public class NetworkUtils {
 
     public static String getImageBaseUrlLow() {
         return IMAGE_BASE_URL + IMAGE_LOW_SUFFIX;
+    }
+
+    public static boolean isConnectedToInternet(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager != null) {
+            //Check Mobile data or Wifi net is present
+            return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+        } else  {
+            return false;
+        }
     }
 }

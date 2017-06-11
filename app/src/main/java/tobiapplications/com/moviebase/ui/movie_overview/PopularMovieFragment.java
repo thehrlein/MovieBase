@@ -20,7 +20,8 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.MovieOverviewAdapter;
 import tobiapplications.com.moviebase.model.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.movie_detail.MovieDetailActivity;
-import tobiapplications.com.moviebase.utils.Helper;
+import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.RecyclerListUtils;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -34,6 +35,9 @@ public class PopularMovieFragment extends Fragment implements MovieOverview {
     private Context context;
     private PopularMoviePresenter presenter;
     private MovieOverviewAdapter adapter;
+
+    private final int MOVIE_SPAN = 1;
+    private final int LOADING_SPAN = 2;
 
     public static Fragment newInstance() {
         PopularMovieFragment popularMovieFragment = new PopularMovieFragment();
@@ -74,7 +78,7 @@ public class PopularMovieFragment extends Fragment implements MovieOverview {
 
     @Override
     public void setGridViewAndAdapter() {
-        int howMuchColumns = Helper.getHowMuchColumnsForMovies(context);
+        int howMuchColumns = RecyclerListUtils.getHowMuchColumnsForMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         gridLayoutManager.setSpanSizeLookup(onSpanSizeLookup);
         mRecyclerView.setLayoutManager(gridLayoutManager);
@@ -89,13 +93,13 @@ public class PopularMovieFragment extends Fragment implements MovieOverview {
         @Override
         public int getSpanSize(int position) {
             int type = adapter.getItemViewType(position);
-            if (type == 100) {
-                return 2;
-            } else if (type == 101) {
-                return 1;
-            } else {
-                return 3;
+            if (type == MovieOverviewAdapter.VIEW_TYPE_MOVIE) {
+                return MOVIE_SPAN;
+            } else if (type == MovieOverviewAdapter.VIEW_TYPE_LOADING) {
+                return LOADING_SPAN;
             }
+
+            return 0;
         }
     };
 
@@ -129,7 +133,6 @@ public class PopularMovieFragment extends Fragment implements MovieOverview {
 
     @Override
     public void loadMoreMovies() {
-        Toast.makeText(context, "Fragment load more", Toast.LENGTH_SHORT).show();
         presenter.loadMoreMovies();
     }
 
@@ -145,7 +148,7 @@ public class PopularMovieFragment extends Fragment implements MovieOverview {
     @Override
     public void onMovieClick(int id) {
         Intent openMovieDetails = new Intent(context, MovieDetailActivity.class);
-        openMovieDetails.putExtra("clickedMovie", id);
+        openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
         startActivity(openMovieDetails);
     }
 }

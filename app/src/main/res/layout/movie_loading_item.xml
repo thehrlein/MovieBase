@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="100dp">
 
@@ -9,6 +8,6 @@
         android:id="@+id/movie_loading_progress_indicator"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:layout_gravity="center" />
+        android:layout_centerInParent="true"/>
 
-</LinearLayout>
+</RelativeLayout>

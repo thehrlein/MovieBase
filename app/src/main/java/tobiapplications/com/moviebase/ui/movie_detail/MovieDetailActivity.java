@@ -10,12 +10,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
 import tobiapplications.com.moviebase.model.MovieOverviewModel;
+import tobiapplications.com.moviebase.utils.Constants;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -24,6 +26,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
+    private ProgressBar mImageProgressIndicator;
     private boolean isMarkedAsFavorite = false;
     private ViewPagerAdapter mAdapter;
     private MovieDetailPresenter presenter;
@@ -67,12 +70,13 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         mDetailMovieBackgroundImage.setOnClickListener(this);
         mFabFavorite = (FloatingActionButton) findViewById(R.id.detail_button_mark_favorite);
         mFabFavorite.setOnClickListener(this);
+        mImageProgressIndicator = (ProgressBar) findViewById(R.id.detail_background_image_progress_indicator);
     }
 
     private int getMovieId() {
         Intent intent = getIntent();
         if (intent != null) {
-            return intent.getIntExtra("clickedMovie", -1);
+            return intent.getIntExtra(Constants.CLICKED_MOVIE, -1);
         }
 
         return -1;
@@ -82,7 +86,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     {
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         Bundle bundle = new Bundle();
-        bundle.putInt("clickedMovie", movieId);
+        bundle.putInt(Constants.CLICKED_MOVIE, movieId);
 
 
         Fragment infoFragment = new DetailInfoFragment();
@@ -123,8 +127,8 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
     public void setMovieInformation(String title, String moviePath) {
         mToolbar.setTitle(title);
+        mImageProgressIndicator.setVisibility(View.GONE);
         Picasso.with(this).load(moviePath).into(mDetailMovieBackgroundImage);
-
     }
 
     private void handleFabClick() {
