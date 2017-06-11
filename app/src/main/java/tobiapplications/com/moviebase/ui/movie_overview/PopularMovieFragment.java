@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +26,7 @@ import tobiapplications.com.moviebase.utils.Helper;
  * Created by Tobias on 09.06.2017.
  */
 
-public class PopularMovieFragment extends Fragment implements MovieOverview{
+public class PopularMovieFragment extends Fragment implements MovieOverview {
 
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBarLoading;
@@ -72,9 +74,10 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
 
     @Override
     public void setGridViewAndAdapter() {
-        adapter = new MovieOverviewAdapter(context);
         int howMuchColumns = Helper.getHowMuchColumnsForMovies(context);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(context, howMuchColumns));
+        final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+        adapter = new MovieOverviewAdapter(context, mRecyclerView);
         mRecyclerView.setAdapter(adapter);
 
     }
@@ -105,4 +108,6 @@ public class PopularMovieFragment extends Fragment implements MovieOverview{
             mRecyclerView.setVisibility(load ? View.GONE : View.VISIBLE);
         }
     }
+
+
 }

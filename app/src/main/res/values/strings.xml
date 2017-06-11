@@ -29,6 +29,7 @@
     <string name="search_hint">Search movie</string>
     <string name="string_true">true</string>
     <string name="string_false">false</string>
+    <string name="menu_add_to_favorite">Add to favorite list</string>
 
 
     <!-- preferences -->
