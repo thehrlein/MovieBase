@@ -34,6 +34,18 @@ public class MovieOverviewModel {
      @SerializedName("adult")
      private Boolean adult;
 
+    public MovieOverviewModel(int id, String title, String titleImagePath, String backgroundImagePath, String year, String rating, String description, ArrayList<Integer> genres, Boolean adult) {
+        this.id = id;
+        this.title = title;
+        this.titleImagePath = titleImagePath;
+        this.backgroundImagePath = backgroundImagePath;
+        this.year = year;
+        this.rating = rating;
+        this.description = description;
+        this.genres = genres;
+        this.adult = adult;
+    }
+
     public String getTitle() {
         return title;
     }

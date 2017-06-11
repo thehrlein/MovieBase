@@ -1,5 +1,6 @@
 package tobiapplications.com.moviebase.ui.movie_detail;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -8,15 +9,17 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
-import tobiapplications.com.moviebase.model.MovieOverviewModel;
+import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.utils.Constants;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,7 +30,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private ProgressBar mImageProgressIndicator;
-    private boolean isMarkedAsFavorite = false;
     private ViewPagerAdapter mAdapter;
     private MovieDetailPresenter presenter;
 
@@ -117,7 +119,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.detail_button_mark_favorite:
-                handleFabClick();
+                presenter.handleFabClick();
                 break;
             case R.id.toolbarBackgroundImage:
                 presenter.openToolbarImage();
@@ -131,7 +133,35 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         Picasso.with(this).load(moviePath).into(mDetailMovieBackgroundImage);
     }
 
-    private void handleFabClick() {
+    public void setFabButtonImage(int drawable) {
+        mFabFavorite.setImageResource(drawable);
+    }
 
+    public void onFabClickedToast(boolean marked) {
+        if (marked) {
+            Toast.makeText(this, getString(R.string.marked_as_favorite), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.unmarked_as_favorite), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void insertMovieIntoDatabase(ContentValues values) {
+        getContentResolver().insert(MoviesContract.MovieEntry.CONTENT_URI, values);
+    }
+
+    public void deleteCurrentMovieFromFavoriteDatabase(int movieId) {
+        getContentResolver().delete(
+                MoviesContract.MovieEntry.CONTENT_URI,
+                MoviesContract.MovieEntry.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(movieId)});
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if(menuItem.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return true;
     }
 }

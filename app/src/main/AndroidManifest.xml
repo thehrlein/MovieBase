@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".utils.MyApplication"
@@ -21,13 +22,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.movie_overview.MovieOverviewActivity" />
-
-        <!-- receiver -->
-
         <activity
             android:name=".ui.movie_detail.MovieDetailActivity"
             android:parentActivityName=".ui.movie_overview.MovieOverviewActivity"
-            android:theme="@style/CustomToolbarTitle"></activity>
+            android:theme="@style/CustomToolbarTitle" />
+
+        <!-- Provider -->
+        <provider
+            android:name=".database.MoviesProvider"
+            android:authorities="tobiapplications.com.moviebase"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ public interface MovieOverview extends OnLoadMoreMoviesListener, OnMovieClickLis
     void setGridViewAndAdapter();
     void showNetworkError(boolean noNetwork);
     void setMovies(ArrayList<MovieOverviewModel> movies);
+    void insertLoadingItem();
     void showLoading(boolean load);
     int getCurrentMovieSize();
 }

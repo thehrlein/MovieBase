@@ -74,6 +74,7 @@ public class TopRatedMoviePresenter implements MoviePresenter {
 
     @Override
     public void loadMoreMovies() {
+        parent.insertLoadingItem();
         requestMovieDownload();
     }
 

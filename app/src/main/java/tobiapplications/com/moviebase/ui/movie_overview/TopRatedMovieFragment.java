@@ -115,6 +115,11 @@ public class TopRatedMovieFragment extends Fragment implements MovieOverview {
     }
 
     @Override
+    public void insertLoadingItem() {
+        adapter.insertLoadingItem();
+    }
+
+    @Override
     public void loadMoreMovies() {
         presenter.loadMoreMovies();
     }

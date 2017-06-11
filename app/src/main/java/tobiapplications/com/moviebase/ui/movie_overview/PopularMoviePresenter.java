@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import tobiapplications.com.moviebase.model.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
-import tobiapplications.com.moviebase.utils.MovieDetailUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
@@ -75,6 +74,7 @@ public class PopularMoviePresenter implements MoviePresenter {
 
     @Override
     public void loadMoreMovies() {
+        parent.insertLoadingItem();
         requestMovieDownload();
     }
 
