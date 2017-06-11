@@ -1,5 +1,8 @@
 package tobiapplications.com.moviebase.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -10,10 +13,10 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
  * Created by Tobias on 10.06.2017.
  */
 
-public class Movie {
+public class MovieOverviewModel {
 
      @SerializedName("id")
-     private String id;
+     private int id;
      @SerializedName("title")
      private String title;
      @SerializedName("poster_path")
@@ -36,10 +39,10 @@ public class Movie {
     }
 
     public String getTitleImagePath() {
-        return NetworkUtils.IMAGE_BASE_URL_HIGH + titleImagePath + NetworkUtils.appendApiKey();
+        return NetworkUtils.getImageBaseUrlLow() + titleImagePath + NetworkUtils.appendApiKey();
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

@@ -1,16 +1,15 @@
 package tobiapplications.com.moviebase.ui.movie_overview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +18,8 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.MovieOverviewAdapter;
-import tobiapplications.com.moviebase.model.Movie;
+import tobiapplications.com.moviebase.model.MovieOverviewModel;
+import tobiapplications.com.moviebase.ui.movie_detail.MovieDetailActivity;
 import tobiapplications.com.moviebase.utils.Helper;
 
 /**
@@ -76,11 +76,28 @@ public class PopularMovieFragment extends Fragment implements MovieOverview {
     public void setGridViewAndAdapter() {
         int howMuchColumns = Helper.getHowMuchColumnsForMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
+        gridLayoutManager.setSpanSizeLookup(onSpanSizeLookup);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         adapter = new MovieOverviewAdapter(context, mRecyclerView);
+        adapter.setOnLoadMoreMoviesListener(this);
+        adapter.setOnMovieClickListener(this);
         mRecyclerView.setAdapter(adapter);
 
     }
+
+    GridLayoutManager.SpanSizeLookup onSpanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
+        @Override
+        public int getSpanSize(int position) {
+            int type = adapter.getItemViewType(position);
+            if (type == 100) {
+                return 2;
+            } else if (type == 101) {
+                return 1;
+            } else {
+                return 3;
+            }
+        }
+    };
 
     @Override
     public void makeToast(String message) {
@@ -96,7 +113,8 @@ public class PopularMovieFragment extends Fragment implements MovieOverview {
     }
 
     @Override
-    public void setMovies(ArrayList<Movie> movies) {
+    public void setMovies(ArrayList<MovieOverviewModel> movies) {
+        adapter.removeLoadingItem();
         adapter.setMovies(movies);
         adapter.notifyDataSetChanged();
     }
@@ -109,5 +127,25 @@ public class PopularMovieFragment extends Fragment implements MovieOverview {
         }
     }
 
+    @Override
+    public void loadMoreMovies() {
+        Toast.makeText(context, "Fragment load more", Toast.LENGTH_SHORT).show();
+        presenter.loadMoreMovies();
+    }
 
+    @Override
+    public int getCurrentMovieSize() {
+        if (adapter != null) {
+            return adapter.getItemCount();
+        }
+
+        return 0;
+    }
+
+    @Override
+    public void onMovieClick(int id) {
+        Intent openMovieDetails = new Intent(context, MovieDetailActivity.class);
+        openMovieDetails.putExtra("clickedMovie", id);
+        startActivity(openMovieDetails);
+    }
 }

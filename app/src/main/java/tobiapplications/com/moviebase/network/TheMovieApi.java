@@ -1,13 +1,11 @@
 package tobiapplications.com.moviebase.network;
 
-import java.util.ArrayList;
-
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
-import tobiapplications.com.moviebase.model.MovieResponse;
+import tobiapplications.com.moviebase.model.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.MovieOverviewResponse;
 
 /**
  * Created by Tobias on 10.06.2017.
@@ -16,9 +14,12 @@ import tobiapplications.com.moviebase.model.MovieResponse;
 public interface TheMovieApi {
 
     @GET ("movie/popular")
-    Call<MovieResponse> popularMovieResponseCall(@Query("api_key") String api_key);
+    Call<MovieOverviewResponse> popularMovieResponseCall(@Query("api_key") String api_key, @Query("page") int pageToLoad);
 
     @GET ("movie/top_rated")
-    Call<MovieResponse> topRatedMovieResponseCall(@Query("api_key") String api_key);
+    Call<MovieOverviewResponse> topRatedMovieResponseCall(@Query("api_key") String api_key, @Query("page") int pageToLoad);
+
+    @GET("movie/{id}")
+    Call<MovieDetailResponse> singleMovieResponseCall(@Path("id") int movieId, @Query("api_key") String api_key);
 
 }

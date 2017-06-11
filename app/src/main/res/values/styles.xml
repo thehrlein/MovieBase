@@ -17,4 +17,9 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="CustomToolbarTitle" parent="AppTheme" >
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

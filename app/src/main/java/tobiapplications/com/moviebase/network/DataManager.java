@@ -13,7 +13,11 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import tobiapplications.com.moviebase.model.MovieResponse;
+import tobiapplications.com.moviebase.model.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.MovieOverviewResponse;
+import tobiapplications.com.moviebase.network.callbacks.MovieDetailCallback;
+import tobiapplications.com.moviebase.network.callbacks.MovieOverviewCallback;
+import tobiapplications.com.moviebase.ui.movie_detail.MovieDetailPresenter;
 import tobiapplications.com.moviebase.ui.movie_overview.MoviePresenter;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
@@ -24,8 +28,9 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
 public class DataManager {
     private TheMovieApi movieApi;
     private static DataManager dataManager;
-    public static final int POPULAR_MOVIES = 44;
-    public static final int TOP_RATED_MOVIES = 45;
+    public static final String POPULAR_MOVIES = "pop_movies";
+    public static final String TOP_RATED_MOVIES = "top_movies";
+    public static final String SINGLE_MOVIE = "single_movie";
 
 
     public static DataManager getInstance() {
@@ -72,13 +77,19 @@ public class DataManager {
         return movieApi;
     }
 
-    public void requestPopularMovies(MoviePresenter presenter) {
-        Call<MovieResponse> movieCall = getMovieApi().popularMovieResponseCall(NetworkUtils.getKey());
-        movieCall.enqueue(new MovieCallback(presenter, POPULAR_MOVIES));
+    public void requestPopularMovies(MoviePresenter presenter, int pageToLoad) {
+        Call<MovieOverviewResponse> popularMovieCall = getMovieApi().popularMovieResponseCall(NetworkUtils.getKey(), pageToLoad);
+        popularMovieCall.enqueue(new MovieOverviewCallback(presenter));
     }
 
-    public void requestTopRatedMovies(MoviePresenter presenter) {
-        Call<MovieResponse> movieCall = getMovieApi().topRatedMovieResponseCall(NetworkUtils.getKey());
-        movieCall.enqueue(new MovieCallback(presenter, TOP_RATED_MOVIES));
+    public void requestTopRatedMovies(MoviePresenter presenter, int pageToLoad) {
+        Call<MovieOverviewResponse> topRatedMovieCall = getMovieApi().topRatedMovieResponseCall(NetworkUtils.getKey(), pageToLoad);
+        topRatedMovieCall.enqueue(new MovieOverviewCallback(presenter));
     }
+
+    public void requestSingleMovie(MovieDetailPresenter presenter, int movieId) {
+        Call<MovieDetailResponse> singleMovieCall = getMovieApi().singleMovieResponseCall(movieId, NetworkUtils.getKey());
+        singleMovieCall.enqueue(new MovieDetailCallback(presenter));
+    }
+
 }

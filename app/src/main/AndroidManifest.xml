@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".utils.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,10 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.movie_overview.MovieOverviewActivity"></activity>
+        <activity android:name=".ui.movie_overview.MovieOverviewActivity" />
 
         <!-- receiver -->
 
+        <activity
+            android:name=".ui.movie_detail.MovieDetailActivity"
+            android:parentActivityName=".ui.movie_overview.MovieOverviewActivity"
+            android:theme="@style/CustomToolbarTitle"></activity>
     </application>
 
 </manifest>

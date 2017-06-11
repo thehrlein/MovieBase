@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by Tobi-Laptop on 20.01.2017.
  */
 
-public class MovieResponse implements Serializable {
+public class MovieOverviewResponse implements Serializable {
 
     @SerializedName("page")
     private int currentPage;
@@ -19,7 +19,7 @@ public class MovieResponse implements Serializable {
     @SerializedName("total_pages")
     private int totalPages;
     @SerializedName("results")
-    private ArrayList<Movie> movies;
+    private ArrayList<MovieOverviewModel> movies;
 
 
     public int getCurrentPage() {
@@ -34,7 +34,7 @@ public class MovieResponse implements Serializable {
         return totalPages;
     }
 
-    public ArrayList<Movie> getMovies() {
+    public ArrayList<MovieOverviewModel> getMovies() {
         return movies;
     }
 }
