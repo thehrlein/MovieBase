@@ -24,7 +24,7 @@ import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 
-public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener, MovieDetailActivityContract.View {
 
     private ImageView mDetailMovieBackgroundImage;
     private FloatingActionButton mFabFavorite;
@@ -46,7 +46,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         setUpActionBar();
 
-        movieId = getMovieId();
+        getMovieId();
 
         presenter = new MovieDetailPresenter(this, movieId);
         presenter.requestSingleMovieDownload();
@@ -56,8 +56,8 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-
-    private void setUpActionBar() {
+    @Override
+    public void setUpActionBar() {
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -66,7 +66,8 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void findMyViews() {
+    @Override
+    public void findMyViews() {
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -77,17 +78,16 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         mImageProgressIndicator = (ProgressBar) findViewById(R.id.detail_background_image_progress_indicator);
     }
 
-    private int getMovieId() {
+    @Override
+    public void getMovieId() {
         Intent intent = getIntent();
         if (intent != null) {
-            return intent.getIntExtra(Constants.CLICKED_MOVIE, -1);
+            movieId = intent.getIntExtra(Constants.CLICKED_MOVIE, -1);
         }
-
-        return -1;
     }
 
-    private void setupViewPager()
-    {
+    @Override
+    public void setupViewPager() {
         mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         Bundle bundle = new Bundle();
         bundle.putInt(Constants.CLICKED_MOVIE, movieId);
@@ -129,12 +129,14 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    @Override
     public void setMovieInformation(String title, String moviePath) {
         mToolbar.setTitle(title);
         mImageProgressIndicator.setVisibility(View.GONE);
         Picasso.with(this).load(moviePath).into(mDetailMovieBackgroundImage);
     }
 
+    @Override
     public void onFabClickedToast(boolean marked) {
         if (marked) {
             Toast.makeText(this, getString(R.string.marked_as_favorite), Toast.LENGTH_SHORT).show();
@@ -143,10 +145,12 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    @Override
     public void insertMovieIntoDatabase(ContentValues values) {
         getContentResolver().insert(MoviesContract.MovieEntry.CONTENT_URI, values);
     }
 
+    @Override
     public void deleteCurrentMovieFromFavoriteDatabase(int movieId) {
         getContentResolver().delete(
                 MoviesContract.MovieEntry.CONTENT_URI,
@@ -162,6 +166,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         return true;
     }
 
+    @Override
     public Cursor getAllFavoriteMovies() {
         return getContentResolver().query(
                 MoviesContract.MovieEntry.CONTENT_URI,
@@ -171,6 +176,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                 null);
     }
 
+    @Override
     public void markFabAsFavorite(boolean isFavorite) {
         if (isFavorite) {
             mFabFavorite.setImageResource(R.drawable.fab_heart_fav);

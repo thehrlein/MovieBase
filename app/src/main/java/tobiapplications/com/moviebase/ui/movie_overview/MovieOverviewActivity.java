@@ -16,7 +16,7 @@ import java.util.List;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
 
-public class MovieOverviewActivity extends AppCompatActivity {
+public class MovieOverviewActivity extends AppCompatActivity implements MovieOverviewActivityContract.View {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -34,25 +34,29 @@ public class MovieOverviewActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    private void disableActionBarTabLayoutDivider() {
+    @Override
+    public void disableActionBarTabLayoutDivider() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setElevation(0);
         }
     }
 
-    private void setStatusBarColor() {
+    @Override
+    public void setStatusBarColor() {
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
     }
 
-    private void findMyViews() {
+    @Override
+    public void findMyViews() {
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
     }
 
-    private void setupViewPager() {
+    @Override
+    public void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(PopularMovieFragment.newInstance(), getString(R.string.title_popular));
         adapter.addFragment(TopRatedMovieFragment.newInstance(), getString(R.string.title_top_rated));
@@ -61,7 +65,4 @@ public class MovieOverviewActivity extends AppCompatActivity {
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(adapter);
     }
-
-
-
 }

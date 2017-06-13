@@ -26,7 +26,7 @@ import tobiapplications.com.moviebase.utils.RecyclerListUtils;
  * Created by Tobias on 09.06.2017.
  */
 
-public class TopRatedMovieFragment extends Fragment implements MovieOverview {
+public class TopRatedMovieFragment extends Fragment implements MovieOverviewFragmentContract.View {
 
     private final String TAG = TopRatedMovieFragment.class.getSimpleName();
     private RecyclerView mRecyclerView;

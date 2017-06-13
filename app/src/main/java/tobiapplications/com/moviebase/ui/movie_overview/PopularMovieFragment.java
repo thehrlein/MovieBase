@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -27,7 +26,7 @@ import tobiapplications.com.moviebase.utils.RecyclerListUtils;
  * Created by Tobias on 09.06.2017.
  */
 
-public class PopularMovieFragment extends Fragment implements MovieOverview {
+public class PopularMovieFragment extends Fragment implements MovieOverviewFragmentContract.View {
     private final String TAG = PopularMovieFragment.class.getSimpleName();
 
     private RecyclerView mRecyclerView;

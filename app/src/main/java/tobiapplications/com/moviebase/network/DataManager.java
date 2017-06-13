@@ -18,7 +18,7 @@ import tobiapplications.com.moviebase.model.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.callbacks.MovieDetailCallback;
 import tobiapplications.com.moviebase.network.callbacks.MovieOverviewCallback;
 import tobiapplications.com.moviebase.ui.movie_detail.MovieDetailPresenter;
-import tobiapplications.com.moviebase.ui.movie_overview.MoviePresenter;
+import tobiapplications.com.moviebase.ui.movie_overview.MovieOverviewFragmentContract;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
@@ -77,12 +77,12 @@ public class DataManager {
         return movieApi;
     }
 
-    public void requestPopularMovies(MoviePresenter presenter, int pageToLoad) {
+    public void requestPopularMovies(MovieOverviewFragmentContract.Presenter presenter, int pageToLoad) {
         Call<MovieOverviewResponse> popularMovieCall = getMovieApi().popularMovieResponseCall(NetworkUtils.getKey(), pageToLoad);
         popularMovieCall.enqueue(new MovieOverviewCallback(presenter));
     }
 
-    public void requestTopRatedMovies(MoviePresenter presenter, int pageToLoad) {
+    public void requestTopRatedMovies(MovieOverviewFragmentContract.Presenter presenter, int pageToLoad) {
         Call<MovieOverviewResponse> topRatedMovieCall = getMovieApi().topRatedMovieResponseCall(NetworkUtils.getKey(), pageToLoad);
         topRatedMovieCall.enqueue(new MovieOverviewCallback(presenter));
     }

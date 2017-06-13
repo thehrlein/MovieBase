@@ -7,7 +7,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tobiapplications.com.moviebase.model.MovieOverviewResponse;
-import tobiapplications.com.moviebase.ui.movie_overview.MoviePresenter;
+import tobiapplications.com.moviebase.ui.movie_overview.MovieOverviewFragmentContract;
 
 /**
  * Created by Tobias on 10.06.2017.
@@ -15,9 +15,9 @@ import tobiapplications.com.moviebase.ui.movie_overview.MoviePresenter;
 
 public class MovieOverviewCallback implements Callback<MovieOverviewResponse> {
 
-    private MoviePresenter presenter;
+    private MovieOverviewFragmentContract.Presenter presenter;
 
-    public MovieOverviewCallback(MoviePresenter presenter) {
+    public MovieOverviewCallback(MovieOverviewFragmentContract.Presenter presenter) {
         this.presenter = presenter;
     }
 

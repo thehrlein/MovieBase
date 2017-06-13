@@ -89,7 +89,9 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private void loadMoreMovies() {
         triggerLoadMoreMovies = false;
-        movieLoadListener.loadMoreMovies();
+        if (movieLoadListener != null) {
+            movieLoadListener.loadMoreMovies();
+        }
     }
 
     public void insertLoadingItem() {

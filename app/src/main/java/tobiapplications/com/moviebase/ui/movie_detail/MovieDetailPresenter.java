@@ -8,7 +8,6 @@ import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail_response.Genre;
@@ -21,7 +20,7 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
  * Created by Tobias on 11.06.2017.
  */
 
-public class MovieDetailPresenter {
+public class MovieDetailPresenter implements MovieDetailActivityContract.Presenter{
 
     private MovieDetailActivity parent;
     private int movieId;
@@ -33,10 +32,12 @@ public class MovieDetailPresenter {
         this.movieId = movieId;
     }
 
+    @Override
     public void requestSingleMovieDownload() {
         DataManager.getInstance().requestSingleMovie(this, movieId);
     }
 
+    @Override
     public void displayMovieResponse(MovieDetailResponse detailResponse) {
         MovieDetailUtils.setMovieDetailResponse(detailResponse);
         clickedMovie = detailResponse;
@@ -44,19 +45,21 @@ public class MovieDetailPresenter {
         checkIfMovieIsMarkedAsFavorite();
     }
 
+    @Override
     public void displayError() {
         Toast.makeText(parent, "Error MovieDetailPresenter", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
     public void openToolbarImage() {
         if (clickedMovie != null){
             new ImageViewer.Builder(parent, new String[]{NetworkUtils.getFullImageUrl(clickedMovie.getBackgroundImagePath())})
                     .setStartPosition(0)
                     .show();
         }
-
     }
 
+    @Override
     public void handleFabClick() {
         if (!isMarkedAsFavorite) {
             isMarkedAsFavorite = true;
@@ -70,7 +73,8 @@ public class MovieDetailPresenter {
         }
     }
 
-    private void insertCurrentMovieToFavoriteDatabase() {
+    @Override
+    public void insertCurrentMovieToFavoriteDatabase() {
         String genresString = "";
         ArrayList<Genre> genreArrayList = clickedMovie.getGenres();
 
@@ -96,6 +100,7 @@ public class MovieDetailPresenter {
         parent.insertMovieIntoDatabase(values);
     }
 
+    @Override
     public void checkIfMovieIsMarkedAsFavorite() {
         Cursor cursor = parent.getAllFavoriteMovies();
 

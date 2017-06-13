@@ -32,7 +32,7 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
  * Created by Tobias on 09.06.2017.
  */
 
-public class OwnFavoriteMovieFragment extends Fragment implements MovieOverview, LoaderManager.LoaderCallbacks<Cursor> {
+public class OwnFavoriteMovieFragment extends Fragment implements MovieOverviewFragmentContract.DatabaseView {
 
     private final String TAG = OwnFavoriteMovieFragment.class.getSimpleName();
     private RecyclerView mRecyclerView;
@@ -88,7 +88,6 @@ public class OwnFavoriteMovieFragment extends Fragment implements MovieOverview,
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         adapter = new MovieOverviewAdapter(context, mRecyclerView, TAG);
-        adapter.setOnLoadMoreMoviesListener(this);
         adapter.setOnMovieClickListener(this);
         mRecyclerView.setAdapter(adapter);
     }
@@ -125,11 +124,6 @@ public class OwnFavoriteMovieFragment extends Fragment implements MovieOverview,
     }
 
     @Override
-    public void loadMoreMovies() {
-        // nope
-    }
-
-    @Override
     public void onMovieClick(int id) {
         Intent openMovieDetails = new Intent(context, MovieDetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
@@ -149,14 +143,7 @@ public class OwnFavoriteMovieFragment extends Fragment implements MovieOverview,
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data.getCount() > 0) {
-            mNoFavoriteMovies.setVisibility(View.GONE);
-            presenter.createMovieListFromCursor(data);
-        } else {
-            mNoFavoriteMovies.setVisibility(View.VISIBLE);
-        }
-
-        showLoading(false);
+        presenter.onDatabaseLoadFinished(data);
     }
 
     @Override
@@ -164,19 +151,19 @@ public class OwnFavoriteMovieFragment extends Fragment implements MovieOverview,
         adapter.setMovies(null);
     }
 
+    @Override
     public void startLoader() {
         getActivity().getSupportLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
-    }
-
-    @Override
-    public void insertLoadingItem() {
-        // nope
     }
 
     @Override
     public void onResume() {
         super.onResume();
         setMovies(null);
-        presenter.loadMovies();
+        presenter.loadMoviesFromDatabase();
+    }
+
+    public void displayNoFavoriteMoviesText(boolean noFavoriteMovies) {
+        mNoFavoriteMovies.setVisibility(noFavoriteMovies ? View.VISIBLE : View.GONE);
     }
 }
