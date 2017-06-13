@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.movie_overview.MovieOverviewActivity">
+    tools:context=".ui.movie_overview.OverviewActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

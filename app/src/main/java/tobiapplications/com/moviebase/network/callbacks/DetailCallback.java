@@ -4,17 +4,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
-import tobiapplications.com.moviebase.ui.movie_detail.MovieDetailPresenter;
+import tobiapplications.com.moviebase.ui.movie_detail.DetailActivityPresenter;
 
 /**
  * Created by Tobias on 11.06.2017.
  */
 
-public class MovieDetailCallback implements Callback<MovieDetailResponse> {
+public class DetailCallback implements Callback<MovieDetailResponse> {
 
-    private MovieDetailPresenter presenter;
+    private DetailActivityPresenter presenter;
 
-    public MovieDetailCallback(MovieDetailPresenter presenter) {
+    public DetailCallback(DetailActivityPresenter presenter) {
         this.presenter = presenter;
     }
 

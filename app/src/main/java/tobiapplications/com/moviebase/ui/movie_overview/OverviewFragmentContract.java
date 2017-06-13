@@ -14,7 +14,7 @@ import tobiapplications.com.moviebase.model.MovieOverviewResponse;
  * Created by Tobias on 09.06.2017.
  */
 
-public interface MovieOverviewFragmentContract {
+public interface OverviewFragmentContract {
 
     interface View extends OnLoadMoreMoviesListener, OnMovieClickListener {
         void findMyViews();

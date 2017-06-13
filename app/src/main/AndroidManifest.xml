@@ -21,10 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.movie_overview.MovieOverviewActivity" />
+        <activity android:name=".ui.movie_overview.OverviewActivity" />
         <activity
-            android:name=".ui.movie_detail.MovieDetailActivity"
-            android:parentActivityName=".ui.movie_overview.MovieOverviewActivity"
+            android:name=".ui.movie_detail.DetailActivity"
+            android:parentActivityName=".ui.movie_overview.OverviewActivity"
             android:theme="@style/CustomToolbarTitle" />
 
         <!-- Provider -->

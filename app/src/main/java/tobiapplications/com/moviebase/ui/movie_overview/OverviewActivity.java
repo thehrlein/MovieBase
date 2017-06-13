@@ -2,21 +2,15 @@ package tobiapplications.com.moviebase.ui.movie_overview;
 
 import android.os.Build;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
 
-public class MovieOverviewActivity extends AppCompatActivity implements MovieOverviewActivityContract.View {
+public class OverviewActivity extends AppCompatActivity implements OverviewActivityContract.View {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -58,9 +52,9 @@ public class MovieOverviewActivity extends AppCompatActivity implements MovieOve
     @Override
     public void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(PopularMovieFragment.newInstance(), getString(R.string.title_popular));
-        adapter.addFragment(TopRatedMovieFragment.newInstance(), getString(R.string.title_top_rated));
-        adapter.addFragment(OwnFavoriteMovieFragment.newInstance(), getString(R.string.title_favorite));
+        adapter.addFragment(PopularFragment.newInstance(), getString(R.string.title_popular));
+        adapter.addFragment(TopRatedFragment.newInstance(), getString(R.string.title_top_rated));
+        adapter.addFragment(OwnFavoriteFragment.newInstance(), getString(R.string.title_favorite));
 
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(adapter);

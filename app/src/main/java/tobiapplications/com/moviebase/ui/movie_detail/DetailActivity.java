@@ -24,7 +24,7 @@ import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 
-public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener, MovieDetailActivityContract.View {
+public class DetailActivity extends AppCompatActivity implements View.OnClickListener, DetailActivityContract.View {
 
     private ImageView mDetailMovieBackgroundImage;
     private FloatingActionButton mFabFavorite;
@@ -33,7 +33,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     private ViewPager mViewPager;
     private ProgressBar mImageProgressIndicator;
     private ViewPagerAdapter mAdapter;
-    private MovieDetailPresenter presenter;
+    private DetailActivityPresenter presenter;
 
     private int movieId;
 
@@ -48,7 +48,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
 
         getMovieId();
 
-        presenter = new MovieDetailPresenter(this, movieId);
+        presenter = new DetailActivityPresenter(this, movieId);
         presenter.requestSingleMovieDownload();
 
         setupViewPager();
@@ -73,7 +73,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mDetailMovieBackgroundImage = (ImageView) findViewById(R.id.toolbarBackgroundImage);
         mDetailMovieBackgroundImage.setOnClickListener(this);
-        mFabFavorite = (FloatingActionButton) findViewById(R.id.detail_button_mark_favorite);
+        mFabFavorite = (FloatingActionButton) findViewById(R.id.detail_fab_button_favorite);
         mFabFavorite.setOnClickListener(this);
         mImageProgressIndicator = (ProgressBar) findViewById(R.id.detail_background_image_progress_indicator);
     }
@@ -120,7 +120,7 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.detail_button_mark_favorite:
+            case R.id.detail_fab_button_favorite:
                 presenter.handleFabClick();
                 break;
             case R.id.toolbarBackgroundImage:

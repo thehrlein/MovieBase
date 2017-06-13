@@ -16,9 +16,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.adapter.MovieOverviewAdapter;
+import tobiapplications.com.moviebase.adapter.OverviewAdapter;
 import tobiapplications.com.moviebase.model.MovieOverviewModel;
-import tobiapplications.com.moviebase.ui.movie_detail.MovieDetailActivity;
+import tobiapplications.com.moviebase.ui.movie_detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.RecyclerListUtils;
 
@@ -26,28 +26,28 @@ import tobiapplications.com.moviebase.utils.RecyclerListUtils;
  * Created by Tobias on 09.06.2017.
  */
 
-public class TopRatedMovieFragment extends Fragment implements MovieOverviewFragmentContract.View {
+public class TopRatedFragment extends Fragment implements OverviewFragmentContract.View {
 
-    private final String TAG = TopRatedMovieFragment.class.getSimpleName();
+    private final String TAG = TopRatedFragment.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBarLoading;
     private TextView mNoInternetConnectionTextView;
     private Context context;
-    private TopRatedMoviePresenter presenter;
-    private MovieOverviewAdapter adapter;
+    private TopRatedPresenter presenter;
+    private OverviewAdapter adapter;
 
 
     public static Fragment newInstance() {
-        TopRatedMovieFragment topRatedMovieFragment = new TopRatedMovieFragment();
+        TopRatedFragment topRatedFragment = new TopRatedFragment();
 
-        return topRatedMovieFragment;
+        return topRatedFragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-        presenter = new TopRatedMoviePresenter(this, context);
+        presenter = new TopRatedPresenter(this, context);
         presenter.loadMovies();
     }
 
@@ -78,7 +78,7 @@ public class TopRatedMovieFragment extends Fragment implements MovieOverviewFrag
         int howMuchColumns = RecyclerListUtils.getHowMuchColumnsForMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new MovieOverviewAdapter(context, mRecyclerView, TAG);
+        adapter = new OverviewAdapter(context, mRecyclerView, TAG);
         adapter.setOnLoadMoreMoviesListener(this);
         adapter.setOnMovieClickListener(this);
         mRecyclerView.setAdapter(adapter);
@@ -127,7 +127,7 @@ public class TopRatedMovieFragment extends Fragment implements MovieOverviewFrag
 
     @Override
     public void onMovieClick(int id) {
-        Intent openMovieDetails = new Intent(context, MovieDetailActivity.class);
+        Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
         startActivity(openMovieDetails);
     }

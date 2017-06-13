@@ -2,13 +2,10 @@ package tobiapplications.com.moviebase.ui.movie_overview;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.model.MovieOverviewModel;
-import tobiapplications.com.moviebase.model.MovieOverviewResponse;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 
@@ -16,12 +13,12 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
  * Created by Tobias on 11.06.2017.
  */
 
-public class OwnFavoriteMoviePresenter implements MovieOverviewFragmentContract.DatabasePresenter {
+public class OwnFavoritePresenter implements OverviewFragmentContract.DatabasePresenter {
 
-    private MovieOverviewFragmentContract.DatabaseView parent;
+    private OverviewFragmentContract.DatabaseView parent;
     private Context context;
 
-    public OwnFavoriteMoviePresenter(MovieOverviewFragmentContract.DatabaseView parent, Context context) {
+    public OwnFavoritePresenter(OverviewFragmentContract.DatabaseView parent, Context context) {
         this.parent = parent;
         this.context = context;
     }

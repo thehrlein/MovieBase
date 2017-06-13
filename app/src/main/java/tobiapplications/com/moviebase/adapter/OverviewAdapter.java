@@ -30,7 +30,7 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
  * Created by Tobias on 09.06.2017.
  */
 
-public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements PopupMenu.OnMenuItemClickListener {
+public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements PopupMenu.OnMenuItemClickListener {
 
     private final RecyclerView mRecyclerView;
     private final Context mContext;
@@ -47,7 +47,7 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
     private String fragmentName;
 
 
-    public MovieOverviewAdapter(Context context, RecyclerView recyclerView, String name) {
+    public OverviewAdapter(Context context, RecyclerView recyclerView, String name) {
         this.mContext = context;
         this.mRecyclerView = recyclerView;
         this.itemList = new ArrayList<>();
@@ -62,9 +62,9 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
             @Override
             public int getSpanSize(int position) {
                 int type = getItemViewType(position);
-                if (type == MovieOverviewAdapter.VIEW_TYPE_MOVIE) {
+                if (type == OverviewAdapter.VIEW_TYPE_MOVIE) {
                     return MOVIE_SPAN;
-                } else if (type == MovieOverviewAdapter.VIEW_TYPE_LOADING) {
+                } else if (type == OverviewAdapter.VIEW_TYPE_LOADING) {
                     return LOADING_SPAN;
                 }
                 return 0;

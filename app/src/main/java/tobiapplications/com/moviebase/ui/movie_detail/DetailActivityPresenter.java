@@ -20,14 +20,14 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
  * Created by Tobias on 11.06.2017.
  */
 
-public class MovieDetailPresenter implements MovieDetailActivityContract.Presenter{
+public class DetailActivityPresenter implements DetailActivityContract.Presenter{
 
-    private MovieDetailActivity parent;
+    private DetailActivity parent;
     private int movieId;
     private MovieDetailResponse clickedMovie;
     private boolean isMarkedAsFavorite = false;
 
-    public MovieDetailPresenter(MovieDetailActivity activity, int movieId) {
+    public DetailActivityPresenter(DetailActivity activity, int movieId) {
         this.parent = activity;
         this.movieId = movieId;
     }
@@ -47,7 +47,7 @@ public class MovieDetailPresenter implements MovieDetailActivityContract.Present
 
     @Override
     public void displayError() {
-        Toast.makeText(parent, "Error MovieDetailPresenter", Toast.LENGTH_SHORT).show();
+        Toast.makeText(parent, "Error DetailActivityPresenter", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -7,17 +7,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tobiapplications.com.moviebase.model.MovieOverviewResponse;
-import tobiapplications.com.moviebase.ui.movie_overview.MovieOverviewFragmentContract;
+import tobiapplications.com.moviebase.ui.movie_overview.OverviewFragmentContract;
 
 /**
  * Created by Tobias on 10.06.2017.
  */
 
-public class MovieOverviewCallback implements Callback<MovieOverviewResponse> {
+public class OverviewCallback implements Callback<MovieOverviewResponse> {
 
-    private MovieOverviewFragmentContract.Presenter presenter;
+    private OverviewFragmentContract.Presenter presenter;
 
-    public MovieOverviewCallback(MovieOverviewFragmentContract.Presenter presenter) {
+    public OverviewCallback(OverviewFragmentContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -30,7 +30,7 @@ public class MovieOverviewCallback implements Callback<MovieOverviewResponse> {
 
     @Override
     public void onFailure(Call<MovieOverviewResponse> call, Throwable t) {
-        Log.d("MovieOverviewCallback", "onFailure");
+        Log.d("OverviewCallback", "onFailure");
         presenter.displayError();
     }
 }

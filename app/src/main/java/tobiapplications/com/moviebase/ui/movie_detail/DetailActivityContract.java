@@ -9,7 +9,7 @@ import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
  * Created by Tobias on 13.06.2017.
  */
 
-public interface MovieDetailActivityContract {
+public interface DetailActivityContract {
 
     interface View {
         void setUpActionBar();

@@ -13,13 +13,13 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
  * Created by Tobias on 11.06.2017.
  */
 
-public class TopRatedMoviePresenter implements MovieOverviewFragmentContract.Presenter {
+public class TopRatedPresenter implements OverviewFragmentContract.Presenter {
 
-    private MovieOverviewFragmentContract.View parent;
+    private OverviewFragmentContract.View parent;
     private Context context;
     private int pageToLoadNext = 1;
 
-    public TopRatedMoviePresenter(MovieOverviewFragmentContract.View parent, Context context) {
+    public TopRatedPresenter(OverviewFragmentContract.View parent, Context context) {
         this.parent = parent;
         this.context = context;
     }
