@@ -13,6 +13,7 @@ import tobiapplications.com.moviebase.model.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail_response.Genre;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.MovieDetailUtils;
+import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
  * Created by Tobias on 11.06.2017.
@@ -38,7 +39,7 @@ public class MovieDetailPresenter {
     public void displayMovieResponse(MovieDetailResponse detailResponse) {
         MovieDetailUtils.setMovieDetailResponse(detailResponse);
         clickedMovie = detailResponse;
-        parent.setMovieInformation(clickedMovie.getTitle(), clickedMovie.getBackgroundImagePath());
+        parent.setMovieInformation(clickedMovie.getTitle(), NetworkUtils.getFullImageUrl(clickedMovie.getBackgroundImagePath()));
     }
 
     public void displayError() {

@@ -28,6 +28,7 @@ import tobiapplications.com.moviebase.utils.RecyclerListUtils;
 
 public class TopRatedMovieFragment extends Fragment implements MovieOverview {
 
+    private final String TAG = TopRatedMovieFragment.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBarLoading;
     private TextView mNoInternetConnectionTextView;
@@ -77,7 +78,7 @@ public class TopRatedMovieFragment extends Fragment implements MovieOverview {
         int howMuchColumns = RecyclerListUtils.getHowMuchColumnsForMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new MovieOverviewAdapter(context, mRecyclerView);
+        adapter = new MovieOverviewAdapter(context, mRecyclerView, TAG);
         adapter.setOnLoadMoreMoviesListener(this);
         adapter.setOnMovieClickListener(this);
         mRecyclerView.setAdapter(adapter);

@@ -51,7 +51,7 @@ public class MovieOverviewModel {
     }
 
     public String getTitleImagePath() {
-        return NetworkUtils.getImageBaseUrlLow() + titleImagePath + NetworkUtils.appendApiKey();
+        return titleImagePath;
     }
 
     public int getId() {

@@ -47,4 +47,8 @@ public class NetworkUtils {
             return false;
         }
     }
+
+    public static String getFullImageUrl(String url) {
+        return getImageBaseUrlLow() + url + appendApiKey();
+    }
 }

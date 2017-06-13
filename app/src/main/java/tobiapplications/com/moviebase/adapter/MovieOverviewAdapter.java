@@ -24,6 +24,7 @@ import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.MovieOverviewModel;
 import tobiapplications.com.moviebase.model.RecyclerItem;
+import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -43,12 +44,14 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
     public static final int VIEW_TYPE_LOADING = 101;
     private final int MOVIE_SPAN = 1;
     private final int LOADING_SPAN = 2;
+    private String fragmentName;
 
 
-    public MovieOverviewAdapter(Context context, RecyclerView recyclerView) {
+    public MovieOverviewAdapter(Context context, RecyclerView recyclerView, String name) {
         this.mContext = context;
         this.mRecyclerView = recyclerView;
         this.itemList = new ArrayList<>();
+        this.fragmentName = name;
         setRecyclerViewScrollListener();
         mGridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
         mGridLayoutManager.setSpanSizeLookup(spanSizeLookupBuilder());
@@ -139,7 +142,8 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
         MovieOverviewModel movie = (MovieOverviewModel) item.getItem();
         movieHolder.mMovieTitleNoPicture.setText(movie.getTitle());
         movieHolder.mMovieTitle.setText(movie.getTitle());
-        Picasso.with(mContext).load(movie.getTitleImagePath()).into(movieHolder.mPosterImage);
+        Log.d("Test", fragmentName + " " + movie.getTitleImagePath());
+        Picasso.with(mContext).load(NetworkUtils.getFullImageUrl(movie.getTitleImagePath())).into(movieHolder.mPosterImage);
         movieHolder.mMovieCardDots.setOnClickListener((View v) -> showPopMenu(v));
      }
 
@@ -170,14 +174,16 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public void setMovies(ArrayList<MovieOverviewModel> movies) {
-        for (MovieOverviewModel movie : movies) {
-            RecyclerItem item = new RecyclerItem(VIEW_TYPE_MOVIE, movie);
-            itemList.add(item);
+        if (movies != null) {
+            for (MovieOverviewModel movie : movies) {
+                RecyclerItem item = new RecyclerItem(VIEW_TYPE_MOVIE, movie);
+                itemList.add(item);
+            }
+
+            triggerLoadMoreMovies = true;
+
+            notifyItemRangeChanged(itemList.size() - movies.size(), movies.size()); // TODO check, maybe size - 1
         }
-
-        triggerLoadMoreMovies = true;
-
-        notifyItemRangeChanged(itemList.size() - movies.size(), movies.size()); // TODO check, maybe size - 1
     }
 
     @Override

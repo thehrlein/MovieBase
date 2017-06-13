@@ -74,7 +74,7 @@ public class MovieDetailResponse implements Serializable {
     }
 
     public String getBackgroundImagePath() {
-        return NetworkUtils.getImageBaseUrlLow() + backgroundImagePath + NetworkUtils.appendApiKey();
+        return backgroundImagePath;
     }
 
     public Collection getCollection() {
@@ -118,7 +118,7 @@ public class MovieDetailResponse implements Serializable {
     }
 
     public String getTitleImagePath() {
-        return NetworkUtils.getImageBaseUrlLow() + titleImagePath + NetworkUtils.appendApiKey();
+        return titleImagePath;
     }
 
     public ArrayList<ProductionCompany> getProductionCompanies() {

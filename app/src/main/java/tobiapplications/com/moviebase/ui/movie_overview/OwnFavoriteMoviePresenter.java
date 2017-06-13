@@ -53,8 +53,7 @@ public class OwnFavoriteMoviePresenter implements MoviePresenter {
 
     @Override
     public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
-        parent.showLoading(false);
-        parent.setMovies(movieOverviewResponse.getMovies());
+        // no download
     }
 
     @Override

@@ -40,9 +40,9 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
-        setUpActionBar();
-
         findMyViews();
+
+        setUpActionBar();
 
         movieId = getMovieId();
 

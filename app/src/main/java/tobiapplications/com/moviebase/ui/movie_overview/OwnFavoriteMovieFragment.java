@@ -34,6 +34,7 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
 
 public class OwnFavoriteMovieFragment extends Fragment implements MovieOverview, LoaderManager.LoaderCallbacks<Cursor> {
 
+    private final String TAG = OwnFavoriteMovieFragment.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBarLoading;
     private TextView mNoInternetConnectionTextView;
@@ -87,7 +88,7 @@ public class OwnFavoriteMovieFragment extends Fragment implements MovieOverview,
         int howMuchColumns = RecyclerListUtils.getHowMuchColumnsForMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new MovieOverviewAdapter(context, mRecyclerView);
+        adapter = new MovieOverviewAdapter(context, mRecyclerView, TAG);
         adapter.setOnLoadMoreMoviesListener(this);
         adapter.setOnMovieClickListener(this);
         mRecyclerView.setAdapter(adapter);
