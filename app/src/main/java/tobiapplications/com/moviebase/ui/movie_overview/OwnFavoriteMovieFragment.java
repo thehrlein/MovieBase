@@ -56,7 +56,6 @@ public class OwnFavoriteMovieFragment extends Fragment implements MovieOverview,
         super.onCreate(savedInstanceState);
         context = getContext();
         presenter = new OwnFavoriteMoviePresenter(this, context);
-        presenter.loadMovies();
     }
 
     @Nullable
@@ -172,5 +171,12 @@ public class OwnFavoriteMovieFragment extends Fragment implements MovieOverview,
     @Override
     public void insertLoadingItem() {
         // nope
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setMovies(null);
+        presenter.loadMovies();
     }
 }

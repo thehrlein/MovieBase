@@ -13,7 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import tobiapplications.com.moviebase.model.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.callbacks.MovieDetailCallback;
 import tobiapplications.com.moviebase.network.callbacks.MovieOverviewCallback;

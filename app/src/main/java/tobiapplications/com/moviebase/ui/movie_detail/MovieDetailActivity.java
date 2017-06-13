@@ -2,6 +2,7 @@ package tobiapplications.com.moviebase.ui.movie_detail;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
 import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.SQLUtils;
 
 public class MovieDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -133,10 +135,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
         Picasso.with(this).load(moviePath).into(mDetailMovieBackgroundImage);
     }
 
-    public void setFabButtonImage(int drawable) {
-        mFabFavorite.setImageResource(drawable);
-    }
-
     public void onFabClickedToast(boolean marked) {
         if (marked) {
             Toast.makeText(this, getString(R.string.marked_as_favorite), Toast.LENGTH_SHORT).show();
@@ -154,7 +152,6 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
                 MoviesContract.MovieEntry.CONTENT_URI,
                 MoviesContract.MovieEntry.COLUMN_ID + " = ?",
                 new String[]{String.valueOf(movieId)});
-
     }
 
     @Override
@@ -163,5 +160,22 @@ public class MovieDetailActivity extends AppCompatActivity implements View.OnCli
             onBackPressed();
         }
         return true;
+    }
+
+    public Cursor getAllFavoriteMovies() {
+        return getContentResolver().query(
+                MoviesContract.MovieEntry.CONTENT_URI,
+                SQLUtils.selectAll,
+                null,
+                null,
+                null);
+    }
+
+    public void markFabAsFavorite(boolean isFavorite) {
+        if (isFavorite) {
+            mFabFavorite.setImageResource(R.drawable.fab_heart_fav);
+        } else {
+            mFabFavorite.setImageResource(R.drawable.fab_heart);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package tobiapplications.com.moviebase.utils;
 
-import tobiapplications.com.moviebase.model.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
 
 /**
  * Created by Tobias on 11.06.2017.

@@ -3,7 +3,7 @@ package tobiapplications.com.moviebase.network.callbacks;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tobiapplications.com.moviebase.model.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
 import tobiapplications.com.moviebase.ui.movie_detail.MovieDetailPresenter;
 
 /**

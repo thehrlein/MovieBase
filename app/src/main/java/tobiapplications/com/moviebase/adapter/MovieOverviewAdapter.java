@@ -58,7 +58,7 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private GridLayoutManager.SpanSizeLookup spanSizeLookupBuilder() {
-        GridLayoutManager.SpanSizeLookup onSpanSizeLookup = new GridLayoutManager.SpanSizeLookup() {
+        return new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 int type = getItemViewType(position);
@@ -67,16 +67,12 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
                 } else if (type == MovieOverviewAdapter.VIEW_TYPE_LOADING) {
                     return LOADING_SPAN;
                 }
-
                 return 0;
             }
         };
-
-        return onSpanSizeLookup;
     }
 
     private void setRecyclerViewScrollListener() {
-
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -142,7 +138,6 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
         MovieOverviewModel movie = (MovieOverviewModel) item.getItem();
         movieHolder.mMovieTitleNoPicture.setText(movie.getTitle());
         movieHolder.mMovieTitle.setText(movie.getTitle());
-        Log.d("Test", fragmentName + " " + movie.getTitleImagePath());
         Picasso.with(mContext).load(NetworkUtils.getFullImageUrl(movie.getTitleImagePath())).into(movieHolder.mPosterImage);
         movieHolder.mMovieCardDots.setOnClickListener((View v) -> showPopMenu(v));
      }
@@ -175,15 +170,25 @@ public class MovieOverviewAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void setMovies(ArrayList<MovieOverviewModel> movies) {
         if (movies != null) {
-            for (MovieOverviewModel movie : movies) {
-                RecyclerItem item = new RecyclerItem(VIEW_TYPE_MOVIE, movie);
-                itemList.add(item);
-            }
-
+            addMovies(movies);
             triggerLoadMoreMovies = true;
 
             notifyItemRangeChanged(itemList.size() - movies.size(), movies.size()); // TODO check, maybe size - 1
+        } else {
+            resetList();
         }
+    }
+
+    private void addMovies(ArrayList<MovieOverviewModel> movies) {
+        for (MovieOverviewModel movie : movies) {
+            RecyclerItem item = new RecyclerItem(VIEW_TYPE_MOVIE, movie);
+            itemList.add(item);
+        }
+    }
+
+    private void resetList() {
+        itemList.clear();
+        notifyDataSetChanged();
     }
 
     @Override

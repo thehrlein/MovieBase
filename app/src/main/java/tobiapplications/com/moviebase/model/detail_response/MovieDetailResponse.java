@@ -1,16 +1,10 @@
-package tobiapplications.com.moviebase.model;
+package tobiapplications.com.moviebase.model.detail_response;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.model.detail_response.Collection;
-import tobiapplications.com.moviebase.model.detail_response.Genre;
-import tobiapplications.com.moviebase.model.detail_response.ProductionCompany;
-import tobiapplications.com.moviebase.model.detail_response.ProductionCountry;
-import tobiapplications.com.moviebase.model.detail_response.SpokenLanguage;
-import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
  * Created by Tobias on 11.06.2017.
