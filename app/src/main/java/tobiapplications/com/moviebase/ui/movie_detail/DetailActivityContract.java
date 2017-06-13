@@ -22,6 +22,7 @@ public interface DetailActivityContract {
         void deleteCurrentMovieFromFavoriteDatabase(int movieId);
         Cursor getAllFavoriteMovies();
         void markFabAsFavorite(boolean isFavorite);
+        void setFabButtonVisible();
     }
 
     interface Presenter {

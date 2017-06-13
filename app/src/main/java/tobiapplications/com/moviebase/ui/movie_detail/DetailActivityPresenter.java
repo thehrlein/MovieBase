@@ -61,61 +61,68 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
 
     @Override
     public void handleFabClick() {
-        if (!isMarkedAsFavorite) {
-            isMarkedAsFavorite = true;
-            parent.markFabAsFavorite(true);
-            parent.onFabClickedToast(true);
-            insertCurrentMovieToFavoriteDatabase();
-        } else {
-            isMarkedAsFavorite = false;
-            parent.markFabAsFavorite(false);
-            parent.deleteCurrentMovieFromFavoriteDatabase(clickedMovie.getId());
+        if (clickedMovie != null) {
+            if (!isMarkedAsFavorite) {
+                isMarkedAsFavorite = true;
+                parent.markFabAsFavorite(true);
+                parent.onFabClickedToast(true);
+                insertCurrentMovieToFavoriteDatabase();
+            } else {
+                isMarkedAsFavorite = false;
+                parent.markFabAsFavorite(false);
+                parent.deleteCurrentMovieFromFavoriteDatabase(clickedMovie.getId());
+            }
         }
     }
 
     @Override
     public void insertCurrentMovieToFavoriteDatabase() {
-        String genresString = "";
-        ArrayList<Genre> genreArrayList = clickedMovie.getGenres();
+        if (clickedMovie != null) {
+            String genresString = "";
+            ArrayList<Genre> genreArrayList = clickedMovie.getGenres();
 
-        for (int i = 0; i < genreArrayList.size(); i++) {
-            if (i == 0) {
-                genresString = genresString + genreArrayList.get(i).getId();
-            } else {
-                genresString = genresString + "-" + genreArrayList.get(i).getId();
+            for (int i = 0; i < genreArrayList.size(); i++) {
+                if (i == 0) {
+                    genresString = genresString + genreArrayList.get(i).getId();
+                } else {
+                    genresString = genresString + "-" + genreArrayList.get(i).getId();
+                }
             }
+
+            ContentValues values = new ContentValues();
+            values.put(MoviesContract.MovieEntry.COLUMN_ID, clickedMovie.getId());
+            values.put(MoviesContract.MovieEntry.COLUMN_TITLE, clickedMovie.getTitle());
+            values.put(MoviesContract.MovieEntry.COLUMN_TITLE_IMAGE_PATH, clickedMovie.getTitleImagePath());
+            values.put(MoviesContract.MovieEntry.COLUMN_BACKDROP_IMAGE_PATH, clickedMovie.getBackgroundImagePath());
+            values.put(MoviesContract.MovieEntry.COLUMN_YEAR, clickedMovie.getReleaseDate());
+            values.put(MoviesContract.MovieEntry.COLUMN_RATING, clickedMovie.getVoteAverage());
+            values.put(MoviesContract.MovieEntry.COLUMN_DESCRIPTION, clickedMovie.getDescription());
+            values.put(MoviesContract.MovieEntry.COLUMN_GENRES, genresString);
+            values.put(MoviesContract.MovieEntry.COLUMN_ADULT, clickedMovie.isAdult() ? "yes" : "no");
+
+            parent.insertMovieIntoDatabase(values);
         }
-
-        ContentValues values = new ContentValues();
-        values.put(MoviesContract.MovieEntry.COLUMN_ID, clickedMovie.getId());
-        values.put(MoviesContract.MovieEntry.COLUMN_TITLE, clickedMovie.getTitle());
-        values.put(MoviesContract.MovieEntry.COLUMN_TITLE_IMAGE_PATH, clickedMovie.getTitleImagePath());
-        values.put(MoviesContract.MovieEntry.COLUMN_BACKDROP_IMAGE_PATH, clickedMovie.getBackgroundImagePath());
-        values.put(MoviesContract.MovieEntry.COLUMN_YEAR, clickedMovie.getReleaseDate());
-        values.put(MoviesContract.MovieEntry.COLUMN_RATING, clickedMovie.getVoteAverage());
-        values.put(MoviesContract.MovieEntry.COLUMN_DESCRIPTION, clickedMovie.getDescription());
-        values.put(MoviesContract.MovieEntry.COLUMN_GENRES, genresString);
-        values.put(MoviesContract.MovieEntry.COLUMN_ADULT, clickedMovie.isAdult() ? "yes" : "no");
-
-        parent.insertMovieIntoDatabase(values);
     }
 
     @Override
     public void checkIfMovieIsMarkedAsFavorite() {
-        Cursor cursor = parent.getAllFavoriteMovies();
+        if (clickedMovie != null) {
+            parent.setFabButtonVisible();
+            Cursor cursor = parent.getAllFavoriteMovies();
 
-        if (cursor.getCount() == 0) {
-            return;
-        }
-
-        int mDetailMovieId = clickedMovie.getId();
-
-        while(cursor.moveToNext()) {
-            int movieId = cursor.getInt(SQLUtils.INDEX_COLUMN_ID);
-            if (mDetailMovieId == movieId) {
-                isMarkedAsFavorite = true;
+            if (cursor.getCount() == 0) {
+                return;
             }
+
+            int mDetailMovieId = clickedMovie.getId();
+
+            while(cursor.moveToNext()) {
+                int movieId = cursor.getInt(SQLUtils.INDEX_COLUMN_ID);
+                if (mDetailMovieId == movieId) {
+                    isMarkedAsFavorite = true;
+                }
+            }
+            parent.markFabAsFavorite(isMarkedAsFavorite);
         }
-        parent.markFabAsFavorite(isMarkedAsFavorite);
     }
 }

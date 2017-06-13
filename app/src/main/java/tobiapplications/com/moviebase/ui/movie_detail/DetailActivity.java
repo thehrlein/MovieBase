@@ -184,4 +184,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             mFabFavorite.setImageResource(R.drawable.fab_heart);
         }
     }
+
+    @Override
+    public void setFabButtonVisible() {
+        mFabFavorite.setVisibility(View.VISIBLE);
+    }
 }
