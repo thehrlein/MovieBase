@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.model.detail_response;
+package tobiapplications.com.moviebase.model.detail;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
  * Created by Tobias on 11.06.2017.
  */
 
-public class SpokenLanguage {
+public class ProductionCountry {
 
-    @SerializedName("iso_639_1")
+    @SerializedName("iso_3166_1")
     private String isoCode;
     @SerializedName("name")
     private String name;

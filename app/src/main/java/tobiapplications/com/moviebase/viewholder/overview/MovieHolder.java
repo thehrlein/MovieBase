@@ -9,14 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
-import tobiapplications.com.moviebase.model.MovieOverviewModel;
-import tobiapplications.com.moviebase.model.RecyclerItem;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**

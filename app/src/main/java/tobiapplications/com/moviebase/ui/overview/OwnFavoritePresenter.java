@@ -1,11 +1,11 @@
-package tobiapplications.com.moviebase.ui.movie_overview;
+package tobiapplications.com.moviebase.ui.overview;
 
 import android.content.Context;
 import android.database.Cursor;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.model.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 

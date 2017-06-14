@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.ui.movie_overview;
+package tobiapplications.com.moviebase.ui.overview;
 
 import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
-import tobiapplications.com.moviebase.model.MovieOverviewModel;
-import tobiapplications.com.moviebase.model.MovieOverviewResponse;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 
 /**
  * Created by Tobias on 09.06.2017.

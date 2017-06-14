@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.ui.movie_overview;
+package tobiapplications.com.moviebase.ui.overview;
 
 /**
  * Created by Tobias on 13.06.2017.

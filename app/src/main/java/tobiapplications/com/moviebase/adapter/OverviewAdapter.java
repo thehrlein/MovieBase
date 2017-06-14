@@ -2,29 +2,18 @@ package tobiapplications.com.moviebase.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
-import tobiapplications.com.moviebase.model.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.model.RecyclerItem;
-import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.viewholder.overview.LoadingHolder;
 import tobiapplications.com.moviebase.viewholder.overview.MovieHolder;
 
@@ -42,11 +31,11 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final GridLayoutManager mGridLayoutManager;
 
     private boolean triggerLoadMoreMovies = true;
-    public static final int VIEW_TYPE_MOVIE = 100;
-    public static final int VIEW_TYPE_LOADING = 101;
     private final int MOVIE_SPAN = 1;
     private final int LOADING_SPAN = 2;
     private String fragmentName;
+    public static final int VIEW_TYPE_MOVIE = 100;
+    public static final int VIEW_TYPE_LOADING = 101;
 
 
     public OverviewAdapter(Context context, RecyclerView recyclerView, String name) {
@@ -111,12 +100,11 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == VIEW_TYPE_MOVIE) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.item_movie, parent, false);
-            return new MovieHolder(view, movieClickListener);
-        } else if (viewType == VIEW_TYPE_LOADING) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.item_movie_loading, parent, false);
-            return new LoadingHolder(view);
+        switch (viewType) {
+            case VIEW_TYPE_MOVIE:
+                return new MovieHolder(LayoutInflater.from(mContext).inflate(R.layout.item_movie, parent, false), movieClickListener);
+            case VIEW_TYPE_LOADING:
+                return new LoadingHolder(LayoutInflater.from(mContext).inflate(R.layout.item_movie_loading, parent, false));
         }
 
         return null;
@@ -125,20 +113,21 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         RecyclerItem item = itemList.get(position);
-        if (item.getItemType() == VIEW_TYPE_MOVIE) {
-            bindMovieItem(holder, item);
-        } else if (item.getItemType() == VIEW_TYPE_LOADING) {
-            bindLoadingItem(holder);
+        switch (item.getItemType()) {
+            case VIEW_TYPE_MOVIE:
+                bindMovieItem((MovieHolder) holder, item);
+                break;
+            case VIEW_TYPE_LOADING:
+                bindLoadingItem((LoadingHolder) holder);
+                break;
         }
     }
 
-    private void bindLoadingItem(RecyclerView.ViewHolder holder) {
-        LoadingHolder loadingHolder = (LoadingHolder) holder;
+    private void bindLoadingItem(LoadingHolder loadingholder) {
 
     }
 
-    private void bindMovieItem(RecyclerView.ViewHolder holder, RecyclerItem item) {
-        MovieHolder movieHolder = (MovieHolder) holder;
+    private void bindMovieItem(MovieHolder movieHolder, RecyclerItem item) {
         MovieOverviewModel movie = (MovieOverviewModel) item.getItem();
         movieHolder.setInformation(movie, mContext);
      }
@@ -154,8 +143,7 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemViewType(int position) {
         if (itemList != null && !itemList.isEmpty()) {
-            int type = itemList.get(position).getItemType();
-            return type;
+            return itemList.get(position).getItemType();
         }
 
         return -1;

@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.ui.movie_overview;
+package tobiapplications.com.moviebase.ui.overview;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.OverviewAdapter;
-import tobiapplications.com.moviebase.model.MovieOverviewModel;
-import tobiapplications.com.moviebase.ui.movie_detail.DetailActivity;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.RecyclerListUtils;
 

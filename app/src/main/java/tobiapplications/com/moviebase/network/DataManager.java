@@ -13,12 +13,12 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
-import tobiapplications.com.moviebase.model.MovieOverviewResponse;
+import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.callbacks.DetailCallback;
 import tobiapplications.com.moviebase.network.callbacks.OverviewCallback;
-import tobiapplications.com.moviebase.ui.movie_detail.DetailActivityPresenter;
-import tobiapplications.com.moviebase.ui.movie_overview.OverviewFragmentContract;
+import tobiapplications.com.moviebase.ui.detail.DetailActivityPresenter;
+import tobiapplications.com.moviebase.ui.overview.OverviewFragmentContract;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**

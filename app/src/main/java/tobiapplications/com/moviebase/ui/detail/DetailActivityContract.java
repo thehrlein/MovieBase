@@ -1,10 +1,10 @@
-package tobiapplications.com.moviebase.ui.movie_detail;
+package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.design.widget.AppBarLayout;
 
-import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 
 /**
  * Created by Tobias on 13.06.2017.

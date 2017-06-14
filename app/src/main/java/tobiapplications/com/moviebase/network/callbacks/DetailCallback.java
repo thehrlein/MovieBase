@@ -3,8 +3,8 @@ package tobiapplications.com.moviebase.network.callbacks;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
-import tobiapplications.com.moviebase.ui.movie_detail.DetailActivityPresenter;
+import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
+import tobiapplications.com.moviebase.ui.detail.DetailActivityPresenter;
 
 /**
  * Created by Tobias on 11.06.2017.

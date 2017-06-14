@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.model.detail_response;
+package tobiapplications.com.moviebase.model.detail;
 
 import com.google.gson.annotations.SerializedName;
 

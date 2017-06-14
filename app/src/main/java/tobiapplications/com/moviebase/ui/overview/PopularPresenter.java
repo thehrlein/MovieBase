@@ -1,25 +1,25 @@
-package tobiapplications.com.moviebase.ui.movie_overview;
+package tobiapplications.com.moviebase.ui.overview;
 
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import tobiapplications.com.moviebase.model.MovieOverviewResponse;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
- * Created by Tobias on 11.06.2017.
+ * Created by Tobias on 09.06.2017.
  */
 
-public class TopRatedPresenter implements OverviewFragmentContract.Presenter {
+public class PopularPresenter implements OverviewFragmentContract.Presenter {
 
     private OverviewFragmentContract.View parent;
     private Context context;
     private int pageToLoadNext = 1;
 
-    public TopRatedPresenter(OverviewFragmentContract.View parent, Context context) {
+    public PopularPresenter(OverviewFragmentContract.View parent, Context context) {
         this.parent = parent;
         this.context = context;
     }
@@ -61,8 +61,8 @@ public class TopRatedPresenter implements OverviewFragmentContract.Presenter {
 
     @Override
     public void requestMovieDownload() {
-        Log.d("Top Presenter", "requestSingleMovieDownload");
-        DataManager.getInstance().requestTopRatedMovies(this, pageToLoadNext);
+        Log.d("Pop Presenter", "requestSingleMovieDownload");
+        DataManager.getInstance().requestPopularMovies(this, pageToLoadNext);
         pageToLoadNext++;
     }
 

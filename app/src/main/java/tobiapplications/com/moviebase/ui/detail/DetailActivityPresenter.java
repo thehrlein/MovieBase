@@ -1,8 +1,7 @@
-package tobiapplications.com.moviebase.ui.movie_detail;
+package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.support.v4.view.ViewCompat;
 import android.widget.Toast;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
@@ -10,8 +9,8 @@ import com.stfalcon.frescoimageviewer.ImageViewer;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.database.MoviesContract;
-import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
-import tobiapplications.com.moviebase.model.detail_response.Genre;
+import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;

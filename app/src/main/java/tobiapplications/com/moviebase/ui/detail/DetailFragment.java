@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.ui.movie_detail;
+package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.DetailAdapter;
-import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.RecyclerItem;
+import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.utils.Constants;
 
 /**
@@ -42,8 +45,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         super.onCreate(savedInstanceState);
 
         detailMovie = (MovieDetailResponse) getArguments().get(Constants.CLICKED_MOVIE);
-        adapter = new DetailAdapter(mContext);
-        presenter = new DetailFragmentPresenter();
+
     }
 
     @Override
@@ -57,7 +59,8 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mContext = getContext();
-
+        adapter = new DetailAdapter(mContext);
+        presenter = new DetailFragmentPresenter(mContext, this);
         findMyViews();
         setAdapter();
         presenter.buildUiFromResponse(detailMovie);
@@ -75,12 +78,10 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         recyclerView.setAdapter(adapter);
     }
 
-
-
-
-
-
-
+    @Override
+    public void displayUiViews(ArrayList<RecyclerItem> detailItems) {
+        adapter.addUiViews(detailItems);
+    }
 
 //    private void setMovieInformation() {
 //        Picasso.with(mContext).load(NetworkUtils.getFullImageUrl(detailMovie.getTitleImagePath())).into(mDetailMovieTitleImage);

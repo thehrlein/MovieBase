@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.ui.movie_overview.OverviewActivity;
+import tobiapplications.com.moviebase.ui.overview.OverviewActivity;
 
 public class CoverPage extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.ui.movie_overview;
+package tobiapplications.com.moviebase.ui.overview;
 
 import android.os.Build;
 import android.support.design.widget.TabLayout;

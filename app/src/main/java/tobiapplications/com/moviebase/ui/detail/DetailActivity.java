@@ -1,8 +1,7 @@
-package tobiapplications.com.moviebase.ui.movie_detail;
+package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
@@ -26,7 +25,7 @@ import com.squareup.picasso.Picasso;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
 import tobiapplications.com.moviebase.database.MoviesContract;
-import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 

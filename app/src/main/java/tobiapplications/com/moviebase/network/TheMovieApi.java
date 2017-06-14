@@ -4,8 +4,8 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
-import tobiapplications.com.moviebase.model.MovieOverviewResponse;
+import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 
 /**
  * Created by Tobias on 10.06.2017.

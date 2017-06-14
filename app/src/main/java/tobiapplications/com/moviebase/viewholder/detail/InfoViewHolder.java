@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.model.detail.views.InfoView;
+import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
  * Created by Tobias on 15.06.2017.
@@ -32,10 +34,9 @@ public class InfoViewHolder extends RecyclerView.ViewHolder {
         infoRatingCount = (TextView) itemView.findViewById(R.id.info_rating_count);
     }
 
-
-    public void setInformation(String imagePath, double average, int count) {
-        Picasso.with(context).load(imagePath).into(infoImage);
-        infoRatingAverage.setText(String.valueOf(average));
-        infoRatingCount.setText(count);
+    public void setInformation(InfoView view) {
+        Picasso.with(context).load(NetworkUtils.getFullImageUrl(view.getImagePath())).into(infoImage);
+        infoRatingAverage.setText(String.valueOf(view.getVoteAverage()));
+        infoRatingCount.setText(String.valueOf(view.getVoteCount()));
     }
 }

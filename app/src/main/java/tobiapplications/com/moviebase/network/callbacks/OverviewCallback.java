@@ -6,8 +6,8 @@ import android.util.Log;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tobiapplications.com.moviebase.model.MovieOverviewResponse;
-import tobiapplications.com.moviebase.ui.movie_overview.OverviewFragmentContract;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
+import tobiapplications.com.moviebase.ui.overview.OverviewFragmentContract;
 
 /**
  * Created by Tobias on 10.06.2017.
