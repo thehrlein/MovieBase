@@ -45,9 +45,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewFragmentCon
 
 
     public static Fragment newInstance() {
-        OwnFavoriteFragment ownFavoriteFragment = new OwnFavoriteFragment();
-
-        return ownFavoriteFragment;
+        return new OwnFavoriteFragment();
     }
 
     @Override
@@ -60,7 +58,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewFragmentCon
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.movie_overview_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_overview, container, false);
     }
 
     @Override

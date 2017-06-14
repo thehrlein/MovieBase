@@ -19,7 +19,7 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_overview);
 
         disableActionBarTabLayoutDivider();
         setStatusBarColor();

@@ -15,7 +15,7 @@ public interface DetailActivityContract {
         void setUpActionBar();
         void findMyViews();
         void getMovieId();
-        void setupViewPager();
+        void setUpTabFragment(MovieDetailResponse response);
         void setMovieInformation(String title, String moviePath);
         void onFabClickedToast(boolean marked);
         void insertMovieIntoDatabase(ContentValues values);

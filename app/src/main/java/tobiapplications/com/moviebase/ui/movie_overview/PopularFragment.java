@@ -37,9 +37,7 @@ public class PopularFragment extends Fragment implements OverviewFragmentContrac
     private OverviewAdapter adapter;
 
     public static Fragment newInstance() {
-        PopularFragment popularFragment = new PopularFragment();
-
-        return popularFragment;
+        return new PopularFragment();
     }
 
     @Override
@@ -53,7 +51,7 @@ public class PopularFragment extends Fragment implements OverviewFragmentContrac
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.movie_overview_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_overview, container, false);
     }
 
     @Override

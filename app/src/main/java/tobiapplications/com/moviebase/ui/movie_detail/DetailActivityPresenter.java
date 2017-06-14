@@ -12,7 +12,6 @@ import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail_response.Genre;
 import tobiapplications.com.moviebase.network.DataManager;
-import tobiapplications.com.moviebase.utils.MovieDetailUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 
@@ -39,9 +38,9 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
 
     @Override
     public void displayMovieResponse(MovieDetailResponse detailResponse) {
-        MovieDetailUtils.setMovieDetailResponse(detailResponse);
         clickedMovie = detailResponse;
         parent.setMovieInformation(clickedMovie.getTitle(), NetworkUtils.getFullImageUrl(clickedMovie.getBackgroundImagePath()));
+        parent.setUpTabFragment(clickedMovie);
         checkIfMovieIsMarkedAsFavorite();
     }
 

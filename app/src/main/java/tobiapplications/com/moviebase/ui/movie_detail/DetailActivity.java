@@ -3,9 +3,11 @@ package tobiapplications.com.moviebase.ui.movie_detail;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import com.squareup.picasso.Picasso;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
 import tobiapplications.com.moviebase.database.MoviesContract;
+import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 
@@ -40,7 +43,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_details);
+        setContentView(R.layout.activity_detail);
 
         findMyViews();
 
@@ -51,19 +54,22 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         presenter = new DetailActivityPresenter(this, movieId);
         presenter.requestSingleMovieDownload();
 
-        setupViewPager();
-        mTabLayout.setupWithViewPager(mViewPager);
+        if (Build.VERSION.SDK_INT >= 21)
+        {
+       //     getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
 
     }
 
     @Override
-    public void setUpActionBar() {
-        setSupportActionBar(mToolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+    public void setUpTabFragment(MovieDetailResponse response) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        DetailFragment fragment = DetailFragment.newInstance(response);
+        transaction.add(R.id.detail_content, fragment);
+        transaction.commit();
     }
 
     @Override
@@ -79,42 +85,22 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    public void setUpActionBar() {
+
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
     public void getMovieId() {
         Intent intent = getIntent();
         if (intent != null) {
             movieId = intent.getIntExtra(Constants.CLICKED_MOVIE, -1);
         }
-    }
-
-    @Override
-    public void setupViewPager() {
-        mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constants.CLICKED_MOVIE, movieId);
-
-
-        Fragment infoFragment = new DetailInfoFragment();
-        infoFragment.setArguments(bundle);
-        mAdapter.addFragment(infoFragment, getString(R.string.info));
-
-        Fragment trailerFragment = new DetailTrailerFragment();
-        trailerFragment.setArguments(bundle);
-        mAdapter.addFragment(trailerFragment, getString(R.string.trailers));
-
-        Fragment reviewFragment = new DetailReviewFragment();
-        reviewFragment.setArguments(bundle);
-        mAdapter.addFragment(reviewFragment, getString(R.string.reviews));
-
-        Fragment actorFragment = new DetailActorsFragment();
-        actorFragment.setArguments(bundle);
-        mAdapter.addFragment(actorFragment, getString(R.string.actors));
-
-        Fragment similarMovies = new DetailSimilarMoviesFragment();
-        similarMovies.setArguments(bundle);
-        mAdapter.addFragment(similarMovies, getString(R.string.similar_movies));
-
-        mViewPager.setAdapter(mAdapter);
-
     }
 
     @Override

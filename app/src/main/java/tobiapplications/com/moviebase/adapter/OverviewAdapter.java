@@ -110,10 +110,10 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_MOVIE) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.movie_item, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_movie, parent, false);
             return new MovieHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.movie_loading_item, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_movie_loading, parent, false);
             return new LoadingHolder(view);
         }
 

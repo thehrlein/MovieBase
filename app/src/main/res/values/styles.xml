@@ -17,9 +17,19 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="CustomToolbarTitle" parent="AppTheme" >
+    <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CustomToolbarTitle" parent="AppTheme.NoActionBar">
+    </style>
+
+    <style name="ToolbarTitle.Collapsed" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ToolbarTitle.Expended" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>
