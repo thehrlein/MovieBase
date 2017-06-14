@@ -2,6 +2,7 @@ package tobiapplications.com.moviebase.ui.movie_detail;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.v4.view.ViewCompat;
 import android.widget.Toast;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
@@ -19,12 +20,15 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
  * Created by Tobias on 11.06.2017.
  */
 
-public class DetailActivityPresenter implements DetailActivityContract.Presenter{
+public class DetailActivityPresenter implements DetailActivityContract.Presenter {
 
     private DetailActivity parent;
     private int movieId;
     private MovieDetailResponse clickedMovie;
     private boolean isMarkedAsFavorite = false;
+    private static final int PERCENTAGE_TO_SHOW_IMAGE = 60;
+    private int mMaxScrollSize;
+    private boolean mIsImageHidden;
 
     public DetailActivityPresenter(DetailActivity activity, int movieId) {
         this.parent = activity;
@@ -63,12 +67,12 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
         if (clickedMovie != null) {
             if (!isMarkedAsFavorite) {
                 isMarkedAsFavorite = true;
-                parent.markFabAsFavorite(true);
+                parent.markFabAsFavorite();
                 parent.onFabClickedToast(true);
                 insertCurrentMovieToFavoriteDatabase();
             } else {
                 isMarkedAsFavorite = false;
-                parent.markFabAsFavorite(false);
+                parent.unMarkFabFromFavorite();
                 parent.deleteCurrentMovieFromFavoriteDatabase(clickedMovie.getId());
             }
         }
@@ -121,7 +125,37 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
                     isMarkedAsFavorite = true;
                 }
             }
-            parent.markFabAsFavorite(isMarkedAsFavorite);
+
+            if (isMarkedAsFavorite) {
+                parent.markFabAsFavorite();
+            } else {
+                parent.unMarkFabFromFavorite();
+            }
+        }
+    }
+
+    @Override
+    public void setAppBarOffsetChanged(int totalScrollRange, int verticalOffset) {
+        if (mMaxScrollSize == 0) {
+            mMaxScrollSize = totalScrollRange;
+        }
+
+        int currentScrollPercentage = (Math.abs(verticalOffset)) * 100
+                / mMaxScrollSize;
+
+        if (currentScrollPercentage >= PERCENTAGE_TO_SHOW_IMAGE) {
+            if (!mIsImageHidden) {
+                mIsImageHidden = true;
+                //  ViewCompat.animate(mFabFavorite).scaleY(0).scaleX(0).start();
+                parent.animateFabDown(100);
+            }
+        }
+        if (currentScrollPercentage < PERCENTAGE_TO_SHOW_IMAGE) {
+            if (mIsImageHidden) {
+                mIsImageHidden = false;
+                //  ViewCompat.animate(mFabFavorite).scaleY(1).scaleX(1).start();
+                parent.animateFabUp(0);
+            }
         }
     }
 }

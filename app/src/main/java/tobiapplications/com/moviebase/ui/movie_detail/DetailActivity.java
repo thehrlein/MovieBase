@@ -2,12 +2,15 @@ package tobiapplications.com.moviebase.ui.movie_detail;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Build;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +40,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private ProgressBar mImageProgressIndicator;
     private ViewPagerAdapter mAdapter;
     private DetailActivityPresenter presenter;
+    private AppBarLayout appBarLayout;
+
 
     private int movieId;
 
@@ -82,6 +87,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         mFabFavorite = (FloatingActionButton) findViewById(R.id.detail_fab_button_favorite);
         mFabFavorite.setOnClickListener(this);
         mImageProgressIndicator = (ProgressBar) findViewById(R.id.detail_background_image_progress_indicator);
+        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
+        appBarLayout.addOnOffsetChangedListener(this);
     }
 
     @Override
@@ -163,16 +170,32 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void markFabAsFavorite(boolean isFavorite) {
-        if (isFavorite) {
+    public void markFabAsFavorite() {
             mFabFavorite.setImageResource(R.drawable.fab_heart_fav);
-        } else {
-            mFabFavorite.setImageResource(R.drawable.fab_heart);
-        }
+    }
+
+    @Override
+    public void unMarkFabFromFavorite() {
+        mFabFavorite.setImageResource(R.drawable.fab_heart);
     }
 
     @Override
     public void setFabButtonVisible() {
         mFabFavorite.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        presenter.setAppBarOffsetChanged(appBarLayout.getTotalScrollRange(), verticalOffset);
+    }
+
+    @Override
+    public void animateFabDown(int value) {
+        ViewCompat.animate(mFabFavorite).translationY(value).start();
+    }
+
+    @Override
+    public void animateFabUp(int value) {
+        ViewCompat.animate(mFabFavorite).translationY(value).start();
     }
 }

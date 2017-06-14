@@ -2,6 +2,7 @@ package tobiapplications.com.moviebase.ui.movie_detail;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.design.widget.AppBarLayout;
 
 import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
 
@@ -11,7 +12,7 @@ import tobiapplications.com.moviebase.model.detail_response.MovieDetailResponse;
 
 public interface DetailActivityContract {
 
-    interface View {
+    interface View extends AppBarLayout.OnOffsetChangedListener{
         void setUpActionBar();
         void findMyViews();
         void getMovieId();
@@ -21,8 +22,11 @@ public interface DetailActivityContract {
         void insertMovieIntoDatabase(ContentValues values);
         void deleteCurrentMovieFromFavoriteDatabase(int movieId);
         Cursor getAllFavoriteMovies();
-        void markFabAsFavorite(boolean isFavorite);
+        void markFabAsFavorite();
+        void unMarkFabFromFavorite();
         void setFabButtonVisible();
+        void animateFabDown(int value);
+        void animateFabUp(int value);
     }
 
     interface Presenter {
@@ -33,6 +37,7 @@ public interface DetailActivityContract {
         void handleFabClick();
         void insertCurrentMovieToFavoriteDatabase();
         void checkIfMovieIsMarkedAsFavorite();
+        void setAppBarOffsetChanged(int totalScrollRange, int verticalOffset);
     }
 
 }
