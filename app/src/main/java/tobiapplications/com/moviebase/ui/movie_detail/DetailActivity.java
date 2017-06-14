@@ -130,15 +130,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onFabClickedToast(boolean marked) {
-        if (marked) {
-            Toast.makeText(this, getString(R.string.marked_as_favorite), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, getString(R.string.unmarked_as_favorite), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
     public void insertMovieIntoDatabase(ContentValues values) {
         getContentResolver().insert(MoviesContract.MovieEntry.CONTENT_URI, values);
     }
@@ -171,12 +162,22 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void markFabAsFavorite() {
-            mFabFavorite.setImageResource(R.drawable.fab_heart_fav);
+        mFabFavorite.setImageResource(R.drawable.fab_heart_fav);
     }
 
     @Override
     public void unMarkFabFromFavorite() {
         mFabFavorite.setImageResource(R.drawable.fab_heart);
+    }
+
+    @Override
+    public void showMarkAsFavoriteToast() {
+        Toast.makeText(this, getString(R.string.marked_as_favorite), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showRemovedFromFavoriteToast() {
+        Toast.makeText(this, getString(R.string.unmarked_as_favorite), Toast.LENGTH_SHORT).show();
     }
 
     @Override

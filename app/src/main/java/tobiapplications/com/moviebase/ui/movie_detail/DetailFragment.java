@@ -23,7 +23,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
 
     private RecyclerView recyclerView;
     private DetailAdapter adapter;
-    private DetailPresenter presenter;
+    private DetailFragmentPresenter presenter;
 
     private Context mContext;
     private MovieDetailResponse detailMovie;
@@ -43,7 +43,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
 
         detailMovie = (MovieDetailResponse) getArguments().get(Constants.CLICKED_MOVIE);
         adapter = new DetailAdapter(mContext);
-        presenter = new DetailPresenter(detailMovie);
+        presenter = new DetailFragmentPresenter();
     }
 
     @Override
@@ -60,6 +60,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
 
         findMyViews();
         setAdapter();
+        presenter.buildUiFromResponse(detailMovie);
     }
 
     private void findMyViews() {

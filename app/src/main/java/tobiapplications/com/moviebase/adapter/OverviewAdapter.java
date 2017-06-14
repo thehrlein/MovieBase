@@ -25,12 +25,14 @@ import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.MovieOverviewModel;
 import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
+import tobiapplications.com.moviebase.viewholder.overview.LoadingHolder;
+import tobiapplications.com.moviebase.viewholder.overview.MovieHolder;
 
 /**
  * Created by Tobias on 09.06.2017.
  */
 
-public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements PopupMenu.OnMenuItemClickListener {
+public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final RecyclerView mRecyclerView;
     private final Context mContext;
@@ -111,7 +113,7 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_MOVIE) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_movie, parent, false);
-            return new MovieHolder(view);
+            return new MovieHolder(view, movieClickListener);
         } else if (viewType == VIEW_TYPE_LOADING) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_movie_loading, parent, false);
             return new LoadingHolder(view);
@@ -138,19 +140,8 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private void bindMovieItem(RecyclerView.ViewHolder holder, RecyclerItem item) {
         MovieHolder movieHolder = (MovieHolder) holder;
         MovieOverviewModel movie = (MovieOverviewModel) item.getItem();
-        movieHolder.mMovieTitleNoPicture.setText(movie.getTitle());
-        movieHolder.mMovieTitle.setText(movie.getTitle());
-        Picasso.with(mContext).load(NetworkUtils.getFullImageUrl(movie.getTitleImagePath())).into(movieHolder.mPosterImage);
-        movieHolder.mMovieCardDots.setOnClickListener((View v) -> showPopMenu(v));
+        movieHolder.setInformation(movie, mContext);
      }
-
-    private void showPopMenu(View view) {
-        PopupMenu popupMenu = new PopupMenu(mContext, view);
-        MenuInflater inflater = popupMenu.getMenuInflater();
-        inflater.inflate(R.menu.menu_movie_card, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(this);
-        popupMenu.show();
-    }
 
     @Override
     public int getItemCount() {
@@ -193,15 +184,6 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyDataSetChanged();
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        if (item.getItemId() == R.id.action_add_favorite) {
-            Toast.makeText(mContext, "Add favorite", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        return false;
-    }
-
     public void setOnLoadMoreMoviesListener(OnLoadMoreMoviesListener loadListener) {
         this.movieLoadListener = loadListener;
     }
@@ -215,46 +197,7 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             if (item.getItemType() == VIEW_TYPE_LOADING) {
                 int index = itemList.indexOf(item);
                 itemList.remove(index);
-                notifyItemRangeChanged(index, itemList.size() - index); // TODO check, maybe size - index - 1
-            }
-        }
-    }
-
-    private class LoadingHolder extends RecyclerView.ViewHolder {
-        private ProgressBar mProgressLoading;
-
-        public LoadingHolder(View itemView) {
-            super(itemView);
-            mProgressLoading = (ProgressBar) itemView.findViewById(R.id.movie_loading_progress_indicator);
-        }
-    }
-
-    private class MovieHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView mPosterImage;
-        private TextView mMovieTitleNoPicture;
-        private TextView mMovieTitle;
-        private ImageView mMovieCardDots;
-
-        public MovieHolder(View itemView) {
-            super(itemView);
-
-            mPosterImage = (ImageView) itemView.findViewById(R.id.movie_image);
-            mMovieTitle = (TextView) itemView.findViewById(R.id.movie_title);
-            mMovieTitleNoPicture = (TextView) itemView.findViewById(R.id.movie_title_no_picture);
-            mMovieCardDots = (ImageView) itemView.findViewById(R.id.movie_card_dots);
-            mMovieCardDots.setOnClickListener(this);
-
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-
-            if (movieClickListener != null) {
-                RecyclerItem item = itemList.get(getAdapterPosition());
-                if (item.getItem() instanceof MovieOverviewModel) {
-                    movieClickListener.onMovieClick(((MovieOverviewModel) item.getItem()).getId());
-                }
+                notifyItemRangeChanged(index, itemList.size() - index);
             }
         }
     }
