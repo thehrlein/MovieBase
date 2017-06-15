@@ -40,6 +40,9 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         String imagePath = detailMovie.getTitleImagePath();
         double voteAverage = detailMovie.getVoteAverage();
         int voteCount = detailMovie.getVoteCount();
-        return new InfoView(imagePath, voteAverage, voteCount);
+        String release = detailMovie.getReleaseDate();
+        boolean adult = detailMovie.isAdult();
+        int runtime = detailMovie.getRuntime();
+        return new InfoView(imagePath, voteAverage, voteCount, release, adult, runtime);
     }
 }

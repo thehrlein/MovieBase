@@ -13,6 +13,10 @@ import java.util.Locale;
 
 public class DateUtils {
 
+    private static final int HOUR = 60;
+    private static final String HOUR_TEXT = "h";
+    private static final String MINUTE_TEXT = "min";
+
     public static String getDMYFromYMD(String oldDateString) {
         SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
         SimpleDateFormat newFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
@@ -26,5 +30,12 @@ public class DateUtils {
         }
 
         return newDateString;
+    }
+
+    public static String getHourMinuteStringFromInt(int minutes) {
+        int hours = minutes / HOUR;
+        int min = minutes - (hours * HOUR);
+
+        return String.valueOf(hours + HOUR_TEXT + " " + min + MINUTE_TEXT);
     }
 }
