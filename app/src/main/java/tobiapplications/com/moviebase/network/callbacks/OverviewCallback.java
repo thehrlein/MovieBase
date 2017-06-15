@@ -6,6 +6,7 @@ import android.util.Log;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.ui.overview.OverviewFragmentContract;
 
@@ -15,22 +16,22 @@ import tobiapplications.com.moviebase.ui.overview.OverviewFragmentContract;
 
 public class OverviewCallback implements Callback<MovieOverviewResponse> {
 
-    private OverviewFragmentContract.Presenter presenter;
+    private OnOverviewMovieLoad listener;
 
-    public OverviewCallback(OverviewFragmentContract.Presenter presenter) {
-        this.presenter = presenter;
+    public OverviewCallback(OnOverviewMovieLoad listener) {
+        this.listener = listener;
     }
 
     @Override
     public void onResponse(Call<MovieOverviewResponse> call, Response<MovieOverviewResponse> response) {
         if (response.isSuccessful()) {
-            presenter.displayMovies(response.body());
+            listener.displayMovies(response.body());
         }
     }
 
     @Override
     public void onFailure(Call<MovieOverviewResponse> call, Throwable t) {
         Log.d("OverviewCallback", "onFailure");
-        presenter.displayError();
+        listener.displayError();
     }
 }

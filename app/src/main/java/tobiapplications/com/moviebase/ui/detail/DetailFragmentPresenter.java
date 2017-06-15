@@ -1,6 +1,7 @@
 package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,11 @@ import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.views.AdditionalInfoView;
 import tobiapplications.com.moviebase.model.detail.views.InfoView;
+import tobiapplications.com.moviebase.model.detail.views.SimilarMoviesView;
 import tobiapplications.com.moviebase.model.detail.views.SummaryView;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
+import tobiapplications.com.moviebase.network.DataManager;
 
 /**
  * Created by Tobias on 14.06.2017.
@@ -62,5 +67,23 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         boolean adult = detailMovie.isAdult();
         int runtime = detailMovie.getRuntime();
         return new InfoView(imagePath, voteAverage, voteCount, release, adult, runtime, detailMovie.getStatus());
+    }
+
+    @Override
+    public void requestMovieDownload() {
+        DataManager.getInstance().requestSimilarMovies(this, detailMovie.getId());
+    }
+
+    @Override
+    public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
+        Toast.makeText(context, "Similar Movies display", Toast.LENGTH_SHORT).show();
+        ArrayList<MovieOverviewModel> movies = movieOverviewResponse.getMovies();
+        RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesView());
+        // TODO create similar movies view / view holder --> parse data and add to detail adapter
+    }
+
+    @Override
+    public void displayError() {
+        Toast.makeText(context, "Similar Movies Error", Toast.LENGTH_SHORT).show();
     }
 }

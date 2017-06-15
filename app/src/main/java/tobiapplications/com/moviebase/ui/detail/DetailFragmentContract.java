@@ -2,6 +2,7 @@ package tobiapplications.com.moviebase.ui.detail;
 
 import java.util.ArrayList;
 
+import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
 import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 
@@ -16,7 +17,7 @@ public interface DetailFragmentContract {
         void displayUiViews(ArrayList<RecyclerItem> detailItems);
     }
 
-    interface Presenter {
+    interface Presenter extends OnOverviewMovieLoad {
 
         void buildUiFromResponse(MovieDetailResponse detailResponse);
     }

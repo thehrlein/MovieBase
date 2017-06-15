@@ -14,12 +14,15 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 public interface TheMovieApi {
 
     @GET ("movie/popular")
-    Call<MovieOverviewResponse> popularMovieResponseCall(@Query("api_key") String api_key, @Query("page") int pageToLoad);
+    Call<MovieOverviewResponse> requestPopularMovies(@Query("api_key") String api_key, @Query("page") int pageToLoad);
 
     @GET ("movie/top_rated")
-    Call<MovieOverviewResponse> topRatedMovieResponseCall(@Query("api_key") String api_key, @Query("page") int pageToLoad);
+    Call<MovieOverviewResponse> requestTopRatedMovies(@Query("api_key") String api_key, @Query("page") int pageToLoad);
 
     @GET("movie/{id}")
-    Call<MovieDetailResponse> singleMovieResponseCall(@Path("id") int movieId, @Query("api_key") String api_key);
+    Call<MovieDetailResponse> requestDetailInfo(@Path("id") int movieId, @Query("api_key") String api_key);
+
+    @GET("movie/{id}/similar")
+    Call<MovieOverviewResponse> requestSimilarMovies(@Path("id") int movieId, @Query("api_key") String api_key);
 
 }

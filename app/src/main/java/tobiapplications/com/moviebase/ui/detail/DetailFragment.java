@@ -64,6 +64,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         findMyViews();
         setAdapter();
         presenter.buildUiFromResponse(detailMovie);
+        presenter.requestMovieDownload();
     }
 
     private void findMyViews() {
@@ -83,37 +84,6 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         adapter.addUiViews(detailItems);
     }
 
-//    private void setMovieInformation() {
-//        Picasso.with(mContext).load(NetworkUtils.getFullImageUrl(detailMovie.getTitleImagePath())).into(mDetailMovieTitleImage);
-//
-//        mDetailMovieYear.setText(DateUtils.getDMYFromYMD(detailMovie.getReleaseDate()));
-//        mDetailMovieTitle.setText(detailMovie.getTitle());
-//        mDetailMovieDescription.setText(detailMovie.getDescription());
-//        rating.setRating((float) detailMovie.getVoteAverage());
-//        ratingTextView.setText(String.valueOf(detailMovie.getVoteAverage()));
-//        boolean adult = detailMovie.isAdult();
-//        if (adult) {
-//            mDetailMovieAdult.setText(getString(R.string.string_true));
-//        } else {
-//            mDetailMovieAdult.setText(getString(R.string.string_false));
-//        }
-//
-//        if (getView() != null) {
-//            FlexboxLayout mainGenreLayout = (FlexboxLayout) getView().findViewById(R.id.genreLayout);
-//            ArrayList<Genre> genres = detailMovie.getGenres();
-//            for (int i = 0; i < genres.size(); i++) {
-//                String genre = genres.get(i).getName();
-//
-//                TextView tvGenre = (TextView) getActivity().getLayoutInflater().inflate(R.layout.textview_genres, null);
-//                FlexboxLayout.LayoutParams params = new FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//                params.setMargins(0, 0 , 5, 5);
-//                tvGenre.setLayoutParams(params);
-//                tvGenre.setText(genre);
-//
-//                mainGenreLayout.addView(tvGenre);
-//            }
-//        }
-//    }
 
     @Override
     public void onClick(View v) {
