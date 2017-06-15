@@ -23,7 +23,6 @@
     <string name="fullTitle">Full title</string>
     <string name="actors">Actors</string>
     <string name="similar_movies">Similar</string>
-    <string name="synopsis">Synopsis</string>
     <string name="action_search" translatable="false">Search</string>
     <string name="action_settings">Settings</string>
     <string name="search_hint">Search movie</string>
@@ -31,8 +30,14 @@
     <string name="string_false">false</string>
     <string name="menu_add_to_favorite">Add to favorite list</string>
     <string name="info_max_rating">&#160;/&#160;10</string>
-    <string name="info_release">Release</string>
-    <string name="info_runtime">Runtime</string>
+    <string name="info_release_label">Release</string>
+    <string name="info_runtime_label">Runtime</string>
+    <string name="additional_info_budget_label">Budget</string>
+    <string name="additional_info_revenue_label">Revenue</string>
+    <string name="additional_info_homepage_label">Homepage</string>
+    <string name="additional_info_link">Link</string>
+    <string name="additional_info_original_title_label">Original Title</string>
+    <string name="summary_label">Summary</string>
 
 
     <!-- preferences -->

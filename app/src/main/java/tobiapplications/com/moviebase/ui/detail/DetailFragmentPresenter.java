@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.adapter.DetailAdapter;
 import tobiapplications.com.moviebase.model.RecyclerItem;
+import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.detail.views.AdditionalInfoView;
 import tobiapplications.com.moviebase.model.detail.views.InfoView;
 import tobiapplications.com.moviebase.model.detail.views.SummaryView;
 
@@ -33,8 +35,18 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
         detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_INFO, createInfoView(detailMovie)));
         detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_SUMMARY, createSummaryView(detailMovie)));
+        detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_ADDITIONAL_INFO, createAdditionalInfoView(detailMovie)));
 
         parent.displayUiViews(detailItems);
+    }
+
+    private AdditionalInfoView createAdditionalInfoView(MovieDetailResponse detailMovie) {
+        String originalTitle = detailMovie.getOriginalTitle();
+        int budget = detailMovie.getBudget();
+        int revenue = detailMovie.getRevenue();
+        ArrayList<Genre> genres = detailMovie.getGenres();
+        String homepage = detailMovie.getHomepage();
+        return new AdditionalInfoView(originalTitle, budget, revenue, genres, homepage);
     }
 
     private SummaryView createSummaryView(MovieDetailResponse detailMovie) {

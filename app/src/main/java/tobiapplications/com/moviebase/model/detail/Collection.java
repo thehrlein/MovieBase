@@ -2,11 +2,13 @@ package tobiapplications.com.moviebase.model.detail;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by Tobias on 11.06.2017.
  */
 
-public class Collection {
+public class Collection implements Serializable{
 
     @SerializedName("id")
     private int id;

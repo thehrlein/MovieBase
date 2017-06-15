@@ -32,6 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:id="@+id/textView2"
+            android:textStyle="bold"
+            android:textSize="12sp"
             android:layout_marginLeft="0dp"
             app:layout_constraintLeft_toLeftOf="@+id/textView3"
             android:layout_marginTop="16dp"
@@ -54,22 +56,24 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/info_image"
         android:layout_marginTop="16dp"
-        app:layout_constraintHorizontal_bias="0.2" />
+        app:layout_constraintHorizontal_bias="0.15" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/info_runtime"
+        android:text="@string/info_runtime_label"
+        android:textStyle="bold"
+        android:textSize="12sp"
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/textView"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-    android:id="@+id/info_runtime"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+        android:id="@+id/info_runtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         tools:text="2h 20min"
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/info_release"
@@ -77,13 +81,12 @@
         android:layout_marginTop="0dp" />
 
     <TextView
-    android:id="@+id/info_release"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-
+        android:id="@+id/info_release"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         tools:text="30.05.2017"
         android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/info_rating_count"
+        app:layout_constraintLeft_toLeftOf="@+id/info_rating_average"
         app:layout_constraintTop_toTopOf="@+id/textView"
         android:layout_marginTop="0dp" />
 
@@ -91,7 +94,9 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/info_release"
+        android:text="@string/info_release_label"
+        android:textStyle="bold"
+        android:textSize="12sp"
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/info_rating_bar"
         android:layout_marginTop="16dp"
@@ -118,16 +123,19 @@
         android:layout_marginLeft="48dp" />
 
     <TextView
-    android:id="@+id/info_rating_count"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+        android:id="@+id/info_rating_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         tools:text="1076"
+        android:textSize="12sp"
         android:layout_marginTop="0dp"
         app:layout_constraintTop_toBottomOf="@+id/info_rating_average"
         app:layout_constraintBottom_toBottomOf="@+id/info_rating_bar"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/info_rating_average" />
+        app:layout_constraintLeft_toLeftOf="@+id/info_rating_average"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="@+id/info_rating_average" />
 
     <ImageView
         android:id="@+id/info_image"
