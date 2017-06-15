@@ -3,35 +3,39 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_margin="20dp">
+    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/info_status"
-        tools:text="Released"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/cardView"
+        app:cardElevation="2dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp" />
-
-    <ImageView
-        android:id="@+id/info_image"
-        android:layout_width="125dp"
-        android:layout_height="187dp"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintHorizontal_bias="0.036"
-        app:layout_constraintVertical_bias="0.023"
-        app:layout_constraintTop_toBottomOf="@+id/info_status" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp">
+
+
+        <TextView
+            android:text="@string/adult"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/textView2"
+            android:layout_marginLeft="0dp"
+            app:layout_constraintLeft_toLeftOf="@+id/textView3"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 
     <RatingBar
@@ -43,123 +47,112 @@
         android:layout_marginStart="10dp"
         android:numStars="1"
         android:rating="1"
-        app:layout_constraintBottom_toBottomOf="@+id/info_image"
-        android:layout_marginBottom="49dp"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintTop_toTopOf="@+id/info_image"
-        android:layout_marginTop="0dp"
-        app:layout_constraintVertical_bias="0.191"
-        android:layout_marginRight="0dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/info_image"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/info_image"
-        app:layout_constraintHorizontal_bias="0.538" />
+        app:layout_constraintTop_toTopOf="@+id/info_image"
+        android:layout_marginTop="16dp"
+        app:layout_constraintHorizontal_bias="0.2" />
 
     <TextView
-        android:id="@+id/info_release"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/info_runtime"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/textView"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+    android:id="@+id/info_runtime"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        tools:text="2h 20min"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/info_release"
+        app:layout_constraintTop_toTopOf="@+id/textView3"
+        android:layout_marginTop="0dp" />
+
+    <TextView
+    android:id="@+id/info_release"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
         tools:text="30.05.2017"
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/info_rating_count"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="@+id/info_rating_count"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        android:layout_marginTop="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginTop="0dp" />
 
     <TextView
-        android:id="@+id/info_rating_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="1076"
-        app:layout_constraintBottom_toBottomOf="@+id/info_rating_bar"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/info_rating_average"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="@+id/info_rating_average"
-        android:layout_marginTop="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/info_rating_average"
-        app:layout_constraintHorizontal_bias="0.416" />
-
-    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/info_release"
-        android:id="@+id/textView"
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/info_rating_bar"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="@+id/info_rating_bar"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/info_rating_bar"
-        app:layout_constraintHorizontal_bias="0.5" />
-
-    <TextView
-        android:id="@+id/info_rating_average"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="7.1"
-        app:layout_constraintLeft_toRightOf="@+id/info_rating_bar"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
-        android:layout_marginTop="0dp"
-        app:layout_constraintTop_toTopOf="@+id/info_rating_bar" />
-
-    <TextView
-        android:text="@string/adult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/textView"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="@+id/textView"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:id="@+id/textView2"
-        app:layout_constraintHorizontal_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/info_rating_bar" />
 
     <TextView
         android:id="@+id/info_adult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         tools:text="Yes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/info_release"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="@+id/info_release"
+        app:layout_constraintLeft_toLeftOf="@+id/info_runtime"
         app:layout_constraintTop_toTopOf="@+id/textView2"
-        android:layout_marginTop="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        android:layout_marginBottom="0dp" />
+        android:layout_marginTop="0dp" />
 
     <TextView
-        android:text="@string/info_runtime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/textView2"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="@+id/textView2"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        android:id="@+id/textView3" />
+    android:id="@+id/info_rating_average"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        tools:text="7.1"
+        app:layout_constraintTop_toTopOf="@+id/info_rating_bar"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/info_rating_bar"
+        android:layout_marginLeft="48dp" />
 
     <TextView
-        android:id="@+id/info_runtime"
-        tools:text="2h 20min"
+    android:id="@+id/info_rating_count"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        tools:text="1076"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/info_rating_average"
+        app:layout_constraintBottom_toBottomOf="@+id/info_rating_bar"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/info_rating_average" />
+
+    <ImageView
+        android:id="@+id/info_image"
+        android:layout_width="125dp"
+        android:layout_height="187dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/info_status"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/info_status"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/info_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/info_adult"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="@+id/info_adult"
-        android:layout_marginTop="0dp"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
+        tools:text="Released"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp" />
+
+</android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
 
 </android.support.constraint.ConstraintLayout>

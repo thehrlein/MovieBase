@@ -8,6 +8,7 @@ import tobiapplications.com.moviebase.adapter.DetailAdapter;
 import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.views.InfoView;
+import tobiapplications.com.moviebase.model.detail.views.SummaryView;
 
 /**
  * Created by Tobias on 14.06.2017.
@@ -31,9 +32,14 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         ArrayList<RecyclerItem> detailItems = new ArrayList<>();
 
         detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_INFO, createInfoView(detailMovie)));
-
+        detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_SUMMARY, createSummaryView(detailMovie)));
 
         parent.displayUiViews(detailItems);
+    }
+
+    private SummaryView createSummaryView(MovieDetailResponse detailMovie) {
+        String summary = detailMovie.getDescription();
+        return new SummaryView(summary);
     }
 
     private InfoView createInfoView(MovieDetailResponse detailMovie) {

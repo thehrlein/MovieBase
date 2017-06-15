@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.views.InfoView;
+import tobiapplications.com.moviebase.model.detail.views.SummaryView;
 import tobiapplications.com.moviebase.viewholder.detail.InfoViewHolder;
+import tobiapplications.com.moviebase.viewholder.detail.SummaryViewHolder;
 
 /**
  * Created by Tobias on 14.06.2017.
@@ -24,6 +26,7 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private LayoutInflater layoutInflater;
 
     public static final int VIEW_TYPE_INFO = 200;
+    public static final int VIEW_TYPE_SUMMARY = 201;
 
     public DetailAdapter(Context context) {
         this.context = context;
@@ -35,8 +38,9 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEW_TYPE_INFO:
-                View view = LayoutInflater.from(context).inflate(R.layout.view_info, parent, false);
-                return new InfoViewHolder(view, context);
+                return new InfoViewHolder(LayoutInflater.from(context).inflate(R.layout.view_info, parent, false), context);
+            case VIEW_TYPE_SUMMARY:
+                return new SummaryViewHolder(LayoutInflater.from(context).inflate(R.layout.view_summary, parent, false));
         }
         return null;
     }
@@ -47,12 +51,20 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         switch (item.getItemType()) {
             case VIEW_TYPE_INFO:
                 bindInfoView((InfoViewHolder) holder, item);
+                break;
+            case VIEW_TYPE_SUMMARY:
+                bindSummaryView((SummaryViewHolder) holder, item);
         }
     }
 
-    private void bindInfoView(InfoViewHolder viewHolder, RecyclerItem item) {
+    private void bindSummaryView(SummaryViewHolder summaryHolder, RecyclerItem item) {
+        SummaryView summaryView = (SummaryView) item.getItem();
+        summaryHolder.setSummary(summaryView.getSummary());
+    }
+
+    private void bindInfoView(InfoViewHolder infoHolder, RecyclerItem item) {
         InfoView infoView = (InfoView) item.getItem();
-        viewHolder.setInformation(infoView);
+        infoHolder.setInformation(infoView);
     }
 
     @Override
