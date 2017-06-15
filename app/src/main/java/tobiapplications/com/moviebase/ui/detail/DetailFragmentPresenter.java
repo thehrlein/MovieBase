@@ -43,6 +43,6 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         String release = detailMovie.getReleaseDate();
         boolean adult = detailMovie.isAdult();
         int runtime = detailMovie.getRuntime();
-        return new InfoView(imagePath, voteAverage, voteCount, release, adult, runtime);
+        return new InfoView(imagePath, voteAverage, voteCount, release, adult, runtime, detailMovie.getStatus());
     }
 }

@@ -10,4 +10,5 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorDetailButtonGreen">#86e4db</color>
     <color name="colorDetailButtonText">#767b7b</color>
+    <color name="colorStatusOk">#007300</color>
 </resources>

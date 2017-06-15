@@ -15,14 +15,16 @@ public class InfoView {
     private String releaseDate;
     private boolean adult;
     private int runtime;
+    private String status;
 
-    public InfoView(String imagePath, double voteAverage, int count, String releaseDate, boolean adult, int runtime) {
+    public InfoView(String imagePath, double voteAverage, int count, String releaseDate, boolean adult, int runtime, String status) {
         this.imagePath = imagePath;
         this.voteAverage = voteAverage;
         this.voteCount = count;
         this.releaseDate = releaseDate;
         this.adult = adult;
         this.runtime = runtime;
+        this.status = status;
     }
 
     public String getImagePath() {
@@ -47,5 +49,9 @@ public class InfoView {
 
     public int getRuntime() {
         return runtime;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

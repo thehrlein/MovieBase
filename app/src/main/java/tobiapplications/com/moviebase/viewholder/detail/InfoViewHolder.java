@@ -1,6 +1,8 @@
 package tobiapplications.com.moviebase.viewholder.detail;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,6 +32,7 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private TextView infoRelease;
     private TextView infoAdult;
     private TextView infoRuntime;
+    private TextView infoStatus;
 
     public InfoViewHolder(View itemView, Context context) {
         super(itemView);
@@ -41,6 +44,7 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         infoRelease = (TextView) itemView.findViewById(R.id.info_release);
         infoAdult = (TextView) itemView.findViewById(R.id.info_adult);
         infoRuntime = (TextView) itemView.findViewById(R.id.info_runtime);
+        infoStatus = (TextView) itemView.findViewById(R.id.info_status);
 
         infoImage.setOnClickListener(this);
     }
@@ -53,6 +57,10 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         infoRelease.setText(DateUtils.getDMYFromYMD(view.getReleaseDate()));
         infoAdult.setText(String.valueOf(view.isAdult()));
         infoRuntime.setText(DateUtils.getHourMinuteStringFromInt(view.getRuntime()));
+        infoStatus.setText(view.getStatus());
+        if (view.getStatus().equalsIgnoreCase("released")) {
+            infoStatus.setTextColor(ContextCompat.getColor(context, R.color.colorStatusOk));
+        }
     }
 
     @Override
