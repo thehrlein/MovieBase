@@ -8,9 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
+import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.detail.views.SimilarMoviesView;
@@ -23,10 +26,11 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
  * Created by Tobias on 15.06.2017.
  */
 
-public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
 
     private LinearLayout similarMoviesLayout;
     private Context context;
+    private ArrayList<MovieOverviewModel> movies;
 
     public SimilarMoviesViewHolder(View itemView, Context context) {
         super(itemView);
@@ -35,21 +39,21 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder implements 
     }
 
     public void setSimilarMovies(SimilarMoviesView similarMovies) {
-        for (MovieOverviewModel model : similarMovies.getMovies()) {
+        this.movies = similarMovies.getMovies();
+        for (MovieOverviewModel model : movies) {
             ImageView moviePoster = new ImageView(context);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(200, 300);
             moviePoster.setScaleType(ImageView.ScaleType.FIT_XY);
             moviePoster.setLayoutParams(params);
             Picasso.with(context).load(NetworkUtils.getFullImageUrl(model.getTitleImagePath())).into(moviePoster);
-            moviePoster.setOnClickListener(this);
+            moviePoster.setOnClickListener((View v) -> openDetails(model.getId()));
             similarMoviesLayout.addView(moviePoster);
         }
     }
 
-    @Override
-    public void onClick(View v) {
+    private void openDetails(int id) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
-        openMovieDetails.putExtra(Constants.CLICKED_MOVIE, getAdapterPosition());
+        openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
         context.startActivity(openMovieDetails);
     }
 }

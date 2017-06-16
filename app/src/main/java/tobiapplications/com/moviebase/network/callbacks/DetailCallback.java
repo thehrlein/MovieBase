@@ -22,6 +22,8 @@ public class DetailCallback implements Callback<MovieDetailResponse> {
     public void onResponse(Call<MovieDetailResponse> call, Response<MovieDetailResponse> response) {
         if (response.isSuccessful()) {
             presenter.displayMovieResponse(response.body());
+        } else {
+            presenter.displayError();
         }
     }
 

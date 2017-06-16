@@ -26,6 +26,8 @@ public class OverviewCallback implements Callback<MovieOverviewResponse> {
     public void onResponse(Call<MovieOverviewResponse> call, Response<MovieOverviewResponse> response) {
         if (response.isSuccessful()) {
             listener.displayMovies(response.body());
+        } else {
+            listener.displayError();
         }
     }
 

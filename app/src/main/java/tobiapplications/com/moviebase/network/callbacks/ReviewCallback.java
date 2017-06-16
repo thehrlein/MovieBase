@@ -22,6 +22,8 @@ public class ReviewCallback implements Callback<ReviewResponse> {
     public void onResponse(Call<ReviewResponse> call, Response<ReviewResponse> response) {
         if (response.isSuccessful()) {
             presenter.displayReviews(response.body());
+        } else {
+            presenter.displayError();
         }
     }
 

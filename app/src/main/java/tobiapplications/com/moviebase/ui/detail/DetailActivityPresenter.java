@@ -2,6 +2,7 @@ package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
@@ -49,6 +50,7 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
 
     @Override
     public void displayError() {
+        Log.d("DetailActivityPresenter", "ERROR");
         Toast.makeText(parent, "Error DetailActivityPresenter", Toast.LENGTH_SHORT).show();
     }
 

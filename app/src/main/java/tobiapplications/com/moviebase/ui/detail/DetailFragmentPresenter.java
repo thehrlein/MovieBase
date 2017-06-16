@@ -82,14 +82,12 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         ArrayList<MovieOverviewModel> movies = movieOverviewResponse.getMovies();
         RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesView(movies));
         parent.displayUiView(item);
-//        ArrayList<RecyclerItem> items = new ArrayList<>();
-//        items.add(item);
-//        parent.displayUiViews(items);
+
     }
 
     @Override
     public void displayError() {
-        Toast.makeText(context, "Similar Movies Error", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
     }
 
     @Override
