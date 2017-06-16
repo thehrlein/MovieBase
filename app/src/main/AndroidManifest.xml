@@ -21,17 +21,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.overview.OverviewActivity" />
+        <activity android:name=".ui.overview.OverviewActivity">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".ui.search.SearchActivity" />
+        </activity>
         <activity
             android:name=".ui.detail.DetailActivity"
             android:parentActivityName=".ui.overview.OverviewActivity"
-            android:theme="@style/CustomToolbarTitle" />
+            android:theme="@style/CustomToolbarTitle" >
+
+        </activity>
+        <activity android:name=".ui.search.SearchActivity"
+            android:parentActivityName=".ui.overview.OverviewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+
 
         <!-- Provider -->
         <provider
             android:name=".database.MoviesProvider"
             android:authorities="tobiapplications.com.moviebase"
             android:exported="false" />
+
     </application>
 
 </manifest>

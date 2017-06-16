@@ -154,7 +154,7 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             addMovies(movies);
             triggerLoadMoreMovies = true;
 
-            notifyItemRangeChanged(itemList.size() - movies.size(), movies.size()); // TODO check, maybe size - 1
+            notifyItemRangeChanged(itemList.size() - movies.size(), movies.size());
         } else {
             resetList();
         }

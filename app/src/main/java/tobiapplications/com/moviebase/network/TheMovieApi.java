@@ -6,6 +6,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 
 /**
@@ -28,5 +29,8 @@ public interface TheMovieApi {
 
     @GET("movie/{id}/reviews")
     Call<ReviewResponse> requestMovieReviews(@Path("id") int movieId, @Query("api_key") String api_key);
+
+    @GET("search/movie")
+    Call<MovieOverviewResponse> requestSearchMovie(@Query("query") String query, @Query("api_key") String api_key);
 
 }

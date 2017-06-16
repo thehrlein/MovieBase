@@ -1,11 +1,18 @@
 package tobiapplications.com.moviebase.ui.overview;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
@@ -58,5 +65,44 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
 
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu( Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(true);
+        searchView.setSubmitButtonEnabled(true);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                onSearchRequested();
+                break;
+            case  R.id.action_settings:
+                openSettings();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSearchRequested() {
+        // if search view gets focus
+        // doStuff()
+        return super.onSearchRequested();
+    }
+
+    private void openSettings() {
+        Toast.makeText(this, "not implemented yet", Toast.LENGTH_SHORT).show();
     }
 }

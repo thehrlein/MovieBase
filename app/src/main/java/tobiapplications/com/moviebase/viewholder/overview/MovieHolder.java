@@ -31,7 +31,6 @@ public class MovieHolder extends RecyclerView.ViewHolder implements View.OnClick
 
     public MovieHolder(View itemView, OnMovieClickListener movieClickListener) {
         super(itemView);
-
         this.movieClickListener = movieClickListener;
         mPosterImage = (ImageView) itemView.findViewById(R.id.movie_image);
         mMovieTitle = (TextView) itemView.findViewById(R.id.movie_title);

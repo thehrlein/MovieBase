@@ -1,13 +1,8 @@
 package tobiapplications.com.moviebase.model.overview;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-
-import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
  * Created by Tobias on 10.06.2017.
@@ -24,7 +19,7 @@ public class MovieOverviewModel {
      @SerializedName("backdrop_path")
      private String backgroundImagePath;
      @SerializedName("release_date")
-     private String year;
+     private String releaseDate;
      @SerializedName("vote_average")
      private String rating;
      @SerializedName("overview")
@@ -34,12 +29,12 @@ public class MovieOverviewModel {
      @SerializedName("adult")
      private Boolean adult;
 
-    public MovieOverviewModel(int id, String title, String titleImagePath, String backgroundImagePath, String year, String rating, String description, ArrayList<Integer> genres, Boolean adult) {
+    public MovieOverviewModel(int id, String title, String titleImagePath, String backgroundImagePath, String releaseDate, String rating, String description, ArrayList<Integer> genres, Boolean adult) {
         this.id = id;
         this.title = title;
         this.titleImagePath = titleImagePath;
         this.backgroundImagePath = backgroundImagePath;
-        this.year = year;
+        this.releaseDate = releaseDate;
         this.rating = rating;
         this.description = description;
         this.genres = genres;
@@ -58,8 +53,8 @@ public class MovieOverviewModel {
         return id;
     }
 
-    public String getYear() {
-        return year;
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
     public String getRating() {
