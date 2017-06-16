@@ -113,9 +113,9 @@
         android:layout_marginTop="0dp" />
 
     <TextView
-    android:id="@+id/info_rating_average"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+        android:id="@+id/info_rating_average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         tools:text="7.1"
         app:layout_constraintTop_toTopOf="@+id/info_rating_bar"
         android:layout_marginTop="0dp"

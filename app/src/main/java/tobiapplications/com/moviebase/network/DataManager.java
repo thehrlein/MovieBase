@@ -15,9 +15,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.callbacks.DetailCallback;
 import tobiapplications.com.moviebase.network.callbacks.OverviewCallback;
+import tobiapplications.com.moviebase.network.callbacks.ReviewCallback;
 import tobiapplications.com.moviebase.ui.detail.DetailActivityPresenter;
 import tobiapplications.com.moviebase.ui.detail.DetailFragmentContract;
 import tobiapplications.com.moviebase.ui.overview.OverviewFragmentContract;
@@ -97,6 +99,11 @@ public class DataManager {
     public void requestSimilarMovies(OnOverviewMovieLoad listener, int movieId) {
         Call<MovieOverviewResponse> similarMovieCall = getMovieApi().requestSimilarMovies(movieId, NetworkUtils.getKey());
         similarMovieCall.enqueue(new OverviewCallback(listener));
+    }
+
+    public void requestReviews(int movieId) {
+        Call<ReviewResponse> reviewResponseCall = getMovieApi().requestMovieReviews(movieId, NetworkUtils.getKey());
+        reviewResponseCall.enqueue(new ReviewCallback());
     }
 
 }

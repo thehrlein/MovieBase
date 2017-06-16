@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -18,7 +16,7 @@ import java.util.Locale;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.views.AdditionalInfoView;
-import tobiapplications.com.moviebase.model.detail.views.GenreTextView;
+import tobiapplications.com.moviebase.ui.general_views.GenreTextView;
 
 /**
  * Created by Tobias on 15.06.2017.

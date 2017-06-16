@@ -66,7 +66,8 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         String release = detailMovie.getReleaseDate();
         boolean adult = detailMovie.isAdult();
         int runtime = detailMovie.getRuntime();
-        return new InfoView(imagePath, voteAverage, voteCount, release, adult, runtime, detailMovie.getStatus());
+        String status = detailMovie.getStatus();
+        return new InfoView(imagePath, voteAverage, voteCount, release, adult, runtime, status);
     }
 
     @Override
@@ -76,10 +77,11 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
     @Override
     public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
-        Toast.makeText(context, "Similar Movies display", Toast.LENGTH_SHORT).show();
         ArrayList<MovieOverviewModel> movies = movieOverviewResponse.getMovies();
-        RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesView());
-        // TODO create similar movies view / view holder --> parse data and add to detail adapter
+        RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesView(movies));
+        ArrayList<RecyclerItem> items = new ArrayList<>();
+        items.add(item);
+        parent.displayUiViews(items);
     }
 
     @Override

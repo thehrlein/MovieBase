@@ -3,7 +3,6 @@ package tobiapplications.com.moviebase.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -12,9 +11,11 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.views.AdditionalInfoView;
 import tobiapplications.com.moviebase.model.detail.views.InfoView;
+import tobiapplications.com.moviebase.model.detail.views.SimilarMoviesView;
 import tobiapplications.com.moviebase.model.detail.views.SummaryView;
 import tobiapplications.com.moviebase.viewholder.detail.AdditionalInfoViewHolder;
 import tobiapplications.com.moviebase.viewholder.detail.InfoViewHolder;
+import tobiapplications.com.moviebase.viewholder.detail.SimilarMoviesViewHolder;
 import tobiapplications.com.moviebase.viewholder.detail.SummaryViewHolder;
 
 /**
@@ -30,6 +31,10 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public static final int VIEW_TYPE_INFO = 200;
     public static final int VIEW_TYPE_SUMMARY = 201;
     public static final int VIEW_TYPE_ADDITIONAL_INFO = 202;
+    public static final int VIEW_TYPE_SIMILAR_MOVIES = 203;
+    public static final int VIEW_TYPE_ACTORS = 204;
+    public static final int VIEW_TYPE_REVIEWS = 205;
+    public static final int VIEW_TYPE_TRAILERS = 206;
 
     public DetailAdapter(Context context) {
         this.context = context;
@@ -41,11 +46,13 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEW_TYPE_INFO:
-                return new InfoViewHolder(LayoutInflater.from(context).inflate(R.layout.view_info, parent, false), context);
+                return new InfoViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_info, parent, false), context);
             case VIEW_TYPE_SUMMARY:
-                return new SummaryViewHolder(LayoutInflater.from(context).inflate(R.layout.view_summary, parent, false));
+                return new SummaryViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_summary, parent, false));
             case VIEW_TYPE_ADDITIONAL_INFO:
-                return new AdditionalInfoViewHolder(LayoutInflater.from(context).inflate(R.layout.view_additional_info, parent, false), context);
+                return new AdditionalInfoViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_additional_info, parent, false), context);
+            case VIEW_TYPE_SIMILAR_MOVIES:
+                return new SimilarMoviesViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_similar_movies, parent, false), context);
         }
         return null;
     }
@@ -63,7 +70,14 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             case VIEW_TYPE_ADDITIONAL_INFO:
                 bindAdditionalInfoView((AdditionalInfoViewHolder) holder, item);
                 break;
+            case VIEW_TYPE_SIMILAR_MOVIES:
+                bindSimilarMoviesView((SimilarMoviesViewHolder) holder, item);
         }
+    }
+
+    private void bindSimilarMoviesView(SimilarMoviesViewHolder similarMoviesViewHolder, RecyclerItem item) {
+        SimilarMoviesView similarMoviesView = (SimilarMoviesView) item.getItem();
+        similarMoviesViewHolder.setSimilarMovies(similarMoviesView);
     }
 
     private void bindAdditionalInfoView(AdditionalInfoViewHolder additionalHolder, RecyclerItem item) {

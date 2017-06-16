@@ -1,13 +1,11 @@
-package tobiapplications.com.moviebase.model.detail.views;
+package tobiapplications.com.moviebase.ui.general_views;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
 
