@@ -34,10 +34,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private ImageView mDetailMovieBackgroundImage;
     private FloatingActionButton mFabFavorite;
     private Toolbar mToolbar;
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
     private ProgressBar mImageProgressIndicator;
-    private ViewPagerAdapter mAdapter;
     private DetailActivityPresenter presenter;
     private AppBarLayout appBarLayout;
 
@@ -57,12 +54,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         presenter = new DetailActivityPresenter(this, movieId);
         presenter.requestSingleMovieDownload();
-
-        if (Build.VERSION.SDK_INT >= 21)
-        {
-       //     getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
-
     }
 
     @Override
@@ -78,8 +69,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void findMyViews() {
-        mTabLayout = (TabLayout) findViewById(R.id.tabs);
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mDetailMovieBackgroundImage = (ImageView) findViewById(R.id.toolbarBackgroundImage);
         mDetailMovieBackgroundImage.setOnClickListener(this);
@@ -92,7 +81,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void setUpActionBar() {
-
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -125,7 +113,11 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     public void setMovieInformation(String title, String moviePath) {
         mToolbar.setTitle(title);
         mImageProgressIndicator.setVisibility(View.GONE);
-        Picasso.with(this).load(moviePath).into(mDetailMovieBackgroundImage);
+        if (moviePath != null) {
+            Picasso.with(this).load(moviePath).into(mDetailMovieBackgroundImage);
+        } else {
+            mDetailMovieBackgroundImage.setImageResource(R.drawable.no_image_available);
+        }
     }
 
     @Override

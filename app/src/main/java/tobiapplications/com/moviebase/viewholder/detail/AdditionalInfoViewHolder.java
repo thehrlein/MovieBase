@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -28,8 +29,9 @@ public class AdditionalInfoViewHolder extends RecyclerView.ViewHolder implements
     private TextView budget;
     private TextView revenue;
     private TextView link;
+    private TextView homepage;
     private FlexboxLayout genresLayout;
-    private String homepage;
+    private String url;
     private Context context;
 
     public AdditionalInfoViewHolder(View itemView, Context context) {
@@ -39,16 +41,34 @@ public class AdditionalInfoViewHolder extends RecyclerView.ViewHolder implements
         budget = (TextView) itemView.findViewById(R.id.additional_info_budget);
         revenue = (TextView) itemView.findViewById(R.id.additional_info_revenue);
         genresLayout = (FlexboxLayout) itemView.findViewById(R.id.additional_info_genres);
+        homepage = (TextView) itemView.findViewById(R.id.homepage_label);
         link = (TextView) itemView.findViewById(R.id.additional_info_link);
-        link.setOnClickListener(this);
+
     }
 
     public void setAdditionalInfo(AdditionalInfoView additionalInfo) {
         originalTitle.setText(additionalInfo.getOriginalTitle());
-        budget.setText(formatMoney(additionalInfo.getBudget()));
-        revenue.setText(formatMoney(additionalInfo.getRevenue()));
-        homepage = additionalInfo.getHomepage();
+        budget.setText(checkIfMoneyIsEmpty(additionalInfo.getBudget()));
+        revenue.setText(checkIfMoneyIsEmpty(additionalInfo.getRevenue()));
+        if (TextUtils.isEmpty(additionalInfo.getHomepage())) {
+            hideHomepageLine();
+        } else {
+            url = additionalInfo.getHomepage();
+            link.setOnClickListener(this);
+        }
         setGenresLayout(additionalInfo.getGenres());
+    }
+
+    private String checkIfMoneyIsEmpty(int budget) {
+        if (budget == 0) {
+            return context.getString(R.string.unknown);
+        }
+        return formatMoney(budget);
+    }
+
+    private void hideHomepageLine() {
+        link.setVisibility(View.GONE);
+        homepage.setVisibility(View.GONE);
     }
 
     private String formatMoney(int budget) {
@@ -69,7 +89,7 @@ public class AdditionalInfoViewHolder extends RecyclerView.ViewHolder implements
     @Override
     public void onClick(View v) {
         Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(homepage));
+        i.setData(Uri.parse(url));
         context.startActivity(i);
     }
 }

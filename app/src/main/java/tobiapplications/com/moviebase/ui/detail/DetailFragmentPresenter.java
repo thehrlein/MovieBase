@@ -79,10 +79,11 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
     @Override
     public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
-        ArrayList<MovieOverviewModel> movies = movieOverviewResponse.getMovies();
-        RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesView(movies));
-        parent.displayUiView(item);
-
+        if (movieOverviewResponse.getTotalResults() != 0) {
+            ArrayList<MovieOverviewModel> movies = movieOverviewResponse.getMovies();
+            RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesView(movies));
+            parent.displayUiView(item);
+        }
     }
 
     @Override
@@ -97,7 +98,9 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
     @Override
     public void displayReviews(ReviewResponse response) {
-        RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_REVIEWS, response);
-        parent.displayUiView(item);
+        if (response.getTotalResults() != 0) {
+            RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_REVIEWS, response);
+            parent.displayUiView(item);
+        }
     }
 }

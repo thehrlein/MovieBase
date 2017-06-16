@@ -14,6 +14,7 @@ import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.detail.views.InfoView;
+import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.DateUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
@@ -51,23 +52,28 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public void setInformation(InfoView view) {
         this.infoView = view;
-        Picasso.with(context).load(NetworkUtils.getFullImageUrl(view.getImagePath())).into(infoImage);
+        if (view.getImagePath() != null) {
+            Picasso.with(context).load(NetworkUtils.getFullImageUrl(view.getImagePath())).into(infoImage);
+        } else {
+            infoImage.setImageResource(R.drawable.no_image_available);
+        }
         infoRatingAverage.setText(String.valueOf(view.getVoteAverage() + context.getString(R.string.info_max_rating)));
         infoRatingCount.setText(String.valueOf(view.getVoteCount()));
         infoRelease.setText(DateUtils.getDMYFromYMD(view.getReleaseDate()));
         infoAdult.setText(String.valueOf(view.isAdult()));
         infoRuntime.setText(DateUtils.getHourMinuteStringFromInt(view.getRuntime()));
         infoStatus.setText(view.getStatus());
-        if (view.getStatus().equalsIgnoreCase("released")) {
+        if (view.getStatus().equalsIgnoreCase(Constants.RELEASED))
             infoStatus.setTextColor(ContextCompat.getColor(context, R.color.colorStatusOk));
-        }
     }
 
     @Override
     public void onClick(View v) {
-        new ImageViewer.Builder(context, new String[]{NetworkUtils.getFullImageUrl(infoView.getImagePath())})
-                .setStartPosition(0)
-                .show();
+        if (infoView.getImagePath() != null) {
+            new ImageViewer.Builder(context, new String[]{NetworkUtils.getFullImageUrl(infoView.getImagePath())})
+                    .setStartPosition(0)
+                    .show();
+        }
     }
 }
 

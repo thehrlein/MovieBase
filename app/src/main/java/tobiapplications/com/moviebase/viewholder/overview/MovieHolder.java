@@ -52,7 +52,11 @@ public class MovieHolder extends RecyclerView.ViewHolder implements View.OnClick
         movieId = movie.getId();
         mMovieTitleNoPicture.setText(movie.getTitle());
         mMovieTitle.setText(movie.getTitle());
-        Picasso.with(context).load(NetworkUtils.getFullImageUrl(movie.getTitleImagePath())).into(mPosterImage);
+        if (movie.getTitleImagePath() != null) {
+            Picasso.with(context).load(NetworkUtils.getFullImageUrl(movie.getTitleImagePath())).into(mPosterImage);
+        } else {
+            mPosterImage.setImageResource(R.drawable.no_image_available);
+        }
         mMovieCardDots.setOnClickListener((View v) -> showPopMenu(v, context));
     }
 

@@ -7,4 +7,5 @@ package tobiapplications.com.moviebase.utils;
 public class Constants {
 
     public static final String CLICKED_MOVIE = "clickedMovie";
+    public static final String RELEASED = "released";
 }

@@ -76,6 +76,7 @@
     <string name="genre_war" translatable="false">War</string>
     <string name="genre_western" translatable="false">Western</string>
     <string name="genre_not_found">No specific genre</string>
+    <string name="unknown">unknown</string>
 
 
 </resources>

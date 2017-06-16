@@ -56,7 +56,7 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
 
     @Override
     public void openToolbarImage() {
-        if (clickedMovie != null){
+        if (clickedMovie != null && clickedMovie.getBackgroundImagePath() != null){
             new ImageViewer.Builder(parent, new String[]{NetworkUtils.getFullImageUrl(clickedMovie.getBackgroundImagePath())})
                     .setStartPosition(0)
                     .show();

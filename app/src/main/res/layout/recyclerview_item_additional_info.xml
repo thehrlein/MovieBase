@@ -101,7 +101,7 @@
                 android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@+id/textView5"
                 app:layout_constraintLeft_toLeftOf="@+id/textView5"
-                android:id="@+id/textView6" />
+                android:id="@+id/homepage_label" />
 
             <TextView
                 android:id="@+id/additional_info_link"
@@ -109,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@+id/additional_info_revenue"
-                app:layout_constraintTop_toTopOf="@+id/textView6"
+                app:layout_constraintTop_toTopOf="@+id/homepage_label"
                 android:textColor="@color/colorPrimaryDark" />
 
 
@@ -128,7 +128,7 @@
                 android:layout_marginRight="8dp"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/homepage_label"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintHorizontal_bias="0.0"
