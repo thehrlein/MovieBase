@@ -11,16 +11,34 @@ import java.util.ArrayList;
 
 public class ReviewResponse implements Serializable {
 
-    @SerializedName("count")
-    private int count;
-    @SerializedName("reviews")
+    @SerializedName("id")
+    private int id;
+    @SerializedName("page")
+    private int currentpage;
+    @SerializedName("results")
     private ArrayList<Review> reviews;
+    @SerializedName("total_pages")
+    private int totalPages;
+    @SerializedName("total_results")
+    private int totalResults;
 
-    public int getCount() {
-        return count;
+    public int getCurrentpage() {
+        return currentpage;
     }
 
     public ArrayList<Review> getReviews() {
         return reviews;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public int getTotalResults() {
+        return totalResults;
     }
 }

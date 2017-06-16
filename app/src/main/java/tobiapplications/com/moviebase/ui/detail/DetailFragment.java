@@ -65,6 +65,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         setAdapter();
         presenter.buildUiFromResponse(detailMovie);
         presenter.requestMovieDownload();
+        presenter.requestReviews();
     }
 
     private void findMyViews() {
@@ -84,6 +85,10 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         adapter.addUiViews(detailItems);
     }
 
+    @Override
+    public void displayUiView(RecyclerItem item) {
+        adapter.addUiView(item);
+    }
 
     @Override
     public void onClick(View v) {

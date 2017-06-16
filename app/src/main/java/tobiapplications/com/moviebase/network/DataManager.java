@@ -101,9 +101,9 @@ public class DataManager {
         similarMovieCall.enqueue(new OverviewCallback(listener));
     }
 
-    public void requestReviews(int movieId) {
+    public void requestReviews(DetailFragmentContract.Presenter presenter, int movieId) {
         Call<ReviewResponse> reviewResponseCall = getMovieApi().requestMovieReviews(movieId, NetworkUtils.getKey());
-        reviewResponseCall.enqueue(new ReviewCallback());
+        reviewResponseCall.enqueue(new ReviewCallback(presenter));
     }
 
 }

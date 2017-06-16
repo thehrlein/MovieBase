@@ -9,6 +9,8 @@ import tobiapplications.com.moviebase.adapter.DetailAdapter;
 import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.detail.Review;
+import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 import tobiapplications.com.moviebase.model.detail.views.AdditionalInfoView;
 import tobiapplications.com.moviebase.model.detail.views.InfoView;
 import tobiapplications.com.moviebase.model.detail.views.SimilarMoviesView;
@@ -79,13 +81,25 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
         ArrayList<MovieOverviewModel> movies = movieOverviewResponse.getMovies();
         RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesView(movies));
-        ArrayList<RecyclerItem> items = new ArrayList<>();
-        items.add(item);
-        parent.displayUiViews(items);
+        parent.displayUiView(item);
+//        ArrayList<RecyclerItem> items = new ArrayList<>();
+//        items.add(item);
+//        parent.displayUiViews(items);
     }
 
     @Override
     public void displayError() {
         Toast.makeText(context, "Similar Movies Error", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void requestReviews() {
+        DataManager.getInstance().requestReviews(this, detailMovie.getId());
+    }
+
+    @Override
+    public void displayReviews(ReviewResponse response) {
+        RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_REVIEWS, response);
+        parent.displayUiView(item);
     }
 }

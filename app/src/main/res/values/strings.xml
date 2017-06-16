@@ -13,7 +13,6 @@
     <string name="release">Release</string>
     <string name="info" translatable="false">Info</string>
     <string name="trailers">Trailers</string>
-    <string name="reviews">Reviews</string>
     <string name="no_trailers_available">No tailers available</string>
     <string name="no_reviews_available">No reviews available</string>
     <string name="no_actors_available">No actors available</string>
@@ -38,6 +37,7 @@
     <string name="additional_info_link">Link</string>
     <string name="additional_info_original_title_label">Original Title</string>
     <string name="summary_label">Summary</string>
+    <string name="reviews_label">Reviews</string>
 
 
     <!-- preferences -->

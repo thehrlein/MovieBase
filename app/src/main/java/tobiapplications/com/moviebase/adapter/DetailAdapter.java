@@ -9,12 +9,14 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.RecyclerItem;
+import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 import tobiapplications.com.moviebase.model.detail.views.AdditionalInfoView;
 import tobiapplications.com.moviebase.model.detail.views.InfoView;
 import tobiapplications.com.moviebase.model.detail.views.SimilarMoviesView;
 import tobiapplications.com.moviebase.model.detail.views.SummaryView;
 import tobiapplications.com.moviebase.viewholder.detail.AdditionalInfoViewHolder;
 import tobiapplications.com.moviebase.viewholder.detail.InfoViewHolder;
+import tobiapplications.com.moviebase.viewholder.detail.ReviewsViewHolder;
 import tobiapplications.com.moviebase.viewholder.detail.SimilarMoviesViewHolder;
 import tobiapplications.com.moviebase.viewholder.detail.SummaryViewHolder;
 
@@ -53,6 +55,8 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 return new AdditionalInfoViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_additional_info, parent, false), context);
             case VIEW_TYPE_SIMILAR_MOVIES:
                 return new SimilarMoviesViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_similar_movies, parent, false), context);
+            case VIEW_TYPE_REVIEWS:
+                return new ReviewsViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_reviews, parent, false), context);
         }
         return null;
     }
@@ -72,7 +76,15 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 break;
             case VIEW_TYPE_SIMILAR_MOVIES:
                 bindSimilarMoviesView((SimilarMoviesViewHolder) holder, item);
+                break;
+            case VIEW_TYPE_REVIEWS:
+                bindReviewsView((ReviewsViewHolder) holder, item);
         }
+    }
+
+    private void bindReviewsView(ReviewsViewHolder reviewsViewHolder, RecyclerItem item) {
+        ReviewResponse reviewResponse = (ReviewResponse) item.getItem();
+        reviewsViewHolder.setReviews(reviewResponse);
     }
 
     private void bindSimilarMoviesView(SimilarMoviesViewHolder similarMoviesViewHolder, RecyclerItem item) {
@@ -116,6 +128,13 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (itemList != null) {
             itemList.addAll(detailItems);
             notifyItemRangeChanged(itemList.size() - detailItems.size(), itemList.size());
+        }
+    }
+
+    public void addUiView(RecyclerItem item) {
+        if (item != null) {
+            itemList.add(item);
+            notifyItemInserted(itemList.size());
         }
     }
 }
