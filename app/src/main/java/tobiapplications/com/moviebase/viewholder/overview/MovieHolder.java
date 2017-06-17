@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -74,22 +75,12 @@ public class MovieHolder extends RecyclerView.ViewHolder implements View.OnClick
         popupMenu.show();
     }
 
-    private void setPopupItemText() {
-        popupMenu.getMenu().getItem(0).setTitle(context.getString(R.string.menu_delete_from_favorite));
-    }
-
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         if (item.getItemId() == R.id.action_add_favorite) {
-            insertMovieIntoDatabase();
+            Toast.makeText(context, "not implemented yet", Toast.LENGTH_SHORT).show();
             return true;
         }
         return false;
-    }
-
-    private void insertMovieIntoDatabase() {
-        if (movie != null) {
-            SQLUtils.insertIntoDatabase(context, movie);
-        }
     }
 }
