@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Einstellungen</string>
+    <string name="actors_label">Schauspieer</string>
+    <string name="additional_info_budget_label"></string>
+    <string name="additional_info_original_title_label">Orginaltitel</string>
+    <string name="additional_info_revenue_label">Einspielergebnis</string>
+    <string name="adult">FSK18</string>
+    <string name="app_name" translatable="false"></string>
+    <string name="info_runtime_label">Laufzeit</string>
+    <string name="marked_as_favorite"></string>
+    <string name="no_favorite_movies">Du hast bisher noch keine Favoriten.</string>
+    <string name="no_network_connection">Du bist nicht mit dem Internet verbunden. Schalte bitte deine mobile Daten oder WLAN an.</string>
+    <string name="pref_language_de_label">Deutsch</string>
+    <string name="pref_language_en_label">Englisch</string>
+    <string name="pref_language_label">Sprache</string>
+    <string name="pref_picture_download_label">Bilder anzeigen (empfohlen)?</string>
+    <string name="pref_picture_download_summary_off">Bilder werden angezeigt</string>
+    <string name="pref_picture_download_summary_on">Bilder werden nicht angezeigt</string>
+    <string name="info_release_label">Veröffentlichung</string>
+</resources>

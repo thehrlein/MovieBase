@@ -5,10 +5,6 @@
     <color name="colorPrimaryLight">#81D4FA</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorActionBarDarkGrey">#191919</color>
-    <color name="colorDetailGreen">#009688</color>
     <color name="colorWhite">#ffffff</color>
-    <color name="colorDetailButtonGreen">#86e4db</color>
-    <color name="colorDetailButtonText">#767b7b</color>
     <color name="colorStatusOk">#007300</color>
 </resources>

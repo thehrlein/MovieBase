@@ -9,6 +9,7 @@ import android.view.WindowManager;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.ui.overview.OverviewActivity;
+import tobiapplications.com.moviebase.utils.SettingsUtils;
 
 public class CoverPage extends AppCompatActivity {
 
@@ -18,6 +19,8 @@ public class CoverPage extends AppCompatActivity {
         setContentView(R.layout.activity_cover_page);
 
         showFullscreen();
+
+        setLanguage();
 
         waitAndShowMainActivity();
     }
@@ -32,16 +35,17 @@ public class CoverPage extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
+    private void setLanguage() {
+        SettingsUtils.updateApplicationLanguage(this);
+    }
+
     private void waitAndShowMainActivity() {
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                Intent intent = new Intent(CoverPage.this, OverviewActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }, 2000);
+        new Handler().postDelayed(() -> startOverviewActivity(), 2000);
+    }
+
+    private void startOverviewActivity() {
+        Intent intent = new Intent(CoverPage.this, OverviewActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

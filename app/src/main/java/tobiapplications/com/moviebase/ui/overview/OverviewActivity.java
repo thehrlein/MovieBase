@@ -2,6 +2,7 @@ package tobiapplications.com.moviebase.ui.overview;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
+import tobiapplications.com.moviebase.ui.settings.SettingsActivity;
 
 public class OverviewActivity extends AppCompatActivity implements OverviewActivityContract.View {
 
@@ -103,6 +105,7 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
     }
 
     private void openSettings() {
-        Toast.makeText(this, "not implemented yet", Toast.LENGTH_SHORT).show();
+        Intent openSettings = new Intent(this, SettingsActivity.class);
+        startActivity(openSettings);
     }
 }

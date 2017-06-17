@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:entries="@array/pref_language_options"
+        android:entryValues="@array/pref_language_values"
+        android:key="@string/pref_language_key"
+        android:title="@string/pref_language_label" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/pref_picture_download_default"
+        android:key="@string/pref_picture_download_key"
+        android:summaryOff="@string/pref_picture_download_summary_off"
+        android:summaryOn="@string/pref_picture_download_summary_on"
+        android:title="@string/pref_picture_download_label" />
+
+</PreferenceScreen>
