@@ -142,13 +142,13 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void showMarkAsFavoriteToast() {
-        Toast.makeText(this, getString(R.string.marked_as_favorite), Toast.LENGTH_SHORT).show();
+    public void showMarkAsFavoriteToast(String movieTitle) {
+        Toast.makeText(this, getString(R.string.marked_as_favorite, movieTitle), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showRemovedFromFavoriteToast() {
-        Toast.makeText(this, getString(R.string.unmarked_as_favorite), Toast.LENGTH_SHORT).show();
+    public void showRemovedFromFavoriteToast(String movieTitle) {
+        Toast.makeText(this, getString(R.string.unmarked_as_favorite, movieTitle), Toast.LENGTH_SHORT).show();
     }
 
     @Override

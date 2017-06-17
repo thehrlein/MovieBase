@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name" translatable="false">MovieBase</string>
+    <string name="app_name">MovieBase</string>
     <string name="no_network_connection">You are not connected to the internet. Please turn on to get the movies.</string>
     <string name="title_popular">Popular</string>
     <string name="title_top_rated">Top Rated</string>
     <string name="title_favorite">Own Favorites</string>
-    <string name="marked_as_favorite">Movie was marked as favorite</string>
-    <string name="unmarked_as_favorite">Movie was unmarked as favorite</string>
+    <string name="marked_as_favorite">%s was marked as favorite</string>
+    <string name="unmarked_as_favorite">%s was unmarked as favorite</string>
     <string name="no_favorite_movies">You have not marked any movie as your favorite yet.</string>
     <string name="adult">Adult</string>
     <string name="actors_label">Actors</string>
@@ -16,7 +16,7 @@
     <string name="info_max_rating" translatable="false">&#160;/&#160;10</string>
     <string name="info_release_label">Release</string>
     <string name="info_runtime_label">Runtime</string>
-    <string name="additional_info_budget_label" translatable="false">Budget</string>
+    <string name="additional_info_budget_label">Budget</string>
     <string name="additional_info_revenue_label">Revenue</string>
     <string name="additional_info_homepage_label" translatable="false">Homepage</string>
     <string name="additional_info_link" translatable="false">Link</string>

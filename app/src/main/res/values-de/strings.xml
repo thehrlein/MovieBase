@@ -2,13 +2,13 @@
 <resources>
     <string name="action_settings">Einstellungen</string>
     <string name="actors_label">Schauspieer</string>
-    <string name="additional_info_budget_label"></string>
+    <string name="additional_info_budget_label">Budget</string>
     <string name="additional_info_original_title_label">Orginaltitel</string>
     <string name="additional_info_revenue_label">Einspielergebnis</string>
     <string name="adult">FSK18</string>
-    <string name="app_name" translatable="false"></string>
+    <string name="app_name" translatable="false">MovieBase</string>
     <string name="info_runtime_label">Laufzeit</string>
-    <string name="marked_as_favorite"></string>
+    <string name="marked_as_favorite">%s wurde zu deinen Favoriten hinzugefügt</string>
     <string name="no_favorite_movies">Du hast bisher noch keine Favoriten.</string>
     <string name="no_network_connection">Du bist nicht mit dem Internet verbunden. Schalte bitte deine mobile Daten oder WLAN an.</string>
     <string name="pref_language_de_label">Deutsch</string>
@@ -18,4 +18,13 @@
     <string name="pref_picture_download_summary_off">Bilder werden angezeigt</string>
     <string name="pref_picture_download_summary_on">Bilder werden nicht angezeigt</string>
     <string name="info_release_label">Veröffentlichung</string>
+    <string name="unmarked_as_favorite">%s wurde von deinen Favoriten entfernt</string>
+    <string name="reviews_label">Rezensionen</string>
+    <string name="search_hint">Suche Film</string>
+    <string name="similar_movies">Ähnliche Filme</string>
+    <string name="summary_label">Kurzfassung</string>
+    <string name="title_favorite">Eigene Favoriten</string>
+    <string name="title_popular">Beliebt</string>
+    <string name="title_top_rated">Top bewertet</string>
+    <string name="unknown">unbekannt</string>
 </resources>

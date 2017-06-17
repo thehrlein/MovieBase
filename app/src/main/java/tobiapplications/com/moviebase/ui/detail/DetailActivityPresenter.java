@@ -71,12 +71,12 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
             if (!isMarkedAsFavorite) {
                 isMarkedAsFavorite = true;
                 parent.markFabAsFavorite();
-                parent.showMarkAsFavoriteToast();
+                parent.showMarkAsFavoriteToast(clickedMovie.getTitle());
                 insertCurrentMovieToFavoriteDatabase();
             } else {
                 isMarkedAsFavorite = false;
                 parent.unMarkFabFromFavorite();
-                parent.showRemovedFromFavoriteToast();
+                parent.showRemovedFromFavoriteToast(clickedMovie.getTitle());
 
                 SQLUtils.deleteCurrentMovieFromFavoriteDatabase(context, clickedMovie.getId());
             }

@@ -23,8 +23,8 @@ public interface DetailActivityContract {
         void setFabButtonVisible();
         void animateFabDown(int value);
         void animateFabUp(int value);
-        void showMarkAsFavoriteToast();
-        void showRemovedFromFavoriteToast();
+        void showMarkAsFavoriteToast(String movieTitle);
+        void showRemovedFromFavoriteToast(String movieTitle);
     }
 
     interface Presenter {
