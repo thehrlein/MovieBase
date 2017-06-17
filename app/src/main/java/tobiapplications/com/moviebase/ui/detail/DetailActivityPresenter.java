@@ -1,6 +1,7 @@
 package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.widget.Toast;
@@ -29,10 +30,12 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     private static final int PERCENTAGE_TO_SHOW_IMAGE = 60;
     private int mMaxScrollSize;
     private boolean mIsImageHidden;
+    private Context context;
 
-    public DetailActivityPresenter(DetailActivity activity, int movieId) {
+    public DetailActivityPresenter(DetailActivity activity, int movieId, Context context) {
         this.parent = activity;
         this.movieId = movieId;
+        this.context = context;
     }
 
     @Override
@@ -75,7 +78,8 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
                 isMarkedAsFavorite = false;
                 parent.unMarkFabFromFavorite();
                 parent.showRemovedFromFavoriteToast();
-                parent.deleteCurrentMovieFromFavoriteDatabase(clickedMovie.getId());
+
+                SQLUtils.deleteCurrentMovieFromFavoriteDatabase(context, clickedMovie.getId());
             }
         }
     }
@@ -105,34 +109,19 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
             values.put(MoviesContract.MovieEntry.COLUMN_GENRES, genresString);
             values.put(MoviesContract.MovieEntry.COLUMN_ADULT, clickedMovie.isAdult() ? "yes" : "no");
 
-            parent.insertMovieIntoDatabase(values);
+            SQLUtils.insertIntoDatabase(context, values);
         }
     }
 
     @Override
     public void checkIfMovieIsMarkedAsFavorite() {
-        if (clickedMovie != null) {
-            parent.setFabButtonVisible();
-            Cursor cursor = parent.getAllFavoriteMovies();
+        isMarkedAsFavorite = SQLUtils.checkIfMovieIsMarkedAsFavorite(context, movieId);
 
-            if (cursor.getCount() == 0) {
-                return;
-            }
-
-            int mDetailMovieId = clickedMovie.getId();
-
-            while(cursor.moveToNext()) {
-                int movieId = cursor.getInt(SQLUtils.INDEX_COLUMN_ID);
-                if (mDetailMovieId == movieId) {
-                    isMarkedAsFavorite = true;
-                }
-            }
-
-            if (isMarkedAsFavorite) {
-                parent.markFabAsFavorite();
-            } else {
-                parent.unMarkFabFromFavorite();
-            }
+        parent.setFabButtonVisible();
+        if (isMarkedAsFavorite) {
+            parent.markFabAsFavorite();
+        } else {
+            parent.unMarkFabFromFavorite();
         }
     }
 
@@ -148,14 +137,12 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
         if (currentScrollPercentage >= PERCENTAGE_TO_SHOW_IMAGE) {
             if (!mIsImageHidden) {
                 mIsImageHidden = true;
-                //  ViewCompat.animate(mFabFavorite).scaleY(0).scaleX(0).start();
                 parent.animateFabDown(100);
             }
         }
         if (currentScrollPercentage < PERCENTAGE_TO_SHOW_IMAGE) {
             if (mIsImageHidden) {
                 mIsImageHidden = false;
-                //  ViewCompat.animate(mFabFavorite).scaleY(1).scaleX(1).start();
                 parent.animateFabUp(0);
             }
         }

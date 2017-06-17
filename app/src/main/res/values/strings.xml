@@ -28,6 +28,7 @@
     <string name="string_true">true</string>
     <string name="string_false">false</string>
     <string name="menu_add_to_favorite">Add to favorite list</string>
+    <string name="menu_delete_from_favorite">Delete from favorite list</string>
     <string name="info_max_rating">&#160;/&#160;10</string>
     <string name="info_release_label">Release</string>
     <string name="info_runtime_label">Runtime</string>

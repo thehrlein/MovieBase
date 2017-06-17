@@ -9,7 +9,6 @@ import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 
 /**
  * Created by Tobias on 09.06.2017.

@@ -24,7 +24,7 @@ import tobiapplications.com.moviebase.viewholder.overview.MovieHolder;
 public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final RecyclerView mRecyclerView;
-    private final Context mContext;
+    private final Context context;
     private ArrayList<RecyclerItem> itemList;
     private OnLoadMoreMoviesListener movieLoadListener;
     private OnMovieClickListener movieClickListener;
@@ -39,7 +39,7 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     public OverviewAdapter(Context context, RecyclerView recyclerView, String name) {
-        this.mContext = context;
+        this.context = context;
         this.mRecyclerView = recyclerView;
         this.itemList = new ArrayList<>();
         this.fragmentName = name;
@@ -102,9 +102,9 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEW_TYPE_MOVIE:
-                return new MovieHolder(LayoutInflater.from(mContext).inflate(R.layout.item_movie, parent, false), movieClickListener);
+                return new MovieHolder(LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false), movieClickListener, context);
             case VIEW_TYPE_LOADING:
-                return new LoadingHolder(LayoutInflater.from(mContext).inflate(R.layout.item_movie_loading, parent, false));
+                return new LoadingHolder(LayoutInflater.from(context).inflate(R.layout.item_movie_loading, parent, false));
         }
 
         return null;
@@ -129,7 +129,7 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void bindMovieItem(MovieHolder movieHolder, RecyclerItem item) {
         MovieOverviewModel movie = (MovieOverviewModel) item.getItem();
-        movieHolder.setInformation(movie, mContext);
+        movieHolder.setInformation(movie, context);
      }
 
     @Override

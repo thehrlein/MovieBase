@@ -18,9 +18,6 @@ public interface DetailActivityContract {
         void getMovieId();
         void setUpTabFragment(MovieDetailResponse response);
         void setMovieInformation(String title, String moviePath);
-        void insertMovieIntoDatabase(ContentValues values);
-        void deleteCurrentMovieFromFavoriteDatabase(int movieId);
-        Cursor getAllFavoriteMovies();
         void markFabAsFavorite();
         void unMarkFabFromFavorite();
         void setFabButtonVisible();

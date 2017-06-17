@@ -52,7 +52,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         getMovieId();
 
-        presenter = new DetailActivityPresenter(this, movieId);
+        presenter = new DetailActivityPresenter(this, movieId, this);
         presenter.requestSingleMovieDownload();
     }
 
@@ -120,18 +120,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    @Override
-    public void insertMovieIntoDatabase(ContentValues values) {
-        getContentResolver().insert(MoviesContract.MovieEntry.CONTENT_URI, values);
-    }
 
-    @Override
-    public void deleteCurrentMovieFromFavoriteDatabase(int movieId) {
-        getContentResolver().delete(
-                MoviesContract.MovieEntry.CONTENT_URI,
-                MoviesContract.MovieEntry.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(movieId)});
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
@@ -141,15 +130,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
-    @Override
-    public Cursor getAllFavoriteMovies() {
-        return getContentResolver().query(
-                MoviesContract.MovieEntry.CONTENT_URI,
-                SQLUtils.selectAll,
-                null,
-                null,
-                null);
-    }
 
     @Override
     public void markFabAsFavorite() {
