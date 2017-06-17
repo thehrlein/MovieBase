@@ -48,7 +48,11 @@ public class NetworkUtils {
         }
     }
 
-    public static String getFullImageUrl(String url) {
+    public static String getFullImageUrlLow(String url) {
         return getImageBaseUrlLow() + url + appendApiKey();
+    }
+
+    public static String getFullImageUrlHigh(String url) {
+        return getImageBaseUrlHigh() + url + appendApiKey();
     }
 }

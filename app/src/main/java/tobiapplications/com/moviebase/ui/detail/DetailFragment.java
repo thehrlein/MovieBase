@@ -66,6 +66,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         presenter.buildUiFromResponse(detailMovie);
         presenter.requestMovieDownload();
         presenter.requestReviews();
+        presenter.requestActors();
     }
 
     private void findMyViews() {

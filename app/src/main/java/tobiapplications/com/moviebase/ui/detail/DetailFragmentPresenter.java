@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.adapter.DetailAdapter;
 import tobiapplications.com.moviebase.model.RecyclerItem;
+import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.Review;
@@ -25,7 +26,7 @@ import tobiapplications.com.moviebase.network.DataManager;
 
 public class DetailFragmentPresenter implements DetailFragmentContract.Presenter {
 
-    private MovieDetailResponse detailMovie;
+    private int movieId;
     private Context context;
     private DetailFragmentContract.View parent;
 
@@ -36,7 +37,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
     @Override
     public void buildUiFromResponse(MovieDetailResponse detailMovie) {
-        this.detailMovie = detailMovie;
+        this.movieId = detailMovie.getId();
 
         ArrayList<RecyclerItem> detailItems = new ArrayList<>();
 
@@ -74,7 +75,17 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
     @Override
     public void requestMovieDownload() {
-        DataManager.getInstance().requestSimilarMovies(this, detailMovie.getId());
+        DataManager.getInstance().requestSimilarMovies(this, movieId);
+    }
+
+    @Override
+    public void requestReviews() {
+        DataManager.getInstance().requestReviews(this, movieId);
+    }
+
+    @Override
+    public void requestActors() {
+        DataManager.getInstance().requestActors(this, movieId);
     }
 
     @Override
@@ -92,14 +103,17 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     }
 
     @Override
-    public void requestReviews() {
-        DataManager.getInstance().requestReviews(this, detailMovie.getId());
-    }
-
-    @Override
     public void displayReviews(ReviewResponse response) {
         if (response.getTotalResults() != 0) {
             RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_REVIEWS, response);
+            parent.displayUiView(item);
+        }
+    }
+
+    @Override
+    public void displayActors(ActorsResponse response) {
+        if (response != null && !response.getActors().isEmpty()) {
+            RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_ACTORS, response);
             parent.displayUiView(item);
         }
     }

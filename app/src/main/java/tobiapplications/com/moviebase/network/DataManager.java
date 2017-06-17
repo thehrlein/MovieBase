@@ -14,10 +14,12 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
+import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
+import tobiapplications.com.moviebase.network.callbacks.ActorsCallback;
 import tobiapplications.com.moviebase.network.callbacks.DetailCallback;
 import tobiapplications.com.moviebase.network.callbacks.OverviewCallback;
 import tobiapplications.com.moviebase.network.callbacks.ReviewCallback;
@@ -110,6 +112,11 @@ public class DataManager {
     public void requestSearchMovie(OnOverviewMovieLoad listener, String query) {
         Call<MovieOverviewResponse> searchMovieCall = getMovieApi().requestSearchMovie(query, NetworkUtils.getKey());
         searchMovieCall.enqueue(new OverviewCallback(listener));
+    }
+
+    public void requestActors(DetailFragmentContract.Presenter presenter, int movieId) {
+        Call<ActorsResponse> actorsResponseCall = getMovieApi().requestActors(movieId, NetworkUtils.getKey());
+        actorsResponseCall.enqueue(new ActorsCallback(presenter));
     }
 
 }

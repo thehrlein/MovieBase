@@ -43,7 +43,7 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     @Override
     public void displayMovieResponse(MovieDetailResponse detailResponse) {
         clickedMovie = detailResponse;
-        parent.setMovieInformation(clickedMovie.getTitle(), NetworkUtils.getFullImageUrl(clickedMovie.getBackgroundImagePath()));
+        parent.setMovieInformation(clickedMovie.getTitle(), NetworkUtils.getFullImageUrlHigh(clickedMovie.getBackgroundImagePath()));
         parent.setUpTabFragment(clickedMovie);
         checkIfMovieIsMarkedAsFavorite();
     }
@@ -57,7 +57,7 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     @Override
     public void openToolbarImage() {
         if (clickedMovie != null && clickedMovie.getBackgroundImagePath() != null){
-            new ImageViewer.Builder(parent, new String[]{NetworkUtils.getFullImageUrl(clickedMovie.getBackgroundImagePath())})
+            new ImageViewer.Builder(parent, new String[]{NetworkUtils.getFullImageUrlHigh(clickedMovie.getBackgroundImagePath())})
                     .setStartPosition(0)
                     .show();
         }

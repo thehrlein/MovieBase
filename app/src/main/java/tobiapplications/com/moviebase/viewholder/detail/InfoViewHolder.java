@@ -1,7 +1,6 @@
 package tobiapplications.com.moviebase.viewholder.detail;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -53,7 +52,7 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public void setInformation(InfoView view) {
         this.infoView = view;
         if (view.getImagePath() != null) {
-            Picasso.with(context).load(NetworkUtils.getFullImageUrl(view.getImagePath())).into(infoImage);
+            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(view.getImagePath())).into(infoImage);
         } else {
             infoImage.setImageResource(R.drawable.no_image_available);
         }
@@ -70,7 +69,7 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Override
     public void onClick(View v) {
         if (infoView.getImagePath() != null) {
-            new ImageViewer.Builder(context, new String[]{NetworkUtils.getFullImageUrl(infoView.getImagePath())})
+            new ImageViewer.Builder(context, new String[]{NetworkUtils.getFullImageUrlHigh(infoView.getImagePath())})
                     .setStartPosition(0)
                     .show();
         }

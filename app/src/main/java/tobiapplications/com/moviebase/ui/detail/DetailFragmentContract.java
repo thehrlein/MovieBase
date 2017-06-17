@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
 import tobiapplications.com.moviebase.model.RecyclerItem;
+import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 
@@ -24,5 +25,7 @@ public interface DetailFragmentContract {
         void buildUiFromResponse(MovieDetailResponse detailResponse);
         void requestReviews();
         void displayReviews(ReviewResponse response);
+        void requestActors();
+        void displayActors(ActorsResponse body);
     }
 }

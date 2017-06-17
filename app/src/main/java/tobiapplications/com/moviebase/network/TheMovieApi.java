@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
@@ -15,10 +16,10 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 
 public interface TheMovieApi {
 
-    @GET ("movie/popular")
+    @GET("movie/popular")
     Call<MovieOverviewResponse> requestPopularMovies(@Query("api_key") String api_key, @Query("page") int pageToLoad);
 
-    @GET ("movie/top_rated")
+    @GET("movie/top_rated")
     Call<MovieOverviewResponse> requestTopRatedMovies(@Query("api_key") String api_key, @Query("page") int pageToLoad);
 
     @GET("movie/{id}")
@@ -32,5 +33,8 @@ public interface TheMovieApi {
 
     @GET("search/movie")
     Call<MovieOverviewResponse> requestSearchMovie(@Query("query") String query, @Query("api_key") String api_key);
+
+    @GET("movie/{id}/credits")
+    Call<ActorsResponse> requestActors(@Path("id") int movieId, @Query("api_key") String api_key);
 
 }

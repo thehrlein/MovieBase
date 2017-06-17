@@ -9,11 +9,13 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.RecyclerItem;
+import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 import tobiapplications.com.moviebase.model.detail.views.AdditionalInfoView;
 import tobiapplications.com.moviebase.model.detail.views.InfoView;
 import tobiapplications.com.moviebase.model.detail.views.SimilarMoviesView;
 import tobiapplications.com.moviebase.model.detail.views.SummaryView;
+import tobiapplications.com.moviebase.viewholder.detail.ActorsViewHolder;
 import tobiapplications.com.moviebase.viewholder.detail.AdditionalInfoViewHolder;
 import tobiapplications.com.moviebase.viewholder.detail.InfoViewHolder;
 import tobiapplications.com.moviebase.viewholder.detail.ReviewsViewHolder;
@@ -57,6 +59,8 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 return new SimilarMoviesViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_similar_movies, parent, false), context);
             case VIEW_TYPE_REVIEWS:
                 return new ReviewsViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_reviews, parent, false), context);
+            case VIEW_TYPE_ACTORS:
+                return new ActorsViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_actors, parent, false), context);
         }
         return null;
     }
@@ -79,7 +83,15 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 break;
             case VIEW_TYPE_REVIEWS:
                 bindReviewsView((ReviewsViewHolder) holder, item);
+                break;
+            case VIEW_TYPE_ACTORS:
+                bindActorsView((ActorsViewHolder) holder, item);
         }
+    }
+
+    private void bindActorsView(ActorsViewHolder actorsViewHolder, RecyclerItem item) {
+        ActorsResponse actorsResponse = (ActorsResponse) item.getItem();
+        actorsViewHolder.setActorInformation(actorsResponse.getActors());
     }
 
     private void bindReviewsView(ReviewsViewHolder reviewsViewHolder, RecyclerItem item) {

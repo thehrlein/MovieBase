@@ -53,7 +53,7 @@ public class MovieHolder extends RecyclerView.ViewHolder implements View.OnClick
         mMovieTitleNoPicture.setText(movie.getTitle());
         mMovieTitle.setText(movie.getTitle());
         if (movie.getTitleImagePath() != null) {
-            Picasso.with(context).load(NetworkUtils.getFullImageUrl(movie.getTitleImagePath())).into(mPosterImage);
+            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(movie.getTitleImagePath())).into(mPosterImage);
         } else {
             mPosterImage.setImageResource(R.drawable.no_image_available);
         }

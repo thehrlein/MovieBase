@@ -2,16 +2,12 @@ package tobiapplications.com.moviebase.viewholder.detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
@@ -42,12 +38,14 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
         this.movies = similarMovies.getMovies();
         for (MovieOverviewModel model : movies) {
             ImageView moviePoster = new ImageView(context);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(200, 300);
-            moviePoster.setScaleType(ImageView.ScaleType.FIT_XY);
-            moviePoster.setLayoutParams(params);
-            Picasso.with(context).load(NetworkUtils.getFullImageUrl(model.getTitleImagePath())).into(moviePoster);
-            moviePoster.setOnClickListener((View v) -> openDetails(model.getId()));
             similarMoviesLayout.addView(moviePoster);
+            moviePoster.getLayoutParams().height = 450;
+            moviePoster.getLayoutParams().width = 300;
+            if (model.getTitleImagePath() != null) {
+                Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(model.getTitleImagePath())).into(moviePoster);
+                moviePoster.setScaleType(ImageView.ScaleType.FIT_XY);
+            }
+            moviePoster.setOnClickListener((View v) -> openDetails(model.getId()));
         }
     }
 

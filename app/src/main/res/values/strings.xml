@@ -20,7 +20,7 @@
     <string name="no_release_date_available">Release date unknown</string>
     <string name="adult">Adult</string>
     <string name="fullTitle">Full title</string>
-    <string name="actors">Actors</string>
+    <string name="actors_label">Actors</string>
     <string name="similar_movies">Similar Movies</string>
     <string name="action_search" translatable="false">Search</string>
     <string name="action_settings">Settings</string>

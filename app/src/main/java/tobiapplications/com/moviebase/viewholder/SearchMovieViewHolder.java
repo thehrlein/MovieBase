@@ -41,7 +41,7 @@ public class SearchMovieViewHolder extends RecyclerView.ViewHolder implements Vi
         this.movieId = movie.getId();
         mSearchMovieTitle.setText(movie.getTitle());
         if (movie.getTitleImagePath() != null) {
-            Picasso.with(context).load(NetworkUtils.getFullImageUrl(movie.getTitleImagePath())).into(mSearchMovieImage);
+            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(movie.getTitleImagePath())).into(mSearchMovieImage);
         } else {
             mSearchMovieImage.setImageResource(R.drawable.no_image_available);
         }
