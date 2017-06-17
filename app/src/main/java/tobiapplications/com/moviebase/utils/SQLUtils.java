@@ -6,7 +6,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.content.LocalBroadcastManager;
 
+import java.util.ArrayList;
+
 import tobiapplications.com.moviebase.database.MoviesContract;
+import tobiapplications.com.moviebase.model.detail.Genre;
+import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 
 /**
  * Created by Tobias on 12.06.2017.
@@ -41,6 +46,58 @@ public class SQLUtils {
         context.getContentResolver().insert(MoviesContract.MovieEntry.CONTENT_URI, values);
         Intent informOwnFavoriteActivity = new Intent(Constants.MOVIE_INSERT_TO_DATABASE);
         LocalBroadcastManager.getInstance(context).sendBroadcast(informOwnFavoriteActivity);
+    }
+
+    public static void insertIntoDatabase(Context context, MovieOverviewModel movie) {
+        String genresString = "";
+        ArrayList<Integer> genreArrayList = movie.getGenres();
+
+        for (int i = 0; i < genreArrayList.size(); i++) {
+            if (i == 0) {
+                genresString = genresString + genreArrayList.get(i);
+            } else {
+                genresString = genresString + "-" + genreArrayList.get(i);
+            }
+        }
+
+        ContentValues values = new ContentValues();
+        values.put(MoviesContract.MovieEntry.COLUMN_ID, movie.getId());
+        values.put(MoviesContract.MovieEntry.COLUMN_TITLE, movie.getTitle());
+        values.put(MoviesContract.MovieEntry.COLUMN_TITLE_IMAGE_PATH, movie.getTitleImagePath());
+        values.put(MoviesContract.MovieEntry.COLUMN_BACKDROP_IMAGE_PATH, movie.getBackgroundImagePath());
+        values.put(MoviesContract.MovieEntry.COLUMN_YEAR, movie.getReleaseDate());
+        values.put(MoviesContract.MovieEntry.COLUMN_RATING, movie.getRating());
+        values.put(MoviesContract.MovieEntry.COLUMN_DESCRIPTION, movie.getDescription());
+        values.put(MoviesContract.MovieEntry.COLUMN_GENRES, genresString);
+        values.put(MoviesContract.MovieEntry.COLUMN_ADULT, movie.getAdult() ? "yes" : "no");
+
+        insertIntoDatabase(context, values);
+    }
+
+    public static void insertIntoDatabase(Context context, MovieDetailResponse clickedMovie) {
+        String genresString = "";
+        ArrayList<Genre> genreArrayList = clickedMovie.getGenres();
+
+        for (int i = 0; i < genreArrayList.size(); i++) {
+            if (i == 0) {
+                genresString = genresString + genreArrayList.get(i).getId();
+            } else {
+                genresString = genresString + "-" + genreArrayList.get(i).getId();
+            }
+        }
+
+        ContentValues values = new ContentValues();
+        values.put(MoviesContract.MovieEntry.COLUMN_ID, clickedMovie.getId());
+        values.put(MoviesContract.MovieEntry.COLUMN_TITLE, clickedMovie.getTitle());
+        values.put(MoviesContract.MovieEntry.COLUMN_TITLE_IMAGE_PATH, clickedMovie.getTitleImagePath());
+        values.put(MoviesContract.MovieEntry.COLUMN_BACKDROP_IMAGE_PATH, clickedMovie.getBackgroundImagePath());
+        values.put(MoviesContract.MovieEntry.COLUMN_YEAR, clickedMovie.getReleaseDate());
+        values.put(MoviesContract.MovieEntry.COLUMN_RATING, clickedMovie.getVoteAverage());
+        values.put(MoviesContract.MovieEntry.COLUMN_DESCRIPTION, clickedMovie.getDescription());
+        values.put(MoviesContract.MovieEntry.COLUMN_GENRES, genresString);
+        values.put(MoviesContract.MovieEntry.COLUMN_ADULT, clickedMovie.isAdult() ? "yes" : "no");
+
+        insertIntoDatabase(context, values);
     }
 
     public static void deleteCurrentMovieFromFavoriteDatabase(Context context, int movieId) {

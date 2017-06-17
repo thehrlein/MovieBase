@@ -1,10 +1,8 @@
 package tobiapplications.com.moviebase.viewholder.overview;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,12 +11,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
-import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
@@ -87,38 +81,15 @@ public class MovieHolder extends RecyclerView.ViewHolder implements View.OnClick
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         if (item.getItemId() == R.id.action_add_favorite) {
-            prepareForDatabase();
+            insertMovieIntoDatabase();
             return true;
         }
         return false;
     }
 
-    private void prepareForDatabase() {
+    private void insertMovieIntoDatabase() {
         if (movie != null) {
-            String genresString = "";
-            ArrayList<Integer> genreArrayList = movie.getGenres();
-
-            for (int i = 0; i < genreArrayList.size(); i++) {
-                if (i == 0) {
-                    genresString = genresString + genreArrayList.get(i);
-                } else {
-                    genresString = genresString + "-" + genreArrayList.get(i);
-                }
-            }
-
-            ContentValues values = new ContentValues();
-            values.put(MoviesContract.MovieEntry.COLUMN_ID, movie.getId());
-            values.put(MoviesContract.MovieEntry.COLUMN_TITLE, movie.getTitle());
-            values.put(MoviesContract.MovieEntry.COLUMN_TITLE_IMAGE_PATH, movie.getTitleImagePath());
-            values.put(MoviesContract.MovieEntry.COLUMN_BACKDROP_IMAGE_PATH, movie.getBackgroundImagePath());
-            values.put(MoviesContract.MovieEntry.COLUMN_YEAR, movie.getReleaseDate());
-            values.put(MoviesContract.MovieEntry.COLUMN_RATING, movie.getRating());
-            values.put(MoviesContract.MovieEntry.COLUMN_DESCRIPTION, movie.getDescription());
-            values.put(MoviesContract.MovieEntry.COLUMN_GENRES, genresString);
-            values.put(MoviesContract.MovieEntry.COLUMN_ADULT, movie.getAdult() ? "yes" : "no");
-
-            SQLUtils.insertIntoDatabase(context, values);
+            SQLUtils.insertIntoDatabase(context, movie);
         }
     }
 }
-

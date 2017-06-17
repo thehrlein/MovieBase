@@ -2,7 +2,6 @@ package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -48,7 +47,7 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
         clickedMovie = detailResponse;
         parent.setMovieInformation(clickedMovie.getTitle(), NetworkUtils.getFullImageUrlHigh(clickedMovie.getBackgroundImagePath()));
         parent.setUpTabFragment(clickedMovie);
-        checkIfMovieIsMarkedAsFavorite();
+        setFabDependingOnFavoriteStatus();
     }
 
     @Override
@@ -87,34 +86,12 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     @Override
     public void insertCurrentMovieToFavoriteDatabase() {
         if (clickedMovie != null) {
-            String genresString = "";
-            ArrayList<Genre> genreArrayList = clickedMovie.getGenres();
-
-            for (int i = 0; i < genreArrayList.size(); i++) {
-                if (i == 0) {
-                    genresString = genresString + genreArrayList.get(i).getId();
-                } else {
-                    genresString = genresString + "-" + genreArrayList.get(i).getId();
-                }
-            }
-
-            ContentValues values = new ContentValues();
-            values.put(MoviesContract.MovieEntry.COLUMN_ID, clickedMovie.getId());
-            values.put(MoviesContract.MovieEntry.COLUMN_TITLE, clickedMovie.getTitle());
-            values.put(MoviesContract.MovieEntry.COLUMN_TITLE_IMAGE_PATH, clickedMovie.getTitleImagePath());
-            values.put(MoviesContract.MovieEntry.COLUMN_BACKDROP_IMAGE_PATH, clickedMovie.getBackgroundImagePath());
-            values.put(MoviesContract.MovieEntry.COLUMN_YEAR, clickedMovie.getReleaseDate());
-            values.put(MoviesContract.MovieEntry.COLUMN_RATING, clickedMovie.getVoteAverage());
-            values.put(MoviesContract.MovieEntry.COLUMN_DESCRIPTION, clickedMovie.getDescription());
-            values.put(MoviesContract.MovieEntry.COLUMN_GENRES, genresString);
-            values.put(MoviesContract.MovieEntry.COLUMN_ADULT, clickedMovie.isAdult() ? "yes" : "no");
-
-            SQLUtils.insertIntoDatabase(context, values);
+            SQLUtils.insertIntoDatabase(context, clickedMovie);
         }
     }
 
     @Override
-    public void checkIfMovieIsMarkedAsFavorite() {
+    public void setFabDependingOnFavoriteStatus() {
         isMarkedAsFavorite = SQLUtils.checkIfMovieIsMarkedAsFavorite(context, movieId);
 
         parent.setFabButtonVisible();

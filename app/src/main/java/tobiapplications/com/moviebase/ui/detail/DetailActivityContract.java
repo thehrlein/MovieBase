@@ -34,7 +34,7 @@ public interface DetailActivityContract {
         void openToolbarImage();
         void handleFabClick();
         void insertCurrentMovieToFavoriteDatabase();
-        void checkIfMovieIsMarkedAsFavorite();
+        void setFabDependingOnFavoriteStatus();
         void setAppBarOffsetChanged(int totalScrollRange, int verticalOffset);
     }
 
