@@ -17,24 +17,24 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 public interface TheMovieApi {
 
     @GET("movie/popular")
-    Call<MovieOverviewResponse> requestPopularMovies(@Query("api_key") String api_key, @Query("page") int pageToLoad);
+    Call<MovieOverviewResponse> requestPopularMovies(@Query("page") int pageToLoad);
 
     @GET("movie/top_rated")
-    Call<MovieOverviewResponse> requestTopRatedMovies(@Query("api_key") String api_key, @Query("page") int pageToLoad);
+    Call<MovieOverviewResponse> requestTopRatedMovies(@Query("page") int pageToLoad);
 
     @GET("movie/{id}")
-    Call<MovieDetailResponse> requestDetailInfo(@Path("id") int movieId, @Query("api_key") String api_key);
+    Call<MovieDetailResponse> requestDetailInfo(@Path("id") int movieId);
 
     @GET("movie/{id}/similar")
-    Call<MovieOverviewResponse> requestSimilarMovies(@Path("id") int movieId, @Query("api_key") String api_key);
+    Call<MovieOverviewResponse> requestSimilarMovies(@Path("id") int movieId);
 
     @GET("movie/{id}/reviews")
-    Call<ReviewResponse> requestMovieReviews(@Path("id") int movieId, @Query("api_key") String api_key);
+    Call<ReviewResponse> requestMovieReviews(@Path("id") int movieId);
 
     @GET("search/movie")
-    Call<MovieOverviewResponse> requestSearchMovie(@Query("query") String query, @Query("api_key") String api_key);
+    Call<MovieOverviewResponse> requestSearchMovie(@Query("query") String query);
 
     @GET("movie/{id}/credits")
-    Call<ActorsResponse> requestActors(@Path("id") int movieId, @Query("api_key") String api_key);
+    Call<ActorsResponse> requestActors(@Path("id") int movieId);
 
 }

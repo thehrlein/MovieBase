@@ -22,6 +22,7 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.callbacks.ActorsCallback;
 import tobiapplications.com.moviebase.network.callbacks.DetailCallback;
 import tobiapplications.com.moviebase.network.callbacks.OverviewCallback;
+import tobiapplications.com.moviebase.network.callbacks.QueryAppendingInterceptor;
 import tobiapplications.com.moviebase.network.callbacks.ReviewCallback;
 import tobiapplications.com.moviebase.ui.detail.DetailActivityPresenter;
 import tobiapplications.com.moviebase.ui.detail.DetailFragmentContract;
@@ -53,19 +54,11 @@ public class DataManager {
                 .setLenient()
                 .create();
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .addNetworkInterceptor(new Interceptor() {
 
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request().newBuilder()
-                                .build();
-                        return chain.proceed(request);
-                    }
-                }).build();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(LoggingInterceptor.getLogger())
+                .addInterceptor(new QueryAppendingInterceptor())
+                .build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(NetworkUtils.MOVIE_BASE_URL)
@@ -85,37 +78,37 @@ public class DataManager {
     }
 
     public void requestPopularMovies(OnOverviewMovieLoad listener, int pageToLoad) {
-        Call<MovieOverviewResponse> popularMovieCall = getMovieApi().requestPopularMovies(NetworkUtils.getKey(), pageToLoad);
+        Call<MovieOverviewResponse> popularMovieCall = getMovieApi().requestPopularMovies(pageToLoad);
         popularMovieCall.enqueue(new OverviewCallback(listener));
     }
 
     public void requestTopRatedMovies(OnOverviewMovieLoad listener, int pageToLoad) {
-        Call<MovieOverviewResponse> topRatedMovieCall = getMovieApi().requestTopRatedMovies(NetworkUtils.getKey(), pageToLoad);
+        Call<MovieOverviewResponse> topRatedMovieCall = getMovieApi().requestTopRatedMovies(pageToLoad);
         topRatedMovieCall.enqueue(new OverviewCallback(listener));
     }
 
     public void requestSingleMovie(DetailActivityPresenter presenter, int movieId) {
-        Call<MovieDetailResponse> singleMovieCall = getMovieApi().requestDetailInfo(movieId, NetworkUtils.getKey());
+        Call<MovieDetailResponse> singleMovieCall = getMovieApi().requestDetailInfo(movieId);
         singleMovieCall.enqueue(new DetailCallback(presenter));
     }
 
     public void requestSimilarMovies(OnOverviewMovieLoad listener, int movieId) {
-        Call<MovieOverviewResponse> similarMovieCall = getMovieApi().requestSimilarMovies(movieId, NetworkUtils.getKey());
+        Call<MovieOverviewResponse> similarMovieCall = getMovieApi().requestSimilarMovies(movieId);
         similarMovieCall.enqueue(new OverviewCallback(listener));
     }
 
     public void requestReviews(DetailFragmentContract.Presenter presenter, int movieId) {
-        Call<ReviewResponse> reviewResponseCall = getMovieApi().requestMovieReviews(movieId, NetworkUtils.getKey());
+        Call<ReviewResponse> reviewResponseCall = getMovieApi().requestMovieReviews(movieId);
         reviewResponseCall.enqueue(new ReviewCallback(presenter));
     }
 
     public void requestSearchMovie(OnOverviewMovieLoad listener, String query) {
-        Call<MovieOverviewResponse> searchMovieCall = getMovieApi().requestSearchMovie(query, NetworkUtils.getKey());
+        Call<MovieOverviewResponse> searchMovieCall = getMovieApi().requestSearchMovie(query);
         searchMovieCall.enqueue(new OverviewCallback(listener));
     }
 
     public void requestActors(DetailFragmentContract.Presenter presenter, int movieId) {
-        Call<ActorsResponse> actorsResponseCall = getMovieApi().requestActors(movieId, NetworkUtils.getKey());
+        Call<ActorsResponse> actorsResponseCall = getMovieApi().requestActors(movieId);
         actorsResponseCall.enqueue(new ActorsCallback(presenter));
     }
 
