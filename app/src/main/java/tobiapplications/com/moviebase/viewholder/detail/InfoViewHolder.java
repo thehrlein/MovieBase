@@ -61,9 +61,9 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         infoRelease.setText(DateUtils.getDMYFromYMD(view.getReleaseDate()));
         infoAdult.setText(getAdultString(view.isAdult()));
         infoRuntime.setText(DateUtils.getHourMinuteStringFromInt(view.getRuntime()));
-        infoStatus.setText(view.getStatus());
         if (view.getStatus().equalsIgnoreCase(Constants.RELEASED))
-            infoStatus.setTextColor(ContextCompat.getColor(context, R.color.colorStatusOk));
+            infoStatus.setVisibility(View.VISIBLE);
+            infoStatus.setText(view.getStatus());
     }
 
     private String getAdultString(boolean adult) {

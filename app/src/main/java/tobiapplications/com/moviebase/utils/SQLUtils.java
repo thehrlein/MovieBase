@@ -48,32 +48,6 @@ public class SQLUtils {
         LocalBroadcastManager.getInstance(context).sendBroadcast(informOwnFavoriteActivity);
     }
 
-    public static void insertIntoDatabase(Context context, MovieOverviewModel movie) {
-        String genresString = "";
-        ArrayList<Integer> genreArrayList = movie.getGenres();
-
-        for (int i = 0; i < genreArrayList.size(); i++) {
-            if (i == 0) {
-                genresString = genresString + genreArrayList.get(i);
-            } else {
-                genresString = genresString + "-" + genreArrayList.get(i);
-            }
-        }
-
-        ContentValues values = new ContentValues();
-        values.put(MoviesContract.MovieEntry.COLUMN_ID, movie.getId());
-        values.put(MoviesContract.MovieEntry.COLUMN_TITLE, movie.getTitle());
-        values.put(MoviesContract.MovieEntry.COLUMN_TITLE_IMAGE_PATH, movie.getTitleImagePath());
-        values.put(MoviesContract.MovieEntry.COLUMN_BACKDROP_IMAGE_PATH, movie.getBackgroundImagePath());
-        values.put(MoviesContract.MovieEntry.COLUMN_YEAR, movie.getReleaseDate());
-        values.put(MoviesContract.MovieEntry.COLUMN_RATING, movie.getRating());
-        values.put(MoviesContract.MovieEntry.COLUMN_DESCRIPTION, movie.getDescription());
-        values.put(MoviesContract.MovieEntry.COLUMN_GENRES, genresString);
-        values.put(MoviesContract.MovieEntry.COLUMN_ADULT, movie.getAdult() ? "yes" : "no");
-
-        insertIntoDatabase(context, values);
-    }
-
     public static void insertIntoDatabase(Context context, MovieDetailResponse clickedMovie) {
         String genresString = "";
         ArrayList<Genre> genreArrayList = clickedMovie.getGenres();

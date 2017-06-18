@@ -20,7 +20,7 @@ import tobiapplications.com.moviebase.adapter.OverviewAdapter;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
-import tobiapplications.com.moviebase.utils.RecyclerListUtils;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -73,7 +73,7 @@ public class TopRatedFragment extends Fragment implements OverviewFragmentContra
 
     @Override
     public void setGridViewAndAdapter() {
-        int howMuchColumns = RecyclerListUtils.getHowMuchColumnsForMovies(context);
+        int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         adapter = new OverviewAdapter(context, mRecyclerView, TAG);

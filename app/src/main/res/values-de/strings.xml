@@ -26,4 +26,6 @@
     <string name="unknown">unbekannt</string>
     <string name="no">nein</string>
     <string name="yes">ja</string>
+    <string name="status_released">Veröffentlicht</string>
+    <string name="status_post_production">Nachproduktion</string>
 </resources>

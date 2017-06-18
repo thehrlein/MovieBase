@@ -1,6 +1,10 @@
 
 package tobiapplications.com.moviebase.model.detail.items;
 
+import java.util.LinkedHashMap;
+
+import tobiapplications.com.moviebase.utils.GeneralUtils;
+
 /**
  * Created by Tobias on 15.06.2017.
  */
@@ -50,6 +54,6 @@ public class InfoItem {
     }
 
     public String getStatus() {
-        return status;
+       return status;
     }
 }

@@ -13,7 +13,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
-import tobiapplications.com.moviebase.utils.RecyclerListUtils;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 
 /**
@@ -85,7 +84,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewFragmentCon
 
     @Override
     public void setGridViewAndAdapter() {
-        int howMuchColumns = RecyclerListUtils.getHowMuchColumnsForMovies(context);
+        int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         adapter = new OverviewAdapter(context, mRecyclerView, TAG);

@@ -39,7 +39,7 @@
 
     <!-- genres -->
     <string name="unknown">unknown</string>
-    <string name="string_fasten_your_seatbelts">fasten your seatbelts ...</string>
+    <string name="string_fasten_your_seatbelts" translatable="false">fasten your seatbelts ...</string>
 
 
 </resources>
