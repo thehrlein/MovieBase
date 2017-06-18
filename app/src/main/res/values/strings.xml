@@ -23,6 +23,8 @@
     <string name="additional_info_original_title_label">Original Title</string>
     <string name="summary_label">Summary</string>
     <string name="reviews_label">Reviews</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
 
 
     <!-- preferences -->

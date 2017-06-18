@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">Einstellungen</string>
-    <string name="actors_label">Schauspieer</string>
+    <string name="actors_label">Schauspieler</string>
     <string name="additional_info_budget_label">Budget</string>
     <string name="additional_info_original_title_label">Orginaltitel</string>
     <string name="additional_info_revenue_label">Einspielergebnis</string>
@@ -27,4 +27,6 @@
     <string name="title_popular">Beliebt</string>
     <string name="title_top_rated">Top bewertet</string>
     <string name="unknown">unbekannt</string>
+    <string name="no">nein</string>
+    <string name="yes">ja</string>
 </resources>

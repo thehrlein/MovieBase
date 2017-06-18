@@ -59,11 +59,15 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         infoRatingAverage.setText(String.valueOf(view.getVoteAverage() + context.getString(R.string.info_max_rating)));
         infoRatingCount.setText(String.valueOf(view.getVoteCount()));
         infoRelease.setText(DateUtils.getDMYFromYMD(view.getReleaseDate()));
-        infoAdult.setText(String.valueOf(view.isAdult()));
+        infoAdult.setText(getAdultString(view.isAdult()));
         infoRuntime.setText(DateUtils.getHourMinuteStringFromInt(view.getRuntime()));
         infoStatus.setText(view.getStatus());
         if (view.getStatus().equalsIgnoreCase(Constants.RELEASED))
             infoStatus.setTextColor(ContextCompat.getColor(context, R.color.colorStatusOk));
+    }
+
+    private String getAdultString(boolean adult) {
+        return adult ? context.getString(R.string.yes) : context.getString(R.string.no);
     }
 
     @Override
