@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.detail.Actor;
+import tobiapplications.com.moviebase.ui.general_views.ActorsPosterView;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
@@ -33,16 +34,12 @@ public class ActorsViewHolder extends RecyclerView.ViewHolder {
     public void setActorInformation(ArrayList<Actor> actors) {
         if (actors != null && !actors.isEmpty()) {
             for (Actor actor : actors) {
-                ImageView imageView = new ImageView(context);
-                gridLayout.addView(imageView);
-                imageView.getLayoutParams().width = 300;
-                imageView.getLayoutParams().height = 450;
-                if (actor.getProfilePath() != null) {
-                    Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(actor.getProfilePath())).into(imageView);
-                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                } else {
-                    imageView.setImageResource(R.drawable.no_image_available);
-                }
+                ActorsPosterView actorsPosterView = new ActorsPosterView(context);
+                gridLayout.addView(actorsPosterView);
+                actorsPosterView.setActorInformation(actor);
+
+//                imageView.getLayoutParams().width = 300;
+//                imageView.getLayoutParams().height = 450;
 
             }
         }

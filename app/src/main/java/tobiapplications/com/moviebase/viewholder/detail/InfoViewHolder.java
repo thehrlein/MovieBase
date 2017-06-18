@@ -54,7 +54,7 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         if (view.getImagePath() != null) {
             Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(view.getImagePath())).into(infoImage);
         } else {
-            infoImage.setImageResource(R.drawable.no_image_available);
+            infoImage.setImageResource(R.drawable.no_picture);
         }
         infoRatingAverage.setText(String.valueOf(view.getVoteAverage() + context.getString(R.string.info_max_rating)));
         infoRatingCount.setText(String.valueOf(view.getVoteCount()));

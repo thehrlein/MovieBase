@@ -116,7 +116,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         if (moviePath != null) {
             Picasso.with(this).load(moviePath).into(mDetailMovieBackgroundImage);
         } else {
-            mDetailMovieBackgroundImage.setImageResource(R.drawable.no_image_available);
+            mDetailMovieBackgroundImage.setImageResource(R.drawable.no_picture);
         }
     }
 

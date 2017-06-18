@@ -72,7 +72,7 @@ public class MoviePosterView extends LinearLayout implements PopupMenu.OnMenuIte
                 Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(movieInformation.getImagePath())).into(movieImage);
                 movieImage.setScaleType(ImageView.ScaleType.FIT_XY);
             } else {
-                movieImage.setImageResource(R.drawable.no_image_available);
+                movieImage.setImageResource(R.drawable.no_picture);
             }
             movieTitle.setText(movieInformation.getTitle());
         }
