@@ -16,7 +16,7 @@ import java.util.Locale;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.detail.Genre;
-import tobiapplications.com.moviebase.model.detail.views.AdditionalInfoView;
+import tobiapplications.com.moviebase.model.detail.items.AdditionalInfoItem;
 import tobiapplications.com.moviebase.ui.general_views.GenreTextView;
 
 /**
@@ -46,7 +46,7 @@ public class AdditionalInfoViewHolder extends RecyclerView.ViewHolder implements
 
     }
 
-    public void setAdditionalInfo(AdditionalInfoView additionalInfo) {
+    public void setAdditionalInfo(AdditionalInfoItem additionalInfo) {
         originalTitle.setText(additionalInfo.getOriginalTitle());
         budget.setText(checkIfMoneyIsEmpty(additionalInfo.getBudget()));
         revenue.setText(checkIfMoneyIsEmpty(additionalInfo.getRevenue()));

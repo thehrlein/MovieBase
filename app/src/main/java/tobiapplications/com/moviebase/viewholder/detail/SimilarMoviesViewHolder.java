@@ -12,9 +12,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.model.detail.views.SimilarMoviesView;
+import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
+import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
+import tobiapplications.com.moviebase.ui.general_views.MoviePosterView;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
@@ -26,7 +28,7 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
 
     private LinearLayout similarMoviesLayout;
     private Context context;
-    private ArrayList<MovieOverviewModel> movies;
+    private ArrayList<MoviePosterItem> movies;
 
     public SimilarMoviesViewHolder(View itemView, Context context) {
         super(itemView);
@@ -34,20 +36,18 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
         similarMoviesLayout = (LinearLayout) itemView.findViewById(R.id.similar_movies_layout);
     }
 
-    public void setSimilarMovies(SimilarMoviesView similarMovies) {
+    public void setSimilarMovies(SimilarMoviesItem similarMovies) {
         this.movies = similarMovies.getMovies();
-        for (MovieOverviewModel model : movies) {
-            ImageView moviePoster = new ImageView(context);
-            similarMoviesLayout.addView(moviePoster);
-            moviePoster.getLayoutParams().height = 450;
-            moviePoster.getLayoutParams().width = 300;
-            if (model.getTitleImagePath() != null) {
-                Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(model.getTitleImagePath())).into(moviePoster);
-                moviePoster.setScaleType(ImageView.ScaleType.FIT_XY);
-            }
-            moviePoster.setOnClickListener((View v) -> openDetails(model.getId()));
+        for (MoviePosterItem model : movies) {
+
+            MoviePosterView posterView = new MoviePosterView(context);
+            similarMoviesLayout.addView(posterView);
+
+            posterView.setMovieInformation(model, 600, 400);
+            posterView.disablePopupDots();
+            posterView.setOnClickListener((View v)-> openDetails(model.getId()));
         }
-    }
+}
 
     private void openDetails(int id) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);

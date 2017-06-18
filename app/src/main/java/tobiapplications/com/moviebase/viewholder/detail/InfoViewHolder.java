@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.model.detail.views.InfoView;
+import tobiapplications.com.moviebase.model.detail.items.InfoItem;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.DateUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
@@ -24,7 +24,7 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
 public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private Context context;
-    private InfoView infoView;
+    private InfoItem infoItem;
     private ImageView infoImage;
     private RatingBar infoRatingBar;
     private TextView infoRatingAverage;
@@ -49,8 +49,8 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         infoImage.setOnClickListener(this);
     }
 
-    public void setInformation(InfoView view) {
-        this.infoView = view;
+    public void setInformation(InfoItem view) {
+        this.infoItem = view;
         if (view.getImagePath() != null) {
             Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(view.getImagePath())).into(infoImage);
         } else {
@@ -68,8 +68,8 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        if (infoView.getImagePath() != null) {
-            new ImageViewer.Builder(context, new String[]{NetworkUtils.getFullImageUrlHigh(infoView.getImagePath())})
+        if (infoItem.getImagePath() != null) {
+            new ImageViewer.Builder(context, new String[]{NetworkUtils.getFullImageUrlHigh(infoItem.getImagePath())})
                     .setStartPosition(0)
                     .show();
         }

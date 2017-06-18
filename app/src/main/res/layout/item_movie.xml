@@ -17,46 +17,53 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <tobiapplications.com.moviebase.ui.general_views.MoviePosterView
+                android:id="@+id/movie_poster_item"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:id="@+id/movie_image"
-                android:scaleType="fitXY"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:adjustViewBounds="true" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/movie_title_no_picture"
-                android:padding="16dp"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            </tobiapplications.com.moviebase.ui.general_views.MoviePosterView>
 
-            <TextView
-                android:id="@+id/movie_title"
-                android:layout_below="@id/movie_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingStart="10dp"
-                android:paddingRight="15dp"
-                android:paddingEnd="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp"
-                android:textColor="@color/colorBlack"
-                android:textSize="12sp"/>
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="250dp"-->
+                <!--android:id="@+id/movie_image"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+                <!--android:adjustViewBounds="true" />-->
 
-            <ImageView
-                android:id="@+id/movie_card_dots"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/movie_image"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="6dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_dots" />
+            <!--<TextView-->
+                <!--android:id="@+id/movie_title_no_picture"-->
+                <!--android:padding="16dp"-->
+                <!--android:visibility="gone"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/movie_title"-->
+                <!--android:layout_below="@id/movie_image"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:paddingStart="10dp"-->
+                <!--android:paddingRight="15dp"-->
+                <!--android:paddingEnd="15dp"-->
+                <!--android:paddingTop="10dp"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:textColor="@color/colorBlack"-->
+                <!--android:textSize="12sp"/>-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/movie_card_dots"-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_below="@id/movie_image"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginBottom="6dp"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/ic_dots" />-->
 
         </RelativeLayout>
 

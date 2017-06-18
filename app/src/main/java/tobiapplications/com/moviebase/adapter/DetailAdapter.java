@@ -11,10 +11,10 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
-import tobiapplications.com.moviebase.model.detail.views.AdditionalInfoView;
-import tobiapplications.com.moviebase.model.detail.views.InfoView;
-import tobiapplications.com.moviebase.model.detail.views.SimilarMoviesView;
-import tobiapplications.com.moviebase.model.detail.views.SummaryView;
+import tobiapplications.com.moviebase.model.detail.items.AdditionalInfoItem;
+import tobiapplications.com.moviebase.model.detail.items.InfoItem;
+import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
+import tobiapplications.com.moviebase.model.detail.items.SummaryItem;
 import tobiapplications.com.moviebase.viewholder.detail.ActorsViewHolder;
 import tobiapplications.com.moviebase.viewholder.detail.AdditionalInfoViewHolder;
 import tobiapplications.com.moviebase.viewholder.detail.InfoViewHolder;
@@ -100,23 +100,23 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private void bindSimilarMoviesView(SimilarMoviesViewHolder similarMoviesViewHolder, RecyclerItem item) {
-        SimilarMoviesView similarMoviesView = (SimilarMoviesView) item.getItem();
-        similarMoviesViewHolder.setSimilarMovies(similarMoviesView);
+        SimilarMoviesItem similarMoviesItem = (SimilarMoviesItem) item.getItem();
+        similarMoviesViewHolder.setSimilarMovies(similarMoviesItem);
     }
 
     private void bindAdditionalInfoView(AdditionalInfoViewHolder additionalHolder, RecyclerItem item) {
-        AdditionalInfoView additionalInfoView = (AdditionalInfoView) item.getItem();
-        additionalHolder.setAdditionalInfo(additionalInfoView);
+        AdditionalInfoItem additionalInfoItem = (AdditionalInfoItem) item.getItem();
+        additionalHolder.setAdditionalInfo(additionalInfoItem);
     }
 
     private void bindSummaryView(SummaryViewHolder summaryHolder, RecyclerItem item) {
-        SummaryView summaryView = (SummaryView) item.getItem();
-        summaryHolder.setSummary(summaryView.getSummary());
+        SummaryItem summaryItem = (SummaryItem) item.getItem();
+        summaryHolder.setSummary(summaryItem.getSummary());
     }
 
     private void bindInfoView(InfoViewHolder infoHolder, RecyclerItem item) {
-        InfoView infoView = (InfoView) item.getItem();
-        infoHolder.setInformation(infoView);
+        InfoItem infoItem = (InfoItem) item.getItem();
+        infoHolder.setInformation(infoItem);
     }
 
     @Override

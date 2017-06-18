@@ -10,12 +10,12 @@ import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
-import tobiapplications.com.moviebase.model.detail.Review;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
-import tobiapplications.com.moviebase.model.detail.views.AdditionalInfoView;
-import tobiapplications.com.moviebase.model.detail.views.InfoView;
-import tobiapplications.com.moviebase.model.detail.views.SimilarMoviesView;
-import tobiapplications.com.moviebase.model.detail.views.SummaryView;
+import tobiapplications.com.moviebase.model.detail.items.AdditionalInfoItem;
+import tobiapplications.com.moviebase.model.detail.items.InfoItem;
+import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
+import tobiapplications.com.moviebase.model.detail.items.SummaryItem;
+import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
@@ -48,21 +48,21 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         parent.displayUiViews(detailItems);
     }
 
-    private AdditionalInfoView createAdditionalInfoView(MovieDetailResponse detailMovie) {
+    private AdditionalInfoItem createAdditionalInfoView(MovieDetailResponse detailMovie) {
         String originalTitle = detailMovie.getOriginalTitle();
         int budget = detailMovie.getBudget();
         int revenue = detailMovie.getRevenue();
         ArrayList<Genre> genres = detailMovie.getGenres();
         String homepage = detailMovie.getHomepage();
-        return new AdditionalInfoView(originalTitle, budget, revenue, genres, homepage);
+        return new AdditionalInfoItem(originalTitle, budget, revenue, genres, homepage);
     }
 
-    private SummaryView createSummaryView(MovieDetailResponse detailMovie) {
+    private SummaryItem createSummaryView(MovieDetailResponse detailMovie) {
         String summary = detailMovie.getDescription();
-        return new SummaryView(summary);
+        return new SummaryItem(summary);
     }
 
-    private InfoView createInfoView(MovieDetailResponse detailMovie) {
+    private InfoItem createInfoView(MovieDetailResponse detailMovie) {
         String imagePath = detailMovie.getTitleImagePath();
         double voteAverage = detailMovie.getVoteAverage();
         int voteCount = detailMovie.getVoteCount();
@@ -70,7 +70,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         boolean adult = detailMovie.isAdult();
         int runtime = detailMovie.getRuntime();
         String status = detailMovie.getStatus();
-        return new InfoView(imagePath, voteAverage, voteCount, release, adult, runtime, status);
+        return new InfoItem(imagePath, voteAverage, voteCount, release, adult, runtime, status);
     }
 
     @Override
@@ -92,7 +92,9 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
         if (movieOverviewResponse.getTotalResults() != 0) {
             ArrayList<MovieOverviewModel> movies = movieOverviewResponse.getMovies();
-            RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesView(movies));
+            ArrayList<MoviePosterItem> moviePosters = movieOverviewResponse.getMoviePosterItems();
+
+            RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesItem(moviePosters));
             parent.displayUiView(item);
         }
     }

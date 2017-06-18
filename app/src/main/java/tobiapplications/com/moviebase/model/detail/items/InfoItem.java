@@ -1,13 +1,11 @@
 
-package tobiapplications.com.moviebase.model.detail.views;
-
-import android.widget.TextView;
+package tobiapplications.com.moviebase.model.detail.items;
 
 /**
  * Created by Tobias on 15.06.2017.
  */
 
-public class InfoView {
+public class InfoItem {
 
     private String imagePath;
     private double voteAverage;
@@ -17,7 +15,7 @@ public class InfoView {
     private int runtime;
     private String status;
 
-    public InfoView(String imagePath, double voteAverage, int count, String releaseDate, boolean adult, int runtime, String status) {
+    public InfoItem(String imagePath, double voteAverage, int count, String releaseDate, boolean adult, int runtime, String status) {
         this.imagePath = imagePath;
         this.voteAverage = voteAverage;
         this.voteCount = count;

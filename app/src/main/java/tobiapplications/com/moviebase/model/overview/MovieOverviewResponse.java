@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
+
 /**
  * Created by Tobi-Laptop on 20.01.2017.
  */
@@ -36,5 +38,19 @@ public class MovieOverviewResponse implements Serializable {
 
     public ArrayList<MovieOverviewModel> getMovies() {
         return movies;
+    }
+
+    public ArrayList<MoviePosterItem> getMoviePosterItems() {
+        ArrayList<MoviePosterItem> posterItems = new ArrayList<>();
+
+        for (MovieOverviewModel model : movies) {
+            int id = model.getId();
+            String imagePath = model.getTitleImagePath();
+            String imageTitle = model.getTitle();
+            MoviePosterItem item = new MoviePosterItem(id, imagePath, imageTitle);
+            posterItems.add(item);
+        }
+
+        return posterItems;
     }
 }
