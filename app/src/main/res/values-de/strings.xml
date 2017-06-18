@@ -14,9 +14,6 @@
     <string name="pref_language_de_label">Deutsch</string>
     <string name="pref_language_en_label">Englisch</string>
     <string name="pref_language_label">Sprache</string>
-    <string name="pref_picture_download_label">Bilder anzeigen (empfohlen)?</string>
-    <string name="pref_picture_download_summary_off">Bilder werden angezeigt</string>
-    <string name="pref_picture_download_summary_on">Bilder werden nicht angezeigt</string>
     <string name="info_release_label">Veröffentlichung</string>
     <string name="unmarked_as_favorite">%s wurde von deinen Favoriten entfernt</string>
     <string name="reviews_label">Rezensionen</string>

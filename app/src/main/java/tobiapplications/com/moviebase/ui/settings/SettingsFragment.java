@@ -41,11 +41,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         int count = prefScreen.getPreferenceCount();
         for (int i = 0; i < count; i++) {
             Preference p = prefScreen.getPreference(i);
-            if (!(p instanceof CheckBoxPreference)) {
-                String defaultValue = "";
-                if (p.getKey().equals(getContext().getString(R.string.pref_language_key))) {
-                    defaultValue = getContext().getString(R.string.pref_language_default);
-                }
+            if (p instanceof ListPreference) {
                 String value = sharedPreferences.getString(p.getKey(), "");
                 setPreferenceSummary(p, value);
             }
@@ -102,7 +98,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
 
         Preference preference = findPreference(key);
         if (null != preference) {
-            if (!(preference instanceof CheckBoxPreference)) {
+            if (preference instanceof ListPreference) {
                 setPreferenceSummary(preference, sharedPreferences.getString(key, ""));
             }
         }

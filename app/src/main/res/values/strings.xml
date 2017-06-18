@@ -35,10 +35,6 @@
     <string name="pref_language_de_value" translatable="false">de</string>
     <string name="pref_language_en_label">English</string>
     <string name="pref_language_de_label">German</string>
-    <string name="pref_picture_download_key" translatable="false">download_pictures</string>
-    <string name="pref_picture_download_summary_on">Pictures are shown</string>
-    <string name="pref_picture_download_summary_off">Pictures are not shown</string>
-    <string name="pref_picture_download_label">Show pictures (recommended)?</string>
 
 
     <!-- genres -->

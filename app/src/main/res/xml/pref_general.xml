@@ -8,11 +8,4 @@
         android:key="@string/pref_language_key"
         android:title="@string/pref_language_label" />
 
-    <CheckBoxPreference
-        android:defaultValue="@bool/pref_picture_download_default"
-        android:key="@string/pref_picture_download_key"
-        android:summaryOff="@string/pref_picture_download_summary_off"
-        android:summaryOn="@string/pref_picture_download_summary_on"
-        android:title="@string/pref_picture_download_label" />
-
 </PreferenceScreen>
