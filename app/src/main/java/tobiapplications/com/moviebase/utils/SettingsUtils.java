@@ -20,10 +20,9 @@ public class SettingsUtils {
 
     private static String appLanguage = "";
 
-    public static String getLanguage(Context context) {
+    public static String getAppLanguage() {
         if (TextUtils.isEmpty(appLanguage)) {
-            appLanguage = getLanguageFromSharedPrefs(context);
-            safeLanguageInSharedPrefs(context);
+            return getPhoneDefaultLanguage();
         }
         return appLanguage;
     }
@@ -39,15 +38,7 @@ public class SettingsUtils {
     public static String getPhoneDefaultLanguage() {
         return Locale.getDefault().getLanguage();
     }
-
-    private static void safeLanguageInSharedPrefs(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        editor.putString(context.getString(R.string.pref_language_key), appLanguage);
-        editor.apply();
-    }
-
+    
     public static void updateApplicationLanguage(Context context) {
         String language = getLanguageFromSharedPrefs(context);
         Resources resources = context.getResources();

@@ -36,10 +36,6 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
 public class DataManager {
     private TheMovieApi movieApi;
     private static DataManager dataManager;
-    public static final String POPULAR_MOVIES = "pop_movies";
-    public static final String TOP_RATED_MOVIES = "top_movies";
-    public static final String SINGLE_MOVIE = "single_movie";
-
 
     public static DataManager getInstance() {
         if (dataManager == null) {
