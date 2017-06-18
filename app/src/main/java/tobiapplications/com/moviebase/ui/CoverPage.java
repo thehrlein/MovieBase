@@ -40,7 +40,7 @@ public class CoverPage extends AppCompatActivity {
     }
 
     private void waitAndShowMainActivity() {
-        new Handler().postDelayed(() -> startOverviewActivity(), 2000);
+        new Handler().postDelayed(() -> startOverviewActivity(), 1500);
     }
 
     private void startOverviewActivity() {
