@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.viewholder.detail;
+package tobiapplications.com.moviebase.ui.viewholder.detail;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.detail.Review;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
-import tobiapplications.com.moviebase.ui.general_views.DividerView;
-import tobiapplications.com.moviebase.ui.general_views.ReviewItem;
+import tobiapplications.com.moviebase.ui.views.DividerView;
+import tobiapplications.com.moviebase.ui.views.ReviewItem;
 
 /**
  * Created by Tobias on 16.06.2017.

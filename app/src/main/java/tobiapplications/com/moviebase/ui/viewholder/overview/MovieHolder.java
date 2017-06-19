@@ -1,24 +1,15 @@
-package tobiapplications.com.moviebase.viewholder.overview;
+package tobiapplications.com.moviebase.ui.viewholder.overview;
 
 import android.content.Context;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
-import tobiapplications.com.moviebase.ui.general_views.MoviePosterView;
-import tobiapplications.com.moviebase.utils.NetworkUtils;
-import tobiapplications.com.moviebase.utils.SQLUtils;
+import tobiapplications.com.moviebase.ui.views.MoviePosterView;
 
 /**
  * Created by Tobias on 15.06.2017.

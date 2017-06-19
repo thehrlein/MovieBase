@@ -14,8 +14,8 @@ import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.model.RecyclerItem;
-import tobiapplications.com.moviebase.viewholder.overview.LoadingHolder;
-import tobiapplications.com.moviebase.viewholder.overview.MovieHolder;
+import tobiapplications.com.moviebase.ui.viewholder.overview.LoadingHolder;
+import tobiapplications.com.moviebase.ui.viewholder.overview.MovieHolder;
 
 /**
  * Created by Tobias on 09.06.2017.

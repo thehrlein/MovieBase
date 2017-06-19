@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.ui.general_views;
+package tobiapplications.com.moviebase.ui.views;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

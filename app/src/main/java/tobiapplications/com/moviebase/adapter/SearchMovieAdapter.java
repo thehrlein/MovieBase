@@ -5,18 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
-import tobiapplications.com.moviebase.utils.NetworkUtils;
-import tobiapplications.com.moviebase.viewholder.SearchMovieViewHolder;
+import tobiapplications.com.moviebase.ui.viewholder.SearchMovieViewHolder;
 
 /**
  * Created by Tobias on 01.04.2017.

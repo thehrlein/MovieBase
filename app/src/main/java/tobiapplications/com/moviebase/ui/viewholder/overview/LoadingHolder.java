@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.viewholder.overview;
+package tobiapplications.com.moviebase.ui.viewholder.overview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -17,12 +17,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <tobiapplications.com.moviebase.ui.general_views.MoviePosterView
+            <tobiapplications.com.moviebase.ui.views.MoviePosterView
                 android:id="@+id/movie_poster_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            </tobiapplications.com.moviebase.ui.general_views.MoviePosterView>
+            </tobiapplications.com.moviebase.ui.views.MoviePosterView>
 
             <!--<ImageView-->
                 <!--android:layout_width="match_parent"-->

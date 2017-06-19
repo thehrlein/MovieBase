@@ -1,24 +1,19 @@
-package tobiapplications.com.moviebase.viewholder.detail;
+package tobiapplications.com.moviebase.ui.viewholder.detail;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
-import tobiapplications.com.moviebase.ui.general_views.MoviePosterView;
+import tobiapplications.com.moviebase.ui.views.MoviePosterView;
 import tobiapplications.com.moviebase.utils.Constants;
-import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
  * Created by Tobias on 15.06.2017.

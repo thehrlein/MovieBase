@@ -15,12 +15,12 @@ import tobiapplications.com.moviebase.model.detail.items.AdditionalInfoItem;
 import tobiapplications.com.moviebase.model.detail.items.InfoItem;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.model.detail.items.SummaryItem;
-import tobiapplications.com.moviebase.viewholder.detail.ActorsViewHolder;
-import tobiapplications.com.moviebase.viewholder.detail.AdditionalInfoViewHolder;
-import tobiapplications.com.moviebase.viewholder.detail.InfoViewHolder;
-import tobiapplications.com.moviebase.viewholder.detail.ReviewsViewHolder;
-import tobiapplications.com.moviebase.viewholder.detail.SimilarMoviesViewHolder;
-import tobiapplications.com.moviebase.viewholder.detail.SummaryViewHolder;
+import tobiapplications.com.moviebase.ui.viewholder.detail.ActorsViewHolder;
+import tobiapplications.com.moviebase.ui.viewholder.detail.AdditionalInfoViewHolder;
+import tobiapplications.com.moviebase.ui.viewholder.detail.InfoViewHolder;
+import tobiapplications.com.moviebase.ui.viewholder.detail.ReviewsViewHolder;
+import tobiapplications.com.moviebase.ui.viewholder.detail.SimilarMoviesViewHolder;
+import tobiapplications.com.moviebase.ui.viewholder.detail.SummaryViewHolder;
 
 /**
  * Created by Tobias on 14.06.2017.

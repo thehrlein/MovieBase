@@ -1,23 +1,19 @@
-package tobiapplications.com.moviebase.ui.general_views;
+package tobiapplications.com.moviebase.ui.views;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.listener.OnActorImageClickListener;
 import tobiapplications.com.moviebase.model.detail.Actor;
-import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
@@ -55,7 +51,7 @@ public class ActorsPosterView extends LinearLayout {
         actorName = (TextView) rootView.findViewById(R.id.actor_name);
     }
 
-    public void setActorInformation(Actor actor) {
+    public void setActorInformation(Actor actor, int position, OnActorImageClickListener listener) {
         if (actor != null) {
 
             if (!TextUtils.isEmpty(actor.getProfilePath())) {
@@ -70,6 +66,13 @@ public class ActorsPosterView extends LinearLayout {
             getLayoutParams().width = 300;
             actorCharacter.setText(actor.getCharacter());
             actorName.setText(actor.getName());
+
+            actorImage.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onActorImageClick(position);
+                }
+            });
         }
     }
 }

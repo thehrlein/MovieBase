@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.viewholder.detail;
+package tobiapplications.com.moviebase.ui.viewholder.detail;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import java.util.Locale;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.items.AdditionalInfoItem;
-import tobiapplications.com.moviebase.ui.general_views.GenreTextView;
+import tobiapplications.com.moviebase.ui.views.GenreTextView;
 
 /**
  * Created by Tobias on 15.06.2017.
