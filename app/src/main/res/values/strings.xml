@@ -25,6 +25,7 @@
     <string name="reviews_label">Reviews</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
+    <string name="review_show_more">Show next review</string>
 
 
     <!-- preferences -->

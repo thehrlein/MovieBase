@@ -46,6 +46,16 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/show_next_review"
+                android:text="@string/review_show_more"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
+
 
         </LinearLayout>
 
