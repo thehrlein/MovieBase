@@ -11,6 +11,7 @@ import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
+import tobiapplications.com.moviebase.model.detail.TrailerResponse;
 import tobiapplications.com.moviebase.model.detail.items.AdditionalInfoItem;
 import tobiapplications.com.moviebase.model.detail.items.InfoItem;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
@@ -35,6 +36,14 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         this.parent = parent;
     }
 
+    public void init(MovieDetailResponse detailMovie) {
+        buildUiFromResponse(detailMovie);
+        requestMovieDownload();
+        requestReviews();
+        requestActors();
+        requestTrailers();
+    }
+
     @Override
     public void buildUiFromResponse(MovieDetailResponse detailMovie) {
         this.movieId = detailMovie.getId();
@@ -42,8 +51,8 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         ArrayList<RecyclerItem> detailItems = new ArrayList<>();
 
         detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_INFO, createInfoView(detailMovie)));
-        detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_SUMMARY, createSummaryView(detailMovie)));
         detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_ADDITIONAL_INFO, createAdditionalInfoView(detailMovie)));
+        detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_SUMMARY, createSummaryView(detailMovie)));
 
         parent.displayUiViews(detailItems);
     }
@@ -88,20 +97,24 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         DataManager.getInstance().requestActors(this, movieId);
     }
 
-    @Override
-    public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
-        if (movieOverviewResponse.getTotalResults() != 0) {
-            ArrayList<MovieOverviewModel> movies = movieOverviewResponse.getMovies();
-            ArrayList<MoviePosterItem> moviePosters = movieOverviewResponse.getMoviePosterItems();
 
-            RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesItem(moviePosters));
-            parent.displayUiView(item);
-        }
+    private void requestTrailers() {
+        DataManager.getInstance().requestTrailers(this, movieId);
     }
 
     @Override
     public void displayError() {
         Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
+        if (movieOverviewResponse.getTotalResults() != 0) {
+            ArrayList<MoviePosterItem> moviePosters = movieOverviewResponse.getMoviePosterItems();
+
+            RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesItem(moviePosters));
+            parent.displayUiView(item);
+        }
     }
 
     @Override
@@ -118,5 +131,10 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
             RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_ACTORS, response);
             parent.displayUiView(item);
         }
+    }
+
+    @Override
+    public void displayTrailers(TrailerResponse body) {
+        TrailerResponse test = body;
     }
 }

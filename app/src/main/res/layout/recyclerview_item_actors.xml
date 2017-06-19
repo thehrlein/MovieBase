@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/actors_label"
-                android:textSize="12sp"
+                android:textSize="18sp"
                 android:textStyle="bold"/>
 
             <HorizontalScrollView
@@ -46,6 +46,7 @@
 
                 <GridLayout
                     android:id="@+id/actors_grid_layout"
+                    android:layout_marginTop="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

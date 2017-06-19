@@ -61,12 +61,9 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         mContext = getContext();
         adapter = new DetailAdapter(mContext);
         presenter = new DetailFragmentPresenter(mContext, this);
+        presenter.init(detailMovie);
         findMyViews();
         setAdapter();
-        presenter.buildUiFromResponse(detailMovie);
-        presenter.requestMovieDownload();
-        presenter.requestReviews();
-        presenter.requestActors();
     }
 
     private void findMyViews() {

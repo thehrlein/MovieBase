@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.ui.overview.OverviewActivity;
 import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.SettingsUtils;
@@ -22,6 +23,8 @@ public class CoverPage extends AppCompatActivity {
         showFullscreen();
 
         setLanguage();
+
+        initializeApi();
 
         waitAndShowMainActivity();
     }
@@ -38,6 +41,10 @@ public class CoverPage extends AppCompatActivity {
 
     private void setLanguage() {
         SettingsUtils.updateApplicationLanguage(this);
+    }
+
+    private void initializeApi() {
+        DataManager.getInstance().buildMovieApi();
     }
 
     private void waitAndShowMainActivity() {

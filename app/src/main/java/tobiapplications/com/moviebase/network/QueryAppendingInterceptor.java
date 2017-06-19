@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.network.callbacks;
+package tobiapplications.com.moviebase.network;
 
 import java.io.IOException;
 

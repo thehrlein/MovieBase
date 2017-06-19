@@ -7,6 +7,7 @@ import retrofit2.http.Query;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
+import tobiapplications.com.moviebase.model.detail.TrailerResponse;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 
@@ -37,4 +38,6 @@ public interface TheMovieApi {
     @GET("movie/{id}/credits")
     Call<ActorsResponse> requestActors(@Path("id") int movieId);
 
+    @GET("movie/{id}/videos")
+    Call<TrailerResponse> requestTrailers(@Path("id") int movieId);
 }

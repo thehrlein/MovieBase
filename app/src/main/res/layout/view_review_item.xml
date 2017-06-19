@@ -6,19 +6,24 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/review_author"
-        android:textSize="12sp"
-        tools:text="Movie Queen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
         android:id="@+id/review_content"
         android:layout_marginTop="8dp"
         android:textSize="14sp"
         tools:text="**The First Great DCEU Film**\r\n\r\nThis film is the origin story of Diana Prince/Wonder Woman (Gal Gadot), who was first introduced in Batman v. Superman last releaseDate. She is born and trained on Themyscira, the hidden island where the powerful warrior women known as the Amazons live. One day, Steve Trevor (Chris Pine), an American World War I spy, crashes off the coast of Themyscira and is rescued by Diana and the two team up to take down Ares, the God of War, and the Germans, who are developing a very deadly form of mustard gas. There are fantastic action sequences in this film, especially by Gal Gadot. It's amazing to see her single-handedly storm the German front, inspiring the Allies to fight with her. Gadot takes over from the legendary Linda Carter and makes the role her own. She has great chemistry with Pine. They are complete equals in this film. It's refreshing to see the female lead in a superhero film not be the love interest. The only negative part of the film are the lackluster villains. Hopefully, Wonder Woman will have more formidable foes in future films."
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/review_author"
+        android:textSize="12sp"
+        tools:text="Movie Queen"
+        android:textStyle="bold"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"/>
 
 </LinearLayout>
