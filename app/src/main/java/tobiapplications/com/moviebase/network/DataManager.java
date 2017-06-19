@@ -11,15 +11,18 @@ import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
-import tobiapplications.com.moviebase.model.detail.TrailerResponse;
+import tobiapplications.com.moviebase.model.detail.TrailersResponse;
+import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.callbacks.ActorsCallback;
 import tobiapplications.com.moviebase.network.callbacks.DetailCallback;
 import tobiapplications.com.moviebase.network.callbacks.OverviewCallback;
 import tobiapplications.com.moviebase.network.callbacks.ReviewCallback;
 import tobiapplications.com.moviebase.network.callbacks.TrailersCallback;
+import tobiapplications.com.moviebase.network.callbacks.YtTrailerCallback;
 import tobiapplications.com.moviebase.ui.detail.DetailActivityPresenter;
 import tobiapplications.com.moviebase.ui.detail.DetailFragmentContract;
+import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
@@ -28,6 +31,7 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 public class DataManager {
     private TheMovieApi movieApi;
+    private YoutubeApi youtubeApi;
     private static DataManager dataManager;
 
     public static DataManager getInstance() {
@@ -46,11 +50,11 @@ public class DataManager {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(LoggingInterceptor.getLogger())
-                .addInterceptor(new QueryAppendingInterceptor())
+                .addInterceptor(new QueryAppendingInterceptor(Constants.THE_MOVIE_DB))
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(NetworkUtils.MOVIE_BASE_URL)
+                .baseUrl(NetworkUtils.getMovieBaseUrl())
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
@@ -58,13 +62,24 @@ public class DataManager {
         movieApi = retrofit.create(TheMovieApi.class);
     }
 
-//    private TheMovieApi getMovieApi() {
-//        if (movieApi == null) {
-//            buildMovieApi();
-//        }
-//
-//        return movieApi;
-//    }
+    public void buildYoutubeApi() {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(LoggingInterceptor.getLogger())
+                .addInterceptor(new QueryAppendingInterceptor(Constants.YOUTUBE))
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(NetworkUtils.getYoutubeBaseUrl())
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        youtubeApi = retrofit.create(YoutubeApi.class);
+    }
 
     public void requestPopularMovies(OnOverviewMovieLoad listener, int pageToLoad) {
         Call<MovieOverviewResponse> popularMovieCall = movieApi.requestPopularMovies(pageToLoad);
@@ -102,7 +117,12 @@ public class DataManager {
     }
 
     public void requestTrailers(DetailFragmentContract.Presenter presenter, int movieId) {
-        Call<TrailerResponse> trailerResponseCall = movieApi.requestTrailers(movieId);
+        Call<TrailersResponse> trailerResponseCall = movieApi.requestTrailers(movieId);
         trailerResponseCall.enqueue(new TrailersCallback(presenter));
+    }
+
+    public void requestYoutubeTrailerInformation(DetailFragmentContract.Presenter presenter, String trailerKey) {
+        Call<YtSingleTrailerResponse> youtubeSingleTrailerResponseCall = youtubeApi.requestSingleTrailer(trailerKey);
+        youtubeSingleTrailerResponseCall.enqueue(new YtTrailerCallback(presenter));
     }
 }

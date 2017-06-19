@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by Tobias on 19.06.2017.
  */
 
-public class TrailerResponse implements Serializable {
+public class TrailersResponse implements Serializable {
 
     @SerializedName("id")
     private int id;

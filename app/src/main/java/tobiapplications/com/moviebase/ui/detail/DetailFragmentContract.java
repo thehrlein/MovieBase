@@ -7,7 +7,8 @@ import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
-import tobiapplications.com.moviebase.model.detail.TrailerResponse;
+import tobiapplications.com.moviebase.model.detail.TrailersResponse;
+import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 
 /**
  * Created by Tobias on 13.06.2017.
@@ -28,6 +29,7 @@ public interface DetailFragmentContract {
         void displayReviews(ReviewResponse response);
         void requestActors();
         void displayActors(ActorsResponse body);
-        void displayTrailers(TrailerResponse body);
+        void displayTrailers(TrailersResponse body);
+        void displaySingleYoutubeTrailer(YtSingleTrailerResponse body);
     }
 }

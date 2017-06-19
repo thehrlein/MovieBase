@@ -16,15 +16,29 @@ import tobiapplications.com.moviebase.utils.SettingsUtils;
 
 public class QueryAppendingInterceptor implements Interceptor {
 
+    private String apiFlag;
+
+    public QueryAppendingInterceptor(String apiFlag) {
+        this.apiFlag = apiFlag;
+    }
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request original = chain.request();
         HttpUrl originalHttpUrl = original.url();
+        HttpUrl url = null;
 
-        HttpUrl url = originalHttpUrl.newBuilder()
-                .addQueryParameter(Constants.QUERY_API_KEY, NetworkUtils.getKey())
-                .addQueryParameter(Constants.QUERY_LANGUAGE, SettingsUtils.getAppLanguage())
-                .build();
+        if (apiFlag.equals(Constants.THE_MOVIE_DB)) {
+            url = originalHttpUrl.newBuilder()
+                    .addQueryParameter(Constants.THE_MOVIE_QUERY_API_LABEL, NetworkUtils.getMovieApiKey())
+                    .addQueryParameter(Constants.THE_MOVIE_QUERY_LANGUAGE_LABEL, SettingsUtils.getAppLanguage())
+                    .build();
+        } else if (apiFlag.equals(Constants.YOUTUBE)) {
+            url = originalHttpUrl.newBuilder()
+                    .addQueryParameter(Constants.YOUTUBE_API_QUERY_LABEL, NetworkUtils.getYoutubeApiKey())
+                    .addQueryParameter(Constants.YOUTUBE_API_INFO_LABEL, Constants.YOUTUBE_API_INFO_VALUE)
+                    .build();
+        }
 
         Request.Builder requestBuilder = original.newBuilder()
                 .url(url);
