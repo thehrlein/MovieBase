@@ -35,6 +35,8 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
         this.parent = activity;
         this.movieId = movieId;
         this.context = context;
+
+        requestSingleMovieDownload();
     }
 
     @Override

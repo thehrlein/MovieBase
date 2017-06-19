@@ -53,7 +53,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         getMovieId();
 
         presenter = new DetailActivityPresenter(this, movieId, this);
-        presenter.requestSingleMovieDownload();
     }
 
     @Override
