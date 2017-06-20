@@ -33,12 +33,11 @@ public class GenreTextView extends AppCompatTextView {
     }
 
     private void init(Context context) {
-       // LayoutInflater.from(context).inflate(R.layout.textview_genres, null);
         setBackgroundDrawable(context.getResources().getDrawable(R.drawable.genre_background_color));
         FlexboxLayout.LayoutParams params = new FlexboxLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(5, 5 , 5, 5);
         setLayoutParams(params);
-        setPadding(20, 5, 30, 5);
+        setPadding(25, 10, 25, 10);
         setTextColor(ContextCompat.getColor(context, R.color.colorWhite));
         setTextSize(12);
     }
