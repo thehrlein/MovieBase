@@ -30,7 +30,6 @@
     <string name="trailers_show_more">Show next trailers (%d remaining)</string>
 
 
-
     <!-- preferences -->
     <string name="pref_language_label">Language</string>
     <string name="pref_language_key" translatable="false">language</string>
@@ -41,9 +40,13 @@
     <string name="pref_language_de_label">German</string>
 
 
-    <!-- genres -->
     <string name="unknown">unknown</string>
     <string name="string_fasten_your_seatbelts" translatable="false">fasten your seatbelts ...</string>
+    <string name="about">About</string>
+    <string name="about_text_first">MovieBase was created as part of an Udacity course and uses the TheMovieDB API.
+    This application is not an official product or certified by Udacity or TheMovieDB.</string>
+    <string name="about_text_second">For further information, questions or feedback, please use the button at the bottom to contact me.</string>
+    <string name="about_creator">- Tobias</string>
 
 
 </resources>

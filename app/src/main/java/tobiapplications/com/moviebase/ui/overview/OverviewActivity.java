@@ -21,6 +21,7 @@ import java.util.prefs.Preferences;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
+import tobiapplications.com.moviebase.ui.About;
 import tobiapplications.com.moviebase.ui.settings.SettingsActivity;
 import tobiapplications.com.moviebase.utils.SettingsUtils;
 
@@ -100,8 +101,15 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
             case  R.id.action_settings:
                 openSettings();
                 break;
+            case R.id.action_about:
+                openAbout();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openAbout() {
+        Intent intent = new Intent(this, About.class);
+        startActivity(intent);
     }
 
     @Override

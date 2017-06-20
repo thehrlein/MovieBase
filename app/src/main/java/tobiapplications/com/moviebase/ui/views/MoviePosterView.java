@@ -86,7 +86,7 @@ public class MoviePosterView extends LinearLayout implements PopupMenu.OnMenuIte
     private void showPopMenu(View view, Context context) {
         popupMenu = new PopupMenu(context, view);
         MenuInflater inflater = popupMenu.getMenuInflater();
-        inflater.inflate(R.menu.menu_movie_card, popupMenu.getMenu());
+        inflater.inflate(R.menu.popup_menu_movie_card, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.show();
     }

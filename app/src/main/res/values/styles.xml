@@ -23,8 +23,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="CustomToolbarTitle" parent="AppTheme.NoActionBar">
-    </style>
+    <style name="CustomToolbarTitle" parent="AppTheme.NoActionBar"></style>
 
     <style name="ToolbarTitle.Collapsed" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">12sp</item>
@@ -33,4 +32,8 @@
     <style name="ToolbarTitle.Expended" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
