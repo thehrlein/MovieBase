@@ -15,12 +15,14 @@ import tobiapplications.com.moviebase.model.detail.items.AdditionalInfoItem;
 import tobiapplications.com.moviebase.model.detail.items.InfoItem;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.model.detail.items.SummaryItem;
+import tobiapplications.com.moviebase.model.detail.items.TrailerItem;
 import tobiapplications.com.moviebase.ui.viewholder.detail.ActorsViewHolder;
 import tobiapplications.com.moviebase.ui.viewholder.detail.AdditionalInfoViewHolder;
 import tobiapplications.com.moviebase.ui.viewholder.detail.InfoViewHolder;
 import tobiapplications.com.moviebase.ui.viewholder.detail.ReviewsViewHolder;
 import tobiapplications.com.moviebase.ui.viewholder.detail.SimilarMoviesViewHolder;
 import tobiapplications.com.moviebase.ui.viewholder.detail.SummaryViewHolder;
+import tobiapplications.com.moviebase.ui.viewholder.detail.TrailersViewHolder;
 
 /**
  * Created by Tobias on 14.06.2017.
@@ -30,7 +32,6 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private Context context;
     private ArrayList<RecyclerItem> itemList;
-    private LayoutInflater layoutInflater;
 
     public static final int VIEW_TYPE_INFO = 200;
     public static final int VIEW_TYPE_SUMMARY = 201;
@@ -43,7 +44,6 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public DetailAdapter(Context context) {
         this.context = context;
         itemList = new ArrayList<>();
-        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -61,6 +61,8 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 return new ReviewsViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_reviews, parent, false), context);
             case VIEW_TYPE_ACTORS:
                 return new ActorsViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_actors, parent, false), context);
+            case VIEW_TYPE_TRAILERS:
+                return new TrailersViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_trailers, parent, false), context);
         }
         return null;
     }
@@ -86,7 +88,16 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 break;
             case VIEW_TYPE_ACTORS:
                 bindActorsView((ActorsViewHolder) holder, item);
+                break;
+            case VIEW_TYPE_TRAILERS:
+                bindTrailersItem((TrailersViewHolder) holder, item);
+                break;
         }
+    }
+
+    private void bindTrailersItem(TrailersViewHolder trailersViewHolder, RecyclerItem item) {
+        ArrayList<TrailerItem> trailerItems = (ArrayList<TrailerItem>) item.getItem();
+        trailersViewHolder.setTrailers(trailerItems);
     }
 
     private void bindActorsView(ActorsViewHolder actorsViewHolder, RecyclerItem item) {

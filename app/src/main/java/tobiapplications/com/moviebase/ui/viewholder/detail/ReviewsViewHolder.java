@@ -12,7 +12,7 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.detail.Review;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 import tobiapplications.com.moviebase.ui.views.DividerView;
-import tobiapplications.com.moviebase.ui.views.ReviewItem;
+import tobiapplications.com.moviebase.ui.views.ReviewView;
 
 /**
  * Created by Tobias on 16.06.2017.
@@ -24,7 +24,7 @@ public class ReviewsViewHolder extends RecyclerView.ViewHolder implements View.O
     private LinearLayout reviewWrapper;
     private TextView showNextReview;
     private int shownReviews = 1;
-    private ArrayList<ReviewItem> inflatedReviewItems;
+    private ArrayList<ReviewView> inflatedReviewItems;
 
     public ReviewsViewHolder(View itemView, Context context) {
         super(itemView);
@@ -39,14 +39,14 @@ public class ReviewsViewHolder extends RecyclerView.ViewHolder implements View.O
         inflatedReviewItems = new ArrayList<>();
 
         for (int i = 0; i < reviews.size(); i++) {
-            ReviewItem item = new ReviewItem(context);
-            item.setReviewText(reviews.get(i).getAuthor(), reviews.get(i).getContent());
-            reviewWrapper.addView(item);
+            ReviewView view = new ReviewView(context);
+            view.setReviewText(reviews.get(i).getAuthor(), reviews.get(i).getContent());
+            reviewWrapper.addView(view);
 
             if (i > 0) {
-                item.setVisibility(View.GONE);
+                view.setVisibility(View.GONE);
             }
-            inflatedReviewItems.add(item);
+            inflatedReviewItems.add(view);
         }
 
         hideLoadMoreTextViewIfLastReviewIsShown();
@@ -65,6 +65,8 @@ public class ReviewsViewHolder extends RecyclerView.ViewHolder implements View.O
     private void hideLoadMoreTextViewIfLastReviewIsShown() {
         if (shownReviews == inflatedReviewItems.size()) {
             showNextReview.setVisibility(View.GONE);
+        } else {
+            showNextReview.setText(context.getString(R.string.review_show_more, inflatedReviewItems.size() - shownReviews));
         }
     }
 

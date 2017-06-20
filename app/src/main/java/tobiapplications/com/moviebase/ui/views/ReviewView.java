@@ -12,23 +12,23 @@ import tobiapplications.com.moviebase.R;
  * Created by Tobias on 16.06.2017.
  */
 
-public class ReviewItem extends LinearLayout {
+public class ReviewView extends LinearLayout {
 
     private LinearLayout rootView;
     private TextView author;
     private TextView content;
 
-    public ReviewItem(Context context) {
+    public ReviewView(Context context) {
         super(context);
         init(context);
     }
 
-    public ReviewItem(Context context, @Nullable AttributeSet attrs) {
+    public ReviewView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public ReviewItem(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public ReviewView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }

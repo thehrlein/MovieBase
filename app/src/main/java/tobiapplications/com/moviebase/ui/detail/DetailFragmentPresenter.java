@@ -1,7 +1,6 @@
 package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -15,10 +14,13 @@ import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 import tobiapplications.com.moviebase.model.detail.Trailer;
 import tobiapplications.com.moviebase.model.detail.TrailersResponse;
 import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
+import tobiapplications.com.moviebase.model.detail.YtThumbnailObject;
+import tobiapplications.com.moviebase.model.detail.YtTrailerStatistic;
 import tobiapplications.com.moviebase.model.detail.items.AdditionalInfoItem;
 import tobiapplications.com.moviebase.model.detail.items.InfoItem;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.model.detail.items.SummaryItem;
+import tobiapplications.com.moviebase.model.detail.items.TrailerItem;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
@@ -32,10 +34,13 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     private int movieId;
     private Context context;
     private DetailFragmentContract.View parent;
+    private int trailerResponseCount;
+    private ArrayList<TrailerItem> trailerItems;
 
     public DetailFragmentPresenter(Context context, DetailFragmentContract.View parent) {
         this.context = context;
         this.parent = parent;
+        trailerItems = new ArrayList<>();
     }
 
     public void init(MovieDetailResponse detailMovie) {
@@ -138,6 +143,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     @Override
     public void displayTrailers(TrailersResponse body) {
         ArrayList<Trailer> trailers = body.getTrailers();
+        trailerResponseCount = trailers.size();
         for (Trailer trailer : trailers) {
             DataManager.getInstance().requestYoutubeTrailerInformation(this, trailer.getKey());
         }
@@ -145,6 +151,15 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
     @Override
     public void displaySingleYoutubeTrailer(YtSingleTrailerResponse body) {
+        String title = body.getTitle();
+        YtThumbnailObject thumbnails = body.getThumbnails();
+        YtTrailerStatistic statistics = body.getStatistics();
 
+        TrailerItem trailerItem = new TrailerItem(title, thumbnails, statistics);
+        trailerItems.add(trailerItem);
+        if (trailerItems.size() == trailerResponseCount) {
+            RecyclerItem recyclerItem = new RecyclerItem(DetailAdapter.VIEW_TYPE_TRAILERS, trailerItems);
+            parent.displayUiView(recyclerItem);
+        }
     }
 }

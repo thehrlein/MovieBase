@@ -23,9 +23,12 @@
     <string name="additional_info_original_title_label">Original Title</string>
     <string name="summary_label">Summary</string>
     <string name="reviews_label">Reviews</string>
+    <string name="trailers_label">Trailers</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
-    <string name="review_show_more">Show next review</string>
+    <string name="review_show_more">Show next review (%d remaining)</string>
+    <string name="trailers_show_more">Show next trailers (%d remaining)</string>
+
 
 
     <!-- preferences -->

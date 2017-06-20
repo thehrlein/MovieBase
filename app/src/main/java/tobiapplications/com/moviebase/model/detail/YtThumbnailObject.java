@@ -41,7 +41,7 @@ public class YtThumbnailObject implements Serializable {
         return maxresThumb;
     }
 
-    private class YtThumbnailContent implements Serializable {
+    public class YtThumbnailContent implements Serializable {
 
         @SerializedName("url")
         private String url;

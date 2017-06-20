@@ -13,13 +13,25 @@ public class YtSingleTrailerResponse implements Serializable {
     @SerializedName("items")
     private YtTrailerItem[] item;
 
-    public YtTrailerItem getItem() {
+    private YtTrailerItem getItem() {
         return item[0];
+    }
+
+    public YtThumbnailObject getThumbnails() {
+        return getItem().getSnippet().getThumbnailObject();
+    }
+
+    public YtTrailerStatistic getStatistics() {
+        return getItem().getSnippet().getTrailerStatistic();
+    }
+
+    public String getTitle() {
+        return getItem().getSnippet().getTitle();
     }
 
     private class YtTrailerItem implements Serializable {
 
-        @SerializedName("snippet/title")
+        @SerializedName("snippet")
         private YtSnippet snippet;
 
         public YtSnippet getSnippet() {
