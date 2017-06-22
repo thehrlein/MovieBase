@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,21 +17,24 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.prefs.Preferences;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
+import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.ui.About;
 import tobiapplications.com.moviebase.ui.settings.SettingsActivity;
+import tobiapplications.com.moviebase.ui.views.CustomViewPager;
 import tobiapplications.com.moviebase.utils.SettingsUtils;
 
 public class OverviewActivity extends AppCompatActivity implements OverviewActivityContract.View {
 
     private TabLayout mTabLayout;
-    private ViewPager mViewPager;
-
+    private CustomViewPager mViewPager;
+    private AppBarLayout mAppBarLayout;
     private String currentLanguage = "";
 
     @Override
@@ -37,12 +42,21 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
+        init();
+
         currentLanguage = SettingsUtils.getAppLanguage();
         disableActionBarTabLayoutDivider();
         setStatusBarColor();
         findMyViews();
         setupViewPager();
         mTabLayout.setupWithViewPager(mViewPager);
+        hideViewsOnLoading();
+    }
+
+    private void init() {
+        SettingsUtils.updateApplicationLanguage(this);
+        DataManager.getInstance().buildMovieApi();
+        DataManager.getInstance().buildYoutubeApi();
     }
 
     @Override
@@ -63,13 +77,14 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
     @Override
     public void findMyViews() {
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = (CustomViewPager) findViewById(R.id.viewpager);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
     }
 
     @Override
     public void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(PopularFragment.newInstance(), getString(R.string.title_popular));
+        adapter.addFragment(PopularFragment.newInstance(this), getString(R.string.title_popular));
         adapter.addFragment(TopRatedFragment.newInstance(), getString(R.string.title_top_rated));
         adapter.addFragment(OwnFavoriteFragment.newInstance(), getString(R.string.title_favorite));
 
@@ -138,5 +153,30 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
     private void restartActivity() {
         Intent restart = new Intent(this, OverviewActivity.class);
         startActivity(restart);
+    }
+
+    private void hideViewsOnLoading() {
+        mViewPager.disableSwipe(true);
+        mTabLayout.setVisibility(View.INVISIBLE);
+        mAppBarLayout.setVisibility(View.INVISIBLE);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+
+        }
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorWhite));
+        }
+    }
+
+    @Override
+    public void showAllViews() {
+        mViewPager.disableSwipe(false);
+        mTabLayout.setVisibility(View.VISIBLE);
+        mAppBarLayout.setVisibility(View.VISIBLE);
+        getSupportActionBar().show();
+        setStatusBarColor();
     }
 }

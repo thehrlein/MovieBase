@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
-import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
+import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 
 /**
@@ -26,7 +26,7 @@ public interface OverviewFragmentContract {
         int getCurrentMovieSize();
     }
 
-    interface Presenter extends OnOverviewMovieLoad {
+    interface Presenter extends OnOverviewMovieLoadListener {
         void loadMovies();
         boolean noMoviesShown();
         boolean hasInternetConnection();

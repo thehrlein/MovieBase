@@ -10,17 +10,23 @@ import tobiapplications.com.moviebase.model.detail.YtTrailerStatistic;
 public class TrailerItem {
 
     private String title;
+    private String key;
     private YtThumbnailObject thumbnails;
     private YtTrailerStatistic statistics;
 
-    public TrailerItem(String title, YtThumbnailObject thumbnails, YtTrailerStatistic statistics) {
+    public TrailerItem(String title, String key, YtThumbnailObject thumbnails, YtTrailerStatistic statistics) {
         this.title = title;
+        this.key = key;
         this.thumbnails = thumbnails;
         this.statistics = statistics;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     public YtThumbnailObject getThumbnails() {

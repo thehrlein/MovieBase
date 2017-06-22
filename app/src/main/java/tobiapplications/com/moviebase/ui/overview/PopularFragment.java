@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.OverviewAdapter;
+import tobiapplications.com.moviebase.listener.OnOverviewResponseLoadedListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
@@ -35,8 +36,11 @@ public class PopularFragment extends Fragment implements OverviewFragmentContrac
     private Context context;
     private PopularPresenter presenter;
     private OverviewAdapter adapter;
+    private static OnOverviewResponseLoadedListener responseLoadedListener;
+    private TextView loadingTextView;
 
-    public static Fragment newInstance() {
+    public static Fragment newInstance(OnOverviewResponseLoadedListener responseLoaded) {
+        responseLoadedListener = responseLoaded;
         return new PopularFragment();
     }
 
@@ -68,6 +72,8 @@ public class PopularFragment extends Fragment implements OverviewFragmentContrac
             mProgressBarLoading = (ProgressBar) getView().findViewById(R.id.progressBarLoading);
             mRecyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
             mNoInternetConnectionTextView = (TextView) getView().findViewById(R.id.noInternetConnectionTextView);
+            loadingTextView = (TextView) getView().findViewById(R.id.loading_textview);
+            loadingTextView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -92,6 +98,8 @@ public class PopularFragment extends Fragment implements OverviewFragmentContrac
 
     @Override
     public void setMovies(ArrayList<MovieOverviewModel> movies) {
+        responseLoadedListener.showAllViews();
+        loadingTextView.setVisibility(View.GONE);
         adapter.removeLoadingItem();
         adapter.setMovies(movies);
         adapter.notifyDataSetChanged();

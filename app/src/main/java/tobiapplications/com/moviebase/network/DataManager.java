@@ -7,7 +7,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
+import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
@@ -81,12 +81,12 @@ public class DataManager {
         youtubeApi = retrofit.create(YoutubeApi.class);
     }
 
-    public void requestPopularMovies(OnOverviewMovieLoad listener, int pageToLoad) {
+    public void requestPopularMovies(OnOverviewMovieLoadListener listener, int pageToLoad) {
         Call<MovieOverviewResponse> popularMovieCall = movieApi.requestPopularMovies(pageToLoad);
         popularMovieCall.enqueue(new OverviewCallback(listener));
     }
 
-    public void requestTopRatedMovies(OnOverviewMovieLoad listener, int pageToLoad) {
+    public void requestTopRatedMovies(OnOverviewMovieLoadListener listener, int pageToLoad) {
         Call<MovieOverviewResponse> topRatedMovieCall = movieApi.requestTopRatedMovies(pageToLoad);
         topRatedMovieCall.enqueue(new OverviewCallback(listener));
     }
@@ -96,7 +96,7 @@ public class DataManager {
         singleMovieCall.enqueue(new DetailCallback(presenter));
     }
 
-    public void requestSimilarMovies(OnOverviewMovieLoad listener, int movieId) {
+    public void requestSimilarMovies(OnOverviewMovieLoadListener listener, int movieId) {
         Call<MovieOverviewResponse> similarMovieCall = movieApi.requestSimilarMovies(movieId);
         similarMovieCall.enqueue(new OverviewCallback(listener));
     }
@@ -106,7 +106,7 @@ public class DataManager {
         reviewResponseCall.enqueue(new ReviewCallback(presenter));
     }
 
-    public void requestSearchMovie(OnOverviewMovieLoad listener, String query) {
+    public void requestSearchMovie(OnOverviewMovieLoadListener listener, String query) {
         Call<MovieOverviewResponse> searchMovieCall = movieApi.requestSearchMovie(query);
         searchMovieCall.enqueue(new OverviewCallback(listener));
     }
@@ -123,6 +123,6 @@ public class DataManager {
 
     public void requestYoutubeTrailerInformation(DetailFragmentContract.Presenter presenter, String trailerKey) {
         Call<YtSingleTrailerResponse> youtubeSingleTrailerResponseCall = youtubeApi.requestSingleTrailer(trailerKey);
-        youtubeSingleTrailerResponseCall.enqueue(new YtTrailerCallback(presenter));
+        youtubeSingleTrailerResponseCall.enqueue(new YtTrailerCallback(presenter, trailerKey));
     }
 }

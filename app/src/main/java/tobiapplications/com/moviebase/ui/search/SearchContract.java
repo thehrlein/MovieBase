@@ -3,7 +3,7 @@ package tobiapplications.com.moviebase.ui.search;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
-import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
+import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 
 /**
@@ -19,7 +19,7 @@ public interface SearchContract {
         void setSearchMovies(ArrayList<MovieOverviewModel> movies);
     }
 
-    interface Presenter extends OnOverviewMovieLoad {
+    interface Presenter extends OnOverviewMovieLoadListener {
 
         void init(String query);
     }

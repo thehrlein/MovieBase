@@ -2,7 +2,7 @@ package tobiapplications.com.moviebase.ui.detail;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
+import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
@@ -22,7 +22,7 @@ public interface DetailFragmentContract {
         void displayUiView(RecyclerItem item);
     }
 
-    interface Presenter extends OnOverviewMovieLoad {
+    interface Presenter extends OnOverviewMovieLoadListener {
 
         void buildUiFromResponse(MovieDetailResponse detailResponse);
         void requestReviews();
@@ -30,6 +30,6 @@ public interface DetailFragmentContract {
         void requestActors();
         void displayActors(ActorsResponse body);
         void displayTrailers(TrailersResponse body);
-        void displaySingleYoutubeTrailer(YtSingleTrailerResponse body);
+        void displaySingleYoutubeTrailer(YtSingleTrailerResponse body, String trailerKey);
     }
 }

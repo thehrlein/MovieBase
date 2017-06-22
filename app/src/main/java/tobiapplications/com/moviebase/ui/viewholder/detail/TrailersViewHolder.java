@@ -47,6 +47,9 @@ public class TrailersViewHolder extends RecyclerView.ViewHolder implements View.
             }
         }
 
+        if (inflatedTrailerItems.size() < shownTrailers) {
+            shownTrailers = inflatedTrailerItems.size();
+        }
         inflatedTrailerItems.get(shownTrailers - 1).hideDivider();
         hideLoadMoreTextIfLastTrailerIsShown();
     }

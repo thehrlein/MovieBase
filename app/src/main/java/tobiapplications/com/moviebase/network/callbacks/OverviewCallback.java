@@ -6,9 +6,8 @@ import android.util.Log;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tobiapplications.com.moviebase.listener.OnOverviewMovieLoad;
+import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
-import tobiapplications.com.moviebase.ui.overview.OverviewFragmentContract;
 
 /**
  * Created by Tobias on 10.06.2017.
@@ -16,9 +15,9 @@ import tobiapplications.com.moviebase.ui.overview.OverviewFragmentContract;
 
 public class OverviewCallback implements Callback<MovieOverviewResponse> {
 
-    private OnOverviewMovieLoad listener;
+    private OnOverviewMovieLoadListener listener;
 
-    public OverviewCallback(OnOverviewMovieLoad listener) {
+    public OverviewCallback(OnOverviewMovieLoadListener listener) {
         this.listener = listener;
     }
 

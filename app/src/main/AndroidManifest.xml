@@ -14,14 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.CoverPage">
+        <activity android:name=".ui.overview.OverviewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.overview.OverviewActivity">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".ui.search.SearchActivity" />

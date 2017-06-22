@@ -150,12 +150,12 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     }
 
     @Override
-    public void displaySingleYoutubeTrailer(YtSingleTrailerResponse body) {
+    public void displaySingleYoutubeTrailer(YtSingleTrailerResponse body, String trailerKey) {
         String title = body.getTitle();
         YtThumbnailObject thumbnails = body.getThumbnails();
         YtTrailerStatistic statistics = body.getStatistics();
 
-        TrailerItem trailerItem = new TrailerItem(title, thumbnails, statistics);
+        TrailerItem trailerItem = new TrailerItem(title, trailerKey, thumbnails, statistics);
         trailerItems.add(trailerItem);
         if (trailerItems.size() == trailerResponseCount) {
             RecyclerItem recyclerItem = new RecyclerItem(DetailAdapter.VIEW_TYPE_TRAILERS, trailerItems);
