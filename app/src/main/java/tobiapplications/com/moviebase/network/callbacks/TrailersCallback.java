@@ -23,12 +23,12 @@ public class TrailersCallback implements Callback<TrailersResponse> {
         if (response.isSuccessful()) {
             presenter.displayTrailers(response.body());
         } else {
-            presenter.displayError();
+            presenter.displayError("TrailersCallback " + response.message());
         }
     }
 
     @Override
     public void onFailure(Call<TrailersResponse> call, Throwable t) {
-        presenter.displayError();
+        presenter.displayError("TrailersCallback ");
     }
 }

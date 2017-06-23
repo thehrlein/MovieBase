@@ -79,8 +79,8 @@ public class TopRatedPresenter implements OverviewFragmentContract.Presenter {
     }
 
     @Override
-    public void displayError() {
-        Toast.makeText(context, "Failed to load movies, please check network connection", Toast.LENGTH_SHORT).show();
+    public void displayError(String message) {
+        Toast.makeText(context, "Error " + message, Toast.LENGTH_LONG).show();
         // TODO AlertDialog or something like that
     }
 }

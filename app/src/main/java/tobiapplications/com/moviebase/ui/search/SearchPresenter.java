@@ -41,7 +41,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     }
 
     @Override
-    public void displayError() {
-        Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
+    public void displayError(String message) {
+        Toast.makeText(context, "Error " + message, Toast.LENGTH_SHORT).show();
     }
 }

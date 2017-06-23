@@ -110,8 +110,8 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     }
 
     @Override
-    public void displayError() {
-        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+    public void displayError(String message) {
+        Toast.makeText(context, "Error: " + message, Toast.LENGTH_LONG).show();
     }
 
     @Override

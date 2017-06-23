@@ -23,12 +23,12 @@ public class ActorsCallback implements Callback<ActorsResponse> {
         if (response.isSuccessful()) {
             presenter.displayActors(response.body());
         } else {
-            presenter.displayError();
+            presenter.displayError("ActorsCallback " + response.message());
         }
     }
 
     @Override
     public void onFailure(Call<ActorsResponse> call, Throwable t) {
-        presenter.displayError();
+        presenter.displayError("ActorsCallback");
     }
 }

@@ -23,12 +23,12 @@ public class ReviewCallback implements Callback<ReviewResponse> {
         if (response.isSuccessful()) {
             presenter.displayReviews(response.body());
         } else {
-            presenter.displayError();
+            presenter.displayError("ReviewCack " + response.message());
         }
     }
 
     @Override
     public void onFailure(Call<ReviewResponse> call, Throwable t) {
-        presenter.displayError();
+        presenter.displayError("ReviewCallback");
     }
 }

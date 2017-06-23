@@ -25,12 +25,12 @@ public class YtTrailerCallback implements Callback<YtSingleTrailerResponse> {
         if (response.isSuccessful()) {
             presenter.displaySingleYoutubeTrailer(response.body(), trailerKey);
         } else {
-            presenter.displayError();
+            presenter.displayError("YtTrailerCallback " + response.message());
         }
     }
 
     @Override
     public void onFailure(Call<YtSingleTrailerResponse> call, Throwable t) {
-        presenter.displayError();
+        presenter.displayError("YtTrailerCallback");
     }
 }

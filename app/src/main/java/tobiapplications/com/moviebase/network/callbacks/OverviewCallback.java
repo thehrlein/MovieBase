@@ -26,13 +26,12 @@ public class OverviewCallback implements Callback<MovieOverviewResponse> {
         if (response.isSuccessful()) {
             listener.displayMovies(response.body());
         } else {
-            listener.displayError();
+            listener.displayError("OverviewCallback " + response.message());
         }
     }
 
     @Override
     public void onFailure(Call<MovieOverviewResponse> call, Throwable t) {
-        Log.d("OverviewCallback", "onFailure");
-        listener.displayError();
+        listener.displayError("OverviewCallback");
     }
 }
