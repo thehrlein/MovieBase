@@ -50,5 +50,7 @@
     <string name="tobiapplications">tobi.applications@gmail.com</string>
     <string name="hello_tobias">Hello Tobias</string>
 
+    <string name="action_filter">Filter</string>
+
 
 </resources>
