@@ -1,34 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout android:layout_height="wrap_content"
+<RelativeLayout
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.overview.OverviewActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <FrameLayout
+        android:id="@+id/search_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android" />
-
-    <ProgressBar
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:id="@+id/progressBarLoading"
-        android:layout_centerInParent="true"/>
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/noInternetConnectionTextView"
-        android:visibility="gone"
-        android:padding="16dp"
-        android:layout_centerInParent="true"
-        android:textAlignment="center"
-        android:text="@string/no_network_connection"
-        android:layout_marginTop="25dp"/>
-
+        android:layout_height="match_parent">
+    </FrameLayout>
 
 </RelativeLayout>

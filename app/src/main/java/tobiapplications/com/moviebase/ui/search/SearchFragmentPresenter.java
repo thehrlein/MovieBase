@@ -10,19 +10,19 @@ import tobiapplications.com.moviebase.network.DataManager;
  * Created by Tobias on 16.06.2017.
  */
 
-public class SearchPresenter implements SearchContract.Presenter {
+public class SearchFragmentPresenter implements SearchFragmentContract.Presenter {
 
-    private SearchContract.View parent;
+    private SearchFragmentContract.View parent;
     private Context context;
     private String query;
 
-    public SearchPresenter(SearchContract.View parent, Context context) {
+    public SearchFragmentPresenter(SearchFragmentContract.View parent) {
         this.parent = parent;
-        this.context = context;
     }
 
     @Override
-    public void init(String query) {
+    public void init(String query, Context context) {
+        this.context = context;
         this.query = query;
         parent.setDownloadIsActive();
         parent.setAdapter();

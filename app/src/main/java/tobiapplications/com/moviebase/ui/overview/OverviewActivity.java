@@ -50,7 +50,7 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
         findMyViews();
         setupViewPager();
         mTabLayout.setupWithViewPager(mViewPager);
-        hideViewsOnLoading();
+     //   hideViewsOnLoading(); // TODO enable
     }
 
     private void init() {
@@ -163,11 +163,10 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
-
         }
 
         if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorWhite));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
         }
     }
 

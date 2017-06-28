@@ -1,85 +1,50 @@
 package tobiapplications.com.moviebase.ui.search;
 
 import android.app.SearchManager;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.adapter.SearchMovieAdapter;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
-import tobiapplications.com.moviebase.ui.detail.DetailActivity;
+import tobiapplications.com.moviebase.listener.OnFilterSearchListener;
 import tobiapplications.com.moviebase.utils.Constants;
 
-public class SearchActivity extends AppCompatActivity implements SearchContract.View {
+public class SearchActivity extends AppCompatActivity implements OnFilterSearchListener {
 
-    private SearchMovieAdapter searchMovieAdapter;
-    private RecyclerView mRecyclerView;
-    private ProgressBar mProgressBarLoading;
-    private SearchPresenter presenter;
+    private String title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        findMyViews();
-
-        presenter = new SearchPresenter(this, this);
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            setTitle("\"" + query + "\"");
-            presenter.init(query);
+            title = query;
+            setTitle(title);
+            setUpSearchResultsFragment(query);
         }
     }
 
-    private void findMyViews() {
-        mProgressBarLoading = (ProgressBar) findViewById(R.id.progressBarLoading);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+    private void setUpSearchResultsFragment(String query) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.SEARCH_QUERY, query);
+        SearchFragment fragment = SearchFragment.newInstance(bundle);
+
+        fragmentManager.beginTransaction()
+                .add(R.id.search_content, fragment)
+                .commit();
     }
 
-    @Override
-    public void setAdapter() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        searchMovieAdapter = new SearchMovieAdapter(this);
-
-        mRecyclerView.setAdapter(searchMovieAdapter);
-        searchMovieAdapter.setMovieClickListener(this);
-    }
-
-    @Override
-    public void setSearchMovies(ArrayList<MovieOverviewModel> movies) {
-        searchMovieAdapter.setSearchMovies(movies);
-    }
-
-    @Override
-    public void setDownloadIsActive(){
-        mProgressBarLoading.setVisibility(View.VISIBLE);
-        mRecyclerView.setVisibility(View.INVISIBLE);
-    }
-
-    @Override
-    public void setDownloadFinished() {
-        mProgressBarLoading.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onMovieClick(int id) {
-        Intent openMovieDetails = new Intent(this, DetailActivity.class);
-        openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
-        startActivity(openMovieDetails);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -93,10 +58,30 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
 
         switch (item.getItemId()) {
             case R.id.action_filter:
-                Toast.makeText(this, "filter", Toast.LENGTH_SHORT).show();
+                openFilterFragment();
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openFilterFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        SearchFilterFragment fragment = SearchFilterFragment.newInstance();
+
+        fragment.show(fragmentManager, Constants.FILTER_DIALOG);
+    }
+
+    @Override
+    public void onCancelFiltering() {
+        Toast.makeText(this, "CANCEL FILTER", Toast.LENGTH_SHORT).show();
+        setTitle(title);
+
+
+    }
+
+    @Override
+    public void onFilterSubmit() {
+
     }
 }

@@ -1,5 +1,7 @@
 package tobiapplications.com.moviebase.ui.search;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
@@ -10,7 +12,7 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
  * Created by Tobias on 16.06.2017.
  */
 
-public interface SearchContract {
+public interface SearchFragmentContract {
 
     interface View extends OnMovieClickListener {
         void setDownloadIsActive();
@@ -21,6 +23,6 @@ public interface SearchContract {
 
     interface Presenter extends OnOverviewMovieLoadListener {
 
-        void init(String query);
+        void init(String query, Context context);
     }
 }

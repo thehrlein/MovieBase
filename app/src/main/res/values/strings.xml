@@ -51,6 +51,7 @@
     <string name="hello_tobias">Hello Tobias</string>
 
     <string name="action_filter">Filter</string>
+    <string name="filter_explanation">Filter your search based on following parameters</string>
 
 
 </resources>

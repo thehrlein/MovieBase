@@ -9,6 +9,7 @@ public class Constants {
     public static final String CLICKED_MOVIE = "clickedMovie";
     public static final String RELEASED = "released";
     public static final String MOVIE_INSERT_TO_DATABASE = "movie_inserted_to_databse";
+    public static final String SEARCH_QUERY = "search_query";
 
     // movie db
     public static final String THE_MOVIE_DB = "theMovieDb";
@@ -21,4 +22,5 @@ public class Constants {
     public static final String YOUTUBE_API_INFO_LABEL = "part";
     public static final String YOUTUBE_API_INFO_VALUE = "snippet,statistics";
 
+    public static final String FILTER_DIALOG = "filter_dialog";
 }
