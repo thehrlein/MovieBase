@@ -1,33 +1,26 @@
 package tobiapplications.com.moviebase.ui.search;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.listener.OnFilterSearchListener;
-import tobiapplications.com.moviebase.ui.views.FilterCheckbox;
-import tobiapplications.com.moviebase.ui.views.FilterCheckboxGroup;
+import tobiapplications.com.moviebase.ui.views.FilterRadioButton;
+import tobiapplications.com.moviebase.ui.views.FilterRadioButtonGroup;
 
 /**
  * Created by Tobias on 23.06.2017.
@@ -96,7 +89,6 @@ public class SearchFilterFragment extends DialogFragment implements View.OnClick
     }
 
     private void dismissOverlay() {
-        // InputHandler nachschauen arbeit
         dismiss();
     }
 
@@ -113,23 +105,14 @@ public class SearchFilterFragment extends DialogFragment implements View.OnClick
     }
 
     private void buildFilterLayout() {
-        FilterCheckboxGroup adultGroup = createAdultGroup();
+        FilterRadioButtonGroup adultGroup = createAdultGroup();
         filterBaseLayout.addView(adultGroup);
     }
 
-    private FilterCheckboxGroup createAdultGroup() {
-        FilterCheckboxGroup adultGroup = new FilterCheckboxGroup(context);
-        FilterCheckbox checkbox = new FilterCheckbox(context);
-        checkbox.disableHelpImage();
-        checkbox.setCheckboxText("include adult");
-        FilterCheckbox checkbox1 = new FilterCheckbox(context);
-        checkbox1.setCheckboxText("yolo test");
-        checkbox1.disableHelpImage();
-
-
-        adultGroup.addCheckbox(checkbox);
-        adultGroup.addVerticalDivider(context);
-        adultGroup.addCheckbox(checkbox1);
+    private FilterRadioButtonGroup createAdultGroup() {
+        FilterRadioButtonGroup adultGroup = new FilterRadioButtonGroup(context);
+        adultGroup.initializeSimpleYesNoGroup();
+        adultGroup.setTitle("Include adult videos?");
 
         return adultGroup;
     }
