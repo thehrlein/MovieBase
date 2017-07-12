@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -93,7 +94,7 @@ public class SearchFilterFragment extends DialogFragment implements View.OnClick
     }
 
     public void initToolbar() {
-        toolbar.setTitle("TEST");
+        toolbar.setTitle(getString(R.string.filter_title));
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         toolbar.setNavigationOnClickListener(v -> dismissOverlay());
         if (Build.VERSION.SDK_INT >= 21) {
@@ -112,7 +113,15 @@ public class SearchFilterFragment extends DialogFragment implements View.OnClick
     private FilterRadioButtonGroup createAdultGroup() {
         FilterRadioButtonGroup adultGroup = new FilterRadioButtonGroup(context);
         adultGroup.initializeSimpleYesNoGroup();
-        adultGroup.setTitle("Include adult videos?");
+        String title = getString(R.string.filter_include_adults);
+        adultGroup.setTitle(title);
+        String explanation = getString(R.string.filter_include_adults_explanation);
+        TextView explanationTextView = new TextView(context);
+        explanationTextView.setText(explanation);
+        ArrayList<View> content = new ArrayList<>();
+        content.add(explanationTextView);
+
+        adultGroup.setHelpIcon(title, content);
 
         return adultGroup;
     }

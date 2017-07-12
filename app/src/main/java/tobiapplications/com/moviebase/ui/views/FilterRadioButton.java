@@ -52,6 +52,7 @@ public class FilterRadioButton extends LinearLayout implements CompoundButton.On
         filterHelpLayout = (LinearLayout) rootView.findViewById(R.id.radio_button_help_layout);
         filterRadioButton.setOnCheckedChangeListener(this);
         LayoutParams layoutParams = new LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f);
+
         setLayoutParams(layoutParams);
     }
 

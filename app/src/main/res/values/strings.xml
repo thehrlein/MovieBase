@@ -52,6 +52,9 @@
 
     <string name="action_filter">Filter</string>
     <string name="filter_explanation">Filter your search based on following parameters</string>
+    <string name="filter_title">Filter</string>
+    <string name="filter_include_adults">Include adult videos?</string>
+    <string name="filter_include_adults_explanation">If you choose yes, your search result will also include videos, which are made for people, who are older or equal than 18. Choose no, if you are not 18 years old.</string>
 
 
 </resources>

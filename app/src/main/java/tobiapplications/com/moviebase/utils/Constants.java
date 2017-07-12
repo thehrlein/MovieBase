@@ -22,5 +22,6 @@ public class Constants {
     public static final String YOUTUBE_API_INFO_LABEL = "part";
     public static final String YOUTUBE_API_INFO_VALUE = "snippet,statistics";
 
+    // filter fragment
     public static final String FILTER_DIALOG = "filter_dialog";
 }
