@@ -31,6 +31,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/dialog_message"
+                tools:text="If you select yes, all videos will be shown. If you choose no, only non-adult films will be shown to you."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp"/>
+
         </LinearLayout>
 
     </ScrollView>

@@ -22,8 +22,8 @@ public class SimpleDialog extends Dialog implements View.OnClickListener {
     private Context context;
     private Button buttonCancel;
     private Button buttonOk;
-    private LinearLayout dialogContent;
     private TextView dialogTitle;
+    private TextView dialogMessage;
     private View buttonDivider;
 
     public SimpleDialog(@NonNull Context context) {
@@ -46,7 +46,7 @@ public class SimpleDialog extends Dialog implements View.OnClickListener {
 
         setContentView(R.layout.view_simple_dialog);
         dialogTitle = (TextView) findViewById(R.id.dialog_title);
-        dialogContent = (LinearLayout) findViewById(R.id.dialog_content);
+        dialogMessage = (TextView) findViewById(R.id.dialog_message);
         buttonCancel = (Button) findViewById(R.id.dialog_button_cancel);
         buttonOk = (Button) findViewById(R.id.dialog_button_ok);
         buttonDivider = findViewById(R.id.dialog_button_divider);
@@ -85,7 +85,7 @@ public class SimpleDialog extends Dialog implements View.OnClickListener {
         }
     }
 
-    public void addView(View v) {
-        dialogContent.addView(v);
+    public void setMessage(String helpMessage) {
+        dialogMessage.setText(helpMessage);
     }
 }

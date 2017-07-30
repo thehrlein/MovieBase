@@ -19,7 +19,7 @@
         <LinearLayout
             android:id="@+id/radio_button_content"
             android:background="@drawable/border_filter_checkbox"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_gravity="center"
             android:layout_width="0dp"
             android:layout_weight="6"

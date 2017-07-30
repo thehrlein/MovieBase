@@ -14,14 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import java.util.ArrayList;
+import android.widget.RadioButton;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.ui.views.FilterRadioButton;
-import tobiapplications.com.moviebase.ui.views.FilterRadioButtonGroup;
+import tobiapplications.com.moviebase.ui.views.DynamicRadioGroup;
 
 /**
  * Created by Tobias on 23.06.2017.
@@ -53,7 +51,7 @@ public class SearchFilterFragment extends DialogFragment implements View.OnClick
 
     private void findViews(View view) {
         if (view != null) {
-            filterBaseLayout = (LinearLayout) view.findViewById(R.id.filter_content);
+          //  filterBaseLayout = (LinearLayout) view.findViewById(R.id.filter_content);
             scrollView = (NestedScrollView) view.findViewById(R.id.scrollView);
             toolbar = (Toolbar) view.findViewById(R.id.toolbar);
             buttonSubmit = (Button) view.findViewById(R.id.filter_button_submit);
@@ -78,9 +76,26 @@ public class SearchFilterFragment extends DialogFragment implements View.OnClick
         }));
 
         builder.setView(rootView);
-        buildFilterLayout();
+    //    buildFilterLayout();
+        buildLayout();
         return builder.create();
 
+    }
+
+    private void buildLayout() {
+        buildAdultGroup();
+    }
+
+    private void buildAdultGroup() {
+        RadioButton adultYes = (RadioButton) rootView.findViewById(R.id.filter_adult_yes);
+        RadioButton adultNo = (RadioButton) rootView.findViewById(R.id.filter_adult_no);
+        ImageView helpIcon = (ImageView) rootView.findViewById(R.id.radio_button_group_help);
+
+        String title = getString(R.string.filter_include_adults);
+        String message = getString(R.string.filter_include_adults_explanation);
+        DynamicRadioGroup adultGroup = new DynamicRadioGroup(context, title, message, helpIcon);
+        adultGroup.addRadioLayout(adultYes);
+        adultGroup.addRadioLayout(adultNo);
     }
 
     @Override
@@ -105,9 +120,23 @@ public class SearchFilterFragment extends DialogFragment implements View.OnClick
         }
     }
 
-    private void buildFilterLayout() {
+    /*private void buildFilterLayout() {
         FilterRadioButtonGroup adultGroup = createAdultGroup();
+        FilterRadioButtonGroup releaseGroup = createReleaseDateGroup();
         filterBaseLayout.addView(adultGroup);
+        filterBaseLayout.addView(releaseGroup);
+    }
+
+    private FilterRadioButtonGroup createReleaseDateGroup() {
+        FilterRadioButtonGroup releaseGroup = new FilterRadioButtonGroup(context);
+        releaseGroup.setTitle("YOLO");
+        FilterRadioButton test = new FilterRadioButton(context);
+        test.setRadioButtonText("Test");
+        releaseGroup.addRadioButton(test);
+        releaseGroup.addRadioButton(new FilterRadioButton(context));
+        releaseGroup.setOrientation(LinearLayout.VERTICAL);
+
+        return releaseGroup;
     }
 
     private FilterRadioButtonGroup createAdultGroup() {
@@ -120,11 +149,11 @@ public class SearchFilterFragment extends DialogFragment implements View.OnClick
         explanationTextView.setText(explanation);
         ArrayList<View> content = new ArrayList<>();
         content.add(explanationTextView);
-
+        adultGroup.setGroupOrientation(LinearLayout.HORIZONTAL);
         adultGroup.setHelpIcon(title, content);
 
         return adultGroup;
-    }
+    }*/
 
 
     @Override
