@@ -152,7 +152,11 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
 
     private void restartActivity() {
         Intent restart = new Intent(this, OverviewActivity.class);
+        restart.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        restart.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        restart.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(restart);
+        finish();
     }
 
     private void hideViewsOnLoading() {

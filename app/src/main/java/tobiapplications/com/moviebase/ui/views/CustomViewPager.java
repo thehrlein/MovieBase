@@ -23,12 +23,12 @@ public class CustomViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return isSwipeDisabled ? false : super.onInterceptTouchEvent(ev);
+        return !isSwipeDisabled && super.onInterceptTouchEvent(ev);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        return isSwipeDisabled ? false : super.onTouchEvent(ev);
+        return !isSwipeDisabled && super.onTouchEvent(ev);
     }
 
     public void disableSwipe(boolean disable) {
