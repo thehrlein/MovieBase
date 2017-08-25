@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MovieBase</string>
+    <string name="app_name" translatable="false">MovieBase</string>
     <string name="no_network_connection">You are not connected to the internet. Please turn on to get the movies.</string>
     <string name="title_popular">Popular</string>
     <string name="title_top_rated">Top Rated</string>
@@ -23,7 +23,7 @@
     <string name="additional_info_original_title_label">Original Title</string>
     <string name="summary_label">Summary</string>
     <string name="reviews_label">Reviews</string>
-    <string name="trailers_label">Trailers</string>
+    <string name="trailers_label" translatable="false">Trailers</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
     <string name="review_show_more">Show next review (%d remaining)</string>
@@ -41,13 +41,15 @@
 
 
     <string name="unknown">unknown</string>
-    <string name="string_fasten_your_seatbelts" translatable="false">fasten your seatbelts ...</string>
+    <string name="string_fasten_your_seatbelts">fasten your seatbelts ... gleich geths los</string>
     <string name="about">About</string>
     <string name="about_text_first">MovieBase was created as part of an Udacity course and uses the TheMovieDB API.
     This application is not an official product or certified by Udacity or TheMovieDB.</string>
     <string name="about_text_second">For further information, questions or feedback, please use the button at the bottom to contact me.</string>
-    <string name="about_creator">- Tobias</string>
-    <string name="tobiapplications">tobi.applications@gmail.com</string>
+    <string name="about_creator" translatable="false">- Tobias</string>
+    <string name="tobiapplications" translatable="false">tobi.applications@gmail.com</string>
     <string name="hello_tobias">Hello Tobias</string>
+    <string name="status_post_production">Close to release</string>
+    <string name="status_released">Released</string>
 
 </resources>

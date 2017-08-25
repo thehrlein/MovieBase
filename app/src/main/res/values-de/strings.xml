@@ -6,7 +6,6 @@
     <string name="additional_info_original_title_label">Orginaltitel</string>
     <string name="additional_info_revenue_label">Einspielergebnis</string>
     <string name="adult">FSK18</string>
-    <string name="app_name" translatable="false">MovieBase</string>
     <string name="info_runtime_label">Laufzeit</string>
     <string name="marked_as_favorite">%s wurde zu deinen Favoriten hinzugefügt</string>
     <string name="no_favorite_movies">Du hast bisher noch keine Favoriten.</string>
@@ -28,4 +27,11 @@
     <string name="yes">ja</string>
     <string name="status_released">Veröffentlicht</string>
     <string name="status_post_production">Nachproduktion</string>
+    <string name="about">Info</string>
+    <string name="about_text_first">MovieBase wurde im Rahmen eines Udacity-Kurses entwickelt und bezieht die Informationen aus der \"TheMovieDB API\". Diese Applikation ist weder ein offizielles Produkt noch von Udacity oder TheMovieDB zertifiziert.</string>
+    <string name="hello_tobias">Hallo Tobias</string>
+    <string name="about_text_second">Für weitere Informationen, Fragen oder Feedback, nutzen Sie bitte den unten stehenden Button um mich zu kontaktieren.</string>
+    <string name="review_show_more">Weitere anzeigen (%d verbelbend)</string>
+    <string name="string_fasten_your_seatbelts" translatable="false">schnallen Sie sich an ...</string>
+    <string name="trailers_show_more">Weitere anzeigen (%d verbleibend)</string>
 </resources>
