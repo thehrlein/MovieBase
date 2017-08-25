@@ -23,12 +23,11 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
  * Created by Tobias on 18.06.2017.
  */
 
-public class MoviePosterView extends LinearLayout implements PopupMenu.OnMenuItemClickListener {
+public class MoviePosterView extends LinearLayout {
 
     private LinearLayout rootView;
     private ImageView movieImage;
     private TextView movieTitle;
-    private ImageView movieDots;
     private Context context;
     private PopupMenu popupMenu;
 
@@ -52,7 +51,6 @@ public class MoviePosterView extends LinearLayout implements PopupMenu.OnMenuIte
         rootView = (LinearLayout) inflate(context, R.layout.item_movie_poster, this);
         movieImage = (ImageView) rootView.findViewById(R.id.movie_image);
         movieTitle = (TextView) rootView.findViewById(R.id.movie_title);
-        movieDots = (ImageView) rootView.findViewById(R.id.movie_card_dots);
     }
 
     public void setMovieInformation(MoviePosterItem movieInformation) {
@@ -76,27 +74,5 @@ public class MoviePosterView extends LinearLayout implements PopupMenu.OnMenuIte
             }
             movieTitle.setText(movieInformation.getTitle());
         }
-        movieDots.setOnClickListener((View v) -> showPopMenu(v, context));
-    }
-
-    public void disablePopupDots() {
-        movieDots.setVisibility(View.GONE);
-    }
-
-    private void showPopMenu(View view, Context context) {
-        popupMenu = new PopupMenu(context, view);
-        MenuInflater inflater = popupMenu.getMenuInflater();
-        inflater.inflate(R.menu.popup_menu_movie_card, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(this);
-        popupMenu.show();
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        if (item.getItemId() == R.id.action_add_favorite) {
-            Toast.makeText(context, "not implemented yet", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        return false;
     }
 }

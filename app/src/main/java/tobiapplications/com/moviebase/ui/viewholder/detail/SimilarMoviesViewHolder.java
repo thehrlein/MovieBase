@@ -39,7 +39,6 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
             similarMoviesLayout.addView(posterView);
 
             posterView.setMovieInformation(model, 600, 400);
-            posterView.disablePopupDots();
             posterView.setOnClickListener((View v)-> openDetails(model.getId()));
         }
 }
