@@ -17,7 +17,6 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 public interface OverviewFragmentContract {
 
     interface View extends OnLoadMoreMoviesListener, OnMovieClickListener {
-        void findMyViews();
         void setGridViewAndAdapter();
         void showNetworkError(boolean noNetwork);
         void setMovies(ArrayList<MovieOverviewModel> movies);
@@ -35,7 +34,6 @@ public interface OverviewFragmentContract {
     }
 
     interface DatabaseView extends LoaderManager.LoaderCallbacks<Cursor>, OnMovieClickListener {
-        void findMyViews();
         void setGridViewAndAdapter();
         void showNetworkError(boolean noNetwork);
         void setMovies(ArrayList<MovieOverviewModel> movies);

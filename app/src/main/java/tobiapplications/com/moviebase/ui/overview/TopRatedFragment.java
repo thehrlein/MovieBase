@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.OverviewAdapter;
+import tobiapplications.com.moviebase.databinding.FragmentOverviewBinding;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
@@ -29,9 +30,7 @@ import tobiapplications.com.moviebase.utils.GeneralUtils;
 public class TopRatedFragment extends Fragment implements OverviewFragmentContract.View {
 
     private final String TAG = TopRatedFragment.class.getSimpleName();
-    private RecyclerView mRecyclerView;
-    private ProgressBar mProgressBarLoading;
-    private TextView mNoInternetConnectionTextView;
+    private FragmentOverviewBinding bind;
     private Context context;
     private TopRatedPresenter presenter;
     private OverviewAdapter adapter;
@@ -52,41 +51,34 @@ public class TopRatedFragment extends Fragment implements OverviewFragmentContra
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_overview, container, false);    }
+        bind = FragmentOverviewBinding.inflate(inflater);
+
+        return bind.getRoot();
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        findMyViews();
         setGridViewAndAdapter();
-    }
-
-    @Override
-    public void findMyViews() {
-        if (getView() != null) {
-            mProgressBarLoading = (ProgressBar) getView().findViewById(R.id.progressBarLoading);
-            mRecyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
-            mNoInternetConnectionTextView = (TextView) getView().findViewById(R.id.noInternetConnectionTextView);
-        }
     }
 
     @Override
     public void setGridViewAndAdapter() {
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new OverviewAdapter(context, mRecyclerView, TAG);
+        bind.recyclerView.setLayoutManager(gridLayoutManager);
+        adapter = new OverviewAdapter(context, bind.recyclerView, TAG);
         adapter.setOnLoadMoreMoviesListener(this);
         adapter.setOnMovieClickListener(this);
-        mRecyclerView.setAdapter(adapter);
+        bind.recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void showNetworkError(boolean noNetwork) {
-        if (mNoInternetConnectionTextView != null && mRecyclerView != null) {
-            mRecyclerView.setVisibility(noNetwork ? View.GONE : View.VISIBLE);
-            mNoInternetConnectionTextView.setVisibility(noNetwork ? View.VISIBLE : View.GONE);
+        if (bind.noInternetConnectionTextView != null && bind.recyclerView != null) {
+            bind.recyclerView.setVisibility(noNetwork ? View.GONE : View.VISIBLE);
+            bind.noInternetConnectionTextView.setVisibility(noNetwork ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -99,9 +91,9 @@ public class TopRatedFragment extends Fragment implements OverviewFragmentContra
 
     @Override
     public void showLoading(boolean load) {
-        if (mProgressBarLoading != null && mRecyclerView != null) {
-            mProgressBarLoading.setVisibility(load ? View.VISIBLE : View.GONE);
-            mRecyclerView.setVisibility(load ? View.GONE : View.VISIBLE);
+        if (bind.progressBarLoading != null && bind.recyclerView != null) {
+            bind.progressBarLoading.setVisibility(load ? View.VISIBLE : View.GONE);
+            bind.recyclerView.setVisibility(load ? View.GONE : View.VISIBLE);
         }
     }
 

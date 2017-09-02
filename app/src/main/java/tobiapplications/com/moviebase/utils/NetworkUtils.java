@@ -25,9 +25,14 @@ public class NetworkUtils {
     private static final String API_KEY_FULL = API_PREFIX + MOVIE_DB_API_KEY;
     private static final String YOUTUBE_API_KEY = BuildConfig.MY_YOUTUBE_API_KEY;
 
-    public static String getMovieBaseUrl() { return MOVIE_BASE_URL; }
-
-    public static String getYoutubeBaseUrl() { return YOUTUBE_API_BASE_URL; }
+    public static String getApiBaseUrl(String apiKey) {
+        if (apiKey.equals(Constants.THE_MOVIE_DB)) {
+            return MOVIE_BASE_URL;
+        } else if (apiKey.equals(Constants.YOUTUBE)) {
+            return YOUTUBE_API_BASE_URL;
+        }
+        return "";
+    }
 
     public static String appendApiKey() {
         return API_KEY_FULL;

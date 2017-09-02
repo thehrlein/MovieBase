@@ -1,52 +1,37 @@
 package tobiapplications.com.moviebase.ui.detail;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.os.Build;
+import android.databinding.DataBindingUtil;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
-import tobiapplications.com.moviebase.database.MoviesContract;
+import tobiapplications.com.moviebase.databinding.ActivityDetailBinding;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.utils.Constants;
-import tobiapplications.com.moviebase.utils.SQLUtils;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener, DetailActivityContract.View {
 
-    private ImageView mDetailMovieBackgroundImage;
-    private FloatingActionButton mFabFavorite;
-    private Toolbar mToolbar;
-    private ProgressBar mImageProgressIndicator;
+    private ActivityDetailBinding bind;
     private DetailActivityPresenter presenter;
-    private AppBarLayout appBarLayout;
-
-
     private int movieId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        bind = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 
-        findMyViews();
+        init();
 
         setUpActionBar();
 
@@ -66,21 +51,15 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         transaction.commit();
     }
 
-    @Override
-    public void findMyViews() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mDetailMovieBackgroundImage = (ImageView) findViewById(R.id.toolbarBackgroundImage);
-        mDetailMovieBackgroundImage.setOnClickListener(this);
-        mFabFavorite = (FloatingActionButton) findViewById(R.id.detail_fab_button_favorite);
-        mFabFavorite.setOnClickListener(this);
-        mImageProgressIndicator = (ProgressBar) findViewById(R.id.detail_background_image_progress_indicator);
-        appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
-        appBarLayout.addOnOffsetChangedListener(this);
+    private void init() {
+        bind.toolbarBackgroundImage.setOnClickListener(this);
+        bind.detailFabButtonFavorite.setOnClickListener(this);
+        bind.appBarLayout.addOnOffsetChangedListener(this);
     }
 
     @Override
     public void setUpActionBar() {
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(bind.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -98,28 +77,23 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.detail_fab_button_favorite:
-                presenter.handleFabClick();
-                break;
-            case R.id.toolbarBackgroundImage:
-                presenter.openToolbarImage();
-                break;
+        if (v == bind.detailFabButtonFavorite) {
+            presenter.handleFabClick();
+        } else if (v == bind.toolbarBackgroundImage) {
+            presenter.openToolbarImage();
         }
     }
 
     @Override
     public void setMovieInformation(String title, String moviePath) {
-        mToolbar.setTitle(title);
-        mImageProgressIndicator.setVisibility(View.GONE);
+        bind.toolbar.setTitle(title);
+        bind.progressBar.setVisibility(View.GONE);
         if (moviePath != null) {
-            Picasso.with(this).load(moviePath).into(mDetailMovieBackgroundImage);
+            Picasso.with(this).load(moviePath).into(bind.toolbarBackgroundImage);
         } else {
-            mDetailMovieBackgroundImage.setImageResource(R.drawable.no_picture);
+            bind.toolbarBackgroundImage.setImageResource(R.drawable.no_picture);
         }
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
@@ -129,15 +103,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
-
     @Override
     public void markFabAsFavorite() {
-        mFabFavorite.setImageResource(R.drawable.fab_heart_fav);
+        bind.detailFabButtonFavorite.setImageResource(R.drawable.fab_heart_fav);
     }
 
     @Override
     public void unMarkFabFromFavorite() {
-        mFabFavorite.setImageResource(R.drawable.fab_heart);
+        bind.detailFabButtonFavorite.setImageResource(R.drawable.fab_heart);
     }
 
     @Override
@@ -152,7 +125,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void setFabButtonVisible() {
-        mFabFavorite.setVisibility(View.VISIBLE);
+        bind.detailFabButtonFavorite.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -162,11 +135,11 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void animateFabDown(int value) {
-        ViewCompat.animate(mFabFavorite).translationY(value).start();
+        ViewCompat.animate(bind.detailFabButtonFavorite).translationY(value).start();
     }
 
     @Override
     public void animateFabUp(int value) {
-        ViewCompat.animate(mFabFavorite).translationY(value).start();
+        ViewCompat.animate(bind.detailFabButtonFavorite).translationY(value).start();
     }
 }

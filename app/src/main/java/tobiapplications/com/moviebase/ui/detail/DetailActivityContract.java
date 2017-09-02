@@ -14,7 +14,6 @@ public interface DetailActivityContract {
 
     interface View extends AppBarLayout.OnOffsetChangedListener{
         void setUpActionBar();
-        void findMyViews();
         void getMovieId();
         void setUpTabFragment(MovieDetailResponse response);
         void setMovieInformation(String title, String moviePath);

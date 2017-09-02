@@ -16,7 +16,7 @@ import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 
 public interface DetailFragmentContract {
 
-    interface View extends android.view.View.OnClickListener{
+    interface View {
 
         void displayUiViews(ArrayList<RecyclerItem> detailItems);
         void displayUiView(RecyclerItem item);

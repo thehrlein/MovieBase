@@ -3,60 +3,54 @@ package tobiapplications.com.moviebase.ui.overview;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import java.util.prefs.Preferences;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
+import tobiapplications.com.moviebase.databinding.ActivityOverviewBinding;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.ui.About;
 import tobiapplications.com.moviebase.ui.settings.SettingsActivity;
 import tobiapplications.com.moviebase.ui.views.CustomViewPager;
+import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SettingsUtils;
 
 public class OverviewActivity extends AppCompatActivity implements OverviewActivityContract.View {
 
-    private TabLayout mTabLayout;
-    private CustomViewPager mViewPager;
-    private AppBarLayout mAppBarLayout;
+    private ActivityOverviewBinding bind;
     private String currentLanguage = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_overview);
+        bind = DataBindingUtil.setContentView(this, R.layout.activity_overview);
 
         init();
 
         currentLanguage = SettingsUtils.getAppLanguage();
         disableActionBarTabLayoutDivider();
         setStatusBarColor();
-        findMyViews();
         setupViewPager();
-        mTabLayout.setupWithViewPager(mViewPager);
-     //   hideViewsOnLoading(); // TODO enable
+        bind.tabs.setupWithViewPager(bind.viewpager);
+        hideViewsOnLoading();
     }
 
     private void init() {
         SettingsUtils.updateApplicationLanguage(this);
-        DataManager.getInstance().buildMovieApi();
-        DataManager.getInstance().buildYoutubeApi();
+        DataManager.getInstance().buildApi(Constants.THE_MOVIE_DB);
+        DataManager.getInstance().buildApi(Constants.YOUTUBE);
     }
 
     @Override
@@ -75,21 +69,13 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
     }
 
     @Override
-    public void findMyViews() {
-        mTabLayout = (TabLayout) findViewById(R.id.tabs);
-        mViewPager = (CustomViewPager) findViewById(R.id.viewpager);
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
-    }
-
-    @Override
     public void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(PopularFragment.newInstance(this), getString(R.string.title_popular));
         adapter.addFragment(TopRatedFragment.newInstance(), getString(R.string.title_top_rated));
         adapter.addFragment(OwnFavoriteFragment.newInstance(), getString(R.string.title_favorite));
-
-        mViewPager.setOffscreenPageLimit(3);
-        mViewPager.setAdapter(adapter);
+        bind.viewpager.setOffscreenPageLimit(3);
+        bind.viewpager.setAdapter(adapter);
     }
 
     @Override
@@ -160,9 +146,9 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
     }
 
     private void hideViewsOnLoading() {
-        mViewPager.disableSwipe(true);
-        mTabLayout.setVisibility(View.INVISIBLE);
-        mAppBarLayout.setVisibility(View.INVISIBLE);
+        bind.viewpager.disableSwipe(true);
+        bind.tabs.setVisibility(View.INVISIBLE);
+        bind.appBarLayout.setVisibility(View.INVISIBLE);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -176,9 +162,9 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
 
     @Override
     public void showAllViews() {
-        mViewPager.disableSwipe(false);
-        mTabLayout.setVisibility(View.VISIBLE);
-        mAppBarLayout.setVisibility(View.VISIBLE);
+        bind.viewpager.disableSwipe(false);
+        bind.appBarLayout.setVisibility(View.VISIBLE);
+        bind.tabs.setVisibility(View.VISIBLE);
         getSupportActionBar().show();
         setStatusBarColor();
     }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.DetailAdapter;
+import tobiapplications.com.moviebase.databinding.FragmentDetailBinding;
 import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.utils.Constants;
@@ -24,7 +25,7 @@ import tobiapplications.com.moviebase.utils.Constants;
 
 public class DetailFragment extends Fragment implements DetailFragmentContract.View{
 
-    private RecyclerView recyclerView;
+    private FragmentDetailBinding bind;
     private DetailAdapter adapter;
     private DetailFragmentPresenter presenter;
 
@@ -45,14 +46,14 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         super.onCreate(savedInstanceState);
 
         detailMovie = (MovieDetailResponse) getArguments().get(Constants.CLICKED_MOVIE);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_detail, container, false);
+        bind = FragmentDetailBinding.inflate(inflater);
 
+        return bind.getRoot();
     }
 
     @Override
@@ -62,20 +63,13 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         adapter = new DetailAdapter(mContext);
         presenter = new DetailFragmentPresenter(mContext, this);
         presenter.init(detailMovie);
-        findMyViews();
         setAdapter();
-    }
-
-    private void findMyViews() {
-        if (getView() != null) {
-          recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
-        }
     }
 
     public void setAdapter() {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        bind.recyclerView.setLayoutManager(layoutManager);
+        bind.recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -86,10 +80,5 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     @Override
     public void displayUiView(RecyclerItem item) {
         adapter.addUiView(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 }

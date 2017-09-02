@@ -42,43 +42,28 @@ public class DataManager {
         return dataManager;
     }
 
-    public void buildMovieApi() {
+    public void buildApi(String apiKey) {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
 
         OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new QueryAppendingInterceptor(apiKey))
                 .addInterceptor(LoggingInterceptor.getLogger())
-                .addInterceptor(new QueryAppendingInterceptor(Constants.THE_MOVIE_DB))
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(NetworkUtils.getMovieBaseUrl())
+                .baseUrl(NetworkUtils.getApiBaseUrl(apiKey))
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        movieApi = retrofit.create(TheMovieApi.class);
-    }
-
-    public void buildYoutubeApi() {
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(LoggingInterceptor.getLogger())
-                .addInterceptor(new QueryAppendingInterceptor(Constants.YOUTUBE))
-                .build();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(NetworkUtils.getYoutubeBaseUrl())
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        youtubeApi = retrofit.create(YoutubeApi.class);
+        if (apiKey.equals(Constants.THE_MOVIE_DB)) {
+            movieApi = retrofit.create(TheMovieApi.class);
+        } else if (apiKey.equals(Constants.YOUTUBE)) {
+            youtubeApi = retrofit.create(YoutubeApi.class);
+        }
     }
 
     public void requestPopularMovies(OnOverviewMovieLoadListener listener, int pageToLoad) {

@@ -11,7 +11,6 @@ public interface OverviewActivityContract {
     interface View extends OnOverviewResponseLoadedListener {
         void disableActionBarTabLayoutDivider();
         void setStatusBarColor();
-        void findMyViews();
         void setupViewPager();
     }
 }
