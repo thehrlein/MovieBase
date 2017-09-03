@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.SearchMovieAdapter;
+import tobiapplications.com.moviebase.databinding.FragmentSearchBinding;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
@@ -26,9 +27,8 @@ import tobiapplications.com.moviebase.utils.Constants;
 
 public class SearchFragment extends Fragment implements SearchFragmentContract.View {
 
-    private RecyclerView recyclerView;
+    private FragmentSearchBinding bind;
     private SearchMovieAdapter searchMovieAdapter;
-    private ProgressBar progressBarLoading;
     private SearchFragmentPresenter presenter;
     private Context context;
 
@@ -52,14 +52,15 @@ public class SearchFragment extends Fragment implements SearchFragmentContract.V
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        bind = FragmentSearchBinding.inflate(inflater);
+
+        return bind.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = getContext();
-        findMyViews();
         presenter.init(getArguments().getString(Constants.SEARCH_QUERY), context);
     }
 
@@ -69,19 +70,13 @@ public class SearchFragment extends Fragment implements SearchFragmentContract.V
         getActivity().setTitle(getArguments().getString(Constants.SEARCH_QUERY));
     }
 
-    private void findMyViews() {
-        if (getView() != null) {
-            progressBarLoading = (ProgressBar) getView().findViewById(R.id.progressBarLoading);
-            recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
-        }
-    }
 
     @Override
     public void setAdapter() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        bind.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         searchMovieAdapter = new SearchMovieAdapter(context);
 
-        recyclerView.setAdapter(searchMovieAdapter);
+        bind.recyclerView.setAdapter(searchMovieAdapter);
         searchMovieAdapter.setMovieClickListener(this);
     }
 
@@ -92,14 +87,14 @@ public class SearchFragment extends Fragment implements SearchFragmentContract.V
 
     @Override
     public void setDownloadIsActive(){
-        progressBarLoading.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.INVISIBLE);
+        bind.progressBarLoading.setVisibility(View.VISIBLE);
+        bind.recyclerView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void setDownloadFinished() {
-        progressBarLoading.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
+        bind.progressBarLoading.setVisibility(View.GONE);
+        bind.recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override

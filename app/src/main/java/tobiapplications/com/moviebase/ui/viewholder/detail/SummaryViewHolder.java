@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.DetailSummaryHolderBinding;
 
 /**
  * Created by Tobias on 15.06.2017.
@@ -12,14 +13,14 @@ import tobiapplications.com.moviebase.R;
 
 public class SummaryViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView summaryText;
+    private DetailSummaryHolderBinding bind;
 
     public SummaryViewHolder(View itemView) {
         super(itemView);
-        summaryText = (TextView) itemView.findViewById(R.id.summary_text);
+        bind = DetailSummaryHolderBinding.bind(itemView);
     }
 
     public void setSummary(String text) {
-        summaryText.setText(text);
+        bind.summaryText.setText(text);
     }
 }

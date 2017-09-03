@@ -44,15 +44,15 @@ public class TopRatedFragment extends Fragment implements OverviewFragmentContra
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-        presenter = new TopRatedPresenter(this, context);
-        presenter.loadMovies();
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         bind = FragmentOverviewBinding.inflate(inflater);
-
+        presenter = new TopRatedPresenter(this, context);
+        presenter.loadMovies();
         return bind.getRoot();
     }
 
@@ -91,10 +91,8 @@ public class TopRatedFragment extends Fragment implements OverviewFragmentContra
 
     @Override
     public void showLoading(boolean load) {
-        if (bind.progressBarLoading != null && bind.recyclerView != null) {
-            bind.progressBarLoading.setVisibility(load ? View.VISIBLE : View.GONE);
-            bind.recyclerView.setVisibility(load ? View.GONE : View.VISIBLE);
-        }
+        bind.progressBarLoading.setVisibility(load ? View.VISIBLE : View.GONE);
+        bind.recyclerView.setVisibility(load ? View.GONE : View.VISIBLE);
     }
 
     @Override

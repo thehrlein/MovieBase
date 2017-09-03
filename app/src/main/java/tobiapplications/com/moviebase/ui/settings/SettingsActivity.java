@@ -35,6 +35,8 @@ import tobiapplications.com.moviebase.R;
  */
 public class SettingsActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

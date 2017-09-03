@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.ViewTrailerItemBinding;
 import tobiapplications.com.moviebase.model.detail.items.TrailerItem;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
@@ -24,12 +26,9 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 public class TrailerView extends LinearLayout implements View.OnClickListener{
 
-    private LinearLayout rootView;
-    private LinearLayout trailerLayout;
-    private TextView title;
-    private ImageView imageView;
-    private Context context;
+    private ViewTrailerItemBinding bind;
     private DividerView divider;
+    private Context context;
     private String trailerKey;
 
     public TrailerView(Context context) {
@@ -49,21 +48,19 @@ public class TrailerView extends LinearLayout implements View.OnClickListener{
 
     private void init(Context context) {
         this.context = context;
-        rootView = (LinearLayout) inflate(context, R.layout.view_trailer_item, this);
-        trailerLayout = (LinearLayout) rootView.findViewById(R.id.trailer_view_layout);
-        imageView = (ImageView) rootView.findViewById(R.id.trailer_image);
-        title = (TextView) rootView.findViewById(R.id.trailer_title);
-        imageView.setOnClickListener(this);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        bind = ViewTrailerItemBinding.inflate(inflater, this, true);
+        bind.trailerImage.setOnClickListener(this);
     }
 
     public void setTrailerInformation(TrailerItem trailerItem) {
-        this.title.setText(trailerItem.getTitle());
+        bind.trailerTitle.setText(trailerItem.getTitle());
         this.trailerKey = trailerItem.getKey();
 
-        Picasso.with(context).load(trailerItem.getThumbnails().getDefaultThumb().getUrl()).into(imageView);
+        Picasso.with(context).load(trailerItem.getThumbnails().getDefaultThumb().getUrl()).into(bind.trailerImage);
 
         divider = new DividerView(context);
-        trailerLayout.addView(divider);
+        bind.trailerViewLayout.addView(divider);
     }
 
     public void hideDivider() {

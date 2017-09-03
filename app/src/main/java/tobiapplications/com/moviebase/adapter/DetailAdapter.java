@@ -50,19 +50,19 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEW_TYPE_INFO:
-                return new InfoViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_info, parent, false), context);
+                return new InfoViewHolder(LayoutInflater.from(context).inflate(R.layout.detail_info_holder, parent, false), context);
             case VIEW_TYPE_SUMMARY:
-                return new SummaryViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_summary, parent, false));
+                return new SummaryViewHolder(LayoutInflater.from(context).inflate(R.layout.detail_summary_holder, parent, false));
             case VIEW_TYPE_ADDITIONAL_INFO:
-                return new AdditionalInfoViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_additional_info, parent, false), context);
+                return new AdditionalInfoViewHolder(LayoutInflater.from(context).inflate(R.layout.detail_additional_info_holder, parent, false), context);
             case VIEW_TYPE_SIMILAR_MOVIES:
-                return new SimilarMoviesViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_similar_movies, parent, false), context);
+                return new SimilarMoviesViewHolder(LayoutInflater.from(context).inflate(R.layout.detail_similar_movies_holder, parent, false), context);
             case VIEW_TYPE_REVIEWS:
-                return new ReviewsViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_reviews, parent, false), context);
+                return new ReviewsViewHolder(LayoutInflater.from(context).inflate(R.layout.detail_reviews_holder, parent, false), context);
             case VIEW_TYPE_ACTORS:
-                return new ActorsViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_actors, parent, false), context);
+                return new ActorsViewHolder(LayoutInflater.from(context).inflate(R.layout.detail_actors_holder, parent, false), context);
             case VIEW_TYPE_TRAILERS:
-                return new TrailersViewHolder(LayoutInflater.from(context).inflate(R.layout.recyclerview_item_trailers, parent, false), context);
+                return new TrailersViewHolder(LayoutInflater.from(context).inflate(R.layout.detail_trailers_holder, parent, false), context);
         }
         return null;
     }

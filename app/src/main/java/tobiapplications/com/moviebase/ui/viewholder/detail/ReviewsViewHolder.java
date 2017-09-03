@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.DetailReviewsHolderBinding;
 import tobiapplications.com.moviebase.model.detail.Review;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 import tobiapplications.com.moviebase.ui.views.DividerView;
@@ -20,18 +21,17 @@ import tobiapplications.com.moviebase.ui.views.ReviewView;
 
 public class ReviewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+    private DetailReviewsHolderBinding bind;
     private Context context;
-    private LinearLayout reviewWrapper;
-    private TextView showNextReview;
     private int shownReviews = 1;
     private ArrayList<ReviewView> inflatedReviewItems;
 
     public ReviewsViewHolder(View itemView, Context context) {
         super(itemView);
         this.context = context;
-        this.reviewWrapper = (LinearLayout) itemView.findViewById(R.id.reviews_layout);
-        this.showNextReview = (TextView) itemView.findViewById(R.id.show_next_review);
-        showNextReview.setOnClickListener(this);
+        bind = DetailReviewsHolderBinding.bind(itemView);
+
+        bind.showNextReview.setOnClickListener(this);
     }
 
     public void setReviews(ReviewResponse reviewResponse) {
@@ -41,7 +41,7 @@ public class ReviewsViewHolder extends RecyclerView.ViewHolder implements View.O
         for (int i = 0; i < reviews.size(); i++) {
             ReviewView view = new ReviewView(context);
             view.setReviewText(reviews.get(i).getAuthor(), reviews.get(i).getContent());
-            reviewWrapper.addView(view);
+            bind.reviewsLayout.addView(view);
 
             if (i > 0) {
                 view.setVisibility(View.GONE);
@@ -64,16 +64,16 @@ public class ReviewsViewHolder extends RecyclerView.ViewHolder implements View.O
 
     private void hideLoadMoreTextViewIfLastReviewIsShown() {
         if (shownReviews == inflatedReviewItems.size()) {
-            showNextReview.setVisibility(View.GONE);
+            bind.showNextReview.setVisibility(View.GONE);
         } else {
-            showNextReview.setText(context.getString(R.string.review_show_more, inflatedReviewItems.size() - shownReviews));
+            bind.showNextReview.setText(context.getString(R.string.review_show_more, inflatedReviewItems.size() - shownReviews));
         }
     }
 
     private void addDivider() {
         if (shownReviews < inflatedReviewItems.size()) {
             DividerView divider = new DividerView(context);
-            reviewWrapper.addView(divider, getDividerPosition());
+            bind.reviewsLayout.addView(divider, getDividerPosition());
         }
     }
 

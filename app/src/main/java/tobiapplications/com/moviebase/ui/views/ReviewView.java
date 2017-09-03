@@ -3,10 +3,12 @@ package tobiapplications.com.moviebase.ui.views;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.ViewReviewItemBinding;
 
 /**
  * Created by Tobias on 16.06.2017.
@@ -14,9 +16,7 @@ import tobiapplications.com.moviebase.R;
 
 public class ReviewView extends LinearLayout {
 
-    private LinearLayout rootView;
-    private TextView author;
-    private TextView content;
+    private ViewReviewItemBinding bind;
 
     public ReviewView(Context context) {
         super(context);
@@ -34,13 +34,12 @@ public class ReviewView extends LinearLayout {
     }
 
     private void init(Context context) {
-        rootView = (LinearLayout) inflate(context, R.layout.view_review_item, this);
-        author = (TextView) rootView.findViewById(R.id.review_author);
-        content = (TextView) rootView.findViewById(R.id.review_content);
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        bind = ViewReviewItemBinding.inflate(layoutInflater, this, true);
     }
 
     public void setReviewText(String author, String content) {
-        this.author.setText(author);
-        this.content.setText(content);
+        bind.reviewAuthor.setText(author);
+        bind.reviewContent.setText(content);
     }
 }

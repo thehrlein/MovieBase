@@ -12,6 +12,7 @@ import com.stfalcon.frescoimageviewer.ImageViewer;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.DetailActorsHolderBinding;
 import tobiapplications.com.moviebase.listener.OnActorImageClickListener;
 import tobiapplications.com.moviebase.model.detail.Actor;
 import tobiapplications.com.moviebase.ui.views.ActorsPosterView;
@@ -21,16 +22,16 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
  * Created by Tobias on 16.06.2017.
  */
 
-public class ActorsViewHolder extends RecyclerView.ViewHolder implements OnActorImageClickListener{
+public class ActorsViewHolder extends RecyclerView.ViewHolder implements OnActorImageClickListener {
+
+    private DetailActorsHolderBinding bind;
     private Context context;
-    private GridLayout gridLayout;
     private ArrayList<Actor> actors;
 
     public ActorsViewHolder(View itemView, Context context) {
         super(itemView);
         this.context = context;
-
-        gridLayout = (GridLayout) itemView.findViewById(R.id.actors_grid_layout);
+        bind = DetailActorsHolderBinding.bind(itemView);
     }
 
     public void setActorInformation(ArrayList<Actor> actors) {
@@ -38,7 +39,7 @@ public class ActorsViewHolder extends RecyclerView.ViewHolder implements OnActor
         if (actors != null && !actors.isEmpty()) {
             for (int i = 0; i < actors.size(); i++) {
                 ActorsPosterView actorsPosterView = new ActorsPosterView(context);
-                gridLayout.addView(actorsPosterView);
+                bind.actorsGridLayout.addView(actorsPosterView);
                 actorsPosterView.setActorInformation(actors.get(i), i, this);
             }
         }

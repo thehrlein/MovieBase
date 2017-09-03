@@ -6,12 +6,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.ViewSimpleDialogBinding;
 
 /**
  * Created by Tobias on 12.07.2017.
@@ -19,12 +21,8 @@ import tobiapplications.com.moviebase.R;
 
 public class SimpleDialog extends Dialog implements View.OnClickListener {
 
+    private ViewSimpleDialogBinding bind;
     private Context context;
-    private Button buttonCancel;
-    private Button buttonOk;
-    private TextView dialogTitle;
-    private TextView dialogMessage;
-    private View buttonDivider;
 
     public SimpleDialog(@NonNull Context context) {
         super(context);
@@ -43,15 +41,10 @@ public class SimpleDialog extends Dialog implements View.OnClickListener {
 
     private void init(Context context) {
         this.context = context;
-
-        setContentView(R.layout.view_simple_dialog);
-        dialogTitle = (TextView) findViewById(R.id.dialog_title);
-        dialogMessage = (TextView) findViewById(R.id.dialog_message);
-        buttonCancel = (Button) findViewById(R.id.dialog_button_cancel);
-        buttonOk = (Button) findViewById(R.id.dialog_button_ok);
-        buttonDivider = findViewById(R.id.dialog_button_divider);
-        buttonCancel.setOnClickListener(this);
-        buttonOk.setOnClickListener(this);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        bind = ViewSimpleDialogBinding.inflate(inflater);
+        bind.dialogButtonCancel.setOnClickListener(this);
+        bind.dialogButtonOk.setOnClickListener(this);
         setDialogSize();
     }
 
@@ -64,13 +57,13 @@ public class SimpleDialog extends Dialog implements View.OnClickListener {
     }
 
     public void setOnlyOneButtonEnabled() {
-        buttonCancel.setVisibility(View.GONE);
-        buttonDivider.setVisibility(View.GONE);
+        bind.dialogButtonCancel.setVisibility(View.GONE);
+        bind.dialogButtonDivider.setVisibility(View.GONE);
     }
 
     @Override
     public void setTitle(@Nullable CharSequence title) {
-        dialogTitle.setText(title);
+        bind.dialogTitle.setText(title);
     }
 
     @Override
@@ -86,6 +79,6 @@ public class SimpleDialog extends Dialog implements View.OnClickListener {
     }
 
     public void setMessage(String helpMessage) {
-        dialogMessage.setText(helpMessage);
+        bind.dialogMessage.setText(helpMessage);
     }
 }

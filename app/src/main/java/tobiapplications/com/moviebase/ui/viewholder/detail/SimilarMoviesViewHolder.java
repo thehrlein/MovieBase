@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.DetailSimilarMoviesHolderBinding;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
@@ -21,14 +22,14 @@ import tobiapplications.com.moviebase.utils.Constants;
 
 public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
 
-    private LinearLayout similarMoviesLayout;
+    private DetailSimilarMoviesHolderBinding bind;
     private Context context;
     private ArrayList<MoviePosterItem> movies;
 
     public SimilarMoviesViewHolder(View itemView, Context context) {
         super(itemView);
         this.context = context;
-        similarMoviesLayout = (LinearLayout) itemView.findViewById(R.id.similar_movies_layout);
+        bind = DetailSimilarMoviesHolderBinding.bind(itemView);
     }
 
     public void setSimilarMovies(SimilarMoviesItem similarMovies) {
@@ -36,7 +37,7 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
         for (MoviePosterItem model : movies) {
 
             MoviePosterView posterView = new MoviePosterView(context);
-            similarMoviesLayout.addView(posterView);
+            bind.similarMoviesLayout.addView(posterView);
 
             posterView.setMovieInformation(model, 600, 400);
             posterView.setOnClickListener((View v)-> openDetails(model.getId()));

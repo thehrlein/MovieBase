@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
+    <RelativeLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:id="@+id/movie_image"
-        android:scaleType="fitXY"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:adjustViewBounds="true" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/movie_title_no_picture"
-        android:padding="16dp"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:id="@+id/movie_image"
+            android:scaleType="fitXY"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:adjustViewBounds="true" />
 
-    <TextView
-        android:id="@+id/movie_title"
-        android:layout_below="@id/movie_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingStart="10dp"
-        android:paddingRight="15dp"
-        android:paddingEnd="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="5dp"
-        android:textColor="@color/colorBlack"
-        android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/movie_title_no_picture"
+            android:padding="16dp"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_below="@id/movie_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingRight="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+
+</layout>

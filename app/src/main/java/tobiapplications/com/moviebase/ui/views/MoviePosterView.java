@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.ItemMoviePosterBinding;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
@@ -25,11 +27,8 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 public class MoviePosterView extends LinearLayout {
 
-    private LinearLayout rootView;
-    private ImageView movieImage;
-    private TextView movieTitle;
+    private ItemMoviePosterBinding bind;
     private Context context;
-    private PopupMenu popupMenu;
 
     public MoviePosterView(Context context) {
         super(context);
@@ -48,9 +47,8 @@ public class MoviePosterView extends LinearLayout {
 
     private void init(Context context) {
         this.context = context;
-        rootView = (LinearLayout) inflate(context, R.layout.item_movie_poster, this);
-        movieImage = (ImageView) rootView.findViewById(R.id.movie_image);
-        movieTitle = (TextView) rootView.findViewById(R.id.movie_title);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        bind = ItemMoviePosterBinding.inflate(inflater, this, true);
     }
 
     public void setMovieInformation(MoviePosterItem movieInformation) {
@@ -62,17 +60,17 @@ public class MoviePosterView extends LinearLayout {
             if (height > 0) {
                 getLayoutParams().height = LayoutParams.WRAP_CONTENT;
                 getLayoutParams().width = width;
-                movieImage.getLayoutParams().height = height;
-                movieImage.getLayoutParams().width = width;
+                bind.movieImage.getLayoutParams().height = height;
+                bind.movieImage.getLayoutParams().width = width;
             }
 
             if (!TextUtils.isEmpty(movieInformation.getImagePath())) {
-                Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(movieInformation.getImagePath())).into(movieImage);
-                movieImage.setScaleType(ImageView.ScaleType.FIT_XY);
+                Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(movieInformation.getImagePath())).into(bind.movieImage);
+                bind.movieImage.setScaleType(ImageView.ScaleType.FIT_XY);
             } else {
-                movieImage.setImageResource(R.drawable.no_picture);
+                bind.movieImage.setImageResource(R.drawable.no_picture);
             }
-            movieTitle.setText(movieInformation.getTitle());
+            bind.movieTitle.setText(movieInformation.getTitle());
         }
     }
 }

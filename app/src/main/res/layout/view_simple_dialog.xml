@@ -1,80 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:layout_marginBottom="10dp"
-        android:layout_above="@+id/dialog_button_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/dialog_content"
-            android:orientation="vertical"
+        <ScrollView
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_above="@+id/dialog_button_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/dialog_title"
-                tools:text="include adult"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"
-                android:textStyle="bold"
-                android:gravity="center"
+            <LinearLayout
+                android:id="@+id/dialog_content"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/dialog_message"
-                tools:text="If you select yes, all videos will be shown. If you choose no, only non-adult films will be shown to you."
-                android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/dialog_title"
+                    tools:text="include adult"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="8dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/dialog_message"
+                    tools:text="If you select yes, all videos will be shown. If you choose no, only non-adult films will be shown to you."
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="8dp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/dialog_button_layout"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <Button
+                android:id="@+id/dialog_button_cancel"
+                android:text="Cancel"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorWhite"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"/>
+                android:layout_weight="1"/>
+
+            <View
+                android:id="@+id/dialog_button_divider"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/dialog_button_ok"
+                android:text="Ok"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
         </LinearLayout>
 
-    </ScrollView>
+    </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/dialog_button_layout"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-
-        <Button
-            android:id="@+id/dialog_button_cancel"
-            android:text="Cancel"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorWhite"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-        <View
-            android:id="@+id/dialog_button_divider"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite" />
-
-        <Button
-            android:id="@+id/dialog_button_ok"
-            android:text="Ok"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorWhite"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</layout>

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.SearchListItemBinding;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.utils.DateUtils;
@@ -19,9 +20,8 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
  */
 
 public class SearchMovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public ImageView mSearchMovieImage;
-    public TextView mSearchMovieTitle;
-    public TextView mSearchMovieReleaseDate;
+
+    private SearchListItemBinding bind;
     private OnMovieClickListener movieClickListener;
     private int movieId;
     private Context context;
@@ -31,21 +31,19 @@ public class SearchMovieViewHolder extends RecyclerView.ViewHolder implements Vi
         super(itemView);
         this.context = context;
         this.movieClickListener = movieClickListener;
-        mSearchMovieImage = (ImageView) itemView.findViewById(R.id.searchMovieImageView);
-        mSearchMovieTitle = (TextView) itemView.findViewById(R.id.searchMovieTitle);
-        mSearchMovieReleaseDate = (TextView) itemView.findViewById(R.id.searchMovieReleaseDate);
+        bind = SearchListItemBinding.bind(itemView);
         itemView.setOnClickListener(this);
     }
 
     public void setSearchMovieInformation(MovieOverviewModel movie) {
         this.movieId = movie.getId();
-        mSearchMovieTitle.setText(movie.getTitle());
+        bind.searchMovieTitle.setText(movie.getTitle());
         if (movie.getTitleImagePath() != null) {
-            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(movie.getTitleImagePath())).into(mSearchMovieImage);
+            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(movie.getTitleImagePath())).into(bind.searchMovieImageView);
         } else {
-            mSearchMovieImage.setImageResource(R.drawable.no_picture);
+            bind.searchMovieImageView.setImageResource(R.drawable.no_picture);
         }
-        mSearchMovieReleaseDate.setText(DateUtils.getDMYFromYMD(movie.getReleaseDate()));
+        bind.searchMovieReleaseDate.setText(DateUtils.getDMYFromYMD(movie.getReleaseDate()));
     }
 
     @Override

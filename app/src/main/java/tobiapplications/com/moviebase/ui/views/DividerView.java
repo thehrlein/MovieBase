@@ -3,15 +3,19 @@ package tobiapplications.com.moviebase.ui.views;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.ViewDividerItemBinding;
 
 /**
  * Created by Tobias on 16.06.2017.
  */
 
 public class DividerView extends LinearLayout {
+
+    private ViewDividerItemBinding bind;
 
     public DividerView(Context context) {
         super(context);
@@ -30,6 +34,7 @@ public class DividerView extends LinearLayout {
 
 
     private void init(Context context) {
-        inflate(context, R.layout.view_divider_item, this);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        bind = ViewDividerItemBinding.inflate(inflater, this, true);
     }
 }

@@ -11,6 +11,8 @@ import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.DetailInfoHolderBinding;
+import tobiapplications.com.moviebase.databinding.ItemActorsPosterBinding;
 import tobiapplications.com.moviebase.model.detail.items.InfoItem;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.DateUtils;
@@ -22,47 +24,33 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+    private DetailInfoHolderBinding bind;
     private Context context;
     private InfoItem infoItem;
-    private ImageView infoImage;
-    private RatingBar infoRatingBar;
-    private TextView infoRatingAverage;
-    private TextView infoRatingCount;
-    private TextView infoRelease;
-    private TextView infoAdult;
-    private TextView infoRuntime;
-    private TextView infoStatus;
 
     public InfoViewHolder(View itemView, Context context) {
         super(itemView);
         this.context = context;
-        infoImage = (ImageView) itemView.findViewById(R.id.info_image);
-        infoRatingBar = (RatingBar) itemView.findViewById(R.id.info_rating_bar);
-        infoRatingAverage = (TextView) itemView.findViewById(R.id.info_rating_average);
-        infoRatingCount = (TextView) itemView.findViewById(R.id.info_rating_count);
-        infoRelease = (TextView) itemView.findViewById(R.id.info_release);
-        infoAdult = (TextView) itemView.findViewById(R.id.info_adult);
-        infoRuntime = (TextView) itemView.findViewById(R.id.info_runtime);
-        infoStatus = (TextView) itemView.findViewById(R.id.info_status);
 
-        infoImage.setOnClickListener(this);
+        bind = DetailInfoHolderBinding.bind(itemView);
+        bind.image.setOnClickListener(this);
     }
 
     public void setInformation(InfoItem view) {
         this.infoItem = view;
         if (view.getImagePath() != null) {
-            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(view.getImagePath())).into(infoImage);
+            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(view.getImagePath())).into(bind.image);
         } else {
-            infoImage.setImageResource(R.drawable.no_picture);
+            bind.image.setImageResource(R.drawable.no_picture);
         }
-        infoRatingAverage.setText(String.valueOf(view.getVoteAverage() + context.getString(R.string.info_max_rating)));
-        infoRatingCount.setText(String.valueOf(view.getVoteCount()));
-        infoRelease.setText(DateUtils.getDMYFromYMD(view.getReleaseDate()));
-        infoAdult.setText(getAdultString(view.isAdult()));
-        infoRuntime.setText(DateUtils.getHourMinuteStringFromInt(view.getRuntime()));
+        bind.ratingAverage.setText(String.valueOf(view.getVoteAverage() + context.getString(R.string.info_max_rating)));
+        bind.ratingCount.setText(String.valueOf(view.getVoteCount()));
+        bind.release.setText(DateUtils.getDMYFromYMD(view.getReleaseDate()));
+        bind.adult.setText(getAdultString(view.isAdult()));
+        bind.runtime.setText(DateUtils.getHourMinuteStringFromInt(view.getRuntime()));
         if (view.getStatus().equalsIgnoreCase(Constants.RELEASED))
-            infoStatus.setVisibility(View.VISIBLE);
-            infoStatus.setText(view.getStatus());
+            bind.status.setVisibility(View.VISIBLE);
+            bind.status.setText(view.getStatus());
     }
 
     private String getAdultString(boolean adult) {

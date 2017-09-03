@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.DetailTrailersHolderBinding;
 import tobiapplications.com.moviebase.model.detail.items.TrailerItem;
 import tobiapplications.com.moviebase.ui.views.DividerView;
 import tobiapplications.com.moviebase.ui.views.TrailerView;
@@ -19,18 +20,17 @@ import tobiapplications.com.moviebase.ui.views.TrailerView;
 
 public class TrailersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+    private DetailTrailersHolderBinding bind;
     private Context context;
-    private LinearLayout trailerWrapper;
-    private TextView showNextTrailers;
     private int shownTrailers = 3;
     private ArrayList<TrailerView> inflatedTrailerItems;
 
     public TrailersViewHolder(View itemView, Context context) {
         super(itemView);
         this.context = context;
-        trailerWrapper = (LinearLayout) itemView.findViewById(R.id.trailer_layout);
-        showNextTrailers = (TextView) itemView.findViewById(R.id.show_next_trailers);
-        showNextTrailers.setOnClickListener(this);
+
+        bind = DetailTrailersHolderBinding.bind(itemView);
+        bind.showNextTrailers.setOnClickListener(this);
     }
 
     public void setTrailers(ArrayList<TrailerItem> trailerItems) {
@@ -39,7 +39,7 @@ public class TrailersViewHolder extends RecyclerView.ViewHolder implements View.
         for (int i = 0; i < trailerItems.size(); i++) {
             TrailerView view = new TrailerView(context);
             view.setTrailerInformation(trailerItems.get(i));
-            trailerWrapper.addView(view);
+            bind.trailerLayout.addView(view);
             inflatedTrailerItems.add(view);
 
             if (i > 2) {
@@ -56,9 +56,9 @@ public class TrailersViewHolder extends RecyclerView.ViewHolder implements View.
 
     private void hideLoadMoreTextIfLastTrailerIsShown() {
         if (shownTrailers == inflatedTrailerItems.size()) {
-            showNextTrailers.setVisibility(View.GONE);
+            bind.showNextTrailers.setVisibility(View.GONE);
         } else {
-            showNextTrailers.setText(context.getString(R.string.trailers_show_more, inflatedTrailerItems.size() - shownTrailers));
+            bind.showNextTrailers.setText(context.getString(R.string.trailers_show_more, inflatedTrailerItems.size() - shownTrailers));
         }
     }
 
