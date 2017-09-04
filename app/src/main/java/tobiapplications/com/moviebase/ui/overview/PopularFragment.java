@@ -6,16 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.OverviewAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentOverviewBinding;
 import tobiapplications.com.moviebase.listener.OnOverviewResponseLoadedListener;
@@ -71,9 +67,8 @@ public class PopularFragment extends Fragment implements OverviewFragmentContrac
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         bind.recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new OverviewAdapter(context, bind.recyclerView, TAG);
+        adapter = new OverviewAdapter(context, bind.recyclerView, this);
         adapter.setOnLoadMoreMoviesListener(this);
-        adapter.setOnMovieClickListener(this);
         bind.recyclerView.setAdapter(adapter);
     }
 

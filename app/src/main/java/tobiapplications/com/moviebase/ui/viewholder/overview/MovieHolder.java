@@ -19,14 +19,11 @@ public class MovieHolder extends RecyclerView.ViewHolder implements View.OnClick
 
     private OnMovieClickListener movieClickListener;
     private int movieId;
-    private Context context;
-    private PopupMenu popupMenu;
     private MoviePosterView moviePosterView;
 
-    public MovieHolder(View itemView, OnMovieClickListener movieClickListener, Context context) {
+    public MovieHolder(View itemView, OnMovieClickListener movieClickListener) {
         super(itemView);
         this.movieClickListener = movieClickListener;
-        this.context = context;
         moviePosterView = (MoviePosterView) itemView.findViewById(R.id.movie_poster_item);
         itemView.setOnClickListener(this);
     }
@@ -38,7 +35,7 @@ public class MovieHolder extends RecyclerView.ViewHolder implements View.OnClick
         }
     }
 
-    public void setInformation(MovieOverviewModel movie, Context context) {
+    public void setInformation(MovieOverviewModel movie) {
         movieId = movie.getId();
         MoviePosterItem item = new MoviePosterItem(movie.getId(), movie.getTitleImagePath(), movie.getTitle());
         moviePosterView.setMovieInformation(item);

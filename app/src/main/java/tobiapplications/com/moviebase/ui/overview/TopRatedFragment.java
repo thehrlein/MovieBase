@@ -68,9 +68,8 @@ public class TopRatedFragment extends Fragment implements OverviewFragmentContra
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         bind.recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new OverviewAdapter(context, bind.recyclerView, TAG);
+        adapter = new OverviewAdapter(context, bind.recyclerView, this);
         adapter.setOnLoadMoreMoviesListener(this);
-        adapter.setOnMovieClickListener(this);
         bind.recyclerView.setAdapter(adapter);
     }
 

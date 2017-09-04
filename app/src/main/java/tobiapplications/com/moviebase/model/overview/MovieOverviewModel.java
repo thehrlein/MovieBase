@@ -4,11 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import tobiapplications.com.moviebase.model.DisplayableItem;
+
 /**
  * Created by Tobias on 10.06.2017.
  */
 
-public class MovieOverviewModel {
+public class MovieOverviewModel implements DisplayableItem {
 
      @SerializedName("id")
      private int id;

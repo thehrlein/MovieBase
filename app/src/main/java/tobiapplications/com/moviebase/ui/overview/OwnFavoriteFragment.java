@@ -76,8 +76,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewFragmentCon
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         bind.recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new OverviewAdapter(context, bind.recyclerView, TAG);
-        adapter.setOnMovieClickListener(this);
+        adapter = new OverviewAdapter(context, bind.recyclerView, this);
         bind.recyclerView.setAdapter(adapter);
     }
 
