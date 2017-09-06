@@ -1,10 +1,12 @@
 package tobiapplications.com.moviebase.model.detail.items;
 
+import tobiapplications.com.moviebase.model.DisplayableItem;
+
 /**
  * Created by Tobias on 15.06.2017.
  */
 
-public class SummaryItem {
+public class SummaryItem implements DisplayableItem {
 
     private String summary;
 

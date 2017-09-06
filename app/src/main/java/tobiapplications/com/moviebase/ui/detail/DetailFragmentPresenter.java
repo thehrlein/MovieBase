@@ -6,8 +6,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.adapter.DetailAdapter;
+import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
+import tobiapplications.com.moviebase.model.detail.FullTrailerItems;
 import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
@@ -55,16 +57,16 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     public void buildUiFromResponse(MovieDetailResponse detailMovie) {
         this.movieId = detailMovie.getId();
 
-        ArrayList<RecyclerItem> detailItems = new ArrayList<>();
+        ArrayList<DisplayableItem> detailItems = new ArrayList<>();
 
-        detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_INFO, createInfoView(detailMovie)));
-        detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_ADDITIONAL_INFO, createAdditionalInfoView(detailMovie)));
-        detailItems.add(new RecyclerItem(DetailAdapter.VIEW_TYPE_SUMMARY, createSummaryView(detailMovie)));
+        detailItems.add(createInfoView(detailMovie));
+        detailItems.add(createAdditionalInfoView(detailMovie));
+        detailItems.add(createSummaryView(detailMovie));
 
         parent.displayUiViews(detailItems);
     }
 
-    private AdditionalInfoItem createAdditionalInfoView(MovieDetailResponse detailMovie) {
+    private DisplayableItem createAdditionalInfoView(MovieDetailResponse detailMovie) {
         String originalTitle = detailMovie.getOriginalTitle();
         int budget = detailMovie.getBudget();
         int revenue = detailMovie.getRevenue();
@@ -73,12 +75,12 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         return new AdditionalInfoItem(originalTitle, budget, revenue, genres, homepage);
     }
 
-    private SummaryItem createSummaryView(MovieDetailResponse detailMovie) {
+    private DisplayableItem createSummaryView(MovieDetailResponse detailMovie) {
         String summary = detailMovie.getDescription();
         return new SummaryItem(summary);
     }
 
-    private InfoItem createInfoView(MovieDetailResponse detailMovie) {
+    private DisplayableItem createInfoView(MovieDetailResponse detailMovie) {
         String imagePath = detailMovie.getTitleImagePath();
         double voteAverage = detailMovie.getVoteAverage();
         int voteCount = detailMovie.getVoteCount();
@@ -119,24 +121,21 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         if (movieOverviewResponse.getTotalResults() != 0) {
             ArrayList<MoviePosterItem> moviePosters = movieOverviewResponse.getMoviePosterItems();
 
-            RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_SIMILAR_MOVIES, new SimilarMoviesItem(moviePosters));
-            parent.displayUiView(item);
+            parent.displayUiView(new SimilarMoviesItem(moviePosters));
         }
     }
 
     @Override
     public void displayReviews(ReviewResponse response) {
         if (response.getTotalResults() != 0) {
-            RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_REVIEWS, response);
-            parent.displayUiView(item);
+            parent.displayUiView(response);
         }
     }
 
     @Override
     public void displayActors(ActorsResponse response) {
         if (response != null && !response.getActors().isEmpty()) {
-            RecyclerItem item = new RecyclerItem(DetailAdapter.VIEW_TYPE_ACTORS, response);
-            parent.displayUiView(item);
+            parent.displayUiView(response);
         }
     }
 
@@ -158,8 +157,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         TrailerItem trailerItem = new TrailerItem(title, trailerKey, thumbnails, statistics);
         trailerItems.add(trailerItem);
         if (trailerItems.size() == trailerResponseCount) {
-            RecyclerItem recyclerItem = new RecyclerItem(DetailAdapter.VIEW_TYPE_TRAILERS, trailerItems);
-            parent.displayUiView(recyclerItem);
+            parent.displayUiView(new FullTrailerItems(trailerItems));
         }
     }
 }

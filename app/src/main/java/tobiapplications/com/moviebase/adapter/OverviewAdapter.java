@@ -3,7 +3,6 @@ package tobiapplications.com.moviebase.adapter;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ViewGroup;
 
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager;
@@ -11,8 +10,8 @@ import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import tobiapplications.com.moviebase.adapter.overviewadapter.LoadingAdapterDelegate;
-import tobiapplications.com.moviebase.adapter.overviewadapter.MovieAdapterDelegate;
+import tobiapplications.com.moviebase.adapter.delegates.LoadingMovieDelegate;
+import tobiapplications.com.moviebase.adapter.delegates.MovieDelegate;
 import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
@@ -43,8 +42,8 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mGridLayoutManager.setSpanSizeLookup(spanSizeLookupBuilder());
 
         delegatesManager = new AdapterDelegatesManager<>();
-        delegatesManager.addDelegate(new MovieAdapterDelegate(context, movieClickListener));
-        delegatesManager.addDelegate(new LoadingAdapterDelegate(context));
+        delegatesManager.addDelegate(new MovieDelegate(context, movieClickListener));
+        delegatesManager.addDelegate(new LoadingMovieDelegate(context));
     }
 
     private GridLayoutManager.SpanSizeLookup spanSizeLookupBuilder() {
@@ -70,7 +69,6 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 super.onScrolled(recyclerView, dx, dy);
                 if (isListEndReached()) {
                     if (triggerLoadMoreMovies) {
-                        Log.d("MovieAdapter", "load next movies");
                         loadMoreMovies();
                     }
                 }
@@ -142,7 +140,7 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public void removeLoadingItem() {
         for (DisplayableItem item : items) {
-            if (!(item instanceof MovieOverviewModel)) {
+            if ((item instanceof LoadingItem)) {
                 int index = items.indexOf(item);
                 items.remove(index);
                 notifyItemRangeChanged(index, items.size() - index);

@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.adapter.overviewadapter;
+package tobiapplications.com.moviebase.adapter.delegates;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,38 +11,43 @@ import com.hannesdorfmann.adapterdelegates3.AdapterDelegate;
 import java.util.List;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.RecyclerItem;
-import tobiapplications.com.moviebase.model.overview.LoadingItem;
-import tobiapplications.com.moviebase.ui.viewholder.overview.LoadingHolder;
+import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.ui.viewholder.overview.MovieHolder;
 
 /**
  * Created by Tobias on 04.09.2017.
  */
 
-public class LoadingAdapterDelegate extends AdapterDelegate<List<DisplayableItem>> {
+public class MovieDelegate extends AdapterDelegate<List<DisplayableItem>> {
 
     private Context context;
     private LayoutInflater inflater;
+    private OnMovieClickListener movieClickListener;
 
-    public LoadingAdapterDelegate(Context context) {
+    public MovieDelegate(Context context, OnMovieClickListener movieClickListener) {
         this.context = context;
+        this.movieClickListener = movieClickListener;
         inflater = LayoutInflater.from(context);
     }
 
     @Override
     protected boolean isForViewType(@NonNull List<DisplayableItem> items, int position) {
-        return items.get(position) instanceof LoadingItem;
+        return items.get(position) instanceof MovieOverviewModel;
     }
 
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new LoadingHolder(inflater.inflate(R.layout.item_movie_loading, parent, false));
+        return new MovieHolder(inflater.inflate(R.layout.item_movie, parent, false), movieClickListener); //, movieClickListener, context);
+
     }
 
     @Override
     protected void onBindViewHolder(@NonNull List<DisplayableItem> items, int position, @NonNull RecyclerView.ViewHolder holder, @NonNull List<Object> payloads) {
-
+        MovieOverviewModel movie = (MovieOverviewModel) items.get(position);
+        MovieHolder movieHolder = (MovieHolder) holder;
+        movieHolder.setInformation(movie);
     }
 }

@@ -2,13 +2,14 @@ package tobiapplications.com.moviebase.model.detail.items;
 
 import java.util.ArrayList;
 
+import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.detail.Genre;
 
 /**
  * Created by Tobias on 15.06.2017.
  */
 
-public class AdditionalInfoItem {
+public class AdditionalInfoItem implements DisplayableItem {
 
     private String originalTitle;
     private int budget;

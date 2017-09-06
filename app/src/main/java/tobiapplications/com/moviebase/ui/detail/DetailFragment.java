@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.DetailAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentDetailBinding;
+import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.utils.Constants;
@@ -73,12 +74,12 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     }
 
     @Override
-    public void displayUiViews(ArrayList<RecyclerItem> detailItems) {
+    public void displayUiViews(ArrayList<DisplayableItem> detailItems) {
         adapter.addUiViews(detailItems);
     }
 
     @Override
-    public void displayUiView(RecyclerItem item) {
+    public void displayUiView(DisplayableItem item) {
         adapter.addUiView(item);
     }
 }
