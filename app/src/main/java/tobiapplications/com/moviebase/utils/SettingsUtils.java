@@ -35,7 +35,7 @@ public class SettingsUtils {
         return appLanguage;
     }
 
-    public static String getPhoneDefaultLanguage() {
+    private static String getPhoneDefaultLanguage() {
         return Locale.getDefault().getLanguage();
     }
     
