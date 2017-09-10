@@ -1,4 +1,9 @@
 <resources>
+
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="app_name" translatable="false">MovieBase</string>
     <string name="no_network_connection">You are not connected to the internet. Please turn on to get the movies.</string>
     <string name="title_popular">Popular</string>

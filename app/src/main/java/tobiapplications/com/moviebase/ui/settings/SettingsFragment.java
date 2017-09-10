@@ -16,20 +16,59 @@
 package tobiapplications.com.moviebase.ui.settings;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.preference.CheckBoxPreference;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SettingsUtils;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements
         SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private static String FRAGMENT_TAG;
+
+    public static SettingsFragment newInstance(String settingsTag) {
+        SettingsFragment settingsFragment = new SettingsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.FRAGMENT_TAG, settingsTag);
+        settingsFragment.setArguments(bundle);
+        return settingsFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.action_settings);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        parseArguments(getArguments());
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    private void parseArguments(Bundle arguments) {
+        if (arguments == null) {
+            return;
+        }
+
+        if (arguments.containsKey(Constants.FRAGMENT_TAG)) {
+            FRAGMENT_TAG = arguments.getString(Constants.FRAGMENT_TAG);
+        }
+    }
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -65,10 +104,24 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         }
     }
 
-    private void restartSettingsActivity() {
-        Intent intent = new Intent(getContext(), SettingsActivity.class);
-        getActivity().finish();
-        startActivity(intent);
+    private void reloadSettings() {
+        Fragment fragment = null;
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        if (fragmentManager == null) {
+            return;
+        }
+
+        fragment = SettingsFragment.newInstance(FRAGMENT_TAG);
+
+        if (fragment == null) {
+            return;
+        }
+
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.fragment_container, fragment).addToBackStack(FRAGMENT_TAG);
+        fragmentManager.popBackStack();
+        transaction.commit();
     }
 
     @Override
@@ -93,7 +146,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
 
         if (key.equals(getString(R.string.pref_language_key))) {
             SettingsUtils.updateApplicationLanguage(activity);
-            restartSettingsActivity();
+            reloadSettings();
         }
 
         Preference preference = findPreference(key);

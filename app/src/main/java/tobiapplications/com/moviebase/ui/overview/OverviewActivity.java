@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -21,9 +19,6 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.ViewPagerAdapter;
 import tobiapplications.com.moviebase.databinding.ActivityOverviewBinding;
 import tobiapplications.com.moviebase.network.DataManager;
-import tobiapplications.com.moviebase.ui.About;
-import tobiapplications.com.moviebase.ui.settings.SettingsActivity;
-import tobiapplications.com.moviebase.ui.views.CustomViewPager;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SettingsUtils;
 
@@ -109,8 +104,7 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
     }
 
     private void openAbout() {
-        Intent intent = new Intent(this, About.class);
-        startActivity(intent);
+
     }
 
     @Override
@@ -121,8 +115,7 @@ public class OverviewActivity extends AppCompatActivity implements OverviewActiv
     }
 
     private void openSettings() {
-        Intent openSettings = new Intent(this, SettingsActivity.class);
-        startActivity(openSettings);
+
     }
 
     @Override

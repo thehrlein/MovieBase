@@ -14,12 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.overview.OverviewActivity">
+        <activity
+            android:name=".ui.NavigationActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.overview.OverviewActivity">
+
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".ui.search.SearchActivity" />
@@ -28,7 +33,8 @@
             android:name=".ui.detail.DetailActivity"
             android:configChanges="orientation|screenSize"
             android:parentActivityName=".ui.overview.OverviewActivity"
-            android:theme="@style/CustomToolbarTitle"></activity>
+            android:theme="@style/CustomToolbarTitle">
+        </activity>
         <activity
             android:name=".ui.search.SearchActivity"
             android:parentActivityName=".ui.overview.OverviewActivity">
@@ -40,9 +46,6 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:parentActivityName=".ui.overview.OverviewActivity" />
 
         <!-- Provider -->
         <provider
@@ -50,15 +53,6 @@
             android:authorities="tobiapplications.com.moviebase"
             android:exported="false" />
 
-        <activity
-            android:name=".ui.About"
-            android:label="@string/about"
-            android:parentActivityName=".ui.overview.OverviewActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="tobiapplications.com.moviebase.ui.overview.OverviewActivity" />
-        </activity>
     </application>
 
 </manifest>
