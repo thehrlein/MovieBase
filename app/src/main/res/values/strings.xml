@@ -3,6 +3,11 @@
     <!-- Navigation Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_tag">navigation</string>
+    <string name="movie_tag">movie_fragment</string>
+    <string name="movie_title">Movies</string>
+    <string name="series_title">Series</string>
+
 
     <string name="app_name" translatable="false">MovieBase</string>
     <string name="no_network_connection">You are not connected to the internet. Please turn on to get the movies.</string>

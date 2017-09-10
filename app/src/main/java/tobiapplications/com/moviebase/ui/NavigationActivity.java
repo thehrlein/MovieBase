@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,7 +15,10 @@ import android.view.MenuItem;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ActivityNavigationBinding;
+import tobiapplications.com.moviebase.network.DataManager;
+import tobiapplications.com.moviebase.ui.overview.OverviewFragment;
 import tobiapplications.com.moviebase.ui.settings.SettingsFragment;
+import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SettingsUtils;
 
 /**
@@ -28,8 +32,16 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         bind = DataBindingUtil.setContentView(this, R.layout.activity_navigation);
+
+        init();
+    }
+
+    private void init() {
+        SettingsUtils.updateApplicationLanguage(this);
+        DataManager.getInstance().buildApi(Constants.THE_MOVIE_DB);
+        DataManager.getInstance().buildApi(Constants.YOUTUBE);
+
         setSupportActionBar(bind.appBar.toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, bind.drawerLayout, bind.appBar.toolbar,
@@ -39,11 +51,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         bind.navView.setNavigationItemSelectedListener(this);
 
-        init();
-    }
+        // set movies selected on startup
+        onNavigationItemSelected(bind.navView.getMenu().findItem(R.id.menu_movies));
 
-    private void init() {
-        SettingsUtils.updateApplicationLanguage(this);
     }
 
     @Override
@@ -62,7 +72,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
 
         if (id == R.id.menu_movies) {
-
+            openMovies();
         } else if (id == R.id.menu_series) {
 
         } else if (id == R.id.menu_settings) {
@@ -76,19 +86,28 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         return true;
     }
 
+    private void openMovies() {
+        String movieTag = getString(R.string.movie_tag);
+        OverviewFragment overviewFragment = OverviewFragment.newInstance();
+        replaceFragment(overviewFragment, movieTag);
+    }
+
     private void openSettings() {
         String settingsTag = getString(R.string.action_settings);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         SettingsFragment settingsFragment = SettingsFragment.newInstance(settingsTag);
-        transaction.replace(R.id.fragment_container, settingsFragment, settingsTag).addToBackStack("fragment");
-        transaction.commit();
-
+        replaceFragment(settingsFragment, settingsTag);
     }
 
     private void openAbout() {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        String aboutTag = getString(R.string.about);
         AboutFragment aboutFragment = AboutFragment.newInstance();
-        transaction.replace(R.id.fragment_container, aboutFragment, getString(R.string.about)).addToBackStack("fragment");
+        replaceFragment(aboutFragment, aboutTag);
+    }
+
+    private void replaceFragment(Fragment fragment, String fragmentTag) {
+        String navigationTag = getString(R.string.navigation_tag);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment, fragmentTag).addToBackStack(navigationTag);
         transaction.commit();
     }
 

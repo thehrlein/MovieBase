@@ -71,6 +71,11 @@ public class DataManager {
         popularMovieCall.enqueue(new OverviewCallback(listener));
     }
 
+    public void requestPopularSeries(OnOverviewMovieLoadListener listener, int pageToLoad) {
+        Call<MovieOverviewResponse> popularMovieCall = movieApi.requestPopularSeries(pageToLoad);
+        popularMovieCall.enqueue(new OverviewCallback(listener));
+    }
+
     public void requestTopRatedMovies(OnOverviewMovieLoadListener listener, int pageToLoad) {
         Call<MovieOverviewResponse> topRatedMovieCall = movieApi.requestTopRatedMovies(pageToLoad);
         topRatedMovieCall.enqueue(new OverviewCallback(listener));

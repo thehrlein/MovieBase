@@ -62,7 +62,7 @@ public class PopularPresenter implements OverviewFragmentContract.Presenter {
     @Override
     public void requestMovieDownload() {
         Log.d("Pop Presenter", "requestSingleMovieDownload");
-        DataManager.getInstance().requestPopularMovies(this, pageToLoadNext);
+        DataManager.getInstance().requestPopularSeries(this, pageToLoadNext);
         pageToLoadNext++;
     }
 

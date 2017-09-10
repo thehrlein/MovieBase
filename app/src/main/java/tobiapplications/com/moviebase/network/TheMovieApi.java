@@ -19,6 +19,9 @@ public interface TheMovieApi {
     @GET("movie/popular")
     Call<MovieOverviewResponse> requestPopularMovies(@Query("page") int pageToLoad);
 
+    @GET("tv/popular")
+    Call<MovieOverviewResponse> requestPopularSeries(@Query("page") int pageToLoad);
+
     @GET("movie/top_rated")
     Call<MovieOverviewResponse> requestTopRatedMovies(@Query("page") int pageToLoad);
 
