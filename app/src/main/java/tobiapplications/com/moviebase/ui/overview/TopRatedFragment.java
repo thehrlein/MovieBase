@@ -6,18 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.adapter.OverviewAdapter;
-import tobiapplications.com.moviebase.databinding.FragmentOverviewBinding;
+import tobiapplications.com.moviebase.adapter.OverviewTabAdapter;
+import tobiapplications.com.moviebase.databinding.FragmentOverviewTabBinding;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
@@ -27,33 +23,49 @@ import tobiapplications.com.moviebase.utils.GeneralUtils;
  * Created by Tobias on 09.06.2017.
  */
 
-public class TopRatedFragment extends Fragment implements OverviewFragmentContract.View {
+public class TopRatedFragment extends Fragment implements OverviewTabFragmentContract.View {
 
     private final String TAG = TopRatedFragment.class.getSimpleName();
-    private FragmentOverviewBinding bind;
+    private FragmentOverviewTabBinding bind;
     private Context context;
     private TopRatedPresenter presenter;
-    private OverviewAdapter adapter;
+    private OverviewTabAdapter adapter;
+    private Constants.OverviewType overviewType;
 
-
-    public static Fragment newInstance() {
-        return new TopRatedFragment();
+    public static Fragment newInstance(Constants.OverviewType overviewType) {
+        TopRatedFragment topRatedFragment = new TopRatedFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
+        topRatedFragment.setArguments(bundle);
+        return topRatedFragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bind = FragmentOverviewBinding.inflate(inflater);
+        bind = FragmentOverviewTabBinding.inflate(inflater);
         presenter = new TopRatedPresenter(this, context);
-        presenter.loadMovies();
+        overviewType = getOverviewType(getArguments());
+        presenter.loadMovies(overviewType);
         return bind.getRoot();
+    }
+
+    private Constants.OverviewType getOverviewType(Bundle arguments) {
+        if (arguments == null) {
+            return null;
+        }
+
+        if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
+            return (Constants.OverviewType) arguments.getSerializable(Constants.OVERVIEW_TYPE);
+        }
+
+        return null;
     }
 
     @Override
@@ -68,7 +80,7 @@ public class TopRatedFragment extends Fragment implements OverviewFragmentContra
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         bind.recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new OverviewAdapter(context, bind.recyclerView, this);
+        adapter = new OverviewTabAdapter(context, bind.recyclerView, this);
         adapter.setOnLoadMoreMoviesListener(this);
         bind.recyclerView.setAdapter(adapter);
     }

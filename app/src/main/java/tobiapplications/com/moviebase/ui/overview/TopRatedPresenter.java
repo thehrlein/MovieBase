@@ -7,40 +7,38 @@ import android.widget.Toast;
 
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
+import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
  * Created by Tobias on 11.06.2017.
  */
 
-public class TopRatedPresenter implements OverviewFragmentContract.Presenter {
+public class TopRatedPresenter implements OverviewTabFragmentContract.Presenter {
 
-    private OverviewFragmentContract.View parent;
+    private OverviewTabFragmentContract.View parent;
     private Context context;
     private int pageToLoadNext = 1;
+    private Constants.OverviewType overviewType;
 
-    public TopRatedPresenter(OverviewFragmentContract.View parent, Context context) {
+    public TopRatedPresenter(OverviewTabFragmentContract.View parent, Context context) {
         this.parent = parent;
         this.context = context;
     }
 
     @Override
-    public void loadMovies() {
+    public void loadMovies(Constants.OverviewType overviewType) {
+        this.overviewType = overviewType;
         if (hasInternetConnection()) {
             if (noMoviesShown()) {
                 parent.showLoading(true);
             }
             parent.showNetworkError(false);
-            requestMovieDownload();
+            requestDownload();
         } else {
             parent.showLoading(false);
             parent.showNetworkError(true);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    loadMovies();
-                }
-            }, 3000);
+            new Handler().postDelayed(() -> loadMovies(overviewType), 3000);
         }
     }
 
@@ -60,9 +58,25 @@ public class TopRatedPresenter implements OverviewFragmentContract.Presenter {
     }
 
     @Override
+    public void requestDownload() {
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            requestMovieDownload();
+        } else if (overviewType == Constants.OverviewType.SERIES) {
+            requestSeriesDownload();
+        } else {
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     public void requestMovieDownload() {
-        Log.d("Top Presenter", "requestSingleMovieDownload");
         DataManager.getInstance().requestTopRatedMovies(this, pageToLoadNext);
+        pageToLoadNext++;
+    }
+
+    @Override
+    public void requestSeriesDownload() {
+        DataManager.getInstance().requestTopRatedSeries(this, pageToLoadNext);
         pageToLoadNext++;
     }
 
@@ -75,7 +89,7 @@ public class TopRatedPresenter implements OverviewFragmentContract.Presenter {
     @Override
     public void loadMoreMovies() {
         parent.insertLoadingItem();
-        requestMovieDownload();
+        requestDownload();
     }
 
     @Override

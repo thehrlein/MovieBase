@@ -13,12 +13,12 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
  * Created by Tobias on 11.06.2017.
  */
 
-public class OwnFavoritePresenter implements OverviewFragmentContract.DatabasePresenter {
+public class OwnFavoritePresenter implements OverviewTabFragmentContract.DatabasePresenter {
 
-    private OverviewFragmentContract.DatabaseView parent;
+    private OverviewTabFragmentContract.DatabaseView parent;
     private Context context;
 
-    public OwnFavoritePresenter(OverviewFragmentContract.DatabaseView parent, Context context) {
+    public OwnFavoritePresenter(OverviewTabFragmentContract.DatabaseView parent, Context context) {
         this.parent = parent;
         this.context = context;
     }

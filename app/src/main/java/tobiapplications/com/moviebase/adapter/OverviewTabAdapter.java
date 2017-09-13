@@ -22,7 +22,7 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
  * Created by Tobias on 09.06.2017.
  */
 
-public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final RecyclerView mRecyclerView;
     private OnLoadMoreMoviesListener movieLoadListener;
@@ -34,7 +34,7 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private AdapterDelegatesManager<List<DisplayableItem>> delegatesManager;
     private List<DisplayableItem> items;
 
-    public OverviewAdapter(Context context, RecyclerView recyclerView, OnMovieClickListener movieClickListener) {
+    public OverviewTabAdapter(Context context, RecyclerView recyclerView, OnMovieClickListener movieClickListener) {
         this.mRecyclerView = recyclerView;
         this.items = new ArrayList<>();
         setRecyclerViewScrollListener();

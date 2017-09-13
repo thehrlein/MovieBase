@@ -72,8 +72,8 @@ public class DataManager {
     }
 
     public void requestPopularSeries(OnOverviewMovieLoadListener listener, int pageToLoad) {
-        Call<MovieOverviewResponse> popularMovieCall = movieApi.requestPopularSeries(pageToLoad);
-        popularMovieCall.enqueue(new OverviewCallback(listener));
+        Call<MovieOverviewResponse> popularSeriesCall = movieApi.requestPopularSeries(pageToLoad);
+        popularSeriesCall.enqueue(new OverviewCallback(listener));
     }
 
     public void requestTopRatedMovies(OnOverviewMovieLoadListener listener, int pageToLoad) {
@@ -81,8 +81,13 @@ public class DataManager {
         topRatedMovieCall.enqueue(new OverviewCallback(listener));
     }
 
+    public void requestTopRatedSeries(OnOverviewMovieLoadListener listener, int pageToLoad) {
+        Call<MovieOverviewResponse> topRatedSeriesCall = movieApi.requestTopRatedSeries(pageToLoad);
+        topRatedSeriesCall.enqueue(new OverviewCallback(listener));
+    }
+
     public void requestSingleMovie(DetailActivityPresenter presenter, int movieId) {
-        Call<MovieDetailResponse> singleMovieCall = movieApi.requestDetailInfo(movieId);
+        Call<MovieDetailResponse> singleMovieCall = movieApi.requestMovieDetails(movieId);
         singleMovieCall.enqueue(new DetailCallback(presenter));
     }
 

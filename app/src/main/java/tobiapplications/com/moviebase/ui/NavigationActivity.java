@@ -1,6 +1,5 @@
 package tobiapplications.com.moviebase.ui;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -53,6 +52,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         // set movies selected on startup
         onNavigationItemSelected(bind.navView.getMenu().findItem(R.id.menu_movies));
+        bind.navView.setCheckedItem(R.id.menu_movies);
 
     }
 
@@ -74,7 +74,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         if (id == R.id.menu_movies) {
             openMovies();
         } else if (id == R.id.menu_series) {
-
+            openSeries();
         } else if (id == R.id.menu_settings) {
             openSettings();
         } else if (id == R.id.menu_info) {
@@ -86,9 +86,15 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         return true;
     }
 
+    private void openSeries() {
+        String seriesTag = getString(R.string.series_tag);
+        OverviewFragment overviewFragment = OverviewFragment.newInstance(Constants.OverviewType.SERIES);
+        replaceFragment(overviewFragment, seriesTag);
+    }
+
     private void openMovies() {
         String movieTag = getString(R.string.movie_tag);
-        OverviewFragment overviewFragment = OverviewFragment.newInstance();
+        OverviewFragment overviewFragment = OverviewFragment.newInstance(Constants.OverviewType.MOVIES);
         replaceFragment(overviewFragment, movieTag);
     }
 

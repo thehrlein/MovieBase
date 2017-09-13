@@ -7,40 +7,49 @@ import android.widget.Toast;
 
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
+import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
  * Created by Tobias on 09.06.2017.
  */
 
-public class PopularPresenter implements OverviewFragmentContract.Presenter {
+public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
 
-    private OverviewFragmentContract.View parent;
+    private OverviewTabFragmentContract.View parent;
     private Context context;
     private int pageToLoadNext = 1;
+    private Constants.OverviewType overviewType;
 
-    public PopularPresenter(OverviewFragmentContract.View parent, Context context) {
+    public PopularPresenter(OverviewTabFragmentContract.View parent, Context context) {
         this.parent = parent;
         this.context = context;
     }
 
     @Override
-    public void loadMovies() {
+    public void loadMovies(Constants.OverviewType overviewType) {
+        this.overviewType = overviewType;
         if (hasInternetConnection()) {
             if (noMoviesShown()) {
                 parent.showLoading(true);
             }
             parent.showNetworkError(false);
-            requestMovieDownload();
+            requestDownload();
         } else {
             parent.showLoading(false);
             parent.showNetworkError(true);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    loadMovies();
-                }
-            }, 3000);
+            new Handler().postDelayed(()-> loadMovies(overviewType), 3000);
+        }
+    }
+
+    @Override
+    public void requestDownload() {
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            requestMovieDownload();
+        } else if (overviewType == Constants.OverviewType.SERIES) {
+            requestSeriesDownload();
+        } else {
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -61,7 +70,12 @@ public class PopularPresenter implements OverviewFragmentContract.Presenter {
 
     @Override
     public void requestMovieDownload() {
-        Log.d("Pop Presenter", "requestSingleMovieDownload");
+        DataManager.getInstance().requestPopularMovies(this, pageToLoadNext);
+        pageToLoadNext++;
+    }
+
+    @Override
+    public void requestSeriesDownload() {
         DataManager.getInstance().requestPopularSeries(this, pageToLoadNext);
         pageToLoadNext++;
     }
@@ -75,7 +89,8 @@ public class PopularPresenter implements OverviewFragmentContract.Presenter {
     @Override
     public void loadMoreMovies() {
         parent.insertLoadingItem();
-        requestMovieDownload();
+
+        requestDownload();
     }
 
     @Override

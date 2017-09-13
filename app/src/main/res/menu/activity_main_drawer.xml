@@ -12,18 +12,18 @@
             android:title="Series" />
 
     </group>
+    <group
+        android:id="@+id/menu_group_additional"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_settings"
+            android:icon="@drawable/fab_heart"
+            android:title="Settings" />
+        <item
+            android:id="@+id/menu_info"
+            android:icon="@drawable/fab_heart"
+            android:title="About" />
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/menu_settings"
-                android:icon="@drawable/fab_heart"
-                android:title="Settings" />
-            <item
-                android:id="@+id/menu_info"
-                android:icon="@drawable/fab_heart"
-                android:title="About" />
-        </menu>
-    </item>
+    </group>
 
 </menu>

@@ -12,19 +12,15 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.adapter.OverviewAdapter;
+import tobiapplications.com.moviebase.adapter.OverviewTabAdapter;
 import tobiapplications.com.moviebase.database.MoviesContract;
-import tobiapplications.com.moviebase.databinding.FragmentOverviewBinding;
+import tobiapplications.com.moviebase.databinding.FragmentOverviewTabBinding;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
@@ -35,18 +31,22 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
  * Created by Tobias on 09.06.2017.
  */
 
-public class OwnFavoriteFragment extends Fragment implements OverviewFragmentContract.DatabaseView {
+public class OwnFavoriteFragment extends Fragment implements OverviewTabFragmentContract.DatabaseView {
 
     private final String TAG = OwnFavoriteFragment.class.getSimpleName();
-    private FragmentOverviewBinding bind;
+    private FragmentOverviewTabBinding bind;
     private Context context;
-    private OverviewAdapter adapter;
+    private OverviewTabAdapter adapter;
     private OwnFavoritePresenter presenter;
     private static final int CURSOR_LOADER_ID = 123;
 
 
-    public static Fragment newInstance() {
-        return new OwnFavoriteFragment();
+    public static Fragment newInstance(Constants.OverviewType overviewType) {
+        OwnFavoriteFragment ownFavoriteFragment = new OwnFavoriteFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
+        ownFavoriteFragment.setArguments(bundle);
+        return ownFavoriteFragment;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewFragmentCon
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bind = FragmentOverviewBinding.inflate(inflater);
+        bind = FragmentOverviewTabBinding.inflate(inflater);
 
         return bind.getRoot();
     }
@@ -76,7 +76,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewFragmentCon
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         bind.recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new OverviewAdapter(context, bind.recyclerView, this);
+        adapter = new OverviewTabAdapter(context, bind.recyclerView, this);
         bind.recyclerView.setAdapter(adapter);
     }
 

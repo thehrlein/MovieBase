@@ -27,6 +27,11 @@ public class CustomViewPager extends ViewPager {
     }
 
     @Override
+    public boolean canScrollHorizontally(int direction) {
+        return !isSwipeDisabled && super.canScrollHorizontally(direction);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return !isSwipeDisabled && super.onTouchEvent(ev);
     }

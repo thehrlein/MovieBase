@@ -25,11 +25,20 @@ public interface TheMovieApi {
     @GET("movie/top_rated")
     Call<MovieOverviewResponse> requestTopRatedMovies(@Query("page") int pageToLoad);
 
+    @GET("tv/top_rated")
+    Call<MovieOverviewResponse> requestTopRatedSeries(@Query("page") int pageToLoad);
+
     @GET("movie/{id}")
-    Call<MovieDetailResponse> requestDetailInfo(@Path("id") int movieId);
+    Call<MovieDetailResponse> requestMovieDetails(@Path("id") int movieId);
+
+    @GET("tv/{id}")
+    Call<MovieDetailResponse> requestSeriesDetails(@Path("id") int movieId);
 
     @GET("movie/{id}/similar")
     Call<MovieOverviewResponse> requestSimilarMovies(@Path("id") int movieId);
+
+    @GET("tv/{id}/similar")
+    Call<MovieOverviewResponse> requestSimilarSeries(@Path("id") int movieId);
 
     @GET("movie/{id}/reviews")
     Call<ReviewResponse> requestMovieReviews(@Path("id") int movieId);
@@ -42,4 +51,5 @@ public interface TheMovieApi {
 
     @GET("movie/{id}/videos")
     Call<TrailersResponse> requestTrailers(@Path("id") int movieId);
+
 }

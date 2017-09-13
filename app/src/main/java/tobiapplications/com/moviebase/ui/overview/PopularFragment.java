@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.adapter.OverviewAdapter;
-import tobiapplications.com.moviebase.databinding.FragmentOverviewBinding;
+import tobiapplications.com.moviebase.adapter.OverviewTabAdapter;
+import tobiapplications.com.moviebase.databinding.FragmentOverviewTabBinding;
 import tobiapplications.com.moviebase.listener.OnOverviewResponseLoadedListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
@@ -24,18 +24,23 @@ import tobiapplications.com.moviebase.utils.GeneralUtils;
  * Created by Tobias on 09.06.2017.
  */
 
-public class PopularFragment extends Fragment implements OverviewFragmentContract.View {
+public class PopularFragment extends Fragment implements OverviewTabFragmentContract.View {
 
     private final String TAG = PopularFragment.class.getSimpleName();
-    private FragmentOverviewBinding bind;
+    private FragmentOverviewTabBinding bind;
     private Context context;
     private PopularPresenter presenter;
-    private OverviewAdapter adapter;
+    private OverviewTabAdapter adapter;
     private static OnOverviewResponseLoadedListener responseLoadedListener;
+    private Constants.OverviewType overviewType;
 
-    public static Fragment newInstance(OnOverviewResponseLoadedListener responseLoaded) {
+    public static Fragment newInstance(OnOverviewResponseLoadedListener responseLoaded, Constants.OverviewType overviewType) {
         responseLoadedListener = responseLoaded;
-        return new PopularFragment();
+        PopularFragment popularFragment = new PopularFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
+        popularFragment.setArguments(bundle);
+        return popularFragment;
     }
 
     @Override
@@ -48,11 +53,25 @@ public class PopularFragment extends Fragment implements OverviewFragmentContrac
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bind = FragmentOverviewBinding.inflate(inflater);
+        bind = FragmentOverviewTabBinding.inflate(inflater);
         presenter = new PopularPresenter(this, context);
-        presenter.loadMovies();
+        overviewType = getOverviewType(getArguments());
+
+        presenter.loadMovies(overviewType);
 
         return bind.getRoot();
+    }
+
+    private Constants.OverviewType getOverviewType(Bundle arguments) {
+        if (arguments == null) {
+            return null;
+        }
+
+        if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
+            return (Constants.OverviewType) arguments.getSerializable(Constants.OVERVIEW_TYPE);
+        }
+
+        return null;
     }
 
     @Override
@@ -67,7 +86,7 @@ public class PopularFragment extends Fragment implements OverviewFragmentContrac
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         bind.recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new OverviewAdapter(context, bind.recyclerView, this);
+        adapter = new OverviewTabAdapter(context, bind.recyclerView, this);
         adapter.setOnLoadMoreMoviesListener(this);
         bind.recyclerView.setAdapter(adapter);
     }

@@ -47,10 +47,14 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
     public void init(MovieDetailResponse detailMovie) {
         buildUiFromResponse(detailMovie);
-        requestMovieDownload();
+        requestDownload();
         requestReviews();
         requestActors();
         requestTrailers();
+    }
+
+    private void requestDownload() {
+        // TODO movie / series download depending on type
     }
 
     @Override
@@ -94,6 +98,11 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     @Override
     public void requestMovieDownload() {
         DataManager.getInstance().requestSimilarMovies(this, movieId);
+    }
+
+    @Override
+    public void requestSeriesDownload() {
+
     }
 
     @Override

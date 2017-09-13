@@ -7,6 +7,7 @@
     <string name="movie_tag">movie_fragment</string>
     <string name="movie_title">Movies</string>
     <string name="series_title">Series</string>
+    <string name="series_tag">series</string>
 
 
     <string name="app_name" translatable="false">MovieBase</string>

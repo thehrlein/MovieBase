@@ -35,6 +35,11 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
     }
 
     @Override
+    public void requestSeriesDownload() {
+
+    }
+
+    @Override
     public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
         parent.setDownloadFinished();
         parent.setSearchMovies(movieOverviewResponse.getMovies());
