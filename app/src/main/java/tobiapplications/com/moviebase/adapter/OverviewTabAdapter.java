@@ -17,6 +17,7 @@ import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.overview.LoadingItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 09.06.2017.

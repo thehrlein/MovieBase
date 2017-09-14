@@ -1,18 +1,15 @@
 package tobiapplications.com.moviebase.ui.detail;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
-import java.util.ArrayList;
-
-import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
-import tobiapplications.com.moviebase.model.detail.Genre;
+import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.network.DataManager;
+import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 
@@ -25,18 +22,34 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     private DetailActivity parent;
     private int movieId;
     private MovieDetailResponse clickedMovie;
+    private SeriesDetailResponse clickedSerie;
     private boolean isMarkedAsFavorite = false;
     private static final int PERCENTAGE_TO_SHOW_IMAGE = 60;
     private int mMaxScrollSize;
     private boolean mIsImageHidden;
     private Context context;
+    private Constants.OverviewType overviewType;
 
-    public DetailActivityPresenter(DetailActivity activity, int movieId, Context context) {
+    public DetailActivityPresenter(DetailActivity activity, int movieId, Context context, Constants.OverviewType overviewType) {
         this.parent = activity;
         this.movieId = movieId;
         this.context = context;
+        this.overviewType = overviewType;
 
-        requestSingleMovieDownload();
+        requestDownload();
+
+    }
+
+    private void requestDownload() {
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            requestSingleMovieDownload();
+        } else {
+            requestSingleSerieDownload();
+        }
+    }
+
+    private void requestSingleSerieDownload() {
+        DataManager.getInstance().requestSingleSerie(this, movieId);
     }
 
     @Override
@@ -47,8 +60,16 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     @Override
     public void displayMovieResponse(MovieDetailResponse detailResponse) {
         clickedMovie = detailResponse;
-        parent.setMovieInformation(clickedMovie.getTitle(), NetworkUtils.getFullImageUrlHigh(clickedMovie.getBackgroundImagePath()));
-        parent.setUpTabFragment(clickedMovie);
+        parent.setInformation(clickedMovie.getTitle(), NetworkUtils.getFullImageUrlHigh(clickedMovie.getBackgroundImagePath()));
+        parent.setUpMovieTabFragment(clickedMovie);
+        setFabDependingOnFavoriteStatus();
+    }
+
+    @Override
+    public void displaySeriesResponse(SeriesDetailResponse body) {
+        clickedSerie = body;
+        parent.setInformation(clickedSerie.getName(), NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImagePath()));
+        parent.setUpSeriesTabFragment(clickedSerie);
         setFabDependingOnFavoriteStatus();
     }
 

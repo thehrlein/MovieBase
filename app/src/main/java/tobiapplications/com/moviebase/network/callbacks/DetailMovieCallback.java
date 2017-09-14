@@ -10,11 +10,11 @@ import tobiapplications.com.moviebase.ui.detail.DetailActivityPresenter;
  * Created by Tobias on 11.06.2017.
  */
 
-public class DetailCallback implements Callback<MovieDetailResponse> {
+public class DetailMovieCallback implements Callback<MovieDetailResponse> {
 
     private DetailActivityPresenter presenter;
 
-    public DetailCallback(DetailActivityPresenter presenter) {
+    public DetailMovieCallback(DetailActivityPresenter presenter) {
         this.presenter = presenter;
     }
 

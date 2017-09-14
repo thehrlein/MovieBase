@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.support.design.widget.AppBarLayout;
 
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 
 /**
  * Created by Tobias on 13.06.2017.
@@ -14,9 +15,10 @@ public interface DetailActivityContract {
 
     interface View extends AppBarLayout.OnOffsetChangedListener{
         void setUpActionBar();
-        void getMovieId();
-        void setUpTabFragment(MovieDetailResponse response);
-        void setMovieInformation(String title, String moviePath);
+        void getMovieIdAndType();
+        void setUpMovieTabFragment(MovieDetailResponse response);
+        void setUpSeriesTabFragment(SeriesDetailResponse clickedSerie);
+        void setInformation(String title, String moviePath);
         void markFabAsFavorite();
         void unMarkFabFromFavorite();
         void setFabButtonVisible();
@@ -35,6 +37,7 @@ public interface DetailActivityContract {
         void insertCurrentMovieToFavoriteDatabase();
         void setFabDependingOnFavoriteStatus();
         void setAppBarOffsetChanged(int totalScrollRange, int verticalOffset);
+        void displaySeriesResponse(SeriesDetailResponse body);
     }
 
 }

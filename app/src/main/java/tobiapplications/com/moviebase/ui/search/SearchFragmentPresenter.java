@@ -26,11 +26,11 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
         this.query = query;
         parent.setDownloadIsActive();
         parent.setAdapter();
-        requestMovieDownload();
+        requestMoviesDownload();
     }
 
     @Override
-    public void requestMovieDownload() {
+    public void requestMoviesDownload() {
         DataManager.getInstance().requestSearchMovie(this, query);
     }
 

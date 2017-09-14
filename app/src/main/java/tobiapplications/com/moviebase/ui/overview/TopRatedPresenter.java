@@ -2,7 +2,6 @@ package tobiapplications.com.moviebase.ui.overview;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
@@ -60,7 +59,7 @@ public class TopRatedPresenter implements OverviewTabFragmentContract.Presenter 
     @Override
     public void requestDownload() {
         if (overviewType == Constants.OverviewType.MOVIES) {
-            requestMovieDownload();
+            requestMoviesDownload();
         } else if (overviewType == Constants.OverviewType.SERIES) {
             requestSeriesDownload();
         } else {
@@ -69,7 +68,7 @@ public class TopRatedPresenter implements OverviewTabFragmentContract.Presenter 
     }
 
     @Override
-    public void requestMovieDownload() {
+    public void requestMoviesDownload() {
         DataManager.getInstance().requestTopRatedMovies(this, pageToLoadNext);
         pageToLoadNext++;
     }

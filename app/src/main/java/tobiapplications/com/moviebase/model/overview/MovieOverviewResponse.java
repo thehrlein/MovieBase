@@ -1,6 +1,9 @@
 package tobiapplications.com.moviebase.model.overview;
 
 
+import android.text.TextUtils;
+
+import com.facebook.stetho.common.StringUtil;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;

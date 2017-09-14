@@ -5,14 +5,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.adapter.DetailAdapter;
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.FullTrailerItems;
 import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
+import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.model.detail.Trailer;
 import tobiapplications.com.moviebase.model.detail.TrailersResponse;
 import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
@@ -26,6 +25,7 @@ import tobiapplications.com.moviebase.model.detail.items.TrailerItem;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
+import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 14.06.2017.
@@ -33,41 +33,52 @@ import tobiapplications.com.moviebase.network.DataManager;
 
 public class DetailFragmentPresenter implements DetailFragmentContract.Presenter {
 
-    private int movieId;
+    private int id;
     private Context context;
     private DetailFragmentContract.View parent;
     private int trailerResponseCount;
     private ArrayList<TrailerItem> trailerItems;
+    private Constants.OverviewType overviewType;
 
-    public DetailFragmentPresenter(Context context, DetailFragmentContract.View parent) {
+    public DetailFragmentPresenter(Context context, DetailFragmentContract.View parent, Constants.OverviewType overviewType) {
         this.context = context;
         this.parent = parent;
+        this.overviewType = overviewType;
         trailerItems = new ArrayList<>();
     }
 
     public void init(MovieDetailResponse detailMovie) {
         buildUiFromResponse(detailMovie);
-        requestDownload();
+        requestMoviesDownload();
         requestReviews();
         requestActors();
         requestTrailers();
     }
 
-    private void requestDownload() {
-        // TODO movie / series download depending on type
+    public void init(SeriesDetailResponse detailSerie) {
+        buildUiFromResponse(detailSerie);
+        requestSeriesDownload();
     }
+
 
     @Override
     public void buildUiFromResponse(MovieDetailResponse detailMovie) {
-        this.movieId = detailMovie.getId();
+        this.id = detailMovie.getId();
 
         ArrayList<DisplayableItem> detailItems = new ArrayList<>();
 
         detailItems.add(createInfoView(detailMovie));
         detailItems.add(createAdditionalInfoView(detailMovie));
-        detailItems.add(createSummaryView(detailMovie));
+        detailItems.add(createSummaryView(detailMovie.getDescription()));
 
         parent.displayUiViews(detailItems);
+    }
+
+    private void buildUiFromResponse(SeriesDetailResponse detailSerie) {
+        this.id = detailSerie.getId();
+
+        ArrayList<DisplayableItem> detailItems = new ArrayList<>();
+        detailItems.add(createSummaryView(detailSerie.getDescription()));
     }
 
     private DisplayableItem createAdditionalInfoView(MovieDetailResponse detailMovie) {
@@ -79,9 +90,8 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         return new AdditionalInfoItem(originalTitle, budget, revenue, genres, homepage);
     }
 
-    private DisplayableItem createSummaryView(MovieDetailResponse detailMovie) {
-        String summary = detailMovie.getDescription();
-        return new SummaryItem(summary);
+    private DisplayableItem createSummaryView(String description) {
+        return new SummaryItem(description);
     }
 
     private DisplayableItem createInfoView(MovieDetailResponse detailMovie) {
@@ -96,28 +106,28 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     }
 
     @Override
-    public void requestMovieDownload() {
-        DataManager.getInstance().requestSimilarMovies(this, movieId);
+    public void requestMoviesDownload() {
+        DataManager.getInstance().requestSimilarMovies(this, id);
     }
 
     @Override
     public void requestSeriesDownload() {
-
+        DataManager.getInstance().requestSimilarSeries(this, id);
     }
 
     @Override
     public void requestReviews() {
-        DataManager.getInstance().requestReviews(this, movieId);
+        DataManager.getInstance().requestReviews(this, id);
     }
 
     @Override
     public void requestActors() {
-        DataManager.getInstance().requestActors(this, movieId);
+        DataManager.getInstance().requestActors(this, id);
     }
 
 
     private void requestTrailers() {
-        DataManager.getInstance().requestTrailers(this, movieId);
+        DataManager.getInstance().requestTrailers(this, id);
     }
 
     @Override

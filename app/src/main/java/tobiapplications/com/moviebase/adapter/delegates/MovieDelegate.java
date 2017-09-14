@@ -15,6 +15,7 @@ import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.viewholder.overview.MovieHolder;
+import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 04.09.2017.
@@ -25,10 +26,12 @@ public class MovieDelegate extends AdapterDelegate<List<DisplayableItem>> {
     private Context context;
     private LayoutInflater inflater;
     private OnMovieClickListener movieClickListener;
+    private Constants.OverviewType overviewType;
 
     public MovieDelegate(Context context, OnMovieClickListener movieClickListener) {
         this.context = context;
         this.movieClickListener = movieClickListener;
+        this.overviewType = overviewType;
         inflater = LayoutInflater.from(context);
     }
 
@@ -40,7 +43,7 @@ public class MovieDelegate extends AdapterDelegate<List<DisplayableItem>> {
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new MovieHolder(inflater.inflate(R.layout.item_movie, parent, false), movieClickListener); //, movieClickListener, context);
+        return new MovieHolder(inflater.inflate(R.layout.item_movie, parent, false), movieClickListener);
 
     }
 

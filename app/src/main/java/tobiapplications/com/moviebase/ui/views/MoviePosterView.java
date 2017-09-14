@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ItemMoviePosterBinding;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
+import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
@@ -55,7 +56,7 @@ public class MoviePosterView extends LinearLayout {
         setMovieInformation(movieInformation, -1, -1);
     }
 
-    public void setMovieInformation(MoviePosterItem movieInformation, int height, int width) {
+    public void setMovieInformation(MoviePosterItem movieInformation, int height, int width){
         if (movieInformation != null) {
             if (height > 0) {
                 getLayoutParams().height = LayoutParams.WRAP_CONTENT;

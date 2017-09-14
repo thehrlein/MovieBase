@@ -11,11 +11,13 @@ import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
+import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.model.detail.TrailersResponse;
 import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.callbacks.ActorsCallback;
-import tobiapplications.com.moviebase.network.callbacks.DetailCallback;
+import tobiapplications.com.moviebase.network.callbacks.DetailMovieCallback;
+import tobiapplications.com.moviebase.network.callbacks.DetailSerieCallback;
 import tobiapplications.com.moviebase.network.callbacks.OverviewCallback;
 import tobiapplications.com.moviebase.network.callbacks.ReviewCallback;
 import tobiapplications.com.moviebase.network.callbacks.TrailersCallback;
@@ -88,12 +90,22 @@ public class DataManager {
 
     public void requestSingleMovie(DetailActivityPresenter presenter, int movieId) {
         Call<MovieDetailResponse> singleMovieCall = movieApi.requestMovieDetails(movieId);
-        singleMovieCall.enqueue(new DetailCallback(presenter));
+        singleMovieCall.enqueue(new DetailMovieCallback(presenter));
+    }
+
+    public void requestSingleSerie(DetailActivityPresenter presenter, int serieId) {
+        Call<SeriesDetailResponse> singleSerieCall = movieApi.requestSeriesDetails(serieId);
+        singleSerieCall.enqueue(new DetailSerieCallback(presenter));
     }
 
     public void requestSimilarMovies(OnOverviewMovieLoadListener listener, int movieId) {
         Call<MovieOverviewResponse> similarMovieCall = movieApi.requestSimilarMovies(movieId);
         similarMovieCall.enqueue(new OverviewCallback(listener));
+    }
+
+    public void requestSimilarSeries(OnOverviewMovieLoadListener listener, int movieId) {
+        Call<MovieOverviewResponse> similarSerieCall = movieApi.requestSimilarSeries(movieId);
+        similarSerieCall.enqueue(new OverviewCallback(listener));
     }
 
     public void requestReviews(DetailFragmentContract.Presenter presenter, int movieId) {

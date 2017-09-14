@@ -46,6 +46,7 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
         context = bind.getRoot().getContext();
         overviewType = getOverViewType(getArguments());
         adapter = new OverviewAdapter(getChildFragmentManager(), context, this, overviewType);
+        hideViewsOnLoading();
         return bind.getRoot();
     }
 
@@ -71,7 +72,18 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
     private void init() {
         setupViewPager();
         bind.tabs.setupWithViewPager(bind.viewpager);
-        getActivity().setTitle(getString(R.string.movie_title));
+        setTitle();
+    }
+
+    private void setTitle() {
+        String title;
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            title = getString(R.string.movie_title);
+        } else {
+            title = getString(R.string.series_title);
+        }
+
+        getActivity().setTitle(title);
     }
 
     @Override

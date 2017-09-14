@@ -7,6 +7,7 @@ import retrofit2.http.Query;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
+import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.model.detail.TrailersResponse;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 
@@ -32,7 +33,7 @@ public interface TheMovieApi {
     Call<MovieDetailResponse> requestMovieDetails(@Path("id") int movieId);
 
     @GET("tv/{id}")
-    Call<MovieDetailResponse> requestSeriesDetails(@Path("id") int movieId);
+    Call<SeriesDetailResponse> requestSeriesDetails(@Path("id") int movieId);
 
     @GET("movie/{id}/similar")
     Call<MovieOverviewResponse> requestSimilarMovies(@Path("id") int movieId);

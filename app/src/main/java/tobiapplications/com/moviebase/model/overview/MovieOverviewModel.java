@@ -31,6 +31,10 @@ public class MovieOverviewModel implements DisplayableItem {
      @SerializedName("adult")
      private Boolean adult;
 
+    // name instead of title for series
+    @SerializedName("name")
+    private String name;
+
     public MovieOverviewModel(int id, String title, String titleImagePath, String backgroundImagePath, String releaseDate, String rating, String description, ArrayList<Integer> genres, Boolean adult) {
         this.id = id;
         this.title = title;
@@ -77,5 +81,9 @@ public class MovieOverviewModel implements DisplayableItem {
 
     public Boolean getAdult() {
         return adult;
+    }
+
+    public String getName() {
+        return name;
     }
 }

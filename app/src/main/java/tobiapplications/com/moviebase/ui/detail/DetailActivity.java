@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -18,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ActivityDetailBinding;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
+import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.utils.Constants;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener, DetailActivityContract.View {
@@ -25,6 +25,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private ActivityDetailBinding bind;
     private DetailActivityPresenter presenter;
     private int movieId;
+    private Constants.OverviewType overviewType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,19 +36,28 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         setUpActionBar();
 
-        getMovieId();
+        getMovieIdAndType();
 
-        presenter = new DetailActivityPresenter(this, movieId, this);
+        presenter = new DetailActivityPresenter(this, movieId, this, overviewType);
     }
 
     @Override
-    public void setUpTabFragment(MovieDetailResponse response) {
+    public void setUpMovieTabFragment(MovieDetailResponse clickedMovie) {
+        DetailFragment detailFragment = DetailFragment.newInstance(clickedMovie, overviewType);
+        showTabFragment(detailFragment);
+    }
 
+    @Override
+    public void setUpSeriesTabFragment(SeriesDetailResponse clickedSerie) {
+        DetailFragment detailFragment = DetailFragment.newInstance(clickedSerie, overviewType);
+        showTabFragment(detailFragment);
+    }
+
+    private void showTabFragment(DetailFragment detailFragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        DetailFragment fragment = DetailFragment.newInstance(response);
-        transaction.add(R.id.detail_content, fragment);
+        transaction.add(R.id.detail_content, detailFragment);
         transaction.commit();
     }
 
@@ -68,10 +78,11 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void getMovieId() {
+    public void getMovieIdAndType() {
         Intent intent = getIntent();
         if (intent != null) {
             movieId = intent.getIntExtra(Constants.CLICKED_MOVIE, -1);
+            overviewType = (Constants.OverviewType) intent.getSerializableExtra(Constants.OVERVIEW_TYPE);
         }
     }
 
@@ -85,7 +96,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void setMovieInformation(String title, String moviePath) {
+    public void setInformation(String title, String moviePath) {
         bind.toolbar.setTitle(title);
         bind.progressBar.setVisibility(View.GONE);
         if (moviePath != null) {
