@@ -18,7 +18,8 @@ import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 import tobiapplications.com.moviebase.model.detail.YtThumbnailObject;
 import tobiapplications.com.moviebase.model.detail.YtTrailerStatistic;
 import tobiapplications.com.moviebase.model.detail.items.AdditionalInfoItem;
-import tobiapplications.com.moviebase.model.detail.items.InfoItem;
+import tobiapplications.com.moviebase.model.detail.items.MovieInfoItem;
+import tobiapplications.com.moviebase.model.detail.items.SerieInfoItem;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.model.detail.items.SummaryItem;
 import tobiapplications.com.moviebase.model.detail.items.TrailerItem;
@@ -47,6 +48,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         trailerItems = new ArrayList<>();
     }
 
+    @Override
     public void init(MovieDetailResponse detailMovie) {
         buildUiFromResponse(detailMovie);
         requestMoviesDownload();
@@ -55,14 +57,15 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         requestTrailers();
     }
 
+    @Override
     public void init(SeriesDetailResponse detailSerie) {
         buildUiFromResponse(detailSerie);
         requestSeriesDownload();
     }
 
 
-    @Override
-    public void buildUiFromResponse(MovieDetailResponse detailMovie) {
+
+    private void buildUiFromResponse(MovieDetailResponse detailMovie) {
         this.id = detailMovie.getId();
 
         ArrayList<DisplayableItem> detailItems = new ArrayList<>();
@@ -78,7 +81,10 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         this.id = detailSerie.getId();
 
         ArrayList<DisplayableItem> detailItems = new ArrayList<>();
+        detailItems.add(createInfoView(detailSerie));
         detailItems.add(createSummaryView(detailSerie.getDescription()));
+
+        parent.displayUiViews(detailItems);
     }
 
     private DisplayableItem createAdditionalInfoView(MovieDetailResponse detailMovie) {
@@ -94,15 +100,26 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         return new SummaryItem(description);
     }
 
-    private DisplayableItem createInfoView(MovieDetailResponse detailMovie) {
-        String imagePath = detailMovie.getTitleImagePath();
-        double voteAverage = detailMovie.getVoteAverage();
-        int voteCount = detailMovie.getVoteCount();
-        String release = detailMovie.getReleaseDate();
-        boolean adult = detailMovie.isAdult();
-        int runtime = detailMovie.getRuntime();
-        String status = detailMovie.getStatus();
-        return new InfoItem(imagePath, voteAverage, voteCount, release, adult, runtime, status);
+    private DisplayableItem createInfoView(MovieDetailResponse movie) {
+        String imagePath = movie.getTitleImagePath();
+        double voteAverage = movie.getVoteAverage();
+        int voteCount = movie.getVoteCount();
+        String release = movie.getReleaseDate();
+        boolean adult = movie.isAdult();
+        int runtime = movie.getRuntime();
+        String status = movie.getStatus();
+        return new MovieInfoItem(imagePath, voteAverage, voteCount, release, adult, runtime, status);
+    }
+
+    private DisplayableItem createInfoView(SeriesDetailResponse serie) {
+        double voteAverage = serie.getVoteAverage();
+        int voteCount = serie.getVoteCount();
+        String firstAirDate = serie.getFirstAirDate();
+        String lastAirTime = serie.getLastAirTime();
+        boolean adult = serie.isAdult();
+        String status = serie.getStatus();
+
+        return new SerieInfoItem(voteAverage, voteCount, firstAirDate, lastAirTime, adult, status);
     }
 
     @Override

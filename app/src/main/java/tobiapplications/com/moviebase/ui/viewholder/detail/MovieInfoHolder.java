@@ -3,17 +3,13 @@ package tobiapplications.com.moviebase.ui.viewholder.detail;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.databinding.DetailInfoHolderBinding;
-import tobiapplications.com.moviebase.databinding.ItemActorsPosterBinding;
-import tobiapplications.com.moviebase.model.detail.items.InfoItem;
+import tobiapplications.com.moviebase.databinding.DetailMovieInfoHolderBinding;
+import tobiapplications.com.moviebase.model.detail.items.MovieInfoItem;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.DateUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
@@ -22,22 +18,22 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
  * Created by Tobias on 15.06.2017.
  */
 
-public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class MovieInfoHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private DetailInfoHolderBinding bind;
+    private DetailMovieInfoHolderBinding bind;
     private Context context;
-    private InfoItem infoItem;
+    private MovieInfoItem movie;
 
-    public InfoViewHolder(View itemView, Context context) {
+    public MovieInfoHolder(View itemView, Context context) {
         super(itemView);
         this.context = context;
 
-        bind = DetailInfoHolderBinding.bind(itemView);
+        bind = DetailMovieInfoHolderBinding.bind(itemView);
         bind.image.setOnClickListener(this);
     }
 
-    public void setInformation(InfoItem view) {
-        this.infoItem = view;
+    public void setInformation(MovieInfoItem view) {
+        this.movie = view;
         if (view.getImagePath() != null) {
             Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(view.getImagePath())).into(bind.image);
         } else {
@@ -59,8 +55,8 @@ public class InfoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        if (infoItem.getImagePath() != null) {
-            new ImageViewer.Builder(context, new String[]{NetworkUtils.getFullImageUrlHigh(infoItem.getImagePath())})
+        if (movie.getImagePath() != null) {
+            new ImageViewer.Builder(context, new String[]{NetworkUtils.getFullImageUrlHigh(movie.getImagePath())})
                     .setStartPosition(0)
                     .show();
         }

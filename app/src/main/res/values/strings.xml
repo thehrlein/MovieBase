@@ -27,6 +27,8 @@
     <string name="info_max_rating" translatable="false">&#160;/&#160;10</string>
     <string name="info_release_label">Release</string>
     <string name="info_runtime_label">Runtime</string>
+    <string name="info_first_air_date_label">First date on tv</string>
+    <string name="info_last_air_date_label">Last date on tv</string>
     <string name="additional_info_budget_label">Budget</string>
     <string name="additional_info_revenue_label">Revenue</string>
     <string name="additional_info_homepage_label" translatable="false">Homepage</string>

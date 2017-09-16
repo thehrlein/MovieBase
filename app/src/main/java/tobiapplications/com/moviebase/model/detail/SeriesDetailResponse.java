@@ -5,12 +5,16 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import tobiapplications.com.moviebase.model.detail.items.Season;
+
 /**
  * Created by Tobias on 14.09.2017.
  */
 
 public class SeriesDetailResponse implements Serializable {
 
+    @SerializedName("adult")
+    private boolean adult;
     @SerializedName("backdrop_path")
     private String backgroundImage;
     @SerializedName("created_by")
@@ -25,7 +29,7 @@ public class SeriesDetailResponse implements Serializable {
     private String homepage;
     @SerializedName("id")
     private int id;
-    @SerializedName("last_air_time")
+    @SerializedName("last_air_date")
     private String lastAirTime;
     @SerializedName("number_of_episodes")
     private int numberOfEpisodes;
@@ -35,8 +39,26 @@ public class SeriesDetailResponse implements Serializable {
     private String originalName;
     @SerializedName("name")
     private String name;
-    @SerializedName("description")
+    @SerializedName("overview")
     private String description;
+    @SerializedName("popularity")
+    private Double popularity;
+    @SerializedName("production_companies")
+    private ArrayList<ProductionCompany> productionCompanies;
+    @SerializedName("seasons")
+    private ArrayList<Season> seasons;
+    @SerializedName("status")
+    private String status;
+    @SerializedName("type")
+    private String type;
+    @SerializedName("vote_average")
+    private Double voteAverage;
+    @SerializedName("vote_count")
+    private int voteCount;
+
+    public boolean isAdult() {
+        return adult;
+    }
 
     public String getBackgroundImagePath() {
         return backgroundImage;
@@ -92,5 +114,33 @@ public class SeriesDetailResponse implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    public Double getPopularity() {
+        return popularity;
+    }
+
+    public ArrayList<ProductionCompany> getProductionCompanies() {
+        return productionCompanies;
+    }
+
+    public ArrayList<Season> getSeasons() {
+        return seasons;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public int getVoteCount() {
+        return voteCount;
     }
 }

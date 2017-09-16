@@ -8,6 +8,7 @@ import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
+import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.model.detail.TrailersResponse;
 import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 
@@ -25,7 +26,10 @@ public interface DetailFragmentContract {
 
     interface Presenter extends OnOverviewMovieLoadListener {
 
-        void buildUiFromResponse(MovieDetailResponse detailResponse);
+        void init(MovieDetailResponse detailMovie);
+
+        void init(SeriesDetailResponse detailSerie);
+
         void requestReviews();
         void displayReviews(ReviewResponse response);
         void requestActors();

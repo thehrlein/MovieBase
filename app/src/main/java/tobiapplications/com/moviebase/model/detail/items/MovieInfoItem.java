@@ -10,7 +10,7 @@ import tobiapplications.com.moviebase.utils.GeneralUtils;
  * Created by Tobias on 15.06.2017.
  */
 
-public class InfoItem implements DisplayableItem{
+public class MovieInfoItem implements DisplayableItem{
 
     private String imagePath;
     private double voteAverage;
@@ -20,7 +20,7 @@ public class InfoItem implements DisplayableItem{
     private int runtime;
     private String status;
 
-    public InfoItem(String imagePath, double voteAverage, int count, String releaseDate, boolean adult, int runtime, String status) {
+    public MovieInfoItem(String imagePath, double voteAverage, int count, String releaseDate, boolean adult, int runtime, String status) {
         this.imagePath = imagePath;
         this.voteAverage = voteAverage;
         this.voteCount = count;
