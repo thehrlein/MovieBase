@@ -148,4 +148,14 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         }
     }
+
+    public void setSeries(ArrayList<MovieOverviewModel> series) {
+        if (series != null) {
+            items.addAll(series);
+            triggerLoadMoreMovies = true;
+            notifyItemRangeChanged(items.size() - series.size(), series.size());
+        } else {
+            resetList();
+        }
+    }
 }

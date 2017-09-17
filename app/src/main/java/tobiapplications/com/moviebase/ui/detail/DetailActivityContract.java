@@ -6,6 +6,7 @@ import android.support.design.widget.AppBarLayout;
 
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
+import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 13.06.2017.
@@ -34,7 +35,7 @@ public interface DetailActivityContract {
         void displayError();
         void openToolbarImage();
         void handleFabClick();
-        void insertCurrentMovieToFavoriteDatabase();
+        void insertIntoDatabase(Constants.OverviewType overviewType);
         void setFabDependingOnFavoriteStatus();
         void setAppBarOffsetChanged(int totalScrollRange, int verticalOffset);
         void displaySeriesResponse(SeriesDetailResponse body);

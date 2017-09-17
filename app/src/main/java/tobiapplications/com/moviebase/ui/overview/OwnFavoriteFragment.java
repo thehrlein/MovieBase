@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.adapter.OverviewTabAdapter;
 import tobiapplications.com.moviebase.database.MoviesContract;
+import tobiapplications.com.moviebase.database.SeriesContract;
 import tobiapplications.com.moviebase.databinding.FragmentOverviewTabBinding;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
@@ -38,7 +39,9 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     private Context context;
     private OverviewTabAdapter adapter;
     private OwnFavoritePresenter presenter;
-    private static final int CURSOR_LOADER_ID = 123;
+    private static final int MOVIE_CURSOR_LOADER_ID = 123;
+    private static final int SERIE_CURSOR_LOADER_ID = 456;
+    private Constants.OverviewType overviewType;
 
 
     public static Fragment newInstance(Constants.OverviewType overviewType) {
@@ -53,7 +56,20 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
+        overviewType = parseArguments(getArguments());
         presenter = new OwnFavoritePresenter(this, context);
+    }
+
+    private Constants.OverviewType parseArguments(Bundle arguments) {
+        if (arguments == null) {
+            return null;
+        }
+
+        if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
+            return (Constants.OverviewType) arguments.getSerializable(Constants.OVERVIEW_TYPE);
+        }
+
+        return null;
     }
 
     @Nullable
@@ -81,17 +97,16 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     }
 
     @Override
-    public void showNetworkError(boolean noNetwork) {
-        if (bind.noInternetConnectionTextView != null && bind.recyclerView != null) {
-            bind.recyclerView.setVisibility(noNetwork ? View.GONE : View.VISIBLE);
-            bind.noInternetConnectionTextView.setVisibility(noNetwork ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    @Override
     public void setMovies(ArrayList<MovieOverviewModel> movies) {
         adapter.removeLoadingItem();
         adapter.setMovies(movies);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setSeries(ArrayList<MovieOverviewModel> series) {
+        adapter.removeLoadingItem();
+        adapter.setSeries(series);
         adapter.notifyDataSetChanged();
     }
 
@@ -104,14 +119,6 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     }
 
     @Override
-    public int getCurrentMovieSize() {
-        if (adapter != null) {
-            return adapter.getItemCount();
-        }
-        return 0;
-    }
-
-    @Override
     public void onMovieClick(int id) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
@@ -120,18 +127,30 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(
-                context,
-                MoviesContract.MovieEntry.CONTENT_URI,
-                SQLUtils.selectAll,
-                null,
-                null,
-                null);
+        if (id == MOVIE_CURSOR_LOADER_ID) {
+            return new CursorLoader(
+                    context,
+                    MoviesContract.MovieEntry.CONTENT_URI,
+                    SQLUtils.selectAllMovies,
+                    null,
+                    null,
+                    null);
+        } else {
+            return new CursorLoader(
+                    context,
+                    SeriesContract.SeriesEntry.CONTENT_URI,
+                    SQLUtils.selectAllSeries,
+                    null,
+                    null,
+                    null);
+        }
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        presenter.onDatabaseLoadFinished(data);
+        int id = loader.getId();
+        Constants.OverviewType overviewType = id == MOVIE_CURSOR_LOADER_ID ? Constants.OverviewType.MOVIES : Constants.OverviewType.SERIES;
+        presenter.onDatabaseLoadFinished(data, overviewType);
     }
 
     @Override
@@ -140,29 +159,48 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     }
 
     @Override
-    public void startLoader() {
-        getActivity().getSupportLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
+    public void startLoader(Constants.OverviewType overviewType) {
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            getActivity().getSupportLoaderManager().restartLoader(MOVIE_CURSOR_LOADER_ID, null, this);
+        } else {
+            getActivity().getSupportLoaderManager().restartLoader(SERIE_CURSOR_LOADER_ID, null, this);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(context).registerReceiver(movieInsertedIntoDatabase, new IntentFilter(Constants.MOVIE_INSERT_TO_DATABASE));
+        LocalBroadcastManager.getInstance(context).registerReceiver(serieInsertedIntoDatabase, new IntentFilter(Constants.SERIE_INSERT_TO_DATABASE));
         setMovies(null);
-        presenter.loadMoviesFromDatabase();
+        startLoader(overviewType);
     }
 
     @Override
     public void onStop() {
         super.onStop();
         LocalBroadcastManager.getInstance(context).unregisterReceiver(movieInsertedIntoDatabase);
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(serieInsertedIntoDatabase);
     }
 
-    public void displayNoFavoriteMoviesText(boolean noFavoriteMovies) {
-        bind.noFavoriteMovies.setVisibility(noFavoriteMovies ? View.VISIBLE : View.GONE);
+    public void hideNoFavoriteAvailable() {
+        bind.noFavoriteAvailable.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showNoFavoriteAvailable(String text) {
+        bind.noFavoriteAvailable.setVisibility(View.VISIBLE);
+        bind.noFavoriteAvailable.setText(text);
     }
 
     private BroadcastReceiver movieInsertedIntoDatabase = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onResume();
+        }
+    };
+
+    private BroadcastReceiver serieInsertedIntoDatabase = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             onResume();

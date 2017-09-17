@@ -47,6 +47,10 @@ public class MovieOverviewModel implements DisplayableItem {
         this.adult = adult;
     }
 
+    public MovieOverviewModel(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }

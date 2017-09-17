@@ -5,8 +5,9 @@ import android.database.Cursor;
 
 import java.util.ArrayList;
 
+import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
-import tobiapplications.com.moviebase.utils.NetworkUtils;
+import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 
 /**
@@ -24,18 +25,45 @@ public class OwnFavoritePresenter implements OverviewTabFragmentContract.Databas
     }
 
     @Override
-    public void loadMoviesFromDatabase() {
-        parent.startLoader();
+    public ArrayList<Integer> extractGenres(Cursor data) {
+        String genreAsString = data.getString(SQLUtils.INDEX_COLUMN_GENRES);
+        String[] genresArray = genreAsString.split("-");
+        ArrayList<Integer> genres = new ArrayList<>();
+        for (String genre : genresArray) {
+            genres.add(Integer.valueOf(genre));
+        }
+
+        return genres;
     }
 
     @Override
-    public boolean hasInternetConnection() {
-        return NetworkUtils.isConnectedToInternet(context);
+    public void onDatabaseLoadFinished(Cursor data, Constants.OverviewType overviewType) {
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            movieLoadFinished(data);
+        } else {
+            serieLoadFinished(data);
+        }
+
+        parent.showLoading(false);
     }
 
-    @Override
-    public void isConnectedToInternet(boolean connected) {
-        parent.showNetworkError(connected);
+
+    private void movieLoadFinished(Cursor data) {
+        if (data != null && data.getCount() > 0) {
+            parent.hideNoFavoriteAvailable();
+            createMovieListFromCursor(data);
+        } else {
+            parent.showNoFavoriteAvailable(context.getString(R.string.no_favorite_movies));
+        }
+    }
+
+    private void serieLoadFinished(Cursor data) {
+        if (data != null && data.getCount() > 0) {
+            parent.hideNoFavoriteAvailable();
+            creaSerieListFromCursor(data);
+        } else {
+            parent.showNoFavoriteAvailable(context.getString(R.string.no_favorite_series));
+        }
     }
 
     @Override
@@ -54,18 +82,6 @@ public class OwnFavoritePresenter implements OverviewTabFragmentContract.Databas
     }
 
     @Override
-    public ArrayList<Integer> extractGenres(Cursor data) {
-        String genreAsString = data.getString(SQLUtils.INDEX_COLUMN_GENRES);
-        String[] genresArray = genreAsString.split("-");
-        ArrayList<Integer> genres = new ArrayList<>();
-        for (String genre : genresArray) {
-            genres.add(Integer.valueOf(genre));
-        }
-
-        return genres;
-    }
-
-    @Override
     public MovieOverviewModel buildMovieFromCursor(Cursor data, ArrayList<Integer> genres, boolean adult) {
         return new MovieOverviewModel(
                 data.getInt(SQLUtils.INDEX_COLUMN_ID),
@@ -80,17 +96,20 @@ public class OwnFavoritePresenter implements OverviewTabFragmentContract.Databas
         );
     }
 
-    @Override
-    public void onDatabaseLoadFinished(Cursor data) {
-        if (data.getCount() > 0) {
-            parent.displayNoFavoriteMoviesText(false);
-            createMovieListFromCursor(data);
-        } else {
-            parent.displayNoFavoriteMoviesText(true);
+    private void creaSerieListFromCursor(Cursor data) {
+        ArrayList<MovieOverviewModel> series = new ArrayList<>();
+        if (data != null) {
+            while (data.moveToNext()) {
+                MovieOverviewModel serie = buildSerieFromCursor(data);
+                series.add(serie);
+            }
         }
 
-        parent.showLoading(false);
+        parent.setSeries(series);
     }
 
+    private MovieOverviewModel buildSerieFromCursor(Cursor data) {
+        return new MovieOverviewModel(data.getInt(SQLUtils.INDEX_COLUMN_ID));
+    }
 
 }

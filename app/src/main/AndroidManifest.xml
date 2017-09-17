@@ -44,7 +44,11 @@
         <!-- Provider -->
         <provider
             android:name=".database.MoviesProvider"
-            android:authorities="tobiapplications.com.moviebase"
+            android:authorities="tobiapplications.com.moviebase.movies"
+            android:exported="false" />
+        <provider
+            android:name=".database.SeriesProvider"
+            android:authorities="tobiapplications.com.moviebase.series"
             android:exported="false" />
 
     </application>

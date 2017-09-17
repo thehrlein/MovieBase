@@ -90,12 +90,21 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
 
     @Override
     public void handleFabClick() {
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            handleFabClickForMovie();
+        } else {
+            handleFabClickForSerie();
+        }
+
+    }
+
+    private void handleFabClickForMovie() {
         if (clickedMovie != null) {
             if (!isMarkedAsFavorite) {
                 isMarkedAsFavorite = true;
                 parent.markFabAsFavorite();
                 parent.showMarkAsFavoriteToast(clickedMovie.getTitle());
-                insertCurrentMovieToFavoriteDatabase();
+                insertIntoDatabase(overviewType);
             } else {
                 isMarkedAsFavorite = false;
                 parent.unMarkFabFromFavorite();
@@ -106,16 +115,43 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
         }
     }
 
+    private void handleFabClickForSerie() {
+        if (clickedSerie != null) {
+            if (!isMarkedAsFavorite) {
+                isMarkedAsFavorite = true;
+                parent.markFabAsFavorite();
+                parent.showMarkAsFavoriteToast(clickedSerie.getName());
+                insertIntoDatabase(overviewType);
+            } else {
+                isMarkedAsFavorite = false;
+                parent.unMarkFabFromFavorite();
+                parent.showRemovedFromFavoriteToast(clickedSerie.getName());
+
+                SQLUtils.deleteCurrentMovieFromFavoriteDatabase(context, clickedSerie.getId());
+            }
+        }
+    }
+
     @Override
-    public void insertCurrentMovieToFavoriteDatabase() {
-        if (clickedMovie != null) {
-            SQLUtils.insertIntoDatabase(context, clickedMovie);
+    public void insertIntoDatabase(Constants.OverviewType overviewType) {
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            if (clickedMovie != null) {
+                SQLUtils.insertMovieIntoDatabase(context, clickedMovie);
+            }
+        } else {
+            if (clickedSerie != null) {
+                SQLUtils.insertSerieIntoDatabase(context, clickedSerie);
+            }
         }
     }
 
     @Override
     public void setFabDependingOnFavoriteStatus() {
-        isMarkedAsFavorite = SQLUtils.checkIfMovieIsMarkedAsFavorite(context, movieId);
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            isMarkedAsFavorite = SQLUtils.checkIfMovieIsMarkedAsFavorite(context, movieId);
+        } else {
+            isMarkedAsFavorite = SQLUtils.checkIfSerieIsMarkedAsFavorite(context, movieId);
+        }
 
         parent.setFabButtonVisible();
         if (isMarkedAsFavorite) {

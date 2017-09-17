@@ -39,21 +39,21 @@ public interface OverviewTabFragmentContract {
 
     interface DatabaseView extends LoaderManager.LoaderCallbacks<Cursor>, OnMovieClickListener {
         void setGridViewAndAdapter();
-        void showNetworkError(boolean noNetwork);
         void setMovies(ArrayList<MovieOverviewModel> movies);
+
+        void setSeries(ArrayList<MovieOverviewModel> series);
+
         void showLoading(boolean load);
-        int getCurrentMovieSize();
-        void startLoader();
-        void displayNoFavoriteMoviesText(boolean noFavoriteMovies);
+        void startLoader(Constants.OverviewType overviewType);
+        void hideNoFavoriteAvailable();
+
+        void showNoFavoriteAvailable(String text);
     }
 
     interface DatabasePresenter {
-        void loadMoviesFromDatabase();
-        boolean hasInternetConnection();
-        void isConnectedToInternet(boolean connected);
         void createMovieListFromCursor(Cursor data);
         ArrayList<Integer> extractGenres(Cursor data);
         MovieOverviewModel buildMovieFromCursor(Cursor data, ArrayList<Integer> genres, boolean adult);
-        void onDatabaseLoadFinished(Cursor data);
+        void onDatabaseLoadFinished(Cursor data, Constants.OverviewType overviewType);
     }
 }

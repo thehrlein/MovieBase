@@ -59,16 +59,6 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        parseArguments(getArguments());
-    }
-
-    private void parseArguments(Bundle arguments) {
-        overviewType = (Constants.OverviewType) arguments.get(Constants.OVERVIEW_TYPE);
-        if (overviewType == Constants.OverviewType.MOVIES) {
-            detailMovie = (MovieDetailResponse) arguments.get(Constants.CLICKED_MOVIE);
-        } else {
-            detailSerie = (SeriesDetailResponse) arguments.get(Constants.CLICKED_SERIE);
-        }
     }
 
     @Override
@@ -83,6 +73,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mContext = getContext();
+        parseArguments(getArguments());
         adapter = new DetailAdapter(mContext);
         presenter = new DetailFragmentPresenter(mContext, this, overviewType);
 
@@ -92,6 +83,15 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
             presenter.init(detailSerie);
         }
         setAdapter();
+    }
+
+    private void parseArguments(Bundle arguments) {
+        overviewType = (Constants.OverviewType) arguments.get(Constants.OVERVIEW_TYPE);
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            detailMovie = (MovieDetailResponse) arguments.get(Constants.CLICKED_MOVIE);
+        } else {
+            detailSerie = (SeriesDetailResponse) arguments.get(Constants.CLICKED_SERIE);
+        }
     }
 
     public void setAdapter() {

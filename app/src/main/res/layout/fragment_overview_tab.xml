@@ -31,7 +31,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/noFavoriteMovies"
+            android:id="@+id/noFavoriteAvailable"
             android:visibility="gone"
             android:gravity="center"
             android:textSize="22sp"

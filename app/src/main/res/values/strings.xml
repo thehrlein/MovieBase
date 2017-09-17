@@ -18,6 +18,7 @@
     <string name="marked_as_favorite">%s was marked as favorite</string>
     <string name="unmarked_as_favorite">%s was unmarked as favorite</string>
     <string name="no_favorite_movies">You have not marked any movie as your favorite yet.</string>
+    <string name="no_favorite_series">You have not marked any serie as your favorite yet.</string>
     <string name="adult">Adult</string>
     <string name="actors_label">Actors</string>
     <string name="similar_movies">Similar Movies</string>

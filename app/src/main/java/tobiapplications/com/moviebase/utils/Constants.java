@@ -1,5 +1,6 @@
 package tobiapplications.com.moviebase.utils;
 
+import android.content.Context;
 import android.support.annotation.IntDef;
 
 /**
@@ -11,7 +12,8 @@ public class Constants {
     public static final String CLICKED_MOVIE = "clickedMovie";
     public static final String CLICKED_SERIE = "clickedSerie";
     public static final String RELEASED = "released";
-    public static final String MOVIE_INSERT_TO_DATABASE = "movie_inserted_to_databse";
+    public static final String MOVIE_INSERT_TO_DATABASE = "movie_inserted_to_dataabse";
+    public static final String SERIE_INSERT_TO_DATABASE = "serie_inserted_to_database";
     public static final String SEARCH_QUERY = "search_query";
 
     // movie db
