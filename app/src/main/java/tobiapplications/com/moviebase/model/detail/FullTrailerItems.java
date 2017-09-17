@@ -3,7 +3,7 @@ package tobiapplications.com.moviebase.model.detail;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.detail.items.TrailerItem;
+import tobiapplications.com.moviebase.model.detail.items.movie.TrailerItem;
 
 /**
  * Created by Tobias on 06.09.2017.

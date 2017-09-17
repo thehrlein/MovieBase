@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.ui.viewholder.detail;
+package tobiapplications.com.moviebase.ui.viewholder.detail.movie;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,37 +6,34 @@ import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.TextView;
-
-import com.google.android.flexbox.FlexboxLayout;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.databinding.DetailAdditionalInfoHolderBinding;
+import tobiapplications.com.moviebase.databinding.DetailAdditionalMovieInfoHolderBinding;
 import tobiapplications.com.moviebase.model.detail.Genre;
-import tobiapplications.com.moviebase.model.detail.items.AdditionalInfoItem;
+import tobiapplications.com.moviebase.model.detail.items.movie.AdditionalMovieInfoItem;
 import tobiapplications.com.moviebase.ui.views.GenreTextView;
 
 /**
  * Created by Tobias on 15.06.2017.
  */
 
-public class AdditionalInfoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class AdditionalMovieInfoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private DetailAdditionalInfoHolderBinding bind;
+    private DetailAdditionalMovieInfoHolderBinding bind;
     private String url;
     private Context context;
 
-    public AdditionalInfoViewHolder(View itemView, Context context) {
+    public AdditionalMovieInfoViewHolder(View itemView, Context context) {
         super(itemView);
         this.context = context;
-        bind = DetailAdditionalInfoHolderBinding.bind(itemView);
+        bind = DetailAdditionalMovieInfoHolderBinding.bind(itemView);
     }
 
-    public void setAdditionalInfo(AdditionalInfoItem additionalInfo) {
+    public void setAdditionalInfo(AdditionalMovieInfoItem additionalInfo) {
         bind.originalTitle.setText(additionalInfo.getOriginalTitle());
         bind.budget.setText(checkIfMoneyIsEmpty(additionalInfo.getBudget()));
         bind.revenue.setText(checkIfMoneyIsEmpty(additionalInfo.getRevenue()));

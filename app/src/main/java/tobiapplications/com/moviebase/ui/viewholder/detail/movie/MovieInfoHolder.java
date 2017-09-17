@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.ui.viewholder.detail;
+package tobiapplications.com.moviebase.ui.viewholder.detail.movie;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +9,7 @@ import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.DetailMovieInfoHolderBinding;
-import tobiapplications.com.moviebase.model.detail.items.MovieInfoItem;
+import tobiapplications.com.moviebase.model.detail.items.movie.MovieInfoItem;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.DateUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;

@@ -1,17 +1,14 @@
-package tobiapplications.com.moviebase.ui.viewholder.detail;
+package tobiapplications.com.moviebase.ui.viewholder.detail.movie;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.DetailTrailersHolderBinding;
-import tobiapplications.com.moviebase.model.detail.items.TrailerItem;
-import tobiapplications.com.moviebase.ui.views.DividerView;
+import tobiapplications.com.moviebase.model.detail.items.movie.TrailerItem;
 import tobiapplications.com.moviebase.ui.views.TrailerView;
 
 /**

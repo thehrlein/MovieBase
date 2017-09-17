@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.adapter.delegates;
+package tobiapplications.com.moviebase.adapter.delegates.movie;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,8 +14,8 @@ import java.util.List;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.detail.FullTrailerItems;
-import tobiapplications.com.moviebase.model.detail.items.TrailerItem;
-import tobiapplications.com.moviebase.ui.viewholder.detail.TrailersViewHolder;
+import tobiapplications.com.moviebase.model.detail.items.movie.TrailerItem;
+import tobiapplications.com.moviebase.ui.viewholder.detail.movie.TrailersViewHolder;
 
 /**
  * Created by Tobias on 06.09.2017.

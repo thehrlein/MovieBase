@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.model.detail.items.Season;
-
 /**
  * Created by Tobias on 14.09.2017.
  */
@@ -32,9 +30,9 @@ public class SeriesDetailResponse implements Serializable {
     @SerializedName("last_air_date")
     private String lastAirTime;
     @SerializedName("number_of_episodes")
-    private int numberOfEpisodes;
+    private String numberOfEpisodes;
     @SerializedName("number_of_seasons")
-    private int numberOfSeasons;
+    private String numberOfSeasons;
     @SerializedName("original_name")
     private String originalName;
     @SerializedName("name")
@@ -92,11 +90,11 @@ public class SeriesDetailResponse implements Serializable {
         return lastAirTime;
     }
 
-    public int getNumberOfEpisodes() {
+    public String getNumberOfEpisodes() {
         return numberOfEpisodes;
     }
 
-    public int getNumberOfSeasons() {
+    public String getNumberOfSeasons() {
         return numberOfSeasons;
     }
 

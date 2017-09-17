@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.adapter.delegates;
+package tobiapplications.com.moviebase.adapter.delegates.movie;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,36 +12,39 @@ import java.util.List;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.detail.ActorsResponse;
-import tobiapplications.com.moviebase.ui.viewholder.detail.ActorsViewHolder;
+import tobiapplications.com.moviebase.model.detail.items.movie.MovieInfoItem;
+import tobiapplications.com.moviebase.ui.viewholder.detail.movie.MovieInfoHolder;
 
 /**
  * Created by Tobias on 06.09.2017.
  */
 
-public class ActorsDelegate extends AdapterDelegate<List<DisplayableItem>> {
+public class MovieInfoDelegate extends AdapterDelegate<List<DisplayableItem>> {
 
     private Context context;
 
-    public ActorsDelegate(Context context) {
+    public MovieInfoDelegate(Context context) {
         this.context = context;
+
     }
 
     @Override
     protected boolean isForViewType(@NonNull List<DisplayableItem> items, int position) {
-        return items.get(position) instanceof ActorsResponse;
+        return items.get(position) instanceof MovieInfoItem;
     }
 
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new ActorsViewHolder(LayoutInflater.from(context).inflate(R.layout.detail_actors_holder, parent, false), context);
+        return new MovieInfoHolder(LayoutInflater.from(context).inflate(R.layout.detail_movie_info_holder, parent, false), context);
     }
 
     @Override
     protected void onBindViewHolder(@NonNull List<DisplayableItem> items, int position, @NonNull RecyclerView.ViewHolder holder, @NonNull List<Object> payloads) {
-        ActorsResponse actorsResponse = (ActorsResponse) items.get(position);
-        ActorsViewHolder actorsViewHolder = (ActorsViewHolder) holder;
-        actorsViewHolder.setActorInformation(actorsResponse.getActors());
+        MovieInfoHolder movieInfoHolder = (MovieInfoHolder) holder;
+        MovieInfoItem movieInfoItem = (MovieInfoItem) items.get(position);
+        movieInfoHolder.setInformation(movieInfoItem);
     }
+
+
 }

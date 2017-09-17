@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.model.detail.items;
+package tobiapplications.com.moviebase.model.detail.items.movie;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import tobiapplications.com.moviebase.model.detail.Genre;
  * Created by Tobias on 15.06.2017.
  */
 
-public class AdditionalInfoItem implements DisplayableItem {
+public class AdditionalMovieInfoItem implements DisplayableItem {
 
     private String originalTitle;
     private int budget;
@@ -17,7 +17,7 @@ public class AdditionalInfoItem implements DisplayableItem {
     private ArrayList<Genre> genres;
     private String homepage;
 
-    public AdditionalInfoItem(String originalTitle, int budget, int revenue, ArrayList<Genre> genres, String homepage) {
+    public AdditionalMovieInfoItem(String originalTitle, int budget, int revenue, ArrayList<Genre> genres, String homepage) {
         this.originalTitle = originalTitle;
         this.budget = budget;
         this.revenue = revenue;

@@ -6,18 +6,12 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.facebook.drawee.gestures.GestureDetector;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ViewTrailerItemBinding;
-import tobiapplications.com.moviebase.model.detail.items.TrailerItem;
+import tobiapplications.com.moviebase.model.detail.items.movie.TrailerItem;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**

@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.model.detail.items;
+package tobiapplications.com.moviebase.model.detail.items.movie;
 
 import tobiapplications.com.moviebase.model.detail.YtThumbnailObject;
 import tobiapplications.com.moviebase.model.detail.YtTrailerStatistic;

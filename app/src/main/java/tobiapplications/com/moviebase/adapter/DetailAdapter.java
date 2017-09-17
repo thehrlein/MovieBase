@@ -9,15 +9,17 @@ import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import tobiapplications.com.moviebase.adapter.delegates.ActorsDelegate;
-import tobiapplications.com.moviebase.adapter.delegates.AdditionalInfoDelegate;
-import tobiapplications.com.moviebase.adapter.delegates.MovieInfoDelegate;
-import tobiapplications.com.moviebase.adapter.delegates.ReviewsDelegate;
-import tobiapplications.com.moviebase.adapter.delegates.SerieInfoDelegate;
+import tobiapplications.com.moviebase.adapter.delegates.movie.ActorsDelegate;
+import tobiapplications.com.moviebase.adapter.delegates.movie.AdditionalMovieInfoDelegate;
+import tobiapplications.com.moviebase.adapter.delegates.movie.MovieInfoDelegate;
+import tobiapplications.com.moviebase.adapter.delegates.movie.ReviewsDelegate;
+import tobiapplications.com.moviebase.adapter.delegates.serie.AdditionalSerieInfoDelegate;
+import tobiapplications.com.moviebase.adapter.delegates.serie.SerieInfoDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.SimilarMovieDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.SummaryViewDelegate;
-import tobiapplications.com.moviebase.adapter.delegates.TrailersDelegate;
+import tobiapplications.com.moviebase.adapter.delegates.movie.TrailersDelegate;
 import tobiapplications.com.moviebase.model.DisplayableItem;
+import tobiapplications.com.moviebase.ui.viewholder.detail.serie.AdditionalSerieInfoViewHolder;
 
 /**
  * Created by Tobias on 14.06.2017.
@@ -37,7 +39,8 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         delegatesManager.addDelegate(new MovieInfoDelegate(context));
         delegatesManager.addDelegate(new SerieInfoDelegate(context));
         delegatesManager.addDelegate(new SummaryViewDelegate(context));
-        delegatesManager.addDelegate(new AdditionalInfoDelegate(context));
+        delegatesManager.addDelegate(new AdditionalMovieInfoDelegate(context));
+        delegatesManager.addDelegate(new AdditionalSerieInfoDelegate(context));
         delegatesManager.addDelegate(new SimilarMovieDelegate(context));
         delegatesManager.addDelegate(new ReviewsDelegate(context));
         delegatesManager.addDelegate(new ActorsDelegate(context));

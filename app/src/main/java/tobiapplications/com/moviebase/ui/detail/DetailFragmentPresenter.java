@@ -17,12 +17,13 @@ import tobiapplications.com.moviebase.model.detail.TrailersResponse;
 import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 import tobiapplications.com.moviebase.model.detail.YtThumbnailObject;
 import tobiapplications.com.moviebase.model.detail.YtTrailerStatistic;
-import tobiapplications.com.moviebase.model.detail.items.AdditionalInfoItem;
-import tobiapplications.com.moviebase.model.detail.items.MovieInfoItem;
-import tobiapplications.com.moviebase.model.detail.items.SerieInfoItem;
+import tobiapplications.com.moviebase.model.detail.items.movie.AdditionalMovieInfoItem;
+import tobiapplications.com.moviebase.model.detail.items.movie.MovieInfoItem;
+import tobiapplications.com.moviebase.model.detail.items.serie.AdditionalSerieInfoItem;
+import tobiapplications.com.moviebase.model.detail.items.serie.SerieInfoItem;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.model.detail.items.SummaryItem;
-import tobiapplications.com.moviebase.model.detail.items.TrailerItem;
+import tobiapplications.com.moviebase.model.detail.items.movie.TrailerItem;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
@@ -82,18 +83,29 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
         ArrayList<DisplayableItem> detailItems = new ArrayList<>();
         detailItems.add(createInfoView(detailSerie));
+        detailItems.add(createAdditionalInfoView(detailSerie));
         detailItems.add(createSummaryView(detailSerie.getDescription()));
+
 
         parent.displayUiViews(detailItems);
     }
 
-    private DisplayableItem createAdditionalInfoView(MovieDetailResponse detailMovie) {
-        String originalTitle = detailMovie.getOriginalTitle();
-        int budget = detailMovie.getBudget();
-        int revenue = detailMovie.getRevenue();
-        ArrayList<Genre> genres = detailMovie.getGenres();
-        String homepage = detailMovie.getHomepage();
-        return new AdditionalInfoItem(originalTitle, budget, revenue, genres, homepage);
+    private DisplayableItem createAdditionalInfoView(MovieDetailResponse movie) {
+        String originalTitle = movie.getOriginalTitle();
+        int budget = movie.getBudget();
+        int revenue = movie.getRevenue();
+        ArrayList<Genre> genres = movie.getGenres();
+        String homepage = movie.getHomepage();
+        return new AdditionalMovieInfoItem(originalTitle, budget, revenue, genres, homepage);
+    }
+
+    private DisplayableItem createAdditionalInfoView(SeriesDetailResponse serie) {
+        String originalTitle = serie.getOriginalName();
+        String episodes = serie.getNumberOfEpisodes();
+        String seasons = serie.getNumberOfSeasons();
+        ArrayList<Genre> genres = serie.getGenres();
+        String homepage = serie.getHomepage();
+        return new AdditionalSerieInfoItem(originalTitle, episodes, seasons, genres, homepage);
     }
 
     private DisplayableItem createSummaryView(String description) {

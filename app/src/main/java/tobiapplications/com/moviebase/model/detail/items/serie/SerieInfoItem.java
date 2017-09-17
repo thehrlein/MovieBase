@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.model.detail.items;
+package tobiapplications.com.moviebase.model.detail.items.serie;
 
 import tobiapplications.com.moviebase.model.DisplayableItem;
 

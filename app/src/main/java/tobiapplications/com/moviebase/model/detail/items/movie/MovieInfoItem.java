@@ -1,5 +1,5 @@
 
-package tobiapplications.com.moviebase.model.detail.items;
+package tobiapplications.com.moviebase.model.detail.items.movie;
 
 import java.util.LinkedHashMap;
 
