@@ -53,7 +53,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         // set movies selected on startup
         onNavigationItemSelected(bind.navView.getMenu().findItem(R.id.menu_movies));
         bind.navView.setCheckedItem(R.id.menu_movies);
+    }
 
+    public void setMenuItemChecked(int id) {
+        bind.navView.setCheckedItem(id);
     }
 
     @Override

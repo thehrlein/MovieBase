@@ -56,7 +56,8 @@
 
 
     <string name="unknown">unknown</string>
-    <string name="string_fasten_your_seatbelts">fasten your seatbelts ... gleich geths los</string>
+
+    <string name="string_fasten_your_seatbelts">fasten your seatbelts ...</string>
     <string name="about">About</string>
     <string name="about_text_first">MovieBase was created as part of an Udacity course and uses the TheMovieDB API.
     This application is not an official product or certified by Udacity or TheMovieDB.</string>

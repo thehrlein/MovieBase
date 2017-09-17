@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.delegates.OverviewAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentOverviewBinding;
+import tobiapplications.com.moviebase.ui.NavigationActivity;
 import tobiapplications.com.moviebase.utils.Constants;
 
 /**
@@ -45,8 +46,7 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
         bind = FragmentOverviewBinding.inflate(inflater);
         context = bind.getRoot().getContext();
         overviewType = getOverViewType(getArguments());
-        adapter = new OverviewAdapter(getChildFragmentManager(), context, this, overviewType);
-        hideViewsOnLoading();
+//        hideViewsOnLoading();
         return bind.getRoot();
     }
 
@@ -70,9 +70,17 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
     }
 
     private void init() {
+        adapter = new OverviewAdapter(getChildFragmentManager(), context, this, overviewType);
         setupViewPager();
         bind.tabs.setupWithViewPager(bind.viewpager);
         setTitle();
+        setNavigationSelected();
+    }
+
+    private void setNavigationSelected() {
+        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
+        int menuId = overviewType == Constants.OverviewType.MOVIES ? R.id.menu_movies : R.id.menu_series;
+        navigationActivity.setMenuItemChecked(menuId);
     }
 
     private void setTitle() {
@@ -106,10 +114,15 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
 
     @Override
     public void setStatusBarColor() {
-        android.app.ActionBar actionBar = getActivity().getActionBar();
-        if (actionBar != null && Build.VERSION.SDK_INT >= 21) {
-            actionBar.setElevation(0);
-        }
+//        Activity activity = getActivity();
+//        if (activity == null) {
+//            return;
+//        }
+//
+//        android.app.ActionBar actionBar = activity.getActionBar();
+//        if (actionBar != null && Build.VERSION.SDK_INT >= 21) {
+//            actionBar.setElevation(0);
+//        }
     }
 
     @Override

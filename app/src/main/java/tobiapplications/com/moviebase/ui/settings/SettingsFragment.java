@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -32,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.ui.NavigationActivity;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SettingsUtils;
 
@@ -68,6 +70,17 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         if (arguments.containsKey(Constants.FRAGMENT_TAG)) {
             FRAGMENT_TAG = arguments.getString(Constants.FRAGMENT_TAG);
         }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setNavigationSelected();
+    }
+
+    private void setNavigationSelected() {
+        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
+        navigationActivity.setMenuItemChecked(R.id.menu_settings);
     }
 
     @Override

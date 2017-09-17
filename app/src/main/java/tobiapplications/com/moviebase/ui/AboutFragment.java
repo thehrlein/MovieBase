@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.FragmentAboutBinding;
+import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 10.09.2017.
@@ -46,6 +47,13 @@ public class AboutFragment extends Fragment {
     private void initialize() {
         getActivity().setTitle(R.string.about);
         bind.fab.setOnClickListener((View v) -> sendEmail());
+
+        setNavigationSelected();
+    }
+
+    private void setNavigationSelected() {
+        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
+        navigationActivity.setMenuItemChecked(R.id.menu_info);
     }
 
     private void sendEmail()
