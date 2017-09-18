@@ -23,7 +23,7 @@ public class SQLUtils {
     public static String[] selectAllMovies = new String[] {
             MoviesContract.MovieEntry.COLUMN_ID,
             MoviesContract.MovieEntry.COLUMN_TITLE,
-            MoviesContract.MovieEntry.COLUMN_TITLE_IMAGE_PATH,
+            MoviesContract.MovieEntry.COLUMN_TITLE_POSTER_PATH,
             MoviesContract.MovieEntry.COLUMN_BACKDROP_IMAGE_PATH,
             MoviesContract.MovieEntry.COLUMN_YEAR,
             MoviesContract.MovieEntry.COLUMN_RATING,
@@ -34,7 +34,9 @@ public class SQLUtils {
     };
 
     public static String[] selectAllSeries = new String[] {
-            SeriesContract.SeriesEntry.COLUMN_ID
+            SeriesContract.SeriesEntry.COLUMN_ID,
+            SeriesContract.SeriesEntry.COLUMN_TITLE,
+            SeriesContract.SeriesEntry.COLUMN_TITLE_POSTER_PATH
     };
 
     public static final int INDEX_COLUMN_ID = 0;
@@ -74,7 +76,7 @@ public class SQLUtils {
         ContentValues values = new ContentValues();
         values.put(MoviesContract.MovieEntry.COLUMN_ID, movie.getId());
         values.put(MoviesContract.MovieEntry.COLUMN_TITLE, movie.getTitle());
-        values.put(MoviesContract.MovieEntry.COLUMN_TITLE_IMAGE_PATH, movie.getTitleImagePath());
+        values.put(MoviesContract.MovieEntry.COLUMN_TITLE_POSTER_PATH, movie.getTitleImagePath());
         values.put(MoviesContract.MovieEntry.COLUMN_BACKDROP_IMAGE_PATH, movie.getBackgroundImagePath());
         values.put(MoviesContract.MovieEntry.COLUMN_YEAR, movie.getReleaseDate());
         values.put(MoviesContract.MovieEntry.COLUMN_RATING, movie.getVoteAverage());
@@ -99,8 +101,8 @@ public class SQLUtils {
 
         ContentValues values = new ContentValues();
         values.put(SeriesContract.SeriesEntry.COLUMN_ID, serie.getId());
-//        values.put(SeriesContract.SeriesEntry.COLUMN_TITLE, serie.getName());
-//        values.put(SeriesContract.SeriesEntry.COLUMN_BACKDROP_IMAGE_PATH, serie.getBackgroundImagePath());
+        values.put(SeriesContract.SeriesEntry.COLUMN_TITLE, serie.getName());
+        values.put(SeriesContract.SeriesEntry.COLUMN_TITLE_POSTER_PATH, serie.getPosterPath());
 //        values.put(SeriesContract.SeriesEntry.COLUMN_YEAR, serie.getReleaseDate());
 //        values.put(SeriesContract.SeriesEntry.COLUMN_RATING, serie.getVoteAverage());
 //        values.put(SeriesContract.SeriesEntry.COLUMN_DESCRIPTION, serie.getDescription());

@@ -39,6 +39,8 @@ public class SeriesDetailResponse implements Serializable {
     private String name;
     @SerializedName("overview")
     private String description;
+    @SerializedName("poster_path")
+    private String posterPath;
     @SerializedName("popularity")
     private Double popularity;
     @SerializedName("production_companies")
@@ -56,10 +58,6 @@ public class SeriesDetailResponse implements Serializable {
 
     public boolean isAdult() {
         return adult;
-    }
-
-    public String getBackgroundImagePath() {
-        return backgroundImage;
     }
 
     public ArrayList<Creator> getCreator() {
@@ -140,5 +138,9 @@ public class SeriesDetailResponse implements Serializable {
 
     public int getVoteCount() {
         return voteCount;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
     }
 }

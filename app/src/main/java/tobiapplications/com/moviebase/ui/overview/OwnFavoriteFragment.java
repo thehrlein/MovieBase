@@ -122,6 +122,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     public void onMovieClick(int id) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
+        openMovieDetails.putExtra(Constants.OVERVIEW_TYPE, overviewType);
         startActivity(openMovieDetails);
     }
 

@@ -68,7 +68,7 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     @Override
     public void displaySeriesResponse(SeriesDetailResponse body) {
         clickedSerie = body;
-        parent.setInformation(clickedSerie.getName(), NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImagePath()));
+        parent.setInformation(clickedSerie.getName(), NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImage()));
         parent.setUpSeriesTabFragment(clickedSerie);
         setFabDependingOnFavoriteStatus();
     }
@@ -127,7 +127,7 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
                 parent.unMarkFabFromFavorite();
                 parent.showRemovedFromFavoriteToast(clickedSerie.getName());
 
-                SQLUtils.deleteCurrentMovieFromFavoriteDatabase(context, clickedSerie.getId());
+                SQLUtils.deleteCurrentSerieFromFavoriteDatabase(context, clickedSerie.getId());
             }
         }
     }

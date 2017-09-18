@@ -24,7 +24,9 @@ public class SeriesDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_SERIES_TABLE = "CREATE TABLE " +
                 SeriesContract.SeriesEntry.TABLE_SERIES + "(" +
                 SeriesContract.SeriesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                SeriesContract.SeriesEntry.COLUMN_ID + " TEXT NOT NULL);";
+                SeriesContract.SeriesEntry.COLUMN_ID + " TEXT NOT NULL, " +
+                SeriesContract.SeriesEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
+                SeriesContract.SeriesEntry.COLUMN_TITLE_POSTER_PATH + " TEXT NOT NULL);";
 
         db.execSQL(SQL_CREATE_SERIES_TABLE);
     }

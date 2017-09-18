@@ -47,8 +47,10 @@ public class MovieOverviewModel implements DisplayableItem {
         this.adult = adult;
     }
 
-    public MovieOverviewModel(int id) {
+    public MovieOverviewModel(int id, String title, String titleImagePath) {
         this.id = id;
+        this.title = title;
+        this.titleImagePath = titleImagePath;
     }
 
     public String getTitle() {

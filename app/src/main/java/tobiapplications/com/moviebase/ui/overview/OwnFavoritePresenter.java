@@ -60,7 +60,7 @@ public class OwnFavoritePresenter implements OverviewTabFragmentContract.Databas
     private void serieLoadFinished(Cursor data) {
         if (data != null && data.getCount() > 0) {
             parent.hideNoFavoriteAvailable();
-            creaSerieListFromCursor(data);
+            createSerieListFromCursor(data);
         } else {
             parent.showNoFavoriteAvailable(context.getString(R.string.no_favorite_series));
         }
@@ -96,7 +96,7 @@ public class OwnFavoritePresenter implements OverviewTabFragmentContract.Databas
         );
     }
 
-    private void creaSerieListFromCursor(Cursor data) {
+    private void createSerieListFromCursor(Cursor data) {
         ArrayList<MovieOverviewModel> series = new ArrayList<>();
         if (data != null) {
             while (data.moveToNext()) {
@@ -109,7 +109,10 @@ public class OwnFavoritePresenter implements OverviewTabFragmentContract.Databas
     }
 
     private MovieOverviewModel buildSerieFromCursor(Cursor data) {
-        return new MovieOverviewModel(data.getInt(SQLUtils.INDEX_COLUMN_ID));
+        return new MovieOverviewModel(
+                data.getInt(SQLUtils.INDEX_COLUMN_ID),
+                data.getString(SQLUtils.INDEX_COLUMN_TITLE),
+                data.getString(SQLUtils.INDEX_COLUMN_TITLE_IMAGE_PATH));
     }
 
 }

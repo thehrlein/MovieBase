@@ -19,8 +19,8 @@ public class SeriesContract {
         public static final String TABLE_SERIES = "serie";
         public static final String _ID = "_ID";
         public static final String COLUMN_ID = "serieId";
-//        public static final String COLUMN_TITLE = "title";
-//        public static final String COLUMN_BACKDROP_IMAGE_PATH = "backdropimagepath";
+        public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_TITLE_POSTER_PATH = "titlePosterPath";
 //        public static final String COLUMN_YEAR = "year";
 //        public static final String COLUMN_RATING = "rating";
 //        public static final String COLUMN_DESCRIPTION = "description";
