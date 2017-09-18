@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ActivityNavigationBinding;
 import tobiapplications.com.moviebase.network.DataManager;
+import tobiapplications.com.moviebase.ui.info.AboutFragment;
 import tobiapplications.com.moviebase.ui.overview.OverviewFragment;
 import tobiapplications.com.moviebase.ui.settings.SettingsFragment;
 import tobiapplications.com.moviebase.utils.Constants;
@@ -49,11 +51,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         toggle.syncState();
 
         bind.navView.setNavigationItemSelectedListener(this);
-
-        // set movies selected on startup
-        onNavigationItemSelected(bind.navView.getMenu().findItem(R.id.menu_movies));
-        bind.navView.setCheckedItem(R.id.menu_movies);
+        
+        openMovies(false);
     }
+
 
     public void setMenuItemChecked(int id) {
         bind.navView.setCheckedItem(id);
@@ -75,7 +76,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
 
         if (id == R.id.menu_movies) {
-            openMovies();
+            openMovies(true);
         } else if (id == R.id.menu_series) {
             openSeries();
         } else if (id == R.id.menu_settings) {
@@ -92,31 +93,35 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private void openSeries() {
         String seriesTag = getString(R.string.series_tag);
         OverviewFragment overviewFragment = OverviewFragment.newInstance(Constants.OverviewType.SERIES);
-        replaceFragment(overviewFragment, seriesTag);
+        replaceFragment(overviewFragment, seriesTag, true);
     }
 
-    private void openMovies() {
+    private void openMovies(boolean addToBackStack) {
         String movieTag = getString(R.string.movie_tag);
         OverviewFragment overviewFragment = OverviewFragment.newInstance(Constants.OverviewType.MOVIES);
-        replaceFragment(overviewFragment, movieTag);
+        replaceFragment(overviewFragment, movieTag, addToBackStack);
     }
 
     private void openSettings() {
         String settingsTag = getString(R.string.action_settings);
         SettingsFragment settingsFragment = SettingsFragment.newInstance(settingsTag);
-        replaceFragment(settingsFragment, settingsTag);
+        replaceFragment(settingsFragment, settingsTag, true);
     }
 
     private void openAbout() {
         String aboutTag = getString(R.string.about);
         AboutFragment aboutFragment = AboutFragment.newInstance();
-        replaceFragment(aboutFragment, aboutTag);
+        replaceFragment(aboutFragment, aboutTag, true);
     }
 
-    private void replaceFragment(Fragment fragment, String fragmentTag) {
+    private void replaceFragment(Fragment fragment, String fragmentTag, boolean addToBackStack) {
         String navigationTag = getString(R.string.navigation_tag);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment, fragmentTag).addToBackStack(navigationTag);
+        if (addToBackStack) {
+            transaction.replace(R.id.fragment_container, fragment, fragmentTag).addToBackStack(navigationTag);
+        } else {
+            transaction.replace(R.id.fragment_container, fragment, fragmentTag);
+        }
         transaction.commit();
     }
 
