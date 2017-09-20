@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.FullTrailerItems;
@@ -62,6 +63,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     public void init(SeriesDetailResponse detailSerie) {
         buildUiFromResponse(detailSerie);
         requestSeriesDownload();
+        requestTrailers();
     }
 
 
@@ -156,7 +158,11 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
 
     private void requestTrailers() {
-        DataManager.getInstance().requestTrailers(this, id);
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            DataManager.getInstance().requestMovieTrailers(this, id);
+        } else if (overviewType == Constants.OverviewType.SERIES) {
+            DataManager.getInstance().requestSerieTrailer(this, id);
+        }
     }
 
     @Override
@@ -169,7 +175,14 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         if (movieOverviewResponse.getTotalResults() != 0) {
             ArrayList<MoviePosterItem> moviePosters = movieOverviewResponse.getMoviePosterItems();
 
-            parent.displayUiView(new SimilarMoviesItem(moviePosters));
+            String similarTitle;
+            if (overviewType == Constants.OverviewType.MOVIES) {
+                similarTitle = context.getString(R.string.similar_movies, context.getString(R.string.movie_title));
+            } else {
+                similarTitle = context.getString(R.string.similar_movies, context.getString(R.string.series_title));
+            }
+
+            parent.displayUiView(new SimilarMoviesItem(moviePosters, similarTitle));
         }
     }
 

@@ -51,6 +51,8 @@ public interface TheMovieApi {
     Call<ActorsResponse> requestActors(@Path("id") int movieId);
 
     @GET("movie/{id}/videos")
-    Call<TrailersResponse> requestTrailers(@Path("id") int movieId);
+    Call<TrailersResponse> requestMovieTrailers(@Path("id") int movieId);
 
+    @GET("tv/{id}/videos")
+    Call<TrailersResponse> requestSerieTrailers(@Path("id") int serieId);
 }

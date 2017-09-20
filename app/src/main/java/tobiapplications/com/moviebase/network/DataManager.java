@@ -123,13 +123,19 @@ public class DataManager {
         actorsResponseCall.enqueue(new ActorsCallback(presenter));
     }
 
-    public void requestTrailers(DetailFragmentContract.Presenter presenter, int movieId) {
-        Call<TrailersResponse> trailerResponseCall = movieApi.requestTrailers(movieId);
+    public void requestMovieTrailers(DetailFragmentContract.Presenter presenter, int movieId) {
+        Call<TrailersResponse> trailerResponseCall = movieApi.requestMovieTrailers(movieId);
         trailerResponseCall.enqueue(new TrailersCallback(presenter));
+    }
+
+    public void requestSerieTrailer(DetailFragmentContract.Presenter presenter, int serieId) {
+        Call<TrailersResponse> trailersResponseCall = movieApi.requestSerieTrailers(serieId);
+        trailersResponseCall.enqueue(new TrailersCallback(presenter));
     }
 
     public void requestYoutubeTrailerInformation(DetailFragmentContract.Presenter presenter, String trailerKey) {
         Call<YtSingleTrailerResponse> youtubeSingleTrailerResponseCall = youtubeApi.requestSingleTrailer(trailerKey);
         youtubeSingleTrailerResponseCall.enqueue(new YtTrailerCallback(presenter, trailerKey));
     }
+
 }

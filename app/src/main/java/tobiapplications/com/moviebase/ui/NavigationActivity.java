@@ -51,7 +51,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         toggle.syncState();
 
         bind.navView.setNavigationItemSelectedListener(this);
-        
+
         openMovies(false);
     }
 

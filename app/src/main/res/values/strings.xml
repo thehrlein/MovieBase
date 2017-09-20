@@ -1,13 +1,13 @@
 <resources>
 
     <!-- Navigation Drawer -->
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="navigation_tag">navigation</string>
-    <string name="movie_tag">movie_fragment</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="navigation_tag" translatable="false">navigation</string>
+    <string name="movie_tag" translatable="false">movie_fragment</string>
     <string name="movie_title">Movies</string>
     <string name="series_title">Series</string>
-    <string name="series_tag">series</string>
+    <string name="series_tag" translatable="false">series</string>
 
 
     <string name="app_name" translatable="false">MovieBase</string>
@@ -21,7 +21,7 @@
     <string name="no_favorite_series">You have not marked any serie as your favorite yet.</string>
     <string name="adult">Adult</string>
     <string name="actors_label">Actors</string>
-    <string name="similar_movies">Similar Movies</string>
+    <string name="similar_movies">Similar %1$s</string>
     <string name="action_search" translatable="false">Search</string>
     <string name="action_settings">Settings</string>
     <string name="search_hint">Search movie</string>

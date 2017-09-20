@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 15.06.2017.
@@ -12,12 +13,18 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 
 public class SimilarMoviesItem implements DisplayableItem {
     private ArrayList<MoviePosterItem> movies;
+    private String title;
 
-    public SimilarMoviesItem(ArrayList<MoviePosterItem> movies) {
+    public SimilarMoviesItem(ArrayList<MoviePosterItem> movies, String title) {
         this.movies = movies;
+        this.title = title;
     }
 
     public ArrayList<MoviePosterItem> getMovies() {
         return movies;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

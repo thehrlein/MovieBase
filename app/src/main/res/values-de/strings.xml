@@ -8,7 +8,7 @@
     <string name="adult">FSK18</string>
     <string name="info_runtime_label">Laufzeit</string>
     <string name="marked_as_favorite">%s wurde zu deinen Favoriten hinzugefügt</string>
-    <string name="no_favorite_movies">Du hast bisher noch keine Favoriten.</string>
+    <string name="no_favorite_movies">Du hast bisher noch keine Filme in deinen Favoriten.</string>
     <string name="no_network_connection">Du bist nicht mit dem Internet verbunden. Schalte bitte deine mobile Daten oder WLAN an.</string>
     <string name="pref_language_de_label">Deutsch</string>
     <string name="pref_language_en_label">Englisch</string>
@@ -17,7 +17,7 @@
     <string name="unmarked_as_favorite">%s wurde von deinen Favoriten entfernt</string>
     <string name="reviews_label">Rezensionen</string>
     <string name="search_hint">Suche Film</string>
-    <string name="similar_movies">Ähnliche Filme</string>
+    <string name="similar_movies">Ähnliche %1$s</string>
     <string name="summary_label">Kurzfassung</string>
     <string name="title_favorite">Eigene Favoriten</string>
     <string name="title_popular">Beliebt</string>
@@ -34,4 +34,11 @@
     <string name="review_show_more">Weitere anzeigen (%d verbelbend)</string>
     <string name="string_fasten_your_seatbelts" translatable="false">schnallen Sie sich an ...</string>
     <string name="trailers_show_more">Weitere anzeigen (%d verbleibend)</string>
+    <string name="additional_info_number_of_episodes_label">Episoden</string>
+    <string name="additional_info_number_of_seasons_label">Staffeln</string>
+    <string name="movie_title">Filme</string>
+    <string name="info_first_air_date_label">Erste TV-Ausstrahlung</string>
+    <string name="info_last_air_date_label">Letzte TV-Ausstrahlung</string>
+    <string name="no_favorite_series">Du hast bisher noch keine Serien in deinen Favoriten.</string>
+    <string name="series_title">Serien</string>
 </resources>
