@@ -106,7 +106,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     }
 
     @Override
-    public void displayUiView(DisplayableItem item) {
-        adapter.addUiView(item);
+    public void displayUiView(DisplayableItem item, boolean onLastPosition) {
+        adapter.addUiView(item, onLastPosition);
     }
 }

@@ -79,10 +79,18 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public void addUiView(DisplayableItem item) {
-        if (item != null) {
-            itemList.add(item);
-            notifyItemInserted(itemList.size());
+    public void addUiView(DisplayableItem item, boolean onLastPosition) {
+        if (item == null || itemList == null) {
+            return;
         }
+
+        int insertedPosition = itemList.size();
+        if (onLastPosition) {
+            itemList.add(item);
+        } else {
+            insertedPosition--;
+            itemList.add(insertedPosition, item);
+        }
+            notifyItemInserted(insertedPosition);
     }
 }

@@ -55,20 +55,18 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     @Override
     public void init(MovieDetailResponse detailMovie) {
         buildUiFromResponse(detailMovie);
-        requestMoviesDownload();
         requestReviews();
         requestActors();
         requestTrailers();
+        requestMoviesDownload();
     }
 
     @Override
     public void init(SeriesDetailResponse detailSerie) {
         buildUiFromResponse(detailSerie);
-        requestSeriesDownload();
         requestTrailers();
+        requestSeriesDownload();
     }
-
-
 
     private void buildUiFromResponse(MovieDetailResponse detailMovie) {
         this.id = detailMovie.getId();
@@ -195,21 +193,21 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
                 similarTitle = context.getString(R.string.similar_movies, context.getString(R.string.series_title));
             }
 
-            parent.displayUiView(new SimilarMoviesItem(moviePosters, similarTitle));
+            parent.displayUiView(new SimilarMoviesItem(moviePosters, similarTitle), true);
         }
     }
 
     @Override
     public void displayReviews(ReviewResponse response) {
         if (response.getTotalResults() != 0) {
-            parent.displayUiView(response);
+            parent.displayUiView(response, false);
         }
     }
 
     @Override
     public void displayActors(ActorsResponse response) {
         if (response != null && !response.getActors().isEmpty()) {
-            parent.displayUiView(response);
+            parent.displayUiView(response, false);
         }
     }
 
@@ -231,7 +229,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         TrailerItem trailerItem = new TrailerItem(title, trailerKey, thumbnails, statistics);
         trailerItems.add(trailerItem);
         if (trailerItems.size() == trailerResponseCount) {
-            parent.displayUiView(new FullTrailerItems(trailerItems));
+            parent.displayUiView(new FullTrailerItems(trailerItems), false);
         }
     }
 }

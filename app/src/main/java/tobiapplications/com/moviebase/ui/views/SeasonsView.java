@@ -48,16 +48,26 @@ public class SeasonsView extends LinearLayout {
     }
 
     public void setSeason(Season season) {
-        Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(season.getPosterPath())).into(bind.image);
-        bind.airDate.setText(context.getString(R.string.seasons_air_date, DateUtils.getDMYFromYMD(season.getAirDate())));
-        bind.seasonNumber.setText(context.getString(R.string.season_number, season.getSeasonNumber()));
-        bind.episodes.setText(context.getString(R.string.episodes_count, season.getEpsisodeCount()));
+        if (season.getPosterPath() != null) {
+            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(season.getPosterPath())).into(bind.image);
+            bind.image.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onImageClick(seasonPosition);
+                }
+            });
+        }
+        if (season.getAirDate() != null) {
+            bind.airDate.setText(context.getString(R.string.seasons_air_date, DateUtils.getDMYFromYMD(season.getAirDate())));
+        }
 
-        bind.image.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onImageClick(seasonPosition);
-            }
-        });
+        if (season.getSeasonNumber() != null) {
+            bind.seasonNumber.setText(context.getString(R.string.season_number, season.getSeasonNumber()));
+        }
+
+        if (season.getEpsisodeCount() != null) {
+            bind.episodes.setText(context.getString(R.string.episodes_count, season.getEpsisodeCount()));
+        }
+
     }
 
     public void setOnImageClickListener(OnImageClickListener onImageClickListener, int seasonPosition) {
