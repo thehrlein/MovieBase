@@ -94,7 +94,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         for (int i = 0; i < count; i++) {
             Preference p = prefScreen.getPreference(i);
             if (p instanceof ListPreference) {
-                String value = sharedPreferences.getString(p.getKey(), "");
+                String value = sharedPreferences.getString(p.getKey(), SettingsUtils.getAppLanguage());
                 setPreferenceSummary(p, value);
             }
         }
