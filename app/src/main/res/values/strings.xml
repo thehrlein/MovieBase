@@ -68,5 +68,9 @@
     <string name="hello_tobias">Hello Tobias</string>
     <string name="status_post_production">Close to release</string>
     <string name="status_released">Released</string>
+    <string name="season_number">Season: %1$s</string>
+    <string name="episodes_count">Episodes: %1$s</string>
+    <string name="seasons_air_date">Date: %1$s</string>
+    <string name="seasons">Seasons</string>
 
 </resources>

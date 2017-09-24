@@ -12,6 +12,7 @@ import tobiapplications.com.moviebase.model.detail.FullTrailerItems;
 import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
+import tobiapplications.com.moviebase.model.detail.Season;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.model.detail.Trailer;
 import tobiapplications.com.moviebase.model.detail.TrailersResponse;
@@ -21,6 +22,7 @@ import tobiapplications.com.moviebase.model.detail.YtTrailerStatistic;
 import tobiapplications.com.moviebase.model.detail.items.movie.AdditionalMovieInfoItem;
 import tobiapplications.com.moviebase.model.detail.items.movie.MovieInfoItem;
 import tobiapplications.com.moviebase.model.detail.items.serie.AdditionalSerieInfoItem;
+import tobiapplications.com.moviebase.model.detail.items.serie.SeasonsItem;
 import tobiapplications.com.moviebase.model.detail.items.serie.SerieInfoItem;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.model.detail.items.SummaryItem;
@@ -87,9 +89,14 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         detailItems.add(createInfoView(detailSerie));
         detailItems.add(createAdditionalInfoView(detailSerie));
         detailItems.add(createSummaryView(detailSerie.getDescription()));
-
+        detailItems.add(createSeriesView(detailSerie.getSeasons()));
 
         parent.displayUiViews(detailItems);
+    }
+
+    private DisplayableItem createSeriesView(ArrayList<Season> seasons) {
+        SeasonsItem seasonsItem = new SeasonsItem(seasons);
+        return seasonsItem;
     }
 
     private DisplayableItem createAdditionalInfoView(MovieDetailResponse movie) {
@@ -173,7 +180,13 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     @Override
     public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
         if (movieOverviewResponse.getTotalResults() != 0) {
-            ArrayList<MoviePosterItem> moviePosters = movieOverviewResponse.getMoviePosterItems();
+            ArrayList<MoviePosterItem> moviePosters;
+
+            if (overviewType == Constants.OverviewType.MOVIES) {
+                moviePosters = movieOverviewResponse.getMoviePosterItems();
+            } else {
+                moviePosters = movieOverviewResponse.getSeriePosterItems();
+            }
 
             String similarTitle;
             if (overviewType == Constants.OverviewType.MOVIES) {

@@ -5,16 +5,14 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ItemActorsPosterBinding;
-import tobiapplications.com.moviebase.listener.OnActorImageClickListener;
+import tobiapplications.com.moviebase.listener.OnImageClickListener;
 import tobiapplications.com.moviebase.model.detail.Actor;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
@@ -48,7 +46,7 @@ public class ActorsPosterView extends LinearLayout {
         bind = ItemActorsPosterBinding.inflate(inflater, this, true);
     }
 
-    public void setActorInformation(Actor actor, int position, OnActorImageClickListener listener) {
+    public void setActorInformation(Actor actor, int position, OnImageClickListener listener) {
         if (actor != null) {
 
             if (!TextUtils.isEmpty(actor.getProfilePath())) {
@@ -64,7 +62,7 @@ public class ActorsPosterView extends LinearLayout {
             bind.actorCharacter.setText(actor.getCharacter());
             bind.actorName.setText(actor.getName());
 
-            bind.actorsImage.setOnClickListener(v -> listener.onActorImageClick(position));
+            bind.actorsImage.setOnClickListener(v -> listener.onImageClick(position));
         }
     }
 }

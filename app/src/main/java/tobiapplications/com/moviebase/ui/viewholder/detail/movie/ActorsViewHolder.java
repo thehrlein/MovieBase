@@ -3,26 +3,24 @@ package tobiapplications.com.moviebase.ui.viewholder.detail.movie;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.GridLayout;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.DetailActorsHolderBinding;
-import tobiapplications.com.moviebase.listener.OnActorImageClickListener;
+import tobiapplications.com.moviebase.listener.OnImageClickListener;
 import tobiapplications.com.moviebase.model.detail.Actor;
 import tobiapplications.com.moviebase.ui.views.ActorsPosterView;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
  * Created by Tobias on 16.06.2017.
  */
 
-public class ActorsViewHolder extends RecyclerView.ViewHolder implements OnActorImageClickListener {
+public class ActorsViewHolder extends RecyclerView.ViewHolder implements OnImageClickListener {
 
     private DetailActorsHolderBinding bind;
     private Context context;
@@ -46,7 +44,7 @@ public class ActorsViewHolder extends RecyclerView.ViewHolder implements OnActor
     }
 
     @Override
-    public void onActorImageClick(int position) {
+    public void onImageClick(int position) {
         handleProfilImageClick(position);
     }
 
@@ -73,7 +71,7 @@ public class ActorsViewHolder extends RecyclerView.ViewHolder implements OnActor
             }
         }
 
-        int goBackCounter = getGoBackCounter(currentActor, fullListWithAndWithOutPictures);
+        int goBackCounter = GeneralUtils.getGoBackCounter(currentActor, fullListWithAndWithOutPictures);
         int startPosition = currentActor - goBackCounter;
         startImagesSlideShow(actorImages, startPosition);
     }
@@ -82,17 +80,6 @@ public class ActorsViewHolder extends RecyclerView.ViewHolder implements OnActor
         new ImageViewer.Builder(context, actorImages)
                 .setStartPosition(startPosition)
                 .show();
-    }
-
-    private int getGoBackCounter(int currentActor, boolean[] fullListWithAndWithOutPictures) {
-        int goBackCounter = 0;
-        for (int i = 0; i < currentActor; i++) {
-            if (!fullListWithAndWithOutPictures[i]) {
-                goBackCounter++;
-            }
-        }
-
-        return goBackCounter;
     }
 
     private int getHowMuchActorsWithImages() {

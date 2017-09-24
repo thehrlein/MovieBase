@@ -14,6 +14,7 @@ import tobiapplications.com.moviebase.adapter.delegates.movie.AdditionalMovieInf
 import tobiapplications.com.moviebase.adapter.delegates.movie.MovieInfoDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.movie.ReviewsDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.serie.AdditionalSerieInfoDelegate;
+import tobiapplications.com.moviebase.adapter.delegates.serie.SeasonsDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.serie.SerieInfoDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.SimilarMovieDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.SummaryViewDelegate;
@@ -45,6 +46,7 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         delegatesManager.addDelegate(new ReviewsDelegate(context));
         delegatesManager.addDelegate(new ActorsDelegate(context));
         delegatesManager.addDelegate(new TrailersDelegate(context));
+        delegatesManager.addDelegate(new SeasonsDelegate(context));
     }
 
     @Override

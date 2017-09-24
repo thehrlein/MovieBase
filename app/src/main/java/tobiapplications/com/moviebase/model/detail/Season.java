@@ -25,8 +25,8 @@ public class Season implements Serializable {
         return airDate;
     }
 
-    public int getEpsisodeCount() {
-        return epsisodeCount;
+    public String getEpsisodeCount() {
+        return String.valueOf(epsisodeCount);
     }
 
     public int getId() {
@@ -37,7 +37,7 @@ public class Season implements Serializable {
         return posterPath;
     }
 
-    public int getSeasonNumber() {
-        return seasonNumber;
+    public String getSeasonNumber() {
+        return String.valueOf(seasonNumber);
     }
 }

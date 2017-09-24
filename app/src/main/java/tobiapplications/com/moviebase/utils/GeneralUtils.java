@@ -33,4 +33,15 @@ public class GeneralUtils {
         }
     }
 
+    public static int getGoBackCounter(int currentActor, boolean[] fullListWithAndWithOutPictures) {
+        int goBackCounter = 0;
+        for (int i = 0; i < currentActor; i++) {
+            if (!fullListWithAndWithOutPictures[i]) {
+                goBackCounter++;
+            }
+        }
+
+        return goBackCounter;
+    }
+
 }

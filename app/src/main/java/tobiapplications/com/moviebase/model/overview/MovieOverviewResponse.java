@@ -56,4 +56,18 @@ public class MovieOverviewResponse implements Serializable {
 
         return posterItems;
     }
+
+    public ArrayList<MoviePosterItem> getSeriePosterItems() {
+        ArrayList<MoviePosterItem> posterItems = new ArrayList<>();
+
+        for (MovieOverviewModel model : movies) {
+            int id = model.getId();
+            String imagePath = model.getTitleImagePath();
+            String imageTitle = model.getName();
+            MoviePosterItem item = new MoviePosterItem(id, imagePath, imageTitle);
+            posterItems.add(item);
+        }
+
+        return posterItems;
+    }
 }
