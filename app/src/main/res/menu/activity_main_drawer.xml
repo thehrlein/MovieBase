@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_movies"
-            android:icon="@drawable/fab_heart"
+            android:icon="@drawable/ic_movie"
             android:title="Movies" />
         <item
             android:id="@+id/menu_series"
-            android:icon="@drawable/fab_heart"
+            android:icon="@drawable/ic_serie"
             android:title="Series" />
 
     </group>
@@ -17,11 +17,11 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/menu_settings"
-            android:icon="@drawable/fab_heart"
+            android:icon="@drawable/ic_settings"
             android:title="Settings" />
         <item
             android:id="@+id/menu_info"
-            android:icon="@drawable/fab_heart"
+            android:icon="@drawable/ic_info"
             android:title="About" />
 
     </group>

@@ -21,7 +21,7 @@ public interface DetailFragmentContract {
     interface View {
 
         void displayUiViews(ArrayList<DisplayableItem> detailItems);
-        void displayUiView(DisplayableItem item, boolean onLastPosition);
+        void displayUiView(DisplayableItem item);
     }
 
     interface Presenter extends OnOverviewMovieLoadListener {

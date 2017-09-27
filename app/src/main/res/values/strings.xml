@@ -72,5 +72,6 @@
     <string name="episodes_count">Episodes: %1$s</string>
     <string name="seasons_air_date">Date: %1$s</string>
     <string name="seasons">Seasons</string>
+    <string name="about_image_copyright">The navigation wallpaper belongs to Yesofcorsa.com</string>
 
 </resources>

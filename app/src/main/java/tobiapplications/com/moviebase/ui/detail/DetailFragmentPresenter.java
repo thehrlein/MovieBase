@@ -1,6 +1,7 @@
 package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.StringUtils;
 
 /**
  * Created by Tobias on 14.06.2017.
@@ -116,6 +118,9 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     }
 
     private DisplayableItem createSummaryView(String description) {
+        if (StringUtils.nullOrEmpty(description)) {
+            return null;
+        }
         return new SummaryItem(description);
     }
 
@@ -193,21 +198,21 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
                 similarTitle = context.getString(R.string.similar_movies, context.getString(R.string.series_title));
             }
 
-            parent.displayUiView(new SimilarMoviesItem(moviePosters, similarTitle), true);
+            parent.displayUiView(new SimilarMoviesItem(moviePosters, similarTitle));
         }
     }
 
     @Override
     public void displayReviews(ReviewResponse response) {
         if (response.getTotalResults() != 0) {
-            parent.displayUiView(response, false);
+            parent.displayUiView(response);
         }
     }
 
     @Override
     public void displayActors(ActorsResponse response) {
         if (response != null && !response.getActors().isEmpty()) {
-            parent.displayUiView(response, false);
+            parent.displayUiView(response);
         }
     }
 
@@ -229,7 +234,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         TrailerItem trailerItem = new TrailerItem(title, trailerKey, thumbnails, statistics);
         trailerItems.add(trailerItem);
         if (trailerItems.size() == trailerResponseCount) {
-            parent.displayUiView(new FullTrailerItems(trailerItems), false);
+            parent.displayUiView(new FullTrailerItems(trailerItems));
         }
     }
 }

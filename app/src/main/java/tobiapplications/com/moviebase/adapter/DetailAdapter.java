@@ -20,6 +20,7 @@ import tobiapplications.com.moviebase.adapter.delegates.SimilarMovieDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.SummaryViewDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.movie.TrailersDelegate;
 import tobiapplications.com.moviebase.model.DisplayableItem;
+import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.ui.viewholder.detail.serie.AdditionalSerieInfoViewHolder;
 
 /**
@@ -79,18 +80,12 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public void addUiView(DisplayableItem item, boolean onLastPosition) {
+    public void addUiView(DisplayableItem item) {
         if (item == null || itemList == null) {
             return;
         }
-
-        int insertedPosition = itemList.size();
-        if (onLastPosition) {
-            itemList.add(item);
-        } else {
-            insertedPosition--;
-            itemList.add(insertedPosition, item);
-        }
-            notifyItemInserted(insertedPosition);
+        
+        itemList.add(item);
+        notifyItemInserted(itemList.size() - 1);
     }
 }
