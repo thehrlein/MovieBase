@@ -55,6 +55,8 @@ public class SeasonsView extends LinearLayout {
                     listener.onImageClick(seasonPosition);
                 }
             });
+        } else {
+            bind.image.setImageResource(R.drawable.no_image_available);
         }
         if (season.getAirDate() != null) {
             bind.airDate.setText(context.getString(R.string.seasons_air_date, DateUtils.getDMYFromYMD(season.getAirDate())));

@@ -51,6 +51,9 @@ public class SeasonsHolder extends RecyclerView.ViewHolder implements OnImageCli
                 tableRow.setLayoutParams(getTableRowParams());
                 tableRow.setWeightSum(1f);
                 tableRow.addView(seasonsView);
+                if (i == seasons.size() - 1) {
+                    bind.table.addView(tableRow);
+                }
             } else {
                 if (tableRow != null) {
                     tableRow.addView(seasonsView);

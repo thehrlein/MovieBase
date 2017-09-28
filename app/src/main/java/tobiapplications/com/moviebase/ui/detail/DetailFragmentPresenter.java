@@ -95,8 +95,10 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     }
 
     private DisplayableItem createSeriesView(ArrayList<Season> seasons) {
-        SeasonsItem seasonsItem = new SeasonsItem(seasons);
-        return seasonsItem;
+        if (seasons == null || seasons.isEmpty()) {
+            return null;
+        }
+        return new SeasonsItem(seasons);
     }
 
     private DisplayableItem createAdditionalInfoView(MovieDetailResponse movie) {

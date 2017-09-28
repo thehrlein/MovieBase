@@ -68,7 +68,11 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     @Override
     public void displaySeriesResponse(SeriesDetailResponse body) {
         clickedSerie = body;
-        parent.setInformation(clickedSerie.getName(), NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImage()));
+        String imageUrl = null;
+        if (clickedSerie.getBackgroundImage() != null) {
+            imageUrl = NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImage());
+        }
+        parent.setInformation(clickedSerie.getName(), imageUrl);
         parent.setUpSeriesTabFragment(clickedSerie);
         setFabDependingOnFavoriteStatus();
     }

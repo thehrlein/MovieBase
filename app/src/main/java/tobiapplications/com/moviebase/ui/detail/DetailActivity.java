@@ -101,8 +101,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         bind.progressBar.setVisibility(View.GONE);
         if (moviePath != null) {
             Picasso.with(this).load(moviePath).into(bind.toolbarBackgroundImage);
+            bind.noPictureAvailable.setVisibility(View.GONE);
         } else {
-            bind.toolbarBackgroundImage.setImageResource(R.drawable.no_picture);
+            bind.noPictureAvailable.setVisibility(View.VISIBLE);
         }
     }
 
