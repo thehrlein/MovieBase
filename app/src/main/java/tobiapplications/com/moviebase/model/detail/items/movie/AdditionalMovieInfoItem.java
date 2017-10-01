@@ -13,11 +13,11 @@ public class AdditionalMovieInfoItem implements DisplayableItem {
 
     private String originalTitle;
     private int budget;
-    private int revenue;
+    private long revenue;
     private ArrayList<Genre> genres;
     private String homepage;
 
-    public AdditionalMovieInfoItem(String originalTitle, int budget, int revenue, ArrayList<Genre> genres, String homepage) {
+    public AdditionalMovieInfoItem(String originalTitle, int budget, long revenue, ArrayList<Genre> genres, String homepage) {
         this.originalTitle = originalTitle;
         this.budget = budget;
         this.revenue = revenue;
@@ -33,7 +33,7 @@ public class AdditionalMovieInfoItem implements DisplayableItem {
         return budget;
     }
 
-    public int getRevenue() {
+    public long getRevenue() {
         return revenue;
     }
 

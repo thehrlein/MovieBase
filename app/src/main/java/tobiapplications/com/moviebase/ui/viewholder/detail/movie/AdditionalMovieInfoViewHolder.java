@@ -53,13 +53,24 @@ public class AdditionalMovieInfoViewHolder extends RecyclerView.ViewHolder imple
         return formatMoney(budget);
     }
 
+    private String checkIfMoneyIsEmpty(long budget) {
+        if (budget == 0) {
+            return context.getString(R.string.unknown);
+        }
+        return formatMoney(budget);
+    }
+
     private void hideHomepageLine() {
         bind.link.setVisibility(View.GONE);
         bind.homepageLabel.setVisibility(View.GONE);
     }
 
     private String formatMoney(int budget) {
-    return NumberFormat.getNumberInstance(Locale.GERMAN).format(budget) + " $";
+        return NumberFormat.getNumberInstance(Locale.GERMAN).format(budget) + " $";
+    }
+
+    private String formatMoney(long budget) {
+        return NumberFormat.getNumberInstance(Locale.GERMAN).format(budget) + " $";
     }
 
     private void setGenresLayout(ArrayList<Genre> genres) {

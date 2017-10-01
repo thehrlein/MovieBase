@@ -104,7 +104,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     private DisplayableItem createAdditionalInfoView(MovieDetailResponse movie) {
         String originalTitle = movie.getOriginalTitle();
         int budget = movie.getBudget();
-        int revenue = movie.getRevenue();
+        long revenue = movie.getRevenue();
         ArrayList<Genre> genres = movie.getGenres();
         String homepage = movie.getHomepage();
         return new AdditionalMovieInfoItem(originalTitle, budget, revenue, genres, homepage);

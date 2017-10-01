@@ -45,7 +45,7 @@ public class MovieDetailResponse implements Serializable {
     @SerializedName("release_date")
     private String releaseDate;
     @SerializedName("revenue")
-    private int revenue;
+    private long revenue;
     @SerializedName("runtime")
     private int runtime;
     @SerializedName("spoken_languages")
@@ -127,7 +127,7 @@ public class MovieDetailResponse implements Serializable {
         return releaseDate;
     }
 
-    public int getRevenue() {
+    public long getRevenue() {
         return revenue;
     }
 
