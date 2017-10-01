@@ -1,5 +1,7 @@
 package tobiapplications.com.moviebase.ui;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +13,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import tobiapplications.com.moviebase.R;
@@ -83,11 +88,17 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             openSettings();
         } else if (id == R.id.menu_info) {
             openAbout();
+        } else if (id == R.id.menu_search) {
+            openSearch();
         }
 
 
         bind.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openSearch() {
+
     }
 
     private void openSeries() {
@@ -125,4 +136,32 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         transaction.commit();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main, menu);
+
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(true);
+        searchView.setSubmitButtonEnabled(true);
+
+        return true;
+    }
+
+    @Override
+    public boolean onSearchRequested() {
+        // if search view gets focus
+        return super.onSearchRequested();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_search) {
+            onSearchRequested();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

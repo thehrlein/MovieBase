@@ -3,11 +3,12 @@
     <!-- Navigation Drawer -->
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
-    <string name="navigation_tag" translatable="false">navigation</string>
+    <string name="navigation_tag" translatable="false">navigation_fragment</string>
     <string name="movie_tag" translatable="false">movie_fragment</string>
     <string name="movie_title">Movies</string>
     <string name="series_title">Series</string>
-    <string name="series_tag" translatable="false">series</string>
+    <string name="series_tag" translatable="false">series_fragment</string>
+    <string name="search_tag">search_fragment</string>
 
 
     <string name="app_name" translatable="false">MovieBase</string>
