@@ -18,6 +18,9 @@ public class DateUtils {
     private static final String MINUTE_TEXT = "min";
 
     public static String getDMYFromYMD(String oldDateString) {
+        if (StringUtils.nullOrEmpty(oldDateString)) {
+            return "";
+        }
         SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
         SimpleDateFormat newFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
         String newDateString;

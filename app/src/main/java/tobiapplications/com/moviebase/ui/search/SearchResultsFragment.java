@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -25,21 +23,19 @@ import tobiapplications.com.moviebase.utils.Constants;
  * Created by Tobias on 25.06.2017.
  */
 
-public class SearchFragment extends Fragment implements SearchFragmentContract.View {
+public class SearchResultsFragment extends Fragment implements SearchFragmentContract.View {
 
     private FragmentSearchBinding bind;
     private SearchMovieAdapter searchMovieAdapter;
     private SearchFragmentPresenter presenter;
     private Context context;
+    private Constants.OverviewType overviewType;
+    private String searchQuery;
 
-    public SearchFragment() {
-
-    }
-
-    public static SearchFragment newInstance(Bundle bundle) {
-        SearchFragment searchFragment = new SearchFragment();
-        searchFragment.setArguments(bundle);
-        return searchFragment;
+    public static SearchResultsFragment newInstance(Bundle bundle) {
+        SearchResultsFragment searchResultsFragment = new SearchResultsFragment();
+        searchResultsFragment.setArguments(bundle);
+        return searchResultsFragment;
     }
 
     @Override
@@ -61,20 +57,47 @@ public class SearchFragment extends Fragment implements SearchFragmentContract.V
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = getContext();
-        presenter.init(getArguments().getString(Constants.SEARCH_QUERY), context);
+        parseArguments(getArguments());
+        presenter.init(searchQuery, overviewType, context);
+    }
+
+    private void parseArguments(Bundle arguments) {
+        if (arguments == null) {
+            return;
+        }
+
+        if (arguments.containsKey(Constants.SEARCH_QUERY)) {
+            searchQuery = arguments.getString(Constants.SEARCH_QUERY);
+        }
+        if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
+            overviewType = (Constants.OverviewType) arguments.getSerializable(Constants.OVERVIEW_TYPE);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().setTitle(getArguments().getString(Constants.SEARCH_QUERY));
+        getActivity().setTitle(getTitle());
+    }
+
+    private String getTitle() {
+        String title;
+        String appending = ": " + searchQuery;
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            title = context.getString(R.string.movie_title);
+        } else {
+            title = context.getString(R.string.series_title);
+        }
+
+        title += appending;
+        return title;
     }
 
 
     @Override
     public void setAdapter() {
         bind.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        searchMovieAdapter = new SearchMovieAdapter(context);
+        searchMovieAdapter = new SearchMovieAdapter(context, overviewType);
 
         bind.recyclerView.setAdapter(searchMovieAdapter);
         searchMovieAdapter.setMovieClickListener(this);
@@ -101,7 +124,7 @@ public class SearchFragment extends Fragment implements SearchFragmentContract.V
     public void onMovieClick(int id) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
-        openMovieDetails.putExtra(Constants.OVERVIEW_TYPE, Constants.OverviewType.MOVIES);
+        openMovieDetails.putExtra(Constants.OVERVIEW_TYPE, overviewType);
         startActivity(openMovieDetails);
     }
 }

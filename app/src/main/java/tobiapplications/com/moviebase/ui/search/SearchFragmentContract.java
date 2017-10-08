@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 16.06.2017.
@@ -22,7 +23,6 @@ public interface SearchFragmentContract {
     }
 
     interface Presenter extends OnOverviewMovieLoadListener {
-
-        void init(String query, Context context);
+        void init(String query, Constants.OverviewType overviewType, Context context);
     }
 }

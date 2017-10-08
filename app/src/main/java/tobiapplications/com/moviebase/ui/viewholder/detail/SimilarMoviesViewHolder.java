@@ -25,10 +25,12 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
     private DetailSimilarMoviesHolderBinding bind;
     private Context context;
     private ArrayList<MoviePosterItem> movies;
+    private Constants.OverviewType overviewType;
 
-    public SimilarMoviesViewHolder(View itemView, Context context) {
+    public SimilarMoviesViewHolder(View itemView, Context context, Constants.OverviewType overviewType) {
         super(itemView);
         this.context = context;
+        this.overviewType = overviewType;
         bind = DetailSimilarMoviesHolderBinding.bind(itemView);
     }
 
@@ -48,6 +50,7 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
     private void openDetails(int id) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
+        openMovieDetails.putExtra(Constants.OVERVIEW_TYPE, overviewType);
         context.startActivity(openMovieDetails);
     }
 }

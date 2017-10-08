@@ -24,6 +24,7 @@ import tobiapplications.com.moviebase.network.callbacks.TrailersCallback;
 import tobiapplications.com.moviebase.network.callbacks.YtTrailerCallback;
 import tobiapplications.com.moviebase.ui.detail.DetailActivityPresenter;
 import tobiapplications.com.moviebase.ui.detail.DetailFragmentContract;
+import tobiapplications.com.moviebase.ui.search.SearchFragmentPresenter;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
@@ -116,6 +117,11 @@ public class DataManager {
     public void requestSearchMovie(OnOverviewMovieLoadListener listener, String query) {
         Call<MovieOverviewResponse> searchMovieCall = movieApi.requestSearchMovie(query);
         searchMovieCall.enqueue(new OverviewCallback(listener));
+    }
+
+    public void requestSearchSerie(OnOverviewMovieLoadListener listener, String query) {
+        Call<MovieOverviewResponse> searchSerieCall = movieApi.requestSearchSerie(query);
+        searchSerieCall.enqueue(new OverviewCallback(listener));
     }
 
     public void requestActors(DetailFragmentContract.Presenter presenter, int movieId) {

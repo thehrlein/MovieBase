@@ -14,6 +14,7 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.ui.viewholder.detail.SimilarMoviesViewHolder;
+import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 06.09.2017.
@@ -22,9 +23,11 @@ import tobiapplications.com.moviebase.ui.viewholder.detail.SimilarMoviesViewHold
 public class SimilarMovieDelegate extends AdapterDelegate<List<DisplayableItem>> {
 
     private Context context;
+    private Constants.OverviewType overviewType;
 
-    public SimilarMovieDelegate(Context context) {
+    public SimilarMovieDelegate(Context context, Constants.OverviewType overviewType) {
         this.context = context;
+        this.overviewType = overviewType;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class SimilarMovieDelegate extends AdapterDelegate<List<DisplayableItem>>
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new SimilarMoviesViewHolder(LayoutInflater.from(context).inflate(R.layout.detail_similar_movies_holder, parent, false), context);
+        return new SimilarMoviesViewHolder(LayoutInflater.from(context).inflate(R.layout.detail_similar_movies_holder, parent, false), context, overviewType);
     }
 
     @Override

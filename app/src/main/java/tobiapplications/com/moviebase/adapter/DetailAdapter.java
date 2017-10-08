@@ -22,6 +22,7 @@ import tobiapplications.com.moviebase.adapter.delegates.movie.TrailersDelegate;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.ui.viewholder.detail.serie.AdditionalSerieInfoViewHolder;
+import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 14.06.2017.
@@ -33,7 +34,7 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<DisplayableItem> itemList;
     private AdapterDelegatesManager<List<DisplayableItem>> delegatesManager;
 
-    public DetailAdapter(Context context) {
+    public DetailAdapter(Context context, Constants.OverviewType overviewType) {
         this.context = context;
         itemList = new ArrayList<>();
 
@@ -43,7 +44,7 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         delegatesManager.addDelegate(new SummaryViewDelegate(context));
         delegatesManager.addDelegate(new AdditionalMovieInfoDelegate(context));
         delegatesManager.addDelegate(new AdditionalSerieInfoDelegate(context));
-        delegatesManager.addDelegate(new SimilarMovieDelegate(context));
+        delegatesManager.addDelegate(new SimilarMovieDelegate(context, overviewType));
         delegatesManager.addDelegate(new ReviewsDelegate(context));
         delegatesManager.addDelegate(new ActorsDelegate(context));
         delegatesManager.addDelegate(new TrailersDelegate(context));

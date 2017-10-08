@@ -1,21 +1,15 @@
 package tobiapplications.com.moviebase.ui;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import tobiapplications.com.moviebase.R;
@@ -23,6 +17,8 @@ import tobiapplications.com.moviebase.databinding.ActivityNavigationBinding;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.ui.info.AboutFragment;
 import tobiapplications.com.moviebase.ui.overview.OverviewFragment;
+import tobiapplications.com.moviebase.ui.search.SearchResultsFragment;
+import tobiapplications.com.moviebase.ui.search.SearchQueryFragment;
 import tobiapplications.com.moviebase.ui.settings.SettingsFragment;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SettingsUtils;
@@ -89,7 +85,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         } else if (id == R.id.menu_info) {
             openAbout();
         } else if (id == R.id.menu_search) {
-            openSearch();
+            openSearchRequestFragment();
         }
 
 
@@ -97,8 +93,19 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         return true;
     }
 
-    private void openSearch() {
+    private void openSearchRequestFragment() {
+        String searchTag = getString(R.string.search_tag);
+        SearchQueryFragment searchQueryFragment = SearchQueryFragment.newInstance();
+        replaceFragment(searchQueryFragment, searchTag, true);
+    }
 
+    public void openSearchResults(String text, Constants.OverviewType overviewType) {
+        String searchTag = getString(R.string.search_tag);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.SEARCH_QUERY, text);
+        bundle.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
+        SearchResultsFragment fragment = SearchResultsFragment.newInstance(bundle);
+        replaceFragment(fragment, searchTag, true);
     }
 
     private void openSeries() {
@@ -134,34 +141,5 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             transaction.replace(R.id.fragment_container, fragment, fragmentTag);
         }
         transaction.commit();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_main, menu);
-
-        // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(true);
-        searchView.setSubmitButtonEnabled(true);
-
-        return true;
-    }
-
-    @Override
-    public boolean onSearchRequested() {
-        // if search view gets focus
-        return super.onSearchRequested();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
-            onSearchRequested();
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

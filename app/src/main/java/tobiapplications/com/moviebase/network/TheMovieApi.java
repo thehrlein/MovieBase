@@ -47,6 +47,10 @@ public interface TheMovieApi {
     @GET("search/movie")
     Call<MovieOverviewResponse> requestSearchMovie(@Query("query") String query);
 
+    @GET("search/tv")
+    Call<MovieOverviewResponse> requestSearchSerie(@Query("query") String query);
+
+
     @GET("movie/{id}/credits")
     Call<ActorsResponse> requestActors(@Path("id") int movieId);
 
@@ -55,4 +59,5 @@ public interface TheMovieApi {
 
     @GET("tv/{id}/videos")
     Call<TrailersResponse> requestSerieTrailers(@Path("id") int serieId);
+
 }

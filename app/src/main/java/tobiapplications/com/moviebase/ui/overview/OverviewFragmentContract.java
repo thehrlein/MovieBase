@@ -9,7 +9,6 @@ import tobiapplications.com.moviebase.listener.OnOverviewResponseLoadedListener;
 public interface OverviewFragmentContract {
 
     interface View extends OnOverviewResponseLoadedListener {
-        void setStatusBarColor();
         void setupViewPager();
     }
 }

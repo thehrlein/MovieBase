@@ -109,20 +109,6 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
         bind.viewpager.disableSwipe(false);
         bind.appBarLayout.setVisibility(View.VISIBLE);
         bind.tabs.setVisibility(View.VISIBLE);
-        setStatusBarColor();
-    }
-
-    @Override
-    public void setStatusBarColor() {
-//        Activity activity = getActivity();
-//        if (activity == null) {
-//            return;
-//        }
-//
-//        android.app.ActionBar actionBar = activity.getActionBar();
-//        if (actionBar != null && Build.VERSION.SDK_INT >= 21) {
-//            actionBar.setElevation(0);
-//        }
     }
 
     @Override

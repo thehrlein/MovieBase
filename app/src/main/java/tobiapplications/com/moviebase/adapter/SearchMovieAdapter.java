@@ -12,6 +12,7 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.viewholder.SearchMovieViewHolder;
+import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 01.04.2017.
@@ -23,16 +24,18 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieViewHold
     private OnMovieClickListener mClickListener;
     private Context mContext;
     private LayoutInflater mInflater;
+    private Constants.OverviewType overviewType;
 
-    public SearchMovieAdapter(Context mContext) {
+    public SearchMovieAdapter(Context mContext, Constants.OverviewType overviewType) {
         this.mContext = mContext;
         this.mInflater = LayoutInflater.from(mContext);
+        this.overviewType = overviewType;
     }
 
     @Override
     public SearchMovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.search_list_item, parent, false);
-        SearchMovieViewHolder searchMovieViewHolder = new SearchMovieViewHolder(view, mContext, mClickListener);
+        SearchMovieViewHolder searchMovieViewHolder = new SearchMovieViewHolder(view, mContext, mClickListener, overviewType);
         return searchMovieViewHolder;
     }
 

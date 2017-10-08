@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
+import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 16.06.2017.
@@ -21,12 +22,17 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
     }
 
     @Override
-    public void init(String query, Context context) {
+    public void init(String query, Constants.OverviewType overviewType, Context context) {
         this.context = context;
         this.query = query;
         parent.setDownloadIsActive();
         parent.setAdapter();
-        requestMoviesDownload();
+
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            requestMoviesDownload();
+        } else if (overviewType == Constants.OverviewType.SERIES) {
+            requestSeriesDownload();
+        }
     }
 
     @Override
@@ -36,7 +42,7 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
 
     @Override
     public void requestSeriesDownload() {
-
+        DataManager.getInstance().requestSearchSerie(this, query);
     }
 
     @Override

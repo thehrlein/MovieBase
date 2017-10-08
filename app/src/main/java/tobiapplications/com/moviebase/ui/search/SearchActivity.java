@@ -1,6 +1,5 @@
 package tobiapplications.com.moviebase.ui.search;
 
-import android.app.SearchManager;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v4.app.FragmentManager;
@@ -22,8 +21,8 @@ public class SearchActivity extends AppCompatActivity {
         bind = DataBindingUtil.setContentView(this, R.layout.activity_search);
 
         Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+        if (intent != null) {
+            String query = intent.getStringExtra(Constants.SEARCH_QUERY);
             title = query;
             setTitle(title);
             setUpSearchResultsFragment(query);
@@ -34,7 +33,7 @@ public class SearchActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.SEARCH_QUERY, query);
-        SearchFragment fragment = SearchFragment.newInstance(bundle);
+        SearchResultsFragment fragment = SearchResultsFragment.newInstance(bundle);
 
         fragmentManager.beginTransaction()
                 .add(R.id.search_content, fragment)
