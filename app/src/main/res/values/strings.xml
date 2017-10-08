@@ -8,9 +8,10 @@
     <string name="movie_title">Movies</string>
     <string name="series_title">Series</string>
     <string name="series_tag" translatable="false">series_fragment</string>
-    <string name="search_tag">search_fragment</string>
+    <string name="search_tag" translatable="false">search_fragment</string>
     <string name="search_title">Search</string>
     <string name="search_headline">Do you want to search for movies or series?</string>
+    <string name="search_error_not_enough_characters">Please enter at least 1 character</string>
 
 
     <string name="app_name" translatable="false">MovieBase</string>

@@ -41,4 +41,13 @@
     <string name="info_last_air_date_label">Letzte TV-Ausstrahlung</string>
     <string name="no_favorite_series">Du hast bisher noch keine Serien in deinen Favoriten.</string>
     <string name="series_title">Serien</string>
+    <string name="search_title">Suche</string>
+    <string name="search_headline">Wollen Sie nach Filmen oder Serien suchen?</string>
+    <string name="search_error_not_enough_characters">Bitte geben Sie mindestens 1 Zeichen ein</string>
+    <string name="season_number">Staffel: %1$s</string>
+    <string name="episodes_count">Episoden: %1$s</string>
+    <string name="seasons_air_date">Datum: %1$s</string>
+    <string name="seasons">Staffeln</string>
+    <string name="about_image_copyright">Das Bild im Navigationsmenü stammt von Yesofcorsa.com</string>
+    <string name="no_picture_available">Kein Bild verfügbar</string>
 </resources>

@@ -4,13 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.databinding.FragmentSearchMainBinding;
+import tobiapplications.com.moviebase.databinding.FragmentSearchQueryBinding;
 import tobiapplications.com.moviebase.ui.NavigationActivity;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.InputManager;
@@ -22,7 +25,7 @@ import tobiapplications.com.moviebase.utils.StringUtils;
 
 public class SearchQueryFragment extends Fragment {
 
-    private FragmentSearchMainBinding bind;
+    private FragmentSearchQueryBinding bind;
     private Context context;
     private Constants.OverviewType overviewType;
 
@@ -41,7 +44,7 @@ public class SearchQueryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bind = FragmentSearchMainBinding.inflate(inflater);
+        bind = FragmentSearchQueryBinding.inflate(inflater);
         context = bind.getRoot().getContext();
         return bind.getRoot();
     }
@@ -57,6 +60,19 @@ public class SearchQueryFragment extends Fragment {
         setNavigationSelected();
         setListener();
         setSearchButton();
+        setSearchEditText();
+    }
+
+    private void setSearchEditText() {
+        bind.searchEdittext.setOnEditorActionListener(((textView, id, keyEvent) -> onAction(id)));
+    }
+
+    private boolean onAction(int id) {
+        if (id == EditorInfo.IME_ACTION_SEARCH) {
+            openSearchResults(bind.searchEdittext.getText().toString());
+            return true;
+        }
+        return false;
     }
 
     private void setSearchButton() {
@@ -83,7 +99,7 @@ public class SearchQueryFragment extends Fragment {
     }
 
     private void showErrorMessage() {
-        bind.searchEdittext.setError("Bitte geben Sie mindestens 1 Zeichen ein");
+        bind.searchEdittext.setError(context.getString(R.string.search_error_not_enough_characters));
     }
 
     private boolean inputInvalid() {
