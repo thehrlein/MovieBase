@@ -1,5 +1,7 @@
 package tobiapplications.com.moviebase.model.detail;
 
+import android.widget.Toast;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -13,19 +15,49 @@ public class YtSingleTrailerResponse implements Serializable {
     @SerializedName("items")
     private YtTrailerItem[] item;
 
-    private YtTrailerItem getItem() {
+    public YtTrailerItem getItem() {
+        if (itemNullOrEmpty()) {
+            return null;
+        }
         return item[0];
     }
 
+    private boolean itemNullOrEmpty() {
+        if (item == null || item.length == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean snippetNullOrEmpty() {
+        if (itemNullOrEmpty()) {
+            return true;
+        }
+        YtTrailerItem.YtSnippet snippet = getItem().getSnippet();
+        if (snippet == null) {
+            return true;
+        }
+        return false;
+    }
+
     public YtThumbnailObject getThumbnails() {
+        if (snippetNullOrEmpty()) {
+            return null;
+        }
         return getItem().getSnippet().getThumbnailObject();
     }
 
     public YtTrailerStatistic getStatistics() {
+        if (snippetNullOrEmpty()) {
+            return null;
+        }
         return getItem().getSnippet().getTrailerStatistic();
     }
 
     public String getTitle() {
+        if (snippetNullOrEmpty()) {
+            return "";
+        }
         return getItem().getSnippet().getTitle();
     }
 

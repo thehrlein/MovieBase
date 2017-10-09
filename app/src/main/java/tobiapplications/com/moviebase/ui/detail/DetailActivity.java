@@ -54,6 +54,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void showTabFragment(DetailFragment detailFragment) {
+        bind.progressBarContent.setVisibility(View.GONE);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 

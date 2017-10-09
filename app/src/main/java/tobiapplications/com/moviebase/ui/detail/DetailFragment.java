@@ -112,5 +112,6 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     @Override
     public void displayUiView(DisplayableItem item) {
         adapter.addUiView(item);
+
     }
 }

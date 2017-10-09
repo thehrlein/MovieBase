@@ -22,15 +22,20 @@ public class YtTrailerCallback implements Callback<YtSingleTrailerResponse> {
 
     @Override
     public void onResponse(Call<YtSingleTrailerResponse> call, Response<YtSingleTrailerResponse> response) {
-        if (response.isSuccessful()) {
+        if (response.isSuccessful() && trailerItemAvailable(response.body())) {
             presenter.displaySingleYoutubeTrailer(response.body(), trailerKey);
-        } else {
-            presenter.displayError("YtTrailerCallback " + response.message());
         }
+    }
+
+    private boolean trailerItemAvailable(YtSingleTrailerResponse body) {
+        if (body.getItem() == null) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public void onFailure(Call<YtSingleTrailerResponse> call, Throwable t) {
-        presenter.displayError("YtTrailerCallback");
+
     }
 }

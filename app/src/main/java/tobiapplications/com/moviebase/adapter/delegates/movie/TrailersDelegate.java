@@ -43,7 +43,7 @@ public class TrailersDelegate extends AdapterDelegate<List<DisplayableItem>> {
     @Override
     protected void onBindViewHolder(@NonNull List<DisplayableItem> items, int position, @NonNull RecyclerView.ViewHolder holder, @NonNull List<Object> payloads) {
         FullTrailerItems fullTrailerItems = (FullTrailerItems) items.get(position);
-        ArrayList<TrailerItem> trailerItems =fullTrailerItems.getTrailerItems();
+        ArrayList<TrailerItem> trailerItems = fullTrailerItems.getTrailerItems();
         TrailersViewHolder trailersViewHolder = (TrailersViewHolder) holder;
         trailersViewHolder.setTrailers(trailerItems);
     }
