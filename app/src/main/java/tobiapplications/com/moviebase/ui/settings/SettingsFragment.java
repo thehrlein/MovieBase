@@ -119,23 +119,9 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     }
 
     private void reloadSettings() {
-        Fragment fragment = null;
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        if (fragmentManager == null) {
-            return;
-        }
-
-        fragment = SettingsFragment.newInstance(FRAGMENT_TAG);
-
-        if (fragment == null) {
-            return;
-        }
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        transaction.replace(R.id.fragment_container, fragment).addToBackStack(FRAGMENT_TAG);
-        fragmentManager.popBackStack();
-        transaction.commit();
+        Intent intent = new Intent(getContext(), NavigationActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     @Override

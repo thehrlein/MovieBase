@@ -50,4 +50,8 @@
     <string name="seasons">Staffeln</string>
     <string name="about_image_copyright">Das Bild im Navigationsmenü stammt von Yesofcorsa.com</string>
     <string name="no_picture_available">Kein Bild verfügbar</string>
+    <string name="action_movies">Filme</string>
+    <string name="action_series">Serien</string>
+    <string name="action_about">Info</string>
+    <string name="action_search">Suche</string>
 </resources>

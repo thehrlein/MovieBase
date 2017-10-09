@@ -34,13 +34,20 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SettingsUtils.updateApplicationLanguage(this);
+
         bind = DataBindingUtil.setContentView(this, R.layout.activity_navigation);
 
         init();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
     private void init() {
-        SettingsUtils.updateApplicationLanguage(this);
         DataManager.getInstance().buildApi(Constants.THE_MOVIE_DB);
         DataManager.getInstance().buildApi(Constants.YOUTUBE);
 
