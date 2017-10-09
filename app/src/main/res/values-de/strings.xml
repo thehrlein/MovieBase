@@ -16,7 +16,7 @@
     <string name="info_release_label">Veröffentlichung</string>
     <string name="unmarked_as_favorite">%s wurde von deinen Favoriten entfernt</string>
     <string name="reviews_label">Rezensionen</string>
-    <string name="search_hint">Suche Film</string>
+    <string name="search_hint">Suchbegriff ...</string>
     <string name="similar_movies">Ähnliche %1$s</string>
     <string name="summary_label">Kurzfassung</string>
     <string name="title_favorite">Eigene Favoriten</string>

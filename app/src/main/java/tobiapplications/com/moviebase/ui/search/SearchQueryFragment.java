@@ -4,12 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import tobiapplications.com.moviebase.R;
@@ -27,7 +29,6 @@ public class SearchQueryFragment extends Fragment {
 
     private FragmentSearchQueryBinding bind;
     private Context context;
-    private Constants.OverviewType overviewType;
 
     public static SearchQueryFragment newInstance() {
         SearchQueryFragment fragment = new SearchQueryFragment();
@@ -65,6 +66,9 @@ public class SearchQueryFragment extends Fragment {
 
     private void setSearchEditText() {
         bind.searchEdittext.setOnEditorActionListener(((textView, id, keyEvent) -> onAction(id)));
+        bind.searchEdittext.setHint(context.getString(R.string.search_hint));
+        bind.searchEdittext.setImeAction(EditorInfo.IME_ACTION_SEARCH);
+        bind.searchEdittext.setInputType(InputType.TYPE_CLASS_TEXT);
     }
 
     private boolean onAction(int id) {
