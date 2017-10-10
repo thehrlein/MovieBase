@@ -77,11 +77,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         adapter = new DetailAdapter(mContext, overviewType);
         presenter = new DetailFragmentPresenter(mContext, this, overviewType);
 
-        if (overviewType == Constants.OverviewType.MOVIES) {
-            presenter.init(detailMovie);
-        } else {
-            presenter.init(detailSerie);
-        }
+        presenter.init(overviewType, detailMovie, detailSerie);
         setAdapter();
     }
 

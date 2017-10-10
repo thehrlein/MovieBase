@@ -1,7 +1,6 @@
 package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -55,7 +54,15 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     }
 
     @Override
-    public void init(MovieDetailResponse detailMovie) {
+    public void init(Constants.OverviewType overviewType, MovieDetailResponse detailMovie, SeriesDetailResponse detailSerie) {
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            initMovie(detailMovie);
+        } else if (overviewType == Constants.OverviewType.SERIES) {
+            initSerie(detailSerie);
+        }
+    }
+
+    private void initMovie(MovieDetailResponse detailMovie) {
         buildUiFromResponse(detailMovie);
         requestReviews();
         requestActors();
@@ -63,8 +70,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         requestMoviesDownload();
     }
 
-    @Override
-    public void init(SeriesDetailResponse detailSerie) {
+    private void initSerie(SeriesDetailResponse detailSerie) {
         buildUiFromResponse(detailSerie);
         requestTrailers();
         requestSeriesDownload();
