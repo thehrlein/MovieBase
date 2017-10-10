@@ -52,8 +52,6 @@ public interface OverviewTabFragmentContract {
 
     interface DatabasePresenter {
         void createMovieListFromCursor(Cursor data);
-        ArrayList<Integer> extractGenres(Cursor data);
-        MovieOverviewModel buildMovieFromCursor(Cursor data, ArrayList<Integer> genres, boolean adult);
         void onDatabaseLoadFinished(Cursor data, Constants.OverviewType overviewType);
     }
 }

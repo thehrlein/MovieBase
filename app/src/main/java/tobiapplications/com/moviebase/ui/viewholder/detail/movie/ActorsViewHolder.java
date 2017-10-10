@@ -56,7 +56,6 @@ public class ActorsViewHolder extends RecyclerView.ViewHolder implements OnImage
         int howMuchWithImage = getHowMuchActorsWithImages();
         boolean fullListWithAndWithOutPictures[] = new boolean[actors.size()];
 
-
         int howMuchWithOutImage = 0;
         String[] actorImages = new String[howMuchWithImage];
         for (int i = 0; i < actors.size(); i++) {

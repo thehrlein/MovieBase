@@ -25,18 +25,6 @@ public class OwnFavoritePresenter implements OverviewTabFragmentContract.Databas
     }
 
     @Override
-    public ArrayList<Integer> extractGenres(Cursor data) {
-        String genreAsString = data.getString(SQLUtils.INDEX_COLUMN_GENRES);
-        String[] genresArray = genreAsString.split("-");
-        ArrayList<Integer> genres = new ArrayList<>();
-        for (String genre : genresArray) {
-            genres.add(Integer.valueOf(genre));
-        }
-
-        return genres;
-    }
-
-    @Override
     public void onDatabaseLoadFinished(Cursor data, Constants.OverviewType overviewType) {
         if (overviewType == Constants.OverviewType.MOVIES) {
             movieLoadFinished(data);
@@ -71,9 +59,7 @@ public class OwnFavoritePresenter implements OverviewTabFragmentContract.Databas
         ArrayList<MovieOverviewModel> movies = new ArrayList<>();
         if (data != null) {
             while (data.moveToNext()) {
-                ArrayList<Integer> genres = extractGenres(data);
-                boolean adult = data.getString(SQLUtils.INDEX_COLUMN_ADULT).equals("yes");
-                MovieOverviewModel movie = buildMovieFromCursor(data, genres, adult);
+                MovieOverviewModel movie = new MovieOverviewModel(data);
                 movies.add(movie);
             }
         }
@@ -81,38 +67,15 @@ public class OwnFavoritePresenter implements OverviewTabFragmentContract.Databas
         parent.setMovies(movies);
     }
 
-    @Override
-    public MovieOverviewModel buildMovieFromCursor(Cursor data, ArrayList<Integer> genres, boolean adult) {
-        return new MovieOverviewModel(
-                data.getInt(SQLUtils.INDEX_COLUMN_ID),
-                data.getString(SQLUtils.INDEX_COLUMN_TITLE),
-                data.getString(SQLUtils.INDEX_COLUMN_TITLE_IMAGE_PATH),
-                data.getString(SQLUtils.INDEY_COLUMN_BACKDROP_IMAGE_PATH),
-                data.getString(SQLUtils.INDEX_COLUMN_YEAR),
-                data.getString(SQLUtils.INDEX_COLUMN_RATING),
-                data.getString(SQLUtils.INDEX_COLUMN_DESCRIPTION),
-                genres,
-                adult
-        );
-    }
-
     private void createSerieListFromCursor(Cursor data) {
         ArrayList<MovieOverviewModel> series = new ArrayList<>();
         if (data != null) {
             while (data.moveToNext()) {
-                MovieOverviewModel serie = buildSerieFromCursor(data);
+                MovieOverviewModel serie = new MovieOverviewModel(data);
                 series.add(serie);
             }
         }
 
         parent.setSeries(series);
     }
-
-    private MovieOverviewModel buildSerieFromCursor(Cursor data) {
-        return new MovieOverviewModel(
-                data.getInt(SQLUtils.INDEX_COLUMN_ID),
-                data.getString(SQLUtils.INDEX_COLUMN_TITLE),
-                data.getString(SQLUtils.INDEX_COLUMN_TITLE_IMAGE_PATH));
-    }
-
 }

@@ -21,12 +21,6 @@ public class MoviesContract {
         public static final String COLUMN_ID = "movieid";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_TITLE_POSTER_PATH = "titleimagepath";
-        public static final String COLUMN_BACKDROP_IMAGE_PATH = "backdropimagepath";
-        public static final String COLUMN_YEAR = "year";
-        public static final String COLUMN_RATING = "rating";
-        public static final String COLUMN_DESCRIPTION = "description";
-        public static final String COLUMN_GENRES = "genres";
-        public static final String COLUMN_ADULT = "adult";
 
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
                 .appendPath(TABLE_MOVIES).build();

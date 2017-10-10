@@ -1,10 +1,13 @@
 package tobiapplications.com.moviebase.model.overview;
 
+import android.database.Cursor;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.model.DisplayableItem;
+import tobiapplications.com.moviebase.utils.SQLUtils;
 
 /**
  * Created by Tobias on 10.06.2017.
@@ -51,6 +54,12 @@ public class MovieOverviewModel implements DisplayableItem {
         this.id = id;
         this.title = title;
         this.titleImagePath = titleImagePath;
+    }
+
+    public MovieOverviewModel(Cursor data) {
+        this.id = data.getInt(SQLUtils.INDEX_COLUMN_ID);
+        this.title = data.getString(SQLUtils.INDEX_COLUMN_TITLE);
+        this.titleImagePath = data.getString(SQLUtils.INDEX_COLUMN_TITLE_IMAGE_PATH);
     }
 
     public String getTitle() {

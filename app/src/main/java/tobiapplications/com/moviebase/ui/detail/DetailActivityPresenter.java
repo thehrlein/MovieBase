@@ -20,7 +20,7 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
 public class DetailActivityPresenter implements DetailActivityContract.Presenter {
 
     private DetailActivity parent;
-    private int movieId;
+    private int id;
     private MovieDetailResponse clickedMovie;
     private SeriesDetailResponse clickedSerie;
     private boolean isMarkedAsFavorite = false;
@@ -30,9 +30,9 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     private Context context;
     private Constants.OverviewType overviewType;
 
-    public DetailActivityPresenter(DetailActivity activity, int movieId, Context context, Constants.OverviewType overviewType) {
+    public DetailActivityPresenter(DetailActivity activity, int id, Context context, Constants.OverviewType overviewType) {
         this.parent = activity;
-        this.movieId = movieId;
+        this.id = id;
         this.context = context;
         this.overviewType = overviewType;
 
@@ -49,12 +49,12 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     }
 
     private void requestSingleSerieDownload() {
-        DataManager.getInstance().requestSingleSerie(this, movieId);
+        DataManager.getInstance().requestSingleSerie(this, id);
     }
 
     @Override
     public void requestSingleMovieDownload() {
-        DataManager.getInstance().requestSingleMovie(this, movieId);
+        DataManager.getInstance().requestSingleMovie(this, id);
     }
 
     @Override
@@ -103,36 +103,44 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     }
 
     private void handleFabClickForMovie() {
-        if (clickedMovie != null) {
-            if (!isMarkedAsFavorite) {
-                isMarkedAsFavorite = true;
-                parent.markFabAsFavorite();
-                parent.showMarkAsFavoriteToast(clickedMovie.getTitle());
-                insertIntoDatabase(overviewType);
-            } else {
-                isMarkedAsFavorite = false;
-                parent.unMarkFabFromFavorite();
-                parent.showRemovedFromFavoriteToast(clickedMovie.getTitle());
+        if (clickedMovie == null) {
+            return;
+        }
 
-                SQLUtils.deleteCurrentMovieFromFavoriteDatabase(context, clickedMovie.getId());
-            }
+        if (!isMarkedAsFavorite) {
+            isMarkedAsFavorite = true;
+            markAsFavorite(clickedMovie.getTitle());
+        } else {
+            isMarkedAsFavorite = false;
+            unmarkFromFavorite(clickedMovie.getTitle(), clickedMovie.getId());
         }
     }
 
-    private void handleFabClickForSerie() {
-        if (clickedSerie != null) {
-            if (!isMarkedAsFavorite) {
-                isMarkedAsFavorite = true;
-                parent.markFabAsFavorite();
-                parent.showMarkAsFavoriteToast(clickedSerie.getName());
-                insertIntoDatabase(overviewType);
-            } else {
-                isMarkedAsFavorite = false;
-                parent.unMarkFabFromFavorite();
-                parent.showRemovedFromFavoriteToast(clickedSerie.getName());
+    private void markAsFavorite(String message) {
+        parent.markFabAsFavorite();
+        parent.showMarkAsFavoriteToast(message);
+        insertIntoDatabase(overviewType);
+    }
 
-                SQLUtils.deleteCurrentSerieFromFavoriteDatabase(context, clickedSerie.getId());
-            }
+    private void unmarkFromFavorite(String message, int id) {
+        parent.unMarkFabFromFavorite();
+        parent.showRemovedFromFavoriteToast(message);
+
+        SQLUtils.deleteFromDataBase(context, id, overviewType);
+    }
+
+    private void handleFabClickForSerie() {
+        if (clickedSerie == null) {
+            return;
+        }
+
+        if (!isMarkedAsFavorite) {
+            isMarkedAsFavorite = true;
+            markAsFavorite(clickedSerie.getName());
+
+        } else {
+            isMarkedAsFavorite = false;
+            unmarkFromFavorite(clickedSerie.getName(), clickedSerie.getId());
         }
     }
 
@@ -152,9 +160,9 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     @Override
     public void setFabDependingOnFavoriteStatus() {
         if (overviewType == Constants.OverviewType.MOVIES) {
-            isMarkedAsFavorite = SQLUtils.checkIfMovieIsMarkedAsFavorite(context, movieId);
+            isMarkedAsFavorite = SQLUtils.checkIfMovieIsMarkedAsFavorite(context, id);
         } else {
-            isMarkedAsFavorite = SQLUtils.checkIfSerieIsMarkedAsFavorite(context, movieId);
+            isMarkedAsFavorite = SQLUtils.checkIfSerieIsMarkedAsFavorite(context, id);
         }
 
         parent.setFabButtonVisible();

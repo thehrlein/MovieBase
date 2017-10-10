@@ -26,13 +26,7 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
                 MoviesContract.MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 MoviesContract.MovieEntry.COLUMN_ID + " TEXT NOT NULL, " +
                 MoviesContract.MovieEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
-                MoviesContract.MovieEntry.COLUMN_TITLE_POSTER_PATH + " TEXT NOT NULL, " +
-                MoviesContract.MovieEntry.COLUMN_BACKDROP_IMAGE_PATH + " TEXT NOT NULL, " +
-                MoviesContract.MovieEntry.COLUMN_YEAR + " TEXT NOT NULL, " +
-                MoviesContract.MovieEntry.COLUMN_RATING + " TEXT NOT NULL, " +
-                MoviesContract.MovieEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
-                MoviesContract.MovieEntry.COLUMN_GENRES + " TEXT NOT NULL, " +
-                MoviesContract.MovieEntry.COLUMN_ADULT + " TEXT NOT NULL);";
+                MoviesContract.MovieEntry.COLUMN_TITLE_POSTER_PATH + " TEXT NOT NULL);";
 
         db.execSQL(SQL_CREATE_MOVIE_TABLE);
     }
