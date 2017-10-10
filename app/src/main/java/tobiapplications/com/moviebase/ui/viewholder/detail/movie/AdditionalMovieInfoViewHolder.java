@@ -61,8 +61,7 @@ public class AdditionalMovieInfoViewHolder extends RecyclerView.ViewHolder imple
     }
 
     private void hideHomepageLine() {
-        bind.link.setVisibility(View.GONE);
-        bind.homepageLabel.setVisibility(View.GONE);
+        bind.homepageLayout.setVisibility(View.GONE);
     }
 
     private String formatMoney(int budget) {

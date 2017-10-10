@@ -50,8 +50,7 @@ public class AdditionalSerieInfoViewHolder extends RecyclerView.ViewHolder imple
     }
 
     private void hideHomepageLine() {
-        bind.link.setVisibility(View.GONE);
-        bind.homepageLabel.setVisibility(View.GONE);
+        bind.homepageLayout.setVisibility(View.GONE);
     }
 
     private void setGenresLayout(ArrayList<Genre> genres) {
