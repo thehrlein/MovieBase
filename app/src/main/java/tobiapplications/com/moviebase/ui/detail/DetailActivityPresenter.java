@@ -12,6 +12,7 @@ import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
+import tobiapplications.com.moviebase.utils.StringUtils;
 
 /**
  * Created by Tobias on 11.06.2017.
@@ -85,11 +86,20 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
 
     @Override
     public void openToolbarImage() {
-        if (clickedMovie != null && clickedMovie.getBackgroundImagePath() != null){
-            new ImageViewer.Builder(parent, new String[]{NetworkUtils.getFullImageUrlHigh(clickedMovie.getBackgroundImagePath())})
-                    .setStartPosition(0)
-                    .show();
+        String imageUrl;
+        if (overviewType == Constants.OverviewType.MOVIES && clickedMovie != null
+                && !StringUtils.nullOrEmpty(clickedMovie.getBackgroundImagePath())) {
+            imageUrl = clickedMovie.getBackgroundImagePath();
+        } else if (overviewType == Constants.OverviewType.SERIES && clickedSerie != null
+                && !StringUtils.nullOrEmpty(clickedSerie.getBackgroundImage())){
+            imageUrl = clickedSerie.getBackgroundImage();
+        } else {
+            return;
         }
+
+        new ImageViewer.Builder(parent, new String[]{NetworkUtils.getFullImageUrlHigh(imageUrl)})
+                .setStartPosition(0)
+                .show();
     }
 
     @Override
