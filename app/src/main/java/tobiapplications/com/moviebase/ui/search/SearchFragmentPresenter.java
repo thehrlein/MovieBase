@@ -65,12 +65,20 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
             int id = model.getId();
             String title = getTitle(model);
             String imagePath = model.getTitleImagePath();
-            String releaseDate = model.getReleaseDate();
+            String releaseDate = getReleaseDate(model);
             SearchMovieItem item = new SearchMovieItem(id, title, imagePath, releaseDate);
             searchMovieItems.add(item);
         }
 
         return searchMovieItems;
+    }
+
+    private String getReleaseDate(MovieOverviewModel model) {
+        if (overviewType == Constants.OverviewType.MOVIES) {
+            return model.getReleaseDate();
+        } else {
+            return model.getFirstAirDate();
+        }
     }
 
     private String getTitle(MovieOverviewModel model) {
