@@ -21,7 +21,7 @@ public class OverviewCallback implements Callback<MovieOverviewResponse> {
     @Override
     public void onResponse(Call<MovieOverviewResponse> call, Response<MovieOverviewResponse> response) {
         if (response.isSuccessful()) {
-            listener.displayMovies(response.body());
+            listener.displayPosterItems(response.body());
         } else {
             listener.displayError("OverviewCallback " + response.message());
         }

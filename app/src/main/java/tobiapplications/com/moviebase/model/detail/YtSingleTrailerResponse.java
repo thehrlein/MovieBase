@@ -48,10 +48,10 @@ public class YtSingleTrailerResponse implements Serializable {
     }
 
     public YtTrailerStatistic getStatistics() {
-        if (snippetNullOrEmpty()) {
+        if (itemNullOrEmpty()) {
             return null;
         }
-        return getItem().getSnippet().getTrailerStatistic();
+        return getItem().getTrailerStatistic();
     }
 
     public String getTitle() {
@@ -65,9 +65,15 @@ public class YtSingleTrailerResponse implements Serializable {
 
         @SerializedName("snippet")
         private YtSnippet snippet;
+        @SerializedName("statistics")
+        private YtTrailerStatistic trailerStatistic;
 
         public YtSnippet getSnippet() {
             return snippet;
+        }
+
+        public YtTrailerStatistic getTrailerStatistic() {
+            return trailerStatistic;
         }
 
         private class YtSnippet implements Serializable {
@@ -76,8 +82,6 @@ public class YtSingleTrailerResponse implements Serializable {
             private String title;
             @SerializedName("thumbnails")
             private YtThumbnailObject thumbnailObject;
-            @SerializedName("statistics")
-            private YtTrailerStatistic trailerStatistic;
 
             public String getTitle() {
                 return title;
@@ -87,9 +91,7 @@ public class YtSingleTrailerResponse implements Serializable {
                 return thumbnailObject;
             }
 
-            public YtTrailerStatistic getTrailerStatistic() {
-                return trailerStatistic;
-            }
+
         }
     }
 }

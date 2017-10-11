@@ -52,7 +52,7 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
         bind = FragmentOverviewTabBinding.inflate(inflater);
         presenter = new TopRatedPresenter(this, context);
         overviewType = getOverviewType(getArguments());
-        presenter.loadMovies(overviewType);
+        presenter.load(overviewType);
         return bind.getRoot();
     }
 
@@ -121,7 +121,7 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
 
     @Override
     public void loadMoreMovies() {
-        presenter.loadMoreMovies();
+        presenter.loadMore();
     }
 
     @Override

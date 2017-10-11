@@ -189,7 +189,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     }
 
     @Override
-    public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
+    public void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
         if (movieOverviewResponse.getTotalResults() != 0) {
             ArrayList<MoviePosterItem> moviePosters;
 

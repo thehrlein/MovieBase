@@ -6,7 +6,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import java.text.NumberFormat;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 import tobiapplications.com.moviebase.R;
 
@@ -44,4 +46,12 @@ public class GeneralUtils {
         return goBackCounter;
     }
 
+    public static String formatThousands(int number) {
+        return NumberFormat.getNumberInstance(Locale.GERMAN).format(number);
+    }
+
+    public static String formatThousands(String number) {
+        int value = Integer.valueOf(number);
+        return NumberFormat.getNumberInstance(Locale.GERMAN).format(value);
+    }
 }

@@ -26,7 +26,7 @@ public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
     }
 
     @Override
-    public void loadMovies(Constants.OverviewType overviewType) {
+    public void load(Constants.OverviewType overviewType) {
         this.overviewType = overviewType;
         if (hasInternetConnection()) {
             if (noMoviesShown()) {
@@ -37,7 +37,7 @@ public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
         } else {
             parent.showLoading(false);
             parent.showNetworkError(true);
-            new Handler().postDelayed(()-> loadMovies(overviewType), 3000);
+            new Handler().postDelayed(()-> load(overviewType), 3000);
         }
     }
 
@@ -80,13 +80,13 @@ public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
     }
 
     @Override
-    public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
+    public void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
         parent.showLoading(false);
         parent.setMovies(movieOverviewResponse.getMovies());
     }
 
     @Override
-    public void loadMoreMovies() {
+    public void loadMore() {
         parent.insertLoadingItem();
 
         requestDownload();

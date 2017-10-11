@@ -10,8 +10,11 @@ import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
 
+import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ViewTrailerItemBinding;
+import tobiapplications.com.moviebase.model.detail.YtTrailerStatistic;
 import tobiapplications.com.moviebase.model.detail.items.movie.TrailerItem;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
@@ -48,13 +51,26 @@ public class TrailerView extends LinearLayout implements View.OnClickListener{
     }
 
     public void setTrailerInformation(TrailerItem trailerItem) {
-        bind.trailerTitle.setText(trailerItem.getTitle());
         this.trailerKey = trailerItem.getKey();
+        bind.trailerTitle.setText(trailerItem.getTitle());
+
+        setUpStatistics(trailerItem.getStatistics());
+
 
         Picasso.with(context).load(trailerItem.getThumbnails().getDefaultThumb().getUrl()).into(bind.trailerImage);
 
         divider = new DividerView(context);
         bind.trailerViewLayout.addView(divider);
+    }
+
+    private void setUpStatistics(YtTrailerStatistic statistics) {
+        if (statistics == null) {
+            return;
+        }
+
+        bind.thumbsUpCount.setText(GeneralUtils.formatThousands(statistics.getLikeCount()));
+        bind.thumbsDownCount.setText(GeneralUtils.formatThousands(statistics.getDislikeCount()));
+        bind.watchCount.setText(GeneralUtils.formatThousands(statistics.getViewCount()));
     }
 
     public void hideDivider() {

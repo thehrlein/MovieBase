@@ -54,7 +54,7 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
         presenter = new PopularPresenter(this, context);
         overviewType = getOverviewType(getArguments());
 
-        presenter.loadMovies(overviewType);
+        presenter.load(overviewType);
 
         return bind.getRoot();
     }
@@ -126,7 +126,7 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
 
     @Override
     public void loadMoreMovies() {
-        presenter.loadMoreMovies();
+        presenter.loadMore();
     }
 
     @Override

@@ -27,12 +27,12 @@ public interface OverviewTabFragmentContract {
     }
 
     interface Presenter extends OnOverviewMovieLoadListener {
-        void loadMovies(Constants.OverviewType overviewType);
+        void load(Constants.OverviewType overviewType);
         void requestDownload();
         boolean noMoviesShown();
         boolean hasInternetConnection();
         void isConnectedToInternet(boolean connected);
-        void loadMoreMovies();
+        void loadMore();
     }
 
     interface DatabaseView extends LoaderManager.LoaderCallbacks<Cursor>, OnMovieClickListener {

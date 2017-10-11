@@ -9,6 +9,6 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 public interface OnOverviewMovieLoadListener {
     void requestMoviesDownload();
     void requestSeriesDownload();
-    void displayMovies(MovieOverviewResponse movieOverviewResponse);
+    void displayPosterItems(MovieOverviewResponse movieOverviewResponse);
     void displayError(String message);
 }

@@ -53,7 +53,7 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
     }
 
     @Override
-    public void displayMovies(MovieOverviewResponse movieOverviewResponse) {
+    public void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
         parent.setDownloadFinished();
         ArrayList<DisplayableItem> searchMovieItems = getSearchMovieItems(movieOverviewResponse);
         parent.setSearchMovies(searchMovieItems);
