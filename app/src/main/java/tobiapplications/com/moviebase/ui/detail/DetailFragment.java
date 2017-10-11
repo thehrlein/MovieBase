@@ -74,7 +74,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         super.onViewCreated(view, savedInstanceState);
         mContext = getContext();
         parseArguments(getArguments());
-        adapter = new DetailAdapter(mContext, overviewType);
+        adapter = new DetailAdapter(overviewType);
         presenter = new DetailFragmentPresenter(mContext, this, overviewType);
 
         presenter.init(overviewType, detailMovie, detailSerie);

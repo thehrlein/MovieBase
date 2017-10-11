@@ -23,16 +23,10 @@ import tobiapplications.com.moviebase.utils.Constants;
 
 public class PosterDelegate extends AdapterDelegate<List<DisplayableItem>> {
 
-    private Context context;
-    private LayoutInflater inflater;
     private OnMovieClickListener movieClickListener;
-    private Constants.OverviewType overviewType;
 
-    public PosterDelegate(Context context, OnMovieClickListener movieClickListener) {
-        this.context = context;
+    public PosterDelegate(OnMovieClickListener movieClickListener) {
         this.movieClickListener = movieClickListener;
-        this.overviewType = overviewType;
-        inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -43,8 +37,8 @@ public class PosterDelegate extends AdapterDelegate<List<DisplayableItem>> {
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new MovieHolder(inflater.inflate(R.layout.item_movie, parent, false), movieClickListener);
-
+        return new MovieHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_movie, parent, false), movieClickListener);
     }
 
     @Override

@@ -14,7 +14,6 @@ import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.search.SearchMovieItem;
 import tobiapplications.com.moviebase.ui.viewholder.SearchMovieViewHolder;
-import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias Hehrlein on 11.10.2017.
@@ -36,7 +35,8 @@ public class SearchMovieDelegate extends AdapterDelegate<List<DisplayableItem>> 
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new SearchMovieViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.search_list_item, parent, false), parent.getContext(), mClickListener);
+        return new SearchMovieViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.search_list_item, parent, false), parent.getContext(), mClickListener);
     }
 
     @Override

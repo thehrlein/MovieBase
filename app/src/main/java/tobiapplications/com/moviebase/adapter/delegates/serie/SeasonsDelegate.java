@@ -1,6 +1,5 @@
 package tobiapplications.com.moviebase.adapter.delegates.serie;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,12 +20,6 @@ import tobiapplications.com.moviebase.ui.viewholder.detail.serie.SeasonsHolder;
 
 public class SeasonsDelegate extends AdapterDelegate<List<DisplayableItem>> {
 
-    private Context context;
-
-    public SeasonsDelegate(Context context) {
-    this.context = context;
-    }
-
     @Override
     protected boolean isForViewType(@NonNull List<DisplayableItem> items, int position) {
         return items.get(position) instanceof SeasonsItem;
@@ -35,7 +28,8 @@ public class SeasonsDelegate extends AdapterDelegate<List<DisplayableItem>> {
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new SeasonsHolder(LayoutInflater.from(context).inflate(R.layout.detail_seasons_holder, parent, false), context);
+        return new SeasonsHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.detail_seasons_holder, parent, false), parent.getContext());
     }
 
     @Override

@@ -92,21 +92,14 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         bind.recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new OverviewTabAdapter(context, bind.recyclerView, this);
+        adapter = new OverviewTabAdapter(bind.recyclerView, this);
         bind.recyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void setMovies(ArrayList<MovieOverviewModel> movies) {
+    public void setPosterItems(ArrayList<MovieOverviewModel> movies) {
         adapter.removeLoadingItem();
-        adapter.setMovies(movies);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void setSeries(ArrayList<MovieOverviewModel> series) {
-        adapter.removeLoadingItem();
-        adapter.setSeries(series);
+        adapter.setPosterItems(movies);
         adapter.notifyDataSetChanged();
     }
 
@@ -150,13 +143,13 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         int id = loader.getId();
-        Constants.OverviewType overviewType = id == MOVIE_CURSOR_LOADER_ID ? Constants.OverviewType.MOVIES : Constants.OverviewType.SERIES;
-        presenter.onDatabaseLoadFinished(data, overviewType);
+//        Constants.OverviewType overviewType = id == MOVIE_CURSOR_LOADER_ID ? Constants.OverviewType.MOVIES : Constants.OverviewType.SERIES;
+        presenter.onDatabaseLoadFinished(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        adapter.setMovies(null);
+        adapter.setPosterItems(null);
     }
 
     @Override
@@ -173,7 +166,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
         super.onResume();
         LocalBroadcastManager.getInstance(context).registerReceiver(movieInsertedIntoDatabase, new IntentFilter(Constants.MOVIE_INSERT_TO_DATABASE));
         LocalBroadcastManager.getInstance(context).registerReceiver(serieInsertedIntoDatabase, new IntentFilter(Constants.SERIE_INSERT_TO_DATABASE));
-        setMovies(null);
+        setPosterItems(null);
         startLoader(overviewType);
     }
 

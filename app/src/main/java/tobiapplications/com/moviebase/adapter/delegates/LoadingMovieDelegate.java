@@ -1,6 +1,5 @@
 package tobiapplications.com.moviebase.adapter.delegates;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,14 +20,6 @@ import tobiapplications.com.moviebase.ui.viewholder.overview.LoadingHolder;
 
 public class LoadingMovieDelegate extends AdapterDelegate<List<DisplayableItem>> {
 
-    private Context context;
-    private LayoutInflater inflater;
-
-    public LoadingMovieDelegate(Context context) {
-        this.context = context;
-        inflater = LayoutInflater.from(context);
-    }
-
     @Override
     protected boolean isForViewType(@NonNull List<DisplayableItem> items, int position) {
         return items.get(position) instanceof LoadingItem;
@@ -37,11 +28,12 @@ public class LoadingMovieDelegate extends AdapterDelegate<List<DisplayableItem>>
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new LoadingHolder(inflater.inflate(R.layout.item_movie_loading, parent, false));
+        return new LoadingHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_movie_loading, parent, false));
     }
 
     @Override
     protected void onBindViewHolder(@NonNull List<DisplayableItem> items, int position, @NonNull RecyclerView.ViewHolder holder, @NonNull List<Object> payloads) {
-
+        // not needed
     }
 }

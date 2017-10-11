@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -23,13 +24,11 @@ public class OverviewAdapter extends FragmentStatePagerAdapter {
 
     private final static int COUNT = 3;
     private final ArrayList<String> tabTitles = new ArrayList<>();
-    private HashMap<Integer, Fragment> tabs;
     private Constants.OverviewType overviewType;
 
     public OverviewAdapter(FragmentManager fm, Context context, Constants.OverviewType overviewType) {
         super(fm);
         this.overviewType = overviewType;
-        tabs = new HashMap<>();
         configureTitles(context);
     }
 
@@ -63,6 +62,7 @@ public class OverviewAdapter extends FragmentStatePagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         Object object = super.instantiateItem(container, position);
+        SparseArray<Fragment> tabs = new SparseArray<>();
         if (object instanceof PopularFragment) {
             tabs.put(0, (Fragment) object);
         } else if (object instanceof TopRatedFragment) {

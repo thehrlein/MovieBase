@@ -80,7 +80,7 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         bind.recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new OverviewTabAdapter(context, bind.recyclerView, this);
+        adapter = new OverviewTabAdapter(bind.recyclerView, this);
         adapter.setOnLoadMoreMoviesListener(this);
         bind.recyclerView.setAdapter(adapter);
     }
@@ -96,7 +96,7 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
     @Override
     public void setMovies(ArrayList<MovieOverviewModel> movies) {
         adapter.removeLoadingItem();
-        adapter.setMovies(movies);
+        adapter.setPosterItems(movies);
         adapter.notifyDataSetChanged();
     }
 

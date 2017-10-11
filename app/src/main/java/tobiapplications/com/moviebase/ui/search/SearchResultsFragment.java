@@ -98,7 +98,7 @@ public class SearchResultsFragment extends Fragment implements SearchFragmentCon
     @Override
     public void setAdapter() {
         bind.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        searchMovieAdapter = new SearchMovieAdapter(context, this);
+        searchMovieAdapter = new SearchMovieAdapter(this);
 
         bind.recyclerView.setAdapter(searchMovieAdapter);
     }

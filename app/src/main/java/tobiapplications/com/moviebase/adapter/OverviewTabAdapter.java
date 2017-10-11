@@ -1,6 +1,5 @@
 package tobiapplications.com.moviebase.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
@@ -24,33 +23,29 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 
 public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final RecyclerView mRecyclerView;
     private OnLoadMoreMoviesListener movieLoadListener;
-    private final GridLayoutManager mGridLayoutManager;
     private boolean triggerLoadMoreMovies = true;
     private final int MOVIE_SPAN = 1;
     private final int LOADING_SPAN = 2;
-
     private AdapterDelegatesManager<List<DisplayableItem>> delegatesManager;
-    private List<DisplayableItem> items;
+    private List<DisplayableItem> itemList;
 
-    public OverviewTabAdapter(Context context, RecyclerView recyclerView, OnMovieClickListener movieClickListener) {
-        this.mRecyclerView = recyclerView;
-        this.items = new ArrayList<>();
-        setRecyclerViewScrollListener();
-        mGridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
-        mGridLayoutManager.setSpanSizeLookup(spanSizeLookupBuilder());
+    public OverviewTabAdapter(RecyclerView recyclerView, OnMovieClickListener movieClickListener) {
+        this.itemList = new ArrayList<>();
+        GridLayoutManager gridLayoutManager = (GridLayoutManager) recyclerView.getLayoutManager();
+        gridLayoutManager.setSpanSizeLookup(spanSizeLookupBuilder());
+        setRecyclerViewScrollListener(recyclerView, gridLayoutManager);
 
         delegatesManager = new AdapterDelegatesManager<>();
-        delegatesManager.addDelegate(new PosterDelegate(context, movieClickListener));
-        delegatesManager.addDelegate(new LoadingMovieDelegate(context));
+        delegatesManager.addDelegate(new PosterDelegate(movieClickListener));
+        delegatesManager.addDelegate(new LoadingMovieDelegate());
     }
 
     private GridLayoutManager.SpanSizeLookup spanSizeLookupBuilder() {
         return new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                DisplayableItem item = items.get(position);
+                DisplayableItem item = itemList.get(position);
                 if (item instanceof MovieOverviewModel) {
                     return MOVIE_SPAN;
                 } else if (item instanceof LoadingItem){
@@ -62,12 +57,12 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         };
     }
 
-    private void setRecyclerViewScrollListener() {
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+    private void setRecyclerViewScrollListener(RecyclerView recyclerView, GridLayoutManager gridLayoutManager) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (isListEndReached()) {
+                if (isListEndReached(gridLayoutManager)) {
                     if (triggerLoadMoreMovies) {
                         loadMoreMovies();
                     }
@@ -83,20 +78,20 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        delegatesManager.onBindViewHolder(items, position, holder);
+        delegatesManager.onBindViewHolder(itemList, position, holder);
     }
 
     @Override
     public int getItemCount() {
-        if (items != null && !items.isEmpty()) {
-            return items.size();
+        if (itemList == null || itemList.isEmpty()) {
+            return 0;
         }
-        return 0;
+        return itemList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return delegatesManager.getItemViewType(items, position);
+        return delegatesManager.getItemViewType(itemList, position);
     }
 
     private void loadMoreMovies() {
@@ -107,30 +102,30 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void insertLoadingItem() {
-        items.add(new LoadingItem());
-        notifyItemInserted(items.size() - 1);
+        itemList.add(new LoadingItem());
+        notifyItemInserted(itemList.size() - 1);
     }
 
-    private boolean isListEndReached() {
-        int visibleItemCount = mGridLayoutManager.getChildCount();
-        int totalItemCount = mGridLayoutManager.getItemCount();
-        int pastVisibleItems = mGridLayoutManager.findFirstVisibleItemPosition();
+    private boolean isListEndReached(GridLayoutManager gridLayoutManager) {
+        int visibleItemCount = gridLayoutManager.getChildCount();
+        int totalItemCount = gridLayoutManager.getItemCount();
+        int pastVisibleItems = gridLayoutManager.findFirstVisibleItemPosition();
 
         return pastVisibleItems + visibleItemCount >= totalItemCount;
     }
 
-    public void setMovies(ArrayList<MovieOverviewModel> movies) {
+    public void setPosterItems(ArrayList<MovieOverviewModel> movies) {
         if (movies != null) {
-            items.addAll(movies);
+            itemList.addAll(movies);
             triggerLoadMoreMovies = true;
-            notifyItemRangeChanged(items.size() - movies.size(), movies.size());
+            notifyItemRangeChanged(itemList.size() - movies.size(), movies.size());
         } else {
             resetList();
         }
     }
 
     private void resetList() {
-        items.clear();
+        itemList.clear();
         notifyDataSetChanged();
     }
 
@@ -139,22 +134,12 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void removeLoadingItem() {
-        for (DisplayableItem item : items) {
-            if ((item instanceof LoadingItem)) {
-                int index = items.indexOf(item);
-                items.remove(index);
-                notifyItemRangeChanged(index, items.size() - index);
+        for (DisplayableItem item : itemList) {
+            if (item instanceof LoadingItem) {
+                int index = itemList.indexOf(item);
+                itemList.remove(index);
+                notifyItemRangeChanged(index, itemList.size() - index);
             }
-        }
-    }
-
-    public void setSeries(ArrayList<MovieOverviewModel> series) {
-        if (series != null) {
-            items.addAll(series);
-            triggerLoadMoreMovies = true;
-            notifyItemRangeChanged(items.size() - series.size(), series.size());
-        } else {
-            resetList();
         }
     }
 }

@@ -26,7 +26,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<DisplayableItem> items;
     private AdapterDelegatesManager<List<DisplayableItem>> delegatesManager;
 
-    public SearchMovieAdapter(Context mContext, OnMovieClickListener clickListener) {
+    public SearchMovieAdapter(OnMovieClickListener clickListener) {
         items = new ArrayList<>();
         delegatesManager = new AdapterDelegatesManager<>();
         delegatesManager.addDelegate(new SearchMovieDelegate(clickListener));
@@ -41,7 +41,6 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         delegatesManager.onBindViewHolder(items, position, holder);
     }
-
 
     @Override
     public int getItemCount() {

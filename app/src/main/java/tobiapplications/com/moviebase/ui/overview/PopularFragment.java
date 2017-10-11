@@ -83,7 +83,7 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         bind.recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new OverviewTabAdapter(context, bind.recyclerView, this);
+        adapter = new OverviewTabAdapter(bind.recyclerView, this);
         adapter.setOnLoadMoreMoviesListener(this);
         bind.recyclerView.setAdapter(adapter);
     }
@@ -100,7 +100,7 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
     public void setMovies(ArrayList<MovieOverviewModel> movies) {
         bind.loadingTextview.setVisibility(View.GONE);
         adapter.removeLoadingItem();
-        adapter.setMovies(movies);
+        adapter.setPosterItems(movies);
         adapter.notifyDataSetChanged();
     }
 

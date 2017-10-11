@@ -30,25 +30,23 @@ import tobiapplications.com.moviebase.utils.Constants;
 
 public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context;
     private List<DisplayableItem> itemList;
     private AdapterDelegatesManager<List<DisplayableItem>> delegatesManager;
 
-    public DetailAdapter(Context context, Constants.OverviewType overviewType) {
-        this.context = context;
+    public DetailAdapter(Constants.OverviewType overviewType) {
         itemList = new ArrayList<>();
 
         delegatesManager = new AdapterDelegatesManager<>();
-        delegatesManager.addDelegate(new MovieInfoDelegate(context));
-        delegatesManager.addDelegate(new SerieInfoDelegate(context));
-        delegatesManager.addDelegate(new SummaryViewDelegate(context));
-        delegatesManager.addDelegate(new AdditionalMovieInfoDelegate(context));
-        delegatesManager.addDelegate(new AdditionalSerieInfoDelegate(context));
-        delegatesManager.addDelegate(new SimilarMovieDelegate(context, overviewType));
-        delegatesManager.addDelegate(new ReviewsDelegate(context));
-        delegatesManager.addDelegate(new ActorsDelegate(context));
-        delegatesManager.addDelegate(new TrailersDelegate(context));
-        delegatesManager.addDelegate(new SeasonsDelegate(context));
+        delegatesManager.addDelegate(new MovieInfoDelegate());
+        delegatesManager.addDelegate(new SerieInfoDelegate());
+        delegatesManager.addDelegate(new SummaryViewDelegate());
+        delegatesManager.addDelegate(new AdditionalMovieInfoDelegate());
+        delegatesManager.addDelegate(new AdditionalSerieInfoDelegate());
+        delegatesManager.addDelegate(new SimilarMovieDelegate(overviewType));
+        delegatesManager.addDelegate(new ReviewsDelegate());
+        delegatesManager.addDelegate(new ActorsDelegate());
+        delegatesManager.addDelegate(new TrailersDelegate());
+        delegatesManager.addDelegate(new SeasonsDelegate());
     }
 
     @Override
@@ -63,10 +61,10 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        if (itemList != null && !itemList.isEmpty()) {
-            return itemList.size();
+        if (itemList == null || itemList.isEmpty()) {
+            return 0;
         }
-        return 0;
+        return itemList.size();
     }
 
     @Override

@@ -21,12 +21,6 @@ import tobiapplications.com.moviebase.ui.viewholder.detail.SummaryViewHolder;
 
 public class SummaryViewDelegate extends AdapterDelegate<List<DisplayableItem>> {
 
-    private Context context;
-
-    public SummaryViewDelegate(Context context) {
-        this.context = context;
-    }
-
     @Override
     protected boolean isForViewType(@NonNull List<DisplayableItem> items, int position) {
         return items.get(position) instanceof SummaryItem;
@@ -35,7 +29,8 @@ public class SummaryViewDelegate extends AdapterDelegate<List<DisplayableItem>> 
     @NonNull
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new SummaryViewHolder(LayoutInflater.from(context).inflate(R.layout.detail_summary_holder, parent, false));
+        return new SummaryViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.detail_summary_holder, parent, false));
 
     }
 
