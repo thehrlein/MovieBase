@@ -21,14 +21,14 @@ import tobiapplications.com.moviebase.utils.Constants;
  * Created by Tobias on 04.09.2017.
  */
 
-public class MovieDelegate extends AdapterDelegate<List<DisplayableItem>> {
+public class PosterDelegate extends AdapterDelegate<List<DisplayableItem>> {
 
     private Context context;
     private LayoutInflater inflater;
     private OnMovieClickListener movieClickListener;
     private Constants.OverviewType overviewType;
 
-    public MovieDelegate(Context context, OnMovieClickListener movieClickListener) {
+    public PosterDelegate(Context context, OnMovieClickListener movieClickListener) {
         this.context = context;
         this.movieClickListener = movieClickListener;
         this.overviewType = overviewType;

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.adapter.OverviewTabAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentOverviewTabBinding;
-import tobiapplications.com.moviebase.listener.OnOverviewResponseLoadedListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
@@ -31,11 +30,9 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
     private Context context;
     private PopularPresenter presenter;
     private OverviewTabAdapter adapter;
-    private static OnOverviewResponseLoadedListener responseLoadedListener;
     private Constants.OverviewType overviewType;
 
-    public static Fragment newInstance(OnOverviewResponseLoadedListener responseLoaded, Constants.OverviewType overviewType) {
-        responseLoadedListener = responseLoaded;
+    public static Fragment newInstance(Constants.OverviewType overviewType) {
         PopularFragment popularFragment = new PopularFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
@@ -101,7 +98,6 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
 
     @Override
     public void setMovies(ArrayList<MovieOverviewModel> movies) {
-        responseLoadedListener.showAllViews();
         bind.loadingTextview.setVisibility(View.GONE);
         adapter.removeLoadingItem();
         adapter.setMovies(movies);

@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.listener.OnOverviewResponseLoadedListener;
 import tobiapplications.com.moviebase.ui.overview.OwnFavoriteFragment;
 import tobiapplications.com.moviebase.ui.overview.PopularFragment;
 import tobiapplications.com.moviebase.ui.overview.TopRatedFragment;
@@ -25,12 +24,10 @@ public class OverviewAdapter extends FragmentStatePagerAdapter {
     private final static int COUNT = 3;
     private final ArrayList<String> tabTitles = new ArrayList<>();
     private HashMap<Integer, Fragment> tabs;
-    private OnOverviewResponseLoadedListener responseLoadedListener;
     private Constants.OverviewType overviewType;
 
-    public OverviewAdapter(FragmentManager fm, Context context, OnOverviewResponseLoadedListener responseLoadedListener, Constants.OverviewType overviewType) {
+    public OverviewAdapter(FragmentManager fm, Context context, Constants.OverviewType overviewType) {
         super(fm);
-        this.responseLoadedListener = responseLoadedListener;
         this.overviewType = overviewType;
         tabs = new HashMap<>();
         configureTitles(context);
@@ -47,7 +44,7 @@ public class OverviewAdapter extends FragmentStatePagerAdapter {
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = PopularFragment.newInstance(responseLoadedListener, overviewType);
+                fragment = PopularFragment.newInstance(overviewType);
                 break;
             case 1:
                 fragment = TopRatedFragment.newInstance(overviewType);
@@ -56,7 +53,7 @@ public class OverviewAdapter extends FragmentStatePagerAdapter {
                 fragment = OwnFavoriteFragment.newInstance(overviewType);
                 break;
             default:
-                fragment = PopularFragment.newInstance(responseLoadedListener, overviewType);
+                fragment = PopularFragment.newInstance(overviewType);
                 break;
         }
 

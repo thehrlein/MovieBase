@@ -1,5 +1,6 @@
 package tobiapplications.com.moviebase.ui.overview;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
     private OverviewAdapter adapter;
     private Context context;
     private Constants.OverviewType overviewType;
+    private NavigationActivity activity;
 
     public static OverviewFragment newInstance(Constants.OverviewType overviewType) {
         OverviewFragment fragment = new OverviewFragment();
@@ -46,7 +48,6 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
         bind = FragmentOverviewBinding.inflate(inflater);
         context = bind.getRoot().getContext();
         overviewType = getOverViewType(getArguments());
-//        hideViewsOnLoading();
         return bind.getRoot();
     }
 
@@ -70,7 +71,8 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
     }
 
     private void init() {
-        adapter = new OverviewAdapter(getChildFragmentManager(), context, this, overviewType);
+        activity = (NavigationActivity) getActivity();
+        adapter = new OverviewAdapter(getChildFragmentManager(), context, overviewType);
         setupViewPager();
         bind.tabs.setupWithViewPager(bind.viewpager);
         setTitle();
@@ -105,27 +107,9 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
     }
 
     @Override
-    public void showAllViews() {
-        bind.viewpager.disableSwipe(false);
-        bind.appBarLayout.setVisibility(View.VISIBLE);
-        bind.tabs.setVisibility(View.VISIBLE);
-    }
-
-    @Override
     public void setupViewPager() {
         bind.viewpager.disableSwipe(false);
         bind.viewpager.setOffscreenPageLimit(3);
         bind.viewpager.setAdapter(adapter);
-    }
-
-    private void hideViewsOnLoading() {
-        bind.viewpager.disableSwipe(true);
-        bind.tabs.setVisibility(View.INVISIBLE);
-        bind.appBarLayout.setVisibility(View.INVISIBLE);
-
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            getActivity().getWindow().setStatusBarColor(ContextCompat.getColor(context, android.R.color.transparent));
-        }
     }
 }

@@ -11,13 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tobiapplications.com.moviebase.adapter.delegates.LoadingMovieDelegate;
-import tobiapplications.com.moviebase.adapter.delegates.MovieDelegate;
+import tobiapplications.com.moviebase.adapter.delegates.PosterDelegate;
 import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.overview.LoadingItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
-import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -43,7 +42,7 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         mGridLayoutManager.setSpanSizeLookup(spanSizeLookupBuilder());
 
         delegatesManager = new AdapterDelegatesManager<>();
-        delegatesManager.addDelegate(new MovieDelegate(context, movieClickListener));
+        delegatesManager.addDelegate(new PosterDelegate(context, movieClickListener));
         delegatesManager.addDelegate(new LoadingMovieDelegate(context));
     }
 

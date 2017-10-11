@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ActivityNavigationBinding;
@@ -148,5 +149,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             transaction.replace(R.id.fragment_container, fragment, fragmentTag);
         }
         transaction.commit();
+    }
+
+    public void hideNav(boolean hide) {
+        bind.appBar.toolbar.setVisibility(hide ? View.GONE : View.VISIBLE);
     }
 }
