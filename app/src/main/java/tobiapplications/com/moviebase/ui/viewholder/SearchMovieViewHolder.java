@@ -12,6 +12,7 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.SearchListItemBinding;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.search.SearchMovieItem;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.DateUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
@@ -26,35 +27,26 @@ public class SearchMovieViewHolder extends RecyclerView.ViewHolder implements Vi
     private OnMovieClickListener movieClickListener;
     private int movieId;
     private Context context;
-    private Constants.OverviewType overviewType;
 
 
-    public SearchMovieViewHolder(View itemView, Context context, OnMovieClickListener movieClickListener, Constants.OverviewType overviewType) {
+    public SearchMovieViewHolder(View itemView, Context context, OnMovieClickListener movieClickListener) {
         super(itemView);
         this.context = context;
         this.movieClickListener = movieClickListener;
-        this.overviewType = overviewType;
         bind = SearchListItemBinding.bind(itemView);
         itemView.setOnClickListener(this);
     }
 
-    public void setSearchMovieInformation(MovieOverviewModel movie) {
+    public void setSearchMovieInformation(SearchMovieItem movie) {
         this.movieId = movie.getId();
 
-        bind.searchMovieTitle.setText(getTitle(movie));
-        if (movie.getTitleImagePath() != null) {
-            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(movie.getTitleImagePath())).into(bind.searchMovieImageView);
+        bind.searchMovieTitle.setText(movie.getTitle());
+        if (movie.getImagePath() != null) {
+            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(movie.getImagePath())).into(bind.searchMovieImageView);
         } else {
             bind.searchMovieImageView.setImageResource(R.drawable.no_picture);
         }
         bind.searchMovieReleaseDate.setText(DateUtils.getDMYFromYMD(movie.getReleaseDate()));
-    }
-
-    private String getTitle(MovieOverviewModel movie) {
-        if (overviewType == Constants.OverviewType.MOVIES) {
-            return movie.getTitle();
-        }
-        return movie.getName();
     }
 
     @Override

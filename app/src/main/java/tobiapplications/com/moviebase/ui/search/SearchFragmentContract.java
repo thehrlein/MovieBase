@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.DisplayableItem;
+import tobiapplications.com.moviebase.model.search.SearchMovieItem;
 import tobiapplications.com.moviebase.utils.Constants;
 
 /**
@@ -19,7 +20,7 @@ public interface SearchFragmentContract {
         void setDownloadIsActive();
         void setDownloadFinished();
         void setAdapter();
-        void setSearchMovies(ArrayList<MovieOverviewModel> movies);
+        void setSearchMovies(ArrayList<DisplayableItem> movies);
     }
 
     interface Presenter extends OnOverviewMovieLoadListener {

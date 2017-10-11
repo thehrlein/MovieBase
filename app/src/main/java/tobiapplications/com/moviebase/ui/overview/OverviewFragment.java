@@ -1,18 +1,15 @@
 package tobiapplications.com.moviebase.ui.overview;
 
-import android.app.ActionBar;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.adapter.delegates.OverviewAdapter;
+import tobiapplications.com.moviebase.adapter.OverviewAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentOverviewBinding;
 import tobiapplications.com.moviebase.ui.NavigationActivity;
 import tobiapplications.com.moviebase.utils.Constants;

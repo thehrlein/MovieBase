@@ -3,63 +3,62 @@ package tobiapplications.com.moviebase.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager;
 
-import tobiapplications.com.moviebase.R;
+import java.util.ArrayList;
+import java.util.List;
+
+import tobiapplications.com.moviebase.adapter.delegates.SearchMovieDelegate;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
+import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
-import tobiapplications.com.moviebase.ui.viewholder.SearchMovieViewHolder;
+import tobiapplications.com.moviebase.model.search.SearchMovieItem;
 import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 01.04.2017.
  */
 
-public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieViewHolder> {
+public class SearchMovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<MovieOverviewModel> movies;
-    private OnMovieClickListener mClickListener;
-    private Context mContext;
-    private LayoutInflater mInflater;
-    private Constants.OverviewType overviewType;
+    private List<DisplayableItem> items;
+    private AdapterDelegatesManager<List<DisplayableItem>> delegatesManager;
 
-    public SearchMovieAdapter(Context mContext, Constants.OverviewType overviewType) {
-        this.mContext = mContext;
-        this.mInflater = LayoutInflater.from(mContext);
-        this.overviewType = overviewType;
+    public SearchMovieAdapter(Context mContext, OnMovieClickListener clickListener) {
+        items = new ArrayList<>();
+        delegatesManager = new AdapterDelegatesManager<>();
+        delegatesManager.addDelegate(new SearchMovieDelegate(clickListener));
     }
 
     @Override
-    public SearchMovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.search_list_item, parent, false);
-        SearchMovieViewHolder searchMovieViewHolder = new SearchMovieViewHolder(view, mContext, mClickListener, overviewType);
-        return searchMovieViewHolder;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return delegatesManager.onCreateViewHolder(parent, viewType);
     }
 
     @Override
-    public void onBindViewHolder(SearchMovieViewHolder holder, int position) {
-        MovieOverviewModel movie = movies.get(position);
-        holder.setSearchMovieInformation(movie);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        delegatesManager.onBindViewHolder(items, position, holder);
     }
 
-    public void setMovieClickListener(OnMovieClickListener movieClickListener) {
-        mClickListener = movieClickListener;
-    }
 
     @Override
     public int getItemCount() {
-        if (movies != null) {
-            return movies.size();
+        if (items == null || items.isEmpty()) {
+            return 0;
         }
 
-        return 0;
+        return items.size();
     }
 
-    public void setSearchMovies(ArrayList<MovieOverviewModel> movies) {
-        this.movies = movies;
+    @Override
+    public int getItemViewType(int position) {
+        return delegatesManager.getItemViewType(items, position);
+    }
+
+    public void setSearchMovies(ArrayList<DisplayableItem> movies) {
+        this.items = movies;
         notifyDataSetChanged();
     }
 }

@@ -1,4 +1,4 @@
-package tobiapplications.com.moviebase.adapter.delegates;
+package tobiapplications.com.moviebase.adapter;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

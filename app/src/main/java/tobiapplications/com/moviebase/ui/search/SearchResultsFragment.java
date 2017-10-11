@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.SearchMovieAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentSearchBinding;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.DisplayableItem;
+import tobiapplications.com.moviebase.model.search.SearchMovieItem;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
 
@@ -97,14 +98,13 @@ public class SearchResultsFragment extends Fragment implements SearchFragmentCon
     @Override
     public void setAdapter() {
         bind.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        searchMovieAdapter = new SearchMovieAdapter(context, overviewType);
+        searchMovieAdapter = new SearchMovieAdapter(context, this);
 
         bind.recyclerView.setAdapter(searchMovieAdapter);
-        searchMovieAdapter.setMovieClickListener(this);
     }
 
     @Override
-    public void setSearchMovies(ArrayList<MovieOverviewModel> movies) {
+    public void setSearchMovies(ArrayList<DisplayableItem> movies) {
         searchMovieAdapter.setSearchMovies(movies);
     }
 
