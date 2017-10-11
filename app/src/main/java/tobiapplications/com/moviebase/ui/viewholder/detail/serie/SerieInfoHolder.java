@@ -35,9 +35,6 @@ public class SerieInfoHolder extends RecyclerView.ViewHolder {
         bind.firstAirDate.setText(DateUtils.getDMYFromYMD(view.getFirstAirDate()));
         bind.adult.setText(getAdultString(view.isAdult()));
         bind.lastAirDate.setText(DateUtils.getDMYFromYMD(view.getLastAirDate()));
-        if (view.getStatus().equalsIgnoreCase(Constants.RELEASED))
-            bind.status.setVisibility(View.VISIBLE);
-        bind.status.setText(view.getStatus());
     }
 
     private String getAdultString(boolean adult) {

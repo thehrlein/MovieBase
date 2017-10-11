@@ -28,8 +28,6 @@ public class Actor implements Serializable {
     @SerializedName("profile_path")
     private String profilePath;
 
-
-
     public String getName() {
         return name;
     }

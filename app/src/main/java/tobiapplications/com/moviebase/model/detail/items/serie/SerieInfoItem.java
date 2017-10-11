@@ -13,15 +13,13 @@ public class SerieInfoItem implements DisplayableItem {
     private String firstAirDate;
     private String lastAirDate;
     private boolean adult;
-    private String status;
 
-    public SerieInfoItem(double voteAverage, int voteCount, String firstAirDate, String lastAirDate, boolean adult, String status) {
+    public SerieInfoItem(double voteAverage, int voteCount, String firstAirDate, String lastAirDate, boolean adult) {
         this.voteAverage = voteAverage;
         this.voteCount = voteCount;
         this.firstAirDate = firstAirDate;
         this.lastAirDate = lastAirDate;
         this.adult = adult;
-        this.status = status;
     }
 
     public double getVoteAverage() {
@@ -44,7 +42,4 @@ public class SerieInfoItem implements DisplayableItem {
         return adult;
     }
 
-    public String getStatus() {
-        return status;
-    }
 }

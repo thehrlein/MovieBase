@@ -149,9 +149,8 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         String firstAirDate = serie.getFirstAirDate();
         String lastAirTime = serie.getLastAirTime();
         boolean adult = serie.isAdult();
-        String status = serie.getStatus();
 
-        return new SerieInfoItem(voteAverage, voteCount, firstAirDate, lastAirTime, adult, status);
+        return new SerieInfoItem(voteAverage, voteCount, firstAirDate, lastAirTime, adult);
     }
 
     @Override
