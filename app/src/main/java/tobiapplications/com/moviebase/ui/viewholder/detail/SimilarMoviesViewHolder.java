@@ -26,9 +26,9 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
     private DetailSimilarMoviesHolderBinding bind;
     private Context context;
     private ArrayList<MoviePosterItem> movies;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
-    public SimilarMoviesViewHolder(View itemView, Context context, Constants.OverviewType overviewType) {
+    public SimilarMoviesViewHolder(View itemView, Context context, int overviewType) {
         super(itemView);
         this.context = context;
         this.overviewType = overviewType;

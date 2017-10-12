@@ -19,7 +19,7 @@ public class TopRatedPresenter implements OverviewTabFragmentContract.Presenter 
     private OverviewTabFragmentContract.View parent;
     private Context context;
     private int pageToLoadNext = 1;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
     public TopRatedPresenter(OverviewTabFragmentContract.View parent, Context context) {
         this.parent = parent;
@@ -27,7 +27,7 @@ public class TopRatedPresenter implements OverviewTabFragmentContract.Presenter 
     }
 
     @Override
-    public void load(Constants.OverviewType overviewType) {
+    public void load(int overviewType) {
         this.overviewType = overviewType;
         if (hasInternetConnection()) {
             if (noMoviesShown()) {

@@ -21,9 +21,9 @@ import tobiapplications.com.moviebase.utils.Constants;
 
 public class SimilarMovieDelegate extends AdapterDelegate<List<DisplayableItem>> {
 
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
-    public SimilarMovieDelegate(Constants.OverviewType overviewType) {
+    public SimilarMovieDelegate(int overviewType) {
         this.overviewType = overviewType;
     }
 

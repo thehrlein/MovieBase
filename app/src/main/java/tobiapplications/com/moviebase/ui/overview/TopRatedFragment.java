@@ -30,12 +30,12 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
     private Context context;
     private TopRatedPresenter presenter;
     private OverviewTabAdapter adapter;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
-    public static Fragment newInstance(Constants.OverviewType overviewType) {
+    public static Fragment newInstance(int overviewType) {
         TopRatedFragment topRatedFragment = new TopRatedFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
+        bundle.putInt(Constants.OVERVIEW_TYPE, overviewType);
         topRatedFragment.setArguments(bundle);
         return topRatedFragment;
     }
@@ -56,16 +56,16 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
         return bind.getRoot();
     }
 
-    private Constants.OverviewType getOverviewType(Bundle arguments) {
+    private int getOverviewType(Bundle arguments) {
         if (arguments == null) {
-            return null;
+            return -1;
         }
 
         if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
-            return (Constants.OverviewType) arguments.getSerializable(Constants.OVERVIEW_TYPE);
+            return arguments.getInt(Constants.OVERVIEW_TYPE);
         }
 
-        return null;
+        return -1;
     }
 
     @Override

@@ -33,7 +33,7 @@ public class DetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<DisplayableItem> itemList;
     private AdapterDelegatesManager<List<DisplayableItem>> delegatesManager;
 
-    public DetailAdapter(Constants.OverviewType overviewType) {
+    public DetailAdapter(int overviewType) {
         itemList = new ArrayList<>();
 
         delegatesManager = new AdapterDelegatesManager<>();

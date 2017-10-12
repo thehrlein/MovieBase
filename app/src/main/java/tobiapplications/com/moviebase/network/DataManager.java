@@ -33,6 +33,7 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
  */
 
 public class DataManager {
+
     private TheMovieApi movieApi;
     private YoutubeApi youtubeApi;
     private static DataManager dataManager;

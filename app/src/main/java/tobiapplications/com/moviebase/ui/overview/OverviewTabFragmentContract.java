@@ -9,7 +9,6 @@ import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
-import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -27,7 +26,7 @@ public interface OverviewTabFragmentContract {
     }
 
     interface Presenter extends OnOverviewMovieLoadListener {
-        void load(Constants.OverviewType overviewType);
+        void load(int overviewType);
         void requestDownload();
         boolean noMoviesShown();
         boolean hasInternetConnection();
@@ -39,7 +38,7 @@ public interface OverviewTabFragmentContract {
         void setGridViewAndAdapter();
         void setPosterItems(ArrayList<PosterOverviewItem> movies);
         void showLoading(boolean load);
-        void startLoader(Constants.OverviewType overviewType);
+        void startLoader(int overviewType);
         void hideNoFavoriteAvailable();
         void showNoFavoriteAvailable(String text);
     }

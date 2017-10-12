@@ -65,7 +65,7 @@ public class SQLUtils {
         LocalBroadcastManager.getInstance(context).sendBroadcast(informOwnFavoriteActivity);
     }
 
-    public static void deleteFromDataBase(Context context, int id, Constants.OverviewType overviewType) {
+    public static void deleteFromDataBase(Context context, int id, int overviewType) {
         if (overviewType == Constants.OverviewType.MOVIES) {
             deleteCurrentMovieFromFavoriteDatabase(context, id);
         } else if (overviewType == Constants.OverviewType.SERIES) {

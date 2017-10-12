@@ -10,7 +10,6 @@ import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.model.detail.TrailersResponse;
 import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
-import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 13.06.2017.
@@ -31,6 +30,6 @@ public interface DetailFragmentContract {
         void displayActors(ActorsResponse body);
         void displayTrailers(TrailersResponse body);
         void displaySingleYoutubeTrailer(YtSingleTrailerResponse body, String trailerKey);
-        void init(Constants.OverviewType overviewType, MovieDetailResponse detailMovie, SeriesDetailResponse detailSerie);
+        void init(int overviewType, MovieDetailResponse detailMovie, SeriesDetailResponse detailSerie);
     }
 }

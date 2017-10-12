@@ -45,9 +45,9 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     private DetailFragmentContract.View parent;
     private int trailerResponseCount;
     private ArrayList<TrailerItem> trailerItems;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
-    public DetailFragmentPresenter(Context context, DetailFragmentContract.View parent, Constants.OverviewType overviewType) {
+    public DetailFragmentPresenter(Context context, DetailFragmentContract.View parent, int overviewType) {
         this.context = context;
         this.parent = parent;
         this.overviewType = overviewType;
@@ -55,7 +55,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     }
 
     @Override
-    public void init(Constants.OverviewType overviewType, MovieDetailResponse detailMovie, SeriesDetailResponse detailSerie) {
+    public void init(int overviewType, MovieDetailResponse detailMovie, SeriesDetailResponse detailSerie) {
         if (overviewType == Constants.OverviewType.MOVIES) {
             initMovie(detailMovie);
         } else if (overviewType == Constants.OverviewType.SERIES) {

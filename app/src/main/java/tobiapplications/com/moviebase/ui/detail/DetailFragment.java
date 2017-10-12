@@ -28,25 +28,25 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     private FragmentDetailBinding bind;
     private DetailAdapter adapter;
     private DetailFragmentPresenter presenter;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
     private Context mContext;
     private MovieDetailResponse detailMovie;
     private SeriesDetailResponse detailSerie;
 
-    public static DetailFragment newInstance(MovieDetailResponse response, Constants.OverviewType overviewType) {
+    public static DetailFragment newInstance(SeriesDetailResponse response, int overviewType) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.CLICKED_MOVIE, response);
-        bundle.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
+        bundle.putSerializable(Constants.CLICKED_SERIE, response);
+        bundle.putInt(Constants.OVERVIEW_TYPE, overviewType);
         DetailFragment fragment = new DetailFragment();
         fragment.setArguments(bundle);
 
         return fragment;
     }
 
-    public static DetailFragment newInstance(SeriesDetailResponse response, Constants.OverviewType overviewType) {
+    public static DetailFragment newInstance(MovieDetailResponse response, int overviewType) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.CLICKED_SERIE, response);
-        bundle.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
+        bundle.putSerializable(Constants.CLICKED_MOVIE, response);
+        bundle.putInt(Constants.OVERVIEW_TYPE, overviewType);
         DetailFragment fragment = new DetailFragment();
         fragment.setArguments(bundle);
 
@@ -80,7 +80,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     }
 
     private void parseArguments(Bundle arguments) {
-        overviewType = (Constants.OverviewType) arguments.get(Constants.OVERVIEW_TYPE);
+        overviewType = arguments.getInt(Constants.OVERVIEW_TYPE);
         if (overviewType == Constants.OverviewType.MOVIES) {
             detailMovie = (MovieDetailResponse) arguments.get(Constants.CLICKED_MOVIE);
         } else {

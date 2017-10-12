@@ -25,7 +25,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private ActivityDetailBinding bind;
     private DetailActivityPresenter presenter;
     private int movieId;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = getIntent();
         if (intent != null) {
             movieId = intent.getIntExtra(Constants.CLICKED_MOVIE, -1);
-            overviewType = (Constants.OverviewType) intent.getSerializableExtra(Constants.OVERVIEW_TYPE);
+            overviewType =  intent.getIntExtra(Constants.OVERVIEW_TYPE, -1);
         }
     }
 

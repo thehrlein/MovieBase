@@ -98,7 +98,7 @@ public class SearchQueryFragment extends Fragment {
             showErrorMessage();
             return;
         }
-        Constants.OverviewType overviewType = getOverviewType();
+        int overviewType = getOverviewType();
         ((NavigationActivity) getActivity()).openSearchResults(text, overviewType);
     }
 
@@ -115,8 +115,8 @@ public class SearchQueryFragment extends Fragment {
         return false;
     }
 
-    private Constants.OverviewType getOverviewType() {
-        Constants.OverviewType overviewType = null;
+    private int getOverviewType() {
+        int overviewType = -1;
         if (bind.radioMovies.isChecked()) {
             overviewType = Constants.OverviewType.MOVIES;
         } else if (bind.radioSeries.isChecked()) {

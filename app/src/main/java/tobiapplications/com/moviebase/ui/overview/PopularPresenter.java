@@ -2,7 +2,6 @@ package tobiapplications.com.moviebase.ui.overview;
 
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
 import timber.log.Timber;
@@ -20,7 +19,7 @@ public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
     private OverviewTabFragmentContract.View parent;
     private Context context;
     private int pageToLoadNext = 1;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
     public PopularPresenter(OverviewTabFragmentContract.View parent, Context context) {
         this.parent = parent;
@@ -28,7 +27,7 @@ public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
     }
 
     @Override
-    public void load(Constants.OverviewType overviewType) {
+    public void load(int overviewType) {
         this.overviewType = overviewType;
         if (hasInternetConnection()) {
             if (noMoviesShown()) {

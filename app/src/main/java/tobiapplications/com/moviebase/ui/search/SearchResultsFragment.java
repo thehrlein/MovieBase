@@ -30,7 +30,7 @@ public class SearchResultsFragment extends Fragment implements SearchFragmentCon
     private SearchMovieAdapter searchMovieAdapter;
     private SearchFragmentPresenter presenter;
     private Context context;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
     private String searchQuery;
 
     public static SearchResultsFragment newInstance(Bundle bundle) {
@@ -71,7 +71,7 @@ public class SearchResultsFragment extends Fragment implements SearchFragmentCon
             searchQuery = arguments.getString(Constants.SEARCH_QUERY);
         }
         if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
-            overviewType = (Constants.OverviewType) arguments.getSerializable(Constants.OVERVIEW_TYPE);
+            overviewType = arguments.getInt(Constants.OVERVIEW_TYPE);
         }
     }
 
@@ -93,7 +93,6 @@ public class SearchResultsFragment extends Fragment implements SearchFragmentCon
         title += appending;
         return title;
     }
-
 
     @Override
     public void setAdapter() {

@@ -50,7 +50,6 @@ public interface TheMovieApi {
     @GET("search/tv")
     Call<MovieOverviewResponse> requestSearchSerie(@Query("query") String query);
 
-
     @GET("movie/{id}/credits")
     Call<ActorsResponse> requestActors(@Path("id") int movieId);
 

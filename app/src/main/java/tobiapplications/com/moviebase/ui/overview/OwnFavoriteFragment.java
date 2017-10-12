@@ -41,13 +41,13 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     private OwnFavoritePresenter presenter;
     private static final int MOVIE_CURSOR_LOADER_ID = 123;
     private static final int SERIE_CURSOR_LOADER_ID = 456;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
 
-    public static Fragment newInstance(Constants.OverviewType overviewType) {
+    public static Fragment newInstance(int overviewType) {
         OwnFavoriteFragment ownFavoriteFragment = new OwnFavoriteFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
+        bundle.putInt(Constants.OVERVIEW_TYPE, overviewType);
         ownFavoriteFragment.setArguments(bundle);
         return ownFavoriteFragment;
     }
@@ -60,16 +60,16 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
         presenter = new OwnFavoritePresenter(this, context);
     }
 
-    private Constants.OverviewType parseArguments(Bundle arguments) {
+    private int parseArguments(Bundle arguments) {
         if (arguments == null) {
-            return null;
+            return -1;
         }
 
         if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
-            return (Constants.OverviewType) arguments.getSerializable(Constants.OVERVIEW_TYPE);
+            return arguments.getInt(Constants.OVERVIEW_TYPE);
         }
 
-        return null;
+        return -1;
     }
 
     @Nullable
@@ -153,7 +153,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     }
 
     @Override
-    public void startLoader(Constants.OverviewType overviewType) {
+    public void startLoader(int overviewType) {
         if (overviewType == Constants.OverviewType.MOVIES) {
             getActivity().getSupportLoaderManager().restartLoader(MOVIE_CURSOR_LOADER_ID, null, this);
         } else {

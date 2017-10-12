@@ -107,11 +107,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         replaceFragment(searchQueryFragment, searchTag, true);
     }
 
-    public void openSearchResults(String text, Constants.OverviewType overviewType) {
+    public void openSearchResults(String text, int overviewType) {
         String searchTag = getString(R.string.search_tag);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.SEARCH_QUERY, text);
-        bundle.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
+        bundle.putInt(Constants.OVERVIEW_TYPE, overviewType);
         SearchResultsFragment fragment = SearchResultsFragment.newInstance(bundle);
         replaceFragment(fragment, searchTag, true);
     }

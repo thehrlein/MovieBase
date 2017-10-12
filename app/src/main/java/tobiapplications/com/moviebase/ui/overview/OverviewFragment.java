@@ -23,10 +23,10 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
     private FragmentOverviewBinding bind;
     private OverviewAdapter adapter;
     private Context context;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
     private NavigationActivity activity;
 
-    public static OverviewFragment newInstance(Constants.OverviewType overviewType) {
+    public static OverviewFragment newInstance(int overviewType) {
         OverviewFragment fragment = new OverviewFragment();
         Bundle args = new Bundle();
         args.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
@@ -48,16 +48,16 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
         return bind.getRoot();
     }
 
-    private Constants.OverviewType getOverViewType(Bundle arguments) {
+    private int getOverViewType(Bundle arguments) {
         if (arguments == null) {
-            return null;
+            return -1;
         }
 
         if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
-            return (Constants.OverviewType) arguments.getSerializable(Constants.OVERVIEW_TYPE);
+            return arguments.getInt(Constants.OVERVIEW_TYPE);
         }
 
-        return null;
+        return -1;
     }
 
 

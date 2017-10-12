@@ -22,14 +22,14 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
     private SearchFragmentContract.View parent;
     private Context context;
     private String query;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
     public SearchFragmentPresenter(SearchFragmentContract.View parent) {
         this.parent = parent;
     }
 
     @Override
-    public void init(String query, Constants.OverviewType overviewType, Context context) {
+    public void init(String query, int overviewType, Context context) {
         this.context = context;
         this.query = query;
         this.overviewType = overviewType;

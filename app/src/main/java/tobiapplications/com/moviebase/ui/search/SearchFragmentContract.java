@@ -24,6 +24,6 @@ public interface SearchFragmentContract {
     }
 
     interface Presenter extends OnOverviewMovieLoadListener {
-        void init(String query, Constants.OverviewType overviewType, Context context);
+        void init(String query, int overviewType, Context context);
     }
 }

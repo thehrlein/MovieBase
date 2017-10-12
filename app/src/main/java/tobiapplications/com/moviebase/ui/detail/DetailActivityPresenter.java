@@ -1,8 +1,6 @@
 package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
@@ -30,9 +28,9 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     private int mMaxScrollSize;
     private boolean mIsImageHidden;
     private Context context;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
-    public DetailActivityPresenter(DetailActivity activity, int id, Context context, Constants.OverviewType overviewType) {
+    public DetailActivityPresenter(DetailActivity activity, int id, Context context, int overviewType) {
         this.parent = activity;
         this.id = id;
         this.context = context;
@@ -155,7 +153,7 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     }
 
     @Override
-    public void insertIntoDatabase(Constants.OverviewType overviewType) {
+    public void insertIntoDatabase(int overviewType) {
         if (overviewType == Constants.OverviewType.MOVIES) {
             if (clickedMovie != null) {
                 SQLUtils.insertMovieIntoDatabase(context, clickedMovie);

@@ -24,9 +24,9 @@ public class OverviewAdapter extends FragmentStatePagerAdapter {
 
     private final static int COUNT = 3;
     private final ArrayList<String> tabTitles = new ArrayList<>();
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
-    public OverviewAdapter(FragmentManager fm, Context context, Constants.OverviewType overviewType) {
+    public OverviewAdapter(FragmentManager fm, Context context, int overviewType) {
         super(fm);
         this.overviewType = overviewType;
         configureTitles(context);

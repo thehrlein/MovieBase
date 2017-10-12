@@ -23,12 +23,12 @@ public class DetailSerieCallback implements Callback<SeriesDetailResponse> {
         if (response.isSuccessful()) {
             presenter.displaySeriesResponse(response.body());
         } else {
-            presenter.displayError();
+            presenter.displayError("DetailSerieCallback");
         }
     }
 
     @Override
     public void onFailure(Call<SeriesDetailResponse> call, Throwable t) {
-        presenter.displayError();
+        presenter.displayError("DetailSerieCallback");
     }
 }

@@ -30,12 +30,12 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
     private Context context;
     private PopularPresenter presenter;
     private OverviewTabAdapter adapter;
-    private Constants.OverviewType overviewType;
+    private int overviewType;
 
-    public static Fragment newInstance(Constants.OverviewType overviewType) {
+    public static Fragment newInstance(int overviewType) {
         PopularFragment popularFragment = new PopularFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
+        bundle.putInt(Constants.OVERVIEW_TYPE, overviewType);
         popularFragment.setArguments(bundle);
         return popularFragment;
     }
@@ -59,16 +59,16 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
         return bind.getRoot();
     }
 
-    private Constants.OverviewType getOverviewType(Bundle arguments) {
+    private int getOverviewType(Bundle arguments) {
         if (arguments == null) {
-            return null;
+            return -1;
         }
 
         if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
-            return (Constants.OverviewType) arguments.getSerializable(Constants.OVERVIEW_TYPE);
+            return arguments.getInt(Constants.OVERVIEW_TYPE);
         }
 
-        return null;
+        return -1;
     }
 
     @Override

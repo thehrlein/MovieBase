@@ -1,7 +1,7 @@
 package tobiapplications.com.moviebase.utils;
 
-import android.content.Context;
 import android.support.annotation.IntDef;
+
 
 /**
  * Created by Tobias on 11.06.2017.
@@ -32,5 +32,10 @@ public class Constants {
 
     public static final String OVERVIEW_TYPE = "overview_type";
 
-    public enum OverviewType {MOVIES, SERIES}
+
+    @IntDef({OverviewType.MOVIES, OverviewType.SERIES})
+    public @interface OverviewType {
+        int MOVIES = 0;
+        int SERIES = 1;
+    }
 }
