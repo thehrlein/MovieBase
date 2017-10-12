@@ -17,6 +17,7 @@ import tobiapplications.com.moviebase.R;
  */
 
 public class GeneralUtils {
+
     private static final int LANDSCAPE = Configuration.ORIENTATION_LANDSCAPE;
 
     public static int getHowMuchColumnsForOverviewMovies(Context context) {

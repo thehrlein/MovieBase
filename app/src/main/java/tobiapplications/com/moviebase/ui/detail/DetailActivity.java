@@ -20,12 +20,10 @@ import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.utils.Constants;
 
-public class DetailActivity extends AppCompatActivity implements View.OnClickListener, DetailActivityContract.View {
+public class DetailActivity extends AppCompatActivity implements DetailActivityContract.View {
 
     private ActivityDetailBinding bind;
     private DetailActivityPresenter presenter;
-    private int movieId;
-    private int overviewType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +31,18 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         bind = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 
         init();
-
         setUpActionBar();
-
-        getMovieIdAndType();
-
-        presenter = new DetailActivityPresenter(this, movieId, this, overviewType);
+        presenter = new DetailActivityPresenter(this, this, getIntent());
     }
 
     @Override
-    public void setUpMovieTabFragment(MovieDetailResponse clickedMovie) {
+    public void setUpMovieTabFragment(MovieDetailResponse clickedMovie, int overviewType) {
         DetailFragment detailFragment = DetailFragment.newInstance(clickedMovie, overviewType);
         showTabFragment(detailFragment);
     }
 
     @Override
-    public void setUpSeriesTabFragment(SeriesDetailResponse clickedSerie) {
+    public void setUpSeriesTabFragment(SeriesDetailResponse clickedSerie, int overviewType) {
         DetailFragment detailFragment = DetailFragment.newInstance(clickedSerie, overviewType);
         showTabFragment(detailFragment);
     }
@@ -64,8 +58,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void init() {
-        bind.toolbarBackgroundImage.setOnClickListener(this);
-        bind.detailFabButtonFavorite.setOnClickListener(this);
+        bind.toolbarBackgroundImage.setOnClickListener(v -> presenter.openToolbarImage());
+        bind.detailFabButtonFavorite.setOnClickListener(v -> presenter.handleFabClick());
         bind.appBarLayout.addOnOffsetChangedListener(this);
     }
 
@@ -80,40 +74,24 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void getMovieIdAndType() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            movieId = intent.getIntExtra(Constants.CLICKED_MOVIE, -1);
-            overviewType =  intent.getIntExtra(Constants.OVERVIEW_TYPE, -1);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v == bind.detailFabButtonFavorite) {
-            presenter.handleFabClick();
-        } else if (v == bind.toolbarBackgroundImage) {
-            presenter.openToolbarImage();
-        }
-    }
-
-    @Override
-    public void setInformation(String title, String moviePath) {
+    public void displayTitle(String title) {
         bind.toolbar.setTitle(title);
         bind.progressBar.setVisibility(View.GONE);
-        if (moviePath != null) {
-            Picasso.with(this).load(moviePath).into(bind.toolbarBackgroundImage);
-            bind.noPictureAvailable.setVisibility(View.GONE);
-        } else {
-            bind.noPictureAvailable.setVisibility(View.VISIBLE);
-        }
+    }
+
+    @Override
+    public void showNoPictureAvailable(boolean noPicture) {
+        bind.noPictureAvailable.setVisibility(noPicture ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
+    public void showPosterImage(String imageUrl) {
+        Picasso.with(this).load(imageUrl).into(bind.toolbarBackgroundImage);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
-        if(menuItem.getItemId() == android.R.id.home) {
-            onBackPressed();
-        }
+        presenter.onMenuItemClicked(menuItem);
         return true;
     }
 

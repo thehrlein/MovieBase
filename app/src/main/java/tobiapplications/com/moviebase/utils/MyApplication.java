@@ -12,19 +12,12 @@ import com.facebook.stetho.Stetho;
 
 public class MyApplication extends Application {
 
-    private static MyApplication mInstance;
-
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mInstance = this;
         Fresco.initialize(this);
         connectWithStetho(this);
-    }
-
-    public static synchronized MyApplication getInstance() {
-        return mInstance;
     }
 
     public static void connectWithStetho(Context context) {

@@ -40,7 +40,6 @@ public class DateUtils {
     public static String getHourMinuteStringFromInt(int minutes) {
         int hours = minutes / HOUR;
         int min = minutes - (hours * HOUR);
-
         return String.valueOf(hours + HOUR_TEXT + " " + min + MINUTE_TEXT);
     }
 }

@@ -13,6 +13,9 @@ public class InputManager {
     public static void hideKeyboardFor(View view) {
         if (view != null) {
             InputMethodManager imm = (InputMethodManager)view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm == null) {
+                return;
+            }
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }

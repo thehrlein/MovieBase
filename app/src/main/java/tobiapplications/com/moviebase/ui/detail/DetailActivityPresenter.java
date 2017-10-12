@@ -1,6 +1,8 @@
 package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.MenuItem;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
@@ -30,14 +32,20 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     private Context context;
     private int overviewType;
 
-    public DetailActivityPresenter(DetailActivity activity, int id, Context context, int overviewType) {
-        this.parent = activity;
-        this.id = id;
+    public DetailActivityPresenter(DetailActivity detailActivity, Context context, Intent intent) {
+        this.parent = detailActivity;
         this.context = context;
-        this.overviewType = overviewType;
-
+        parseIntent(intent);
         requestDownload();
+    }
 
+    private void parseIntent(Intent intent) {
+        if (intent == null) {
+            return;
+        }
+
+        id = intent.getIntExtra(Constants.CLICKED_MOVIE, -1);
+        overviewType = intent.getIntExtra(Constants.OVERVIEW_TYPE, -1);
     }
 
     private void requestDownload() {
@@ -59,21 +67,39 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
 
     @Override
     public void displayMovieResponse(MovieDetailResponse detailResponse) {
+        if (detailResponse == null) {
+            return;
+        }
+
         clickedMovie = detailResponse;
-        parent.setInformation(clickedMovie.getTitle(), NetworkUtils.getFullImageUrlHigh(clickedMovie.getBackgroundImagePath()));
-        parent.setUpMovieTabFragment(clickedMovie);
+        parent.displayTitle(clickedMovie.getTitle());
+        String imageUrl = NetworkUtils.getFullImageUrlHigh(clickedMovie.getBackgroundImagePath());
+        if (StringUtils.nullOrEmpty(imageUrl)) {
+            parent.showNoPictureAvailable(true);
+        } else {
+            parent.showNoPictureAvailable(false);
+            parent.showPosterImage(imageUrl);
+        }
+        parent.setUpMovieTabFragment(clickedMovie, overviewType);
         setFabDependingOnFavoriteStatus();
     }
 
     @Override
     public void displaySeriesResponse(SeriesDetailResponse body) {
-        clickedSerie = body;
-        String imageUrl = null;
-        if (clickedSerie.getBackgroundImage() != null) {
-            imageUrl = NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImage());
+        if (body == null) {
+            return;
         }
-        parent.setInformation(clickedSerie.getName(), imageUrl);
-        parent.setUpSeriesTabFragment(clickedSerie);
+
+        clickedSerie = body;
+        parent.displayTitle(clickedSerie.getName());
+        String imageUrl = NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImage());
+        if (StringUtils.nullOrEmpty(imageUrl)) {
+            parent.showNoPictureAvailable(true);
+        } else {
+            parent.showNoPictureAvailable(false);
+            parent.showPosterImage(imageUrl);
+        }
+        parent.setUpSeriesTabFragment(clickedSerie, overviewType);
         setFabDependingOnFavoriteStatus();
     }
 
@@ -107,7 +133,6 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
         } else {
             handleFabClickForSerie();
         }
-
     }
 
     private void handleFabClickForMovie() {
@@ -201,6 +226,13 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
                 mIsImageHidden = false;
                 parent.animateFabUp(0);
             }
+        }
+    }
+
+    @Override
+    public void onMenuItemClicked(MenuItem menuItem) {
+        if(menuItem.getItemId() == android.R.id.home) {
+            parent.onBackPressed();
         }
     }
 }
