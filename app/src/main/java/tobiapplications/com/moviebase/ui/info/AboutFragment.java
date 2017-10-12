@@ -16,9 +16,10 @@ import tobiapplications.com.moviebase.ui.NavigationActivity;
  * Created by Tobias on 10.09.2017.
  */
 
-public class AboutFragment extends Fragment {
+public class AboutFragment extends Fragment implements AboutContract.View {
 
     private FragmentAboutBinding bind;
+    private AboutPresenter presenter;
 
     public static AboutFragment newInstance() {
         return new AboutFragment();
@@ -40,36 +41,26 @@ public class AboutFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        presenter = new AboutPresenter(this);
+        presenter.init();
         initialize();
     }
 
     private void initialize() {
         getActivity().setTitle(R.string.about);
-        bind.fab.setOnClickListener((View v) -> sendEmail());
-
-        setNavigationSelected();
+        bind.fab.setOnClickListener(v -> presenter.fabButtonClicked());
     }
 
-    private void setNavigationSelected() {
+    @Override
+    public void setNavigationSelected() {
         NavigationActivity navigationActivity = (NavigationActivity) getActivity();
         navigationActivity.setMenuItemChecked(R.id.menu_info);
     }
 
-    private void sendEmail()
-    {
-        String text = getString(R.string.hello_tobias);
-        String email = getString(R.string.tobiapplications);
-
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("message/rfc822");
-        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
-        intent.putExtra(Intent.EXTRA_TEXT, text);
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {email});
-        Intent mailer = Intent.createChooser(intent, null);
+    @Override
+    public void sendEmail(Intent mailer) {
         startActivity(mailer);
     }
-
 
     @Override
     public void onDestroyView() {
