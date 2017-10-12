@@ -6,8 +6,7 @@ import android.database.Cursor;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
-import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 
 /**
  * Created by Tobias on 11.06.2017.
@@ -40,10 +39,10 @@ public class OwnFavoritePresenter implements OverviewTabFragmentContract.Databas
 
     @Override
     public void createPosterItemsFromCursor(Cursor data) {
-        ArrayList<MovieOverviewModel> posterItems = new ArrayList<>();
+        ArrayList<PosterOverviewItem> posterItems = new ArrayList<>();
         if (data != null) {
             while (data.moveToNext()) {
-                MovieOverviewModel movie = new MovieOverviewModel(data);
+                PosterOverviewItem movie = new PosterOverviewItem(data);
                 posterItems.add(movie);
             }
         }

@@ -2,8 +2,10 @@ package tobiapplications.com.moviebase.ui.overview;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
+import timber.log.Timber;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
@@ -94,7 +96,6 @@ public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
 
     @Override
     public void displayError(String message) {
-        Toast.makeText(context, "Error: " + message, Toast.LENGTH_LONG).show();
-        // TODO AlertDialog or something like that
+        Timber.d("Error: " +  message);
     }
 }

@@ -5,8 +5,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.model.search.SearchMovieItem;
 import tobiapplications.com.moviebase.network.DataManager;
@@ -61,7 +62,7 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
 
     private ArrayList<DisplayableItem> getSearchMovieItems(MovieOverviewResponse movieOverviewResponse) {
         ArrayList<DisplayableItem> searchMovieItems = new ArrayList<>();
-        for (MovieOverviewModel model : movieOverviewResponse.getMovies()) {
+        for (PosterOverviewItem model : movieOverviewResponse.getMovies()) {
             int id = model.getId();
             String title = getTitle(model);
             String imagePath = model.getTitleImagePath();
@@ -73,7 +74,7 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
         return searchMovieItems;
     }
 
-    private String getReleaseDate(MovieOverviewModel model) {
+    private String getReleaseDate(PosterOverviewItem model) {
         if (overviewType == Constants.OverviewType.MOVIES) {
             return model.getReleaseDate();
         } else {
@@ -81,7 +82,7 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
         }
     }
 
-    private String getTitle(MovieOverviewModel model) {
+    private String getTitle(PosterOverviewItem model) {
         if (overviewType == Constants.OverviewType.MOVIES) {
             return model.getTitle();
         } else {
@@ -91,6 +92,6 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
 
     @Override
     public void displayError(String message) {
-        Toast.makeText(context, "Error " + message, Toast.LENGTH_SHORT).show();
+        Timber.d("Error: " + message);
     }
 }

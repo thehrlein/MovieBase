@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
-import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 15.06.2017.

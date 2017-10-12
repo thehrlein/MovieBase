@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.adapter.OverviewTabAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentOverviewTabBinding;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.GeneralUtils;
@@ -97,7 +97,7 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
     }
 
     @Override
-    public void setMovies(ArrayList<MovieOverviewModel> movies) {
+    public void setMovies(ArrayList<PosterOverviewItem> movies) {
         bind.loadingTextview.setVisibility(View.GONE);
         adapter.removeLoadingItem();
         adapter.setPosterItems(movies);

@@ -3,17 +3,13 @@ package tobiapplications.com.moviebase.ui.viewholder;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.SearchListItemBinding;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
 import tobiapplications.com.moviebase.model.search.SearchMovieItem;
-import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.DateUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 

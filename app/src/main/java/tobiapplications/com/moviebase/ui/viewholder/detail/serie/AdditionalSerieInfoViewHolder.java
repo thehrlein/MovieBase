@@ -13,9 +13,7 @@ import java.util.Locale;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.DetailAdditionalSerieInfoHolderBinding;
-import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.Genre;
-import tobiapplications.com.moviebase.model.detail.items.movie.AdditionalMovieInfoItem;
 import tobiapplications.com.moviebase.model.detail.items.serie.AdditionalSerieInfoItem;
 import tobiapplications.com.moviebase.ui.views.GenreTextView;
 

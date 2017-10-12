@@ -15,7 +15,7 @@ import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.overview.LoadingItem;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -46,7 +46,7 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public int getSpanSize(int position) {
                 DisplayableItem item = itemList.get(position);
-                if (item instanceof MovieOverviewModel) {
+                if (item instanceof PosterOverviewItem) {
                     return MOVIE_SPAN;
                 } else if (item instanceof LoadingItem){
                     return LOADING_SPAN;
@@ -114,7 +114,7 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return pastVisibleItems + visibleItemCount >= totalItemCount;
     }
 
-    public void setPosterItems(ArrayList<MovieOverviewModel> movies) {
+    public void setPosterItems(ArrayList<PosterOverviewItem> movies) {
         if (movies != null) {
             itemList.addAll(movies);
             triggerLoadMoreMovies = true;

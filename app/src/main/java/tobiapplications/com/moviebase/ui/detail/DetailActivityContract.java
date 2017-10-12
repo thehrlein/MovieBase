@@ -32,7 +32,7 @@ public interface DetailActivityContract {
     interface Presenter {
         void requestSingleMovieDownload();
         void displayMovieResponse(MovieDetailResponse detailResponse);
-        void displayError();
+        void displayError(String message);
         void openToolbarImage();
         void handleFabClick();
         void insertIntoDatabase(Constants.OverviewType overviewType);

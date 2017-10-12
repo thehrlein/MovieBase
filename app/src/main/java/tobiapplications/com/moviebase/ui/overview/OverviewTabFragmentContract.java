@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 import tobiapplications.com.moviebase.utils.Constants;
 
 /**
@@ -20,7 +20,7 @@ public interface OverviewTabFragmentContract {
     interface View extends OnLoadMoreMoviesListener, OnMovieClickListener {
         void setGridViewAndAdapter();
         void showNetworkError(boolean noNetwork);
-        void setMovies(ArrayList<MovieOverviewModel> movies);
+        void setMovies(ArrayList<PosterOverviewItem> movies);
         void insertLoadingItem();
         void showLoading(boolean load);
         int getCurrentMovieSize();
@@ -37,7 +37,7 @@ public interface OverviewTabFragmentContract {
 
     interface DatabaseView extends LoaderManager.LoaderCallbacks<Cursor>, OnMovieClickListener {
         void setGridViewAndAdapter();
-        void setPosterItems(ArrayList<MovieOverviewModel> movies);
+        void setPosterItems(ArrayList<PosterOverviewItem> movies);
         void showLoading(boolean load);
         void startLoader(Constants.OverviewType overviewType);
         void hideNoFavoriteAvailable();

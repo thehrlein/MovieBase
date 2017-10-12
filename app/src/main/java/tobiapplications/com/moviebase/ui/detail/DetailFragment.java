@@ -12,11 +12,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.DetailAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentDetailBinding;
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.utils.Constants;

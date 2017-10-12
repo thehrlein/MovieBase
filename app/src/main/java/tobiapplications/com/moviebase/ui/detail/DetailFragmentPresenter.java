@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
@@ -184,7 +185,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
     @Override
     public void displayError(String message) {
-        Toast.makeText(context, "Error: " + message, Toast.LENGTH_LONG).show();
+        Timber.d("Error: " + message);
     }
 
     @Override

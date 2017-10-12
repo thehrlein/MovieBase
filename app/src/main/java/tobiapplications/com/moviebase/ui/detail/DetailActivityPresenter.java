@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import timber.log.Timber;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.network.DataManager;
@@ -79,9 +80,8 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     }
 
     @Override
-    public void displayError() {
-        Log.d("DetailActivityPresenter", "ERROR");
-        Toast.makeText(parent, "Error DetailActivityPresenter", Toast.LENGTH_SHORT).show();
+    public void displayError(String message) {
+        Timber.d("Error: " + message);
     }
 
     @Override

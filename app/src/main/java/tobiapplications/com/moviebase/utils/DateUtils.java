@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 /**
  * Created by Tobias on 14.06.2017.
  */
@@ -28,7 +30,7 @@ public class DateUtils {
             Date oldDate = oldFormat.parse(oldDateString);
             newDateString = newFormat.format(oldDate);
         } catch (ParseException e) {
-            Log.d("DateParseException", "Error parsing " + oldDateString + " to the new format!");
+            Timber.d("Error parsing " + oldDateString + " to the new format!");
             newDateString = oldDateString;
         }
 

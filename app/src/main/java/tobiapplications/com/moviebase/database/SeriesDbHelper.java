@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import timber.log.Timber;
+
 /**
  * Created by Tobias on 18.09.2017.
  */
@@ -33,7 +35,7 @@ public class SeriesDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion +
+        Timber.d("Upgrading database from version " + oldVersion + " to " + newVersion +
                 ". OLD DATA WILL BE DESTROYED");
 
         db.execSQL("DROP TABLE IF EXISTS " + SeriesContract.SeriesEntry.TABLE_SERIES);

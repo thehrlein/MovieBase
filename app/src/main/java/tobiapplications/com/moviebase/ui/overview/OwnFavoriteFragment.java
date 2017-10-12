@@ -22,7 +22,7 @@ import tobiapplications.com.moviebase.adapter.OverviewTabAdapter;
 import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.database.SeriesContract;
 import tobiapplications.com.moviebase.databinding.FragmentOverviewTabBinding;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.GeneralUtils;
@@ -97,7 +97,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     }
 
     @Override
-    public void setPosterItems(ArrayList<MovieOverviewModel> movies) {
+    public void setPosterItems(ArrayList<PosterOverviewItem> movies) {
         adapter.removeLoadingItem();
         adapter.setPosterItems(movies);
         adapter.notifyDataSetChanged();

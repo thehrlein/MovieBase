@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.RecyclerItem;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;

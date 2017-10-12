@@ -13,7 +13,7 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
  * Created by Tobias on 10.06.2017.
  */
 
-public class MovieOverviewModel implements DisplayableItem {
+public class PosterOverviewItem implements DisplayableItem {
 
      @SerializedName("id")
      private int id;
@@ -42,7 +42,7 @@ public class MovieOverviewModel implements DisplayableItem {
     @SerializedName("first_air_date")
     private String firstAirDate;
 
-    public MovieOverviewModel(int id, String title, String titleImagePath, String backgroundImagePath, String releaseDate, String rating, String description, ArrayList<Integer> genres, Boolean adult) {
+    public PosterOverviewItem(int id, String title, String titleImagePath, String backgroundImagePath, String releaseDate, String rating, String description, ArrayList<Integer> genres, Boolean adult) {
         this.id = id;
         this.title = title;
         this.titleImagePath = titleImagePath;
@@ -54,13 +54,13 @@ public class MovieOverviewModel implements DisplayableItem {
         this.adult = adult;
     }
 
-    public MovieOverviewModel(int id, String title, String titleImagePath) {
+    public PosterOverviewItem(int id, String title, String titleImagePath) {
         this.id = id;
         this.title = title;
         this.titleImagePath = titleImagePath;
     }
 
-    public MovieOverviewModel(Cursor data) {
+    public PosterOverviewItem(Cursor data) {
         this.id = data.getInt(SQLUtils.INDEX_COLUMN_ID);
         this.title = data.getString(SQLUtils.INDEX_COLUMN_TITLE);
         this.titleImagePath = data.getString(SQLUtils.INDEX_COLUMN_TITLE_IMAGE_PATH);

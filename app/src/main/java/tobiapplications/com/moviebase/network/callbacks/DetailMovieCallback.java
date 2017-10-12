@@ -23,12 +23,12 @@ public class DetailMovieCallback implements Callback<MovieDetailResponse> {
         if (response.isSuccessful()) {
             presenter.displayMovieResponse(response.body());
         } else {
-            presenter.displayError();
+            presenter.displayError("DetailMovieCallback Error");
         }
     }
 
     @Override
     public void onFailure(Call<MovieDetailResponse> call, Throwable t) {
-        presenter.displayError();
+        presenter.displayError("DetailMovieCallback Error");
     }
 }

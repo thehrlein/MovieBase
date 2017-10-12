@@ -1,8 +1,6 @@
 package tobiapplications.com.moviebase.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager;
@@ -13,9 +11,6 @@ import java.util.List;
 import tobiapplications.com.moviebase.adapter.delegates.SearchMovieDelegate;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
-import tobiapplications.com.moviebase.model.search.SearchMovieItem;
-import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 01.04.2017.

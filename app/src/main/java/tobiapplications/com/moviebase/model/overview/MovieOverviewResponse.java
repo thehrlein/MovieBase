@@ -1,9 +1,6 @@
 package tobiapplications.com.moviebase.model.overview;
 
 
-import android.text.TextUtils;
-
-import com.facebook.stetho.common.StringUtil;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -24,7 +21,7 @@ public class MovieOverviewResponse implements Serializable {
     @SerializedName("total_pages")
     private int totalPages;
     @SerializedName("results")
-    private ArrayList<MovieOverviewModel> movies;
+    private ArrayList<PosterOverviewItem> movies;
 
 
     public int getCurrentPage() {
@@ -39,14 +36,14 @@ public class MovieOverviewResponse implements Serializable {
         return totalPages;
     }
 
-    public ArrayList<MovieOverviewModel> getMovies() {
+    public ArrayList<PosterOverviewItem> getMovies() {
         return movies;
     }
 
     public ArrayList<MoviePosterItem> getMoviePosterItems() {
         ArrayList<MoviePosterItem> posterItems = new ArrayList<>();
 
-        for (MovieOverviewModel model : movies) {
+        for (PosterOverviewItem model : movies) {
             int id = model.getId();
             String imagePath = model.getTitleImagePath();
             String imageTitle = model.getTitle();
@@ -60,7 +57,7 @@ public class MovieOverviewResponse implements Serializable {
     public ArrayList<MoviePosterItem> getSeriePosterItems() {
         ArrayList<MoviePosterItem> posterItems = new ArrayList<>();
 
-        for (MovieOverviewModel model : movies) {
+        for (PosterOverviewItem model : movies) {
             int id = model.getId();
             String imagePath = model.getTitleImagePath();
             String imageTitle = model.getName();

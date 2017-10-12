@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.adapter.OverviewTabAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentOverviewTabBinding;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewModel;
+import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.GeneralUtils;
@@ -94,7 +94,7 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
     }
 
     @Override
-    public void setMovies(ArrayList<MovieOverviewModel> movies) {
+    public void setMovies(ArrayList<PosterOverviewItem> movies) {
         adapter.removeLoadingItem();
         adapter.setPosterItems(movies);
         adapter.notifyDataSetChanged();
