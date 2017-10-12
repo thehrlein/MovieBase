@@ -111,20 +111,20 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         String searchTag = getString(R.string.search_tag);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.SEARCH_QUERY, text);
-        bundle.putInt(Constants.OVERVIEW_TYPE, overviewType);
+        bundle.putInt(Constants.TYPE, overviewType);
         SearchResultsFragment fragment = SearchResultsFragment.newInstance(bundle);
         replaceFragment(fragment, searchTag, true);
     }
 
     private void openSeries() {
         String seriesTag = getString(R.string.series_tag);
-        OverviewFragment overviewFragment = OverviewFragment.newInstance(Constants.OverviewType.SERIES);
+        OverviewFragment overviewFragment = OverviewFragment.newInstance(Constants.Type.SERIES);
         replaceFragment(overviewFragment, seriesTag, true);
     }
 
     private void openMovies(boolean addToBackStack) {
         String movieTag = getString(R.string.movie_tag);
-        OverviewFragment overviewFragment = OverviewFragment.newInstance(Constants.OverviewType.MOVIES);
+        OverviewFragment overviewFragment = OverviewFragment.newInstance(Constants.Type.MOVIES);
         replaceFragment(overviewFragment, movieTag, addToBackStack);
     }
 

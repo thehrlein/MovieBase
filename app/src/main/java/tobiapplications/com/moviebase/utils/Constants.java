@@ -29,10 +29,10 @@ public class Constants {
 
     // fragments
     public static final String FRAGMENT_TAG = "fragment_tag";
-    public static final String OVERVIEW_TYPE = "overview_type";
+    public static final String TYPE = "overview_type";
 
-    @IntDef({OverviewType.MOVIES, OverviewType.SERIES})
-    public @interface OverviewType {
+    @IntDef({Type.MOVIES, Type.SERIES})
+    public @interface Type {
         int MOVIES = 0;
         int SERIES = 1;
     }

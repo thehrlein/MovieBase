@@ -18,7 +18,6 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ActivityDetailBinding;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
-import tobiapplications.com.moviebase.utils.Constants;
 
 public class DetailActivity extends AppCompatActivity implements DetailActivityContract.View {
 
@@ -81,7 +80,7 @@ public class DetailActivity extends AppCompatActivity implements DetailActivityC
 
     @Override
     public void showNoPictureAvailable(boolean noPicture) {
-        bind.noPictureAvailable.setVisibility(noPicture ? View.GONE : View.VISIBLE);
+        bind.noPictureAvailable.setVisibility(noPicture ? View.VISIBLE : View.GONE);
     }
 
     @Override

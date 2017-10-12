@@ -1,7 +1,6 @@
 package tobiapplications.com.moviebase.ui.search;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -36,9 +35,9 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
         parent.setDownloadIsActive();
         parent.setAdapter();
 
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (overviewType == Constants.Type.MOVIES) {
             requestMoviesDownload();
-        } else if (overviewType == Constants.OverviewType.SERIES) {
+        } else if (overviewType == Constants.Type.SERIES) {
             requestSeriesDownload();
         }
     }
@@ -75,7 +74,7 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
     }
 
     private String getReleaseDate(PosterOverviewItem model) {
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (overviewType == Constants.Type.MOVIES) {
             return model.getReleaseDate();
         } else {
             return model.getFirstAirDate();
@@ -83,7 +82,7 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
     }
 
     private String getTitle(PosterOverviewItem model) {
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (overviewType == Constants.Type.MOVIES) {
             return model.getTitle();
         } else {
             return model.getName();

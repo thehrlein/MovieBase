@@ -16,7 +16,6 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.SearchMovieAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentSearchBinding;
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.search.SearchMovieItem;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.utils.Constants;
 
@@ -70,8 +69,8 @@ public class SearchResultsFragment extends Fragment implements SearchFragmentCon
         if (arguments.containsKey(Constants.SEARCH_QUERY)) {
             searchQuery = arguments.getString(Constants.SEARCH_QUERY);
         }
-        if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
-            overviewType = arguments.getInt(Constants.OVERVIEW_TYPE);
+        if (arguments.containsKey(Constants.TYPE)) {
+            overviewType = arguments.getInt(Constants.TYPE);
         }
     }
 
@@ -84,7 +83,7 @@ public class SearchResultsFragment extends Fragment implements SearchFragmentCon
     private String getTitle() {
         String title;
         String appending = ": " + searchQuery;
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (overviewType == Constants.Type.MOVIES) {
             title = context.getString(R.string.movie_title);
         } else {
             title = context.getString(R.string.series_title);
@@ -123,7 +122,7 @@ public class SearchResultsFragment extends Fragment implements SearchFragmentCon
     public void onMovieClick(int id) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
-        openMovieDetails.putExtra(Constants.OVERVIEW_TYPE, overviewType);
+        openMovieDetails.putExtra(Constants.TYPE, overviewType);
         startActivity(openMovieDetails);
     }
 }

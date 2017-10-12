@@ -15,6 +15,8 @@ import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 import tobiapplications.com.moviebase.utils.StringUtils;
 
+import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
+
 /**
  * Created by Tobias on 11.06.2017.
  */
@@ -27,10 +29,10 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     private SeriesDetailResponse clickedSerie;
     private boolean isMarkedAsFavorite = false;
     private static final int PERCENTAGE_TO_SHOW_IMAGE = 60;
-    private int mMaxScrollSize;
-    private boolean mIsImageHidden;
+    private int maxScrollSize;
+    private boolean isImageHidden;
     private Context context;
-    private int overviewType;
+    private int type;
 
     public DetailActivityPresenter(DetailActivity detailActivity, Context context, Intent intent) {
         this.parent = detailActivity;
@@ -45,13 +47,13 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
         }
 
         id = intent.getIntExtra(Constants.CLICKED_MOVIE, -1);
-        overviewType = intent.getIntExtra(Constants.OVERVIEW_TYPE, -1);
+        type = intent.getIntExtra(Constants.TYPE, -1);
     }
 
     private void requestDownload() {
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (isMovie(type)) {
             requestSingleMovieDownload();
-        } else {
+        } else if (isSerie(type)) {
             requestSingleSerieDownload();
         }
     }
@@ -80,26 +82,27 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
             parent.showNoPictureAvailable(false);
             parent.showPosterImage(imageUrl);
         }
-        parent.setUpMovieTabFragment(clickedMovie, overviewType);
+        parent.setUpMovieTabFragment(clickedMovie, type);
         setFabDependingOnFavoriteStatus();
     }
 
     @Override
-    public void displaySeriesResponse(SeriesDetailResponse body) {
-        if (body == null) {
+    public void displaySeriesResponse(SeriesDetailResponse detailResponse) {
+        if (detailResponse == null) {
             return;
         }
 
-        clickedSerie = body;
+        clickedSerie = detailResponse;
         parent.displayTitle(clickedSerie.getName());
-        String imageUrl = NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImage());
+        String imageUrl = clickedSerie.getBackgroundImage();
         if (StringUtils.nullOrEmpty(imageUrl)) {
             parent.showNoPictureAvailable(true);
         } else {
             parent.showNoPictureAvailable(false);
+            imageUrl = NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImage());
             parent.showPosterImage(imageUrl);
         }
-        parent.setUpSeriesTabFragment(clickedSerie, overviewType);
+        parent.setUpSeriesTabFragment(clickedSerie, type);
         setFabDependingOnFavoriteStatus();
     }
 
@@ -111,10 +114,10 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     @Override
     public void openToolbarImage() {
         String imageUrl;
-        if (overviewType == Constants.OverviewType.MOVIES && clickedMovie != null
+        if (isMovie(type) && clickedMovie != null
                 && !StringUtils.nullOrEmpty(clickedMovie.getBackgroundImagePath())) {
             imageUrl = clickedMovie.getBackgroundImagePath();
-        } else if (overviewType == Constants.OverviewType.SERIES && clickedSerie != null
+        } else if (isSerie(type) && clickedSerie != null
                 && !StringUtils.nullOrEmpty(clickedSerie.getBackgroundImage())){
             imageUrl = clickedSerie.getBackgroundImage();
         } else {
@@ -128,9 +131,9 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
 
     @Override
     public void handleFabClick() {
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (isMovie(type)) {
             handleFabClickForMovie();
-        } else {
+        } else if (isSerie(type)) {
             handleFabClickForSerie();
         }
     }
@@ -149,19 +152,6 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
         }
     }
 
-    private void markAsFavorite(String message) {
-        parent.markFabAsFavorite();
-        parent.showMarkAsFavoriteToast(message);
-        insertIntoDatabase(overviewType);
-    }
-
-    private void unmarkFromFavorite(String message, int id) {
-        parent.unMarkFabFromFavorite();
-        parent.showRemovedFromFavoriteToast(message);
-
-        SQLUtils.deleteFromDataBase(context, id, overviewType);
-    }
-
     private void handleFabClickForSerie() {
         if (clickedSerie == null) {
             return;
@@ -177,13 +167,26 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
         }
     }
 
+    private void markAsFavorite(String message) {
+        parent.markFabAsFavorite();
+        parent.showMarkAsFavoriteToast(message);
+        insertIntoDatabase(type);
+    }
+
+    private void unmarkFromFavorite(String message, int id) {
+        parent.unMarkFabFromFavorite();
+        parent.showRemovedFromFavoriteToast(message);
+
+        SQLUtils.deleteFromDataBase(context, id, type);
+    }
+
     @Override
     public void insertIntoDatabase(int overviewType) {
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (isMovie(type)) {
             if (clickedMovie != null) {
                 SQLUtils.insertMovieIntoDatabase(context, clickedMovie);
             }
-        } else {
+        } else if (isSerie(type)){
             if (clickedSerie != null) {
                 SQLUtils.insertSerieIntoDatabase(context, clickedSerie);
             }
@@ -192,9 +195,9 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
 
     @Override
     public void setFabDependingOnFavoriteStatus() {
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (isMovie(type)) {
             isMarkedAsFavorite = SQLUtils.checkIfMovieIsMarkedAsFavorite(context, id);
-        } else {
+        } else if (isSerie(type)){
             isMarkedAsFavorite = SQLUtils.checkIfSerieIsMarkedAsFavorite(context, id);
         }
 
@@ -208,22 +211,22 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
 
     @Override
     public void setAppBarOffsetChanged(int totalScrollRange, int verticalOffset) {
-        if (mMaxScrollSize == 0) {
-            mMaxScrollSize = totalScrollRange;
+        if (maxScrollSize == 0) {
+            maxScrollSize = totalScrollRange;
         }
 
         int currentScrollPercentage = (Math.abs(verticalOffset)) * 100
-                / mMaxScrollSize;
+                / maxScrollSize;
 
         if (currentScrollPercentage >= PERCENTAGE_TO_SHOW_IMAGE) {
-            if (!mIsImageHidden) {
-                mIsImageHidden = true;
+            if (!isImageHidden) {
+                isImageHidden = true;
                 parent.animateFabDown(100);
             }
         }
         if (currentScrollPercentage < PERCENTAGE_TO_SHOW_IMAGE) {
-            if (mIsImageHidden) {
-                mIsImageHidden = false;
+            if (isImageHidden) {
+                isImageHidden = false;
                 parent.animateFabUp(0);
             }
         }

@@ -47,7 +47,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     public static Fragment newInstance(int overviewType) {
         OwnFavoriteFragment ownFavoriteFragment = new OwnFavoriteFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(Constants.OVERVIEW_TYPE, overviewType);
+        bundle.putInt(Constants.TYPE, overviewType);
         ownFavoriteFragment.setArguments(bundle);
         return ownFavoriteFragment;
     }
@@ -65,8 +65,8 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
             return -1;
         }
 
-        if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
-            return arguments.getInt(Constants.OVERVIEW_TYPE);
+        if (arguments.containsKey(Constants.TYPE)) {
+            return arguments.getInt(Constants.TYPE);
         }
 
         return -1;
@@ -115,7 +115,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     public void onMovieClick(int id) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
-        openMovieDetails.putExtra(Constants.OVERVIEW_TYPE, overviewType);
+        openMovieDetails.putExtra(Constants.TYPE, overviewType);
         startActivity(openMovieDetails);
     }
 
@@ -143,7 +143,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         int id = loader.getId();
-//        Constants.OverviewType overviewType = id == MOVIE_CURSOR_LOADER_ID ? Constants.OverviewType.MOVIES : Constants.OverviewType.SERIES;
+//        Constants.Type overviewType = id == MOVIE_CURSOR_LOADER_ID ? Constants.Type.MOVIES : Constants.Type.SERIES;
         presenter.onDatabaseLoadFinished(data);
     }
 
@@ -154,7 +154,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
 
     @Override
     public void startLoader(int overviewType) {
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (overviewType == Constants.Type.MOVIES) {
             getActivity().getSupportLoaderManager().restartLoader(MOVIE_CURSOR_LOADER_ID, null, this);
         } else {
             getActivity().getSupportLoaderManager().restartLoader(SERIE_CURSOR_LOADER_ID, null, this);

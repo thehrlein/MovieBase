@@ -4,12 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.DetailSimilarMoviesHolderBinding;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
@@ -51,7 +48,7 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
     private void openDetails(int id) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
-        openMovieDetails.putExtra(Constants.OVERVIEW_TYPE, overviewType);
+        openMovieDetails.putExtra(Constants.TYPE, overviewType);
         context.startActivity(openMovieDetails);
     }
 }

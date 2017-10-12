@@ -55,4 +55,12 @@ public class GeneralUtils {
         int value = Integer.valueOf(number);
         return NumberFormat.getNumberInstance(Locale.GERMAN).format(value);
     }
+
+    public static boolean isMovie(int type) {
+        return type == Constants.Type.MOVIES;
+    }
+
+    public static boolean isSerie(int type) {
+        return type == Constants.Type.SERIES;
+    }
 }

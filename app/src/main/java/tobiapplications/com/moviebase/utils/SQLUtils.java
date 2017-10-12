@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.content.LocalBroadcastManager;
 
-import java.util.ArrayList;
-
 import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.database.SeriesContract;
-import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 
@@ -66,9 +63,9 @@ public class SQLUtils {
     }
 
     public static void deleteFromDataBase(Context context, int id, int overviewType) {
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (overviewType == Constants.Type.MOVIES) {
             deleteCurrentMovieFromFavoriteDatabase(context, id);
-        } else if (overviewType == Constants.OverviewType.SERIES) {
+        } else if (overviewType == Constants.Type.SERIES) {
             deleteCurrentSerieFromFavoriteDatabase(context, id);
         }
     }

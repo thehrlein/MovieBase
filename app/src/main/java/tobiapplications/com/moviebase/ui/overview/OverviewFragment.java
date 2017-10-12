@@ -29,7 +29,7 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
     public static OverviewFragment newInstance(int overviewType) {
         OverviewFragment fragment = new OverviewFragment();
         Bundle args = new Bundle();
-        args.putSerializable(Constants.OVERVIEW_TYPE, overviewType);
+        args.putSerializable(Constants.TYPE, overviewType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,8 +53,8 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
             return -1;
         }
 
-        if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
-            return arguments.getInt(Constants.OVERVIEW_TYPE);
+        if (arguments.containsKey(Constants.TYPE)) {
+            return arguments.getInt(Constants.TYPE);
         }
 
         return -1;
@@ -78,13 +78,13 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
 
     private void setNavigationSelected() {
         NavigationActivity navigationActivity = (NavigationActivity) getActivity();
-        int menuId = overviewType == Constants.OverviewType.MOVIES ? R.id.menu_movies : R.id.menu_series;
+        int menuId = overviewType == Constants.Type.MOVIES ? R.id.menu_movies : R.id.menu_series;
         navigationActivity.setMenuItemChecked(menuId);
     }
 
     private void setTitle() {
         String title;
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (overviewType == Constants.Type.MOVIES) {
             title = getString(R.string.movie_title);
         } else {
             title = getString(R.string.series_title);

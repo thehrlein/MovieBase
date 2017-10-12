@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.FragmentSearchQueryBinding;
@@ -118,9 +115,9 @@ public class SearchQueryFragment extends Fragment {
     private int getOverviewType() {
         int overviewType = -1;
         if (bind.radioMovies.isChecked()) {
-            overviewType = Constants.OverviewType.MOVIES;
+            overviewType = Constants.Type.MOVIES;
         } else if (bind.radioSeries.isChecked()) {
-            overviewType = Constants.OverviewType.SERIES;
+            overviewType = Constants.Type.SERIES;
         }
 
         return overviewType;

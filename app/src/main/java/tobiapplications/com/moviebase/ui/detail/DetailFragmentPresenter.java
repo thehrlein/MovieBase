@@ -1,7 +1,7 @@
 package tobiapplications.com.moviebase.ui.detail;
 
 import android.content.Context;
-import android.widget.Toast;
+import android.os.Bundle;
 
 import java.util.ArrayList;
 
@@ -34,6 +34,8 @@ import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.StringUtils;
 
+import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
+
 /**
  * Created by Tobias on 14.06.2017.
  */
@@ -45,25 +47,42 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     private DetailFragmentContract.View parent;
     private int trailerResponseCount;
     private ArrayList<TrailerItem> trailerItems;
-    private int overviewType;
+    private int type;
+    private MovieDetailResponse detailMovie;
+    private SeriesDetailResponse detailSerie;
 
-    public DetailFragmentPresenter(Context context, DetailFragmentContract.View parent, int overviewType) {
+
+    public DetailFragmentPresenter(Context context, DetailFragmentContract.View parent, Bundle arguments) {
         this.context = context;
         this.parent = parent;
-        this.overviewType = overviewType;
         trailerItems = new ArrayList<>();
+        parseArguments(arguments);
+    }
+
+    private void parseArguments(Bundle arguments) {
+        type = arguments.getInt(Constants.TYPE);
+        if (isMovie(type)) {
+            detailMovie = (MovieDetailResponse) arguments.get(Constants.CLICKED_MOVIE);
+        } else if (isSerie(type)){
+            detailSerie = (SeriesDetailResponse) arguments.get(Constants.CLICKED_SERIE);
+        }
     }
 
     @Override
-    public void init(int overviewType, MovieDetailResponse detailMovie, SeriesDetailResponse detailSerie) {
-        if (overviewType == Constants.OverviewType.MOVIES) {
+    public void init() {
+        parent.setAdapter(type);
+        if (isMovie(type)) {
             initMovie(detailMovie);
-        } else if (overviewType == Constants.OverviewType.SERIES) {
+        } else if (isSerie(type)) {
             initSerie(detailSerie);
         }
     }
 
     private void initMovie(MovieDetailResponse detailMovie) {
+        if (detailMovie == null) {
+            return;
+        }
+
         buildUiFromResponse(detailMovie);
         requestReviews();
         requestActors();
@@ -72,6 +91,10 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     }
 
     private void initSerie(SeriesDetailResponse detailSerie) {
+        if (detailSerie == null) {
+            return;
+        }
+
         buildUiFromResponse(detailSerie);
         requestTrailers();
         requestSeriesDownload();
@@ -105,6 +128,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         if (seasons == null || seasons.isEmpty()) {
             return null;
         }
+
         return new SeasonsItem(seasons);
     }
 
@@ -114,6 +138,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         long revenue = movie.getRevenue();
         ArrayList<Genre> genres = movie.getGenres();
         String homepage = movie.getHomepage();
+
         return new AdditionalMovieInfoItem(originalTitle, budget, revenue, genres, homepage);
     }
 
@@ -123,6 +148,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         String seasons = serie.getNumberOfSeasons();
         ArrayList<Genre> genres = serie.getGenres();
         String homepage = serie.getHomepage();
+
         return new AdditionalSerieInfoItem(originalTitle, episodes, seasons, genres, homepage);
     }
 
@@ -141,6 +167,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
         boolean adult = movie.isAdult();
         int runtime = movie.getRuntime();
         String status = movie.getStatus();
+
         return new MovieInfoItem(imagePath, voteAverage, voteCount, release, adult, runtime, status);
     }
 
@@ -176,9 +203,9 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
 
     private void requestTrailers() {
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (isMovie(type)) {
             DataManager.getInstance().requestMovieTrailers(this, id);
-        } else if (overviewType == Constants.OverviewType.SERIES) {
+        } else if (isSerie(type)) {
             DataManager.getInstance().requestSerieTrailer(this, id);
         }
     }
@@ -191,18 +218,14 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     @Override
     public void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
         if (movieOverviewResponse.getTotalResults() != 0) {
-            ArrayList<MoviePosterItem> moviePosters;
+            ArrayList<MoviePosterItem> moviePosters = null;
+            String similarTitle = "";
 
-            if (overviewType == Constants.OverviewType.MOVIES) {
+            if (isMovie(type)) {
                 moviePosters = movieOverviewResponse.getMoviePosterItems();
-            } else {
-                moviePosters = movieOverviewResponse.getSeriePosterItems();
-            }
-
-            String similarTitle;
-            if (overviewType == Constants.OverviewType.MOVIES) {
                 similarTitle = context.getString(R.string.similar_movies, context.getString(R.string.movie_title));
-            } else {
+            } else if (isSerie(type)){
+                moviePosters = movieOverviewResponse.getSeriePosterItems();
                 similarTitle = context.getString(R.string.similar_movies, context.getString(R.string.series_title));
             }
 

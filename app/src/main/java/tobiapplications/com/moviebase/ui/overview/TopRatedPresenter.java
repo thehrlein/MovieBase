@@ -59,9 +59,9 @@ public class TopRatedPresenter implements OverviewTabFragmentContract.Presenter 
 
     @Override
     public void requestDownload() {
-        if (overviewType == Constants.OverviewType.MOVIES) {
+        if (overviewType == Constants.Type.MOVIES) {
             requestMoviesDownload();
-        } else if (overviewType == Constants.OverviewType.SERIES) {
+        } else if (overviewType == Constants.Type.SERIES) {
             requestSeriesDownload();
         } else {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();

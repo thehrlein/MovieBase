@@ -35,7 +35,7 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
     public static Fragment newInstance(int overviewType) {
         TopRatedFragment topRatedFragment = new TopRatedFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(Constants.OVERVIEW_TYPE, overviewType);
+        bundle.putInt(Constants.TYPE, overviewType);
         topRatedFragment.setArguments(bundle);
         return topRatedFragment;
     }
@@ -61,8 +61,8 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
             return -1;
         }
 
-        if (arguments.containsKey(Constants.OVERVIEW_TYPE)) {
-            return arguments.getInt(Constants.OVERVIEW_TYPE);
+        if (arguments.containsKey(Constants.TYPE)) {
+            return arguments.getInt(Constants.TYPE);
         }
 
         return -1;
@@ -128,7 +128,7 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
     public void onMovieClick(int id) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
-        openMovieDetails.putExtra(Constants.OVERVIEW_TYPE, overviewType);
+        openMovieDetails.putExtra(Constants.TYPE, overviewType);
         startActivity(openMovieDetails);
     }
 }

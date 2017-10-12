@@ -18,7 +18,7 @@ import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 public interface DetailFragmentContract {
 
     interface View {
-
+        void setAdapter(int overviewType);
         void displayUiViews(ArrayList<DisplayableItem> detailItems);
         void displayUiView(DisplayableItem item);
     }
@@ -30,6 +30,6 @@ public interface DetailFragmentContract {
         void displayActors(ActorsResponse body);
         void displayTrailers(TrailersResponse body);
         void displaySingleYoutubeTrailer(YtSingleTrailerResponse body, String trailerKey);
-        void init(int overviewType, MovieDetailResponse detailMovie, SeriesDetailResponse detailSerie);
+        void init();
     }
 }
