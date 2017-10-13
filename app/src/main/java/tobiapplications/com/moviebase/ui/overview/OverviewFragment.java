@@ -18,13 +18,13 @@ import tobiapplications.com.moviebase.utils.Constants;
  * Created by Tobias on 10.09.2017.
  */
 
-public class OverviewFragment extends Fragment implements OverviewFragmentContract.View {
+public class OverviewFragment extends Fragment implements OverviewContract.View {
 
     private FragmentOverviewBinding bind;
     private OverviewAdapter adapter;
     private Context context;
-    private int overviewType;
     private NavigationActivity activity;
+    private OverviewPresenter presenter;
 
     public static OverviewFragment newInstance(int overviewType) {
         OverviewFragment fragment = new OverviewFragment();
@@ -44,53 +44,32 @@ public class OverviewFragment extends Fragment implements OverviewFragmentContra
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         bind = FragmentOverviewBinding.inflate(inflater);
         context = bind.getRoot().getContext();
-        overviewType = getOverViewType(getArguments());
+        presenter = new OverviewPresenter(this, getArguments());
         return bind.getRoot();
     }
-
-    private int getOverViewType(Bundle arguments) {
-        if (arguments == null) {
-            return -1;
-        }
-
-        if (arguments.containsKey(Constants.TYPE)) {
-            return arguments.getInt(Constants.TYPE);
-        }
-
-        return -1;
-    }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        init();
+        presenter.init();
     }
 
-    private void init() {
+    @Override
+    public void init(int type) {
         activity = (NavigationActivity) getActivity();
-        adapter = new OverviewAdapter(getChildFragmentManager(), context, overviewType);
+        adapter = new OverviewAdapter(getChildFragmentManager(), context, type);
         setupViewPager();
         bind.tabs.setupWithViewPager(bind.viewpager);
-        setTitle();
-        setNavigationSelected();
     }
 
-    private void setNavigationSelected() {
-        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
-        int menuId = overviewType == Constants.Type.MOVIES ? R.id.menu_movies : R.id.menu_series;
-        navigationActivity.setMenuItemChecked(menuId);
+    @Override
+    public void setNavigationSelected(int menuId) {
+        activity.setMenuItemChecked(menuId);
     }
 
-    private void setTitle() {
-        String title;
-        if (overviewType == Constants.Type.MOVIES) {
-            title = getString(R.string.movie_title);
-        } else {
-            title = getString(R.string.series_title);
-        }
-
-        getActivity().setTitle(title);
+    @Override
+    public void setTitle(boolean isMovie) {
+        getActivity().setTitle(isMovie ? getString(R.string.movie_title) : getString(R.string.series_title));
     }
 
     @Override
