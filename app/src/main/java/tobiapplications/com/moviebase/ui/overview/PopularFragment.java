@@ -25,12 +25,10 @@ import tobiapplications.com.moviebase.utils.GeneralUtils;
 
 public class PopularFragment extends Fragment implements OverviewTabFragmentContract.View {
 
-    private final String TAG = PopularFragment.class.getSimpleName();
     private FragmentOverviewTabBinding bind;
     private Context context;
     private PopularPresenter presenter;
     private OverviewTabAdapter adapter;
-    private int overviewType;
 
     public static Fragment newInstance(int overviewType) {
         PopularFragment popularFragment = new PopularFragment();
@@ -44,7 +42,6 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-
     }
 
     @Nullable
@@ -52,23 +49,9 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         bind = FragmentOverviewTabBinding.inflate(inflater);
         presenter = new PopularPresenter(this, context);
-        overviewType = getOverviewType(getArguments());
-
-        presenter.load(overviewType);
+        presenter.getTypeAndLoadItems(getArguments());
 
         return bind.getRoot();
-    }
-
-    private int getOverviewType(Bundle arguments) {
-        if (arguments == null) {
-            return -1;
-        }
-
-        if (arguments.containsKey(Constants.TYPE)) {
-            return arguments.getInt(Constants.TYPE);
-        }
-
-        return -1;
     }
 
     @Override
@@ -112,11 +95,10 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
 
     @Override
     public int getCurrentMovieSize() {
-        if (adapter != null) {
-            return adapter.getItemCount();
+        if (adapter == null) {
+            return 0;
         }
-
-        return 0;
+        return adapter.getItemCount();
     }
 
     @Override
@@ -131,9 +113,14 @@ public class PopularFragment extends Fragment implements OverviewTabFragmentCont
 
     @Override
     public void onMovieClick(int id) {
+        presenter.onMovieClick(id);
+    }
+
+    @Override
+    public void startDetailActivity(int id, int type) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
-        openMovieDetails.putExtra(Constants.TYPE, overviewType);
+        openMovieDetails.putExtra(Constants.TYPE, type);
         startActivity(openMovieDetails);
     }
 }

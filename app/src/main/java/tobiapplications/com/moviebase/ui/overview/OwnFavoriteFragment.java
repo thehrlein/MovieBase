@@ -34,15 +34,10 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
 
 public class OwnFavoriteFragment extends Fragment implements OverviewTabFragmentContract.DatabaseView {
 
-    private final String TAG = OwnFavoriteFragment.class.getSimpleName();
     private FragmentOverviewTabBinding bind;
     private Context context;
     private OverviewTabAdapter adapter;
     private OwnFavoritePresenter presenter;
-    private static final int MOVIE_CURSOR_LOADER_ID = 123;
-    private static final int SERIE_CURSOR_LOADER_ID = 456;
-    private int overviewType;
-
 
     public static Fragment newInstance(int overviewType) {
         OwnFavoriteFragment ownFavoriteFragment = new OwnFavoriteFragment();
@@ -56,20 +51,8 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-        overviewType = parseArguments(getArguments());
         presenter = new OwnFavoritePresenter(this, context);
-    }
-
-    private int parseArguments(Bundle arguments) {
-        if (arguments == null) {
-            return -1;
-        }
-
-        if (arguments.containsKey(Constants.TYPE)) {
-            return arguments.getInt(Constants.TYPE);
-        }
-
-        return -1;
+        presenter.parseType(getArguments());
     }
 
     @Nullable
@@ -113,37 +96,46 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
 
     @Override
     public void onMovieClick(int id) {
+        presenter.onMovieClick(id);
+    }
+
+    @Override
+    public void startDetailActivity(int id, int type) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
-        openMovieDetails.putExtra(Constants.TYPE, overviewType);
+        openMovieDetails.putExtra(Constants.TYPE, type);
         startActivity(openMovieDetails);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        if (id == MOVIE_CURSOR_LOADER_ID) {
-            return new CursorLoader(
-                    context,
-                    MoviesContract.MovieEntry.CONTENT_URI,
-                    SQLUtils.selectAllMovies,
-                    null,
-                    null,
-                    null);
-        } else {
-            return new CursorLoader(
-                    context,
-                    SeriesContract.SeriesEntry.CONTENT_URI,
-                    SQLUtils.selectAllSeries,
-                    null,
-                    null,
-                    null);
-        }
+        return presenter.onCreateLoader(id);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateMovieLoader() {
+        return new CursorLoader(
+                context,
+                MoviesContract.MovieEntry.CONTENT_URI,
+                SQLUtils.selectAllMovies,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateSerieLoader() {
+        return new CursorLoader(
+                context,
+                SeriesContract.SeriesEntry.CONTENT_URI,
+                SQLUtils.selectAllSeries,
+                null,
+                null,
+                null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        int id = loader.getId();
-//        Constants.Type overviewType = id == MOVIE_CURSOR_LOADER_ID ? Constants.Type.MOVIES : Constants.Type.SERIES;
         presenter.onDatabaseLoadFinished(data);
     }
 
@@ -153,12 +145,8 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
     }
 
     @Override
-    public void startLoader(int overviewType) {
-        if (overviewType == Constants.Type.MOVIES) {
-            getActivity().getSupportLoaderManager().restartLoader(MOVIE_CURSOR_LOADER_ID, null, this);
-        } else {
-            getActivity().getSupportLoaderManager().restartLoader(SERIE_CURSOR_LOADER_ID, null, this);
-        }
+    public void startLoader(int loaderId) {
+        getActivity().getSupportLoaderManager().restartLoader(loaderId, null, this);
     }
 
     @Override
@@ -167,7 +155,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabFragment
         LocalBroadcastManager.getInstance(context).registerReceiver(movieInsertedIntoDatabase, new IntentFilter(Constants.MOVIE_INSERT_TO_DATABASE));
         LocalBroadcastManager.getInstance(context).registerReceiver(serieInsertedIntoDatabase, new IntentFilter(Constants.SERIE_INSERT_TO_DATABASE));
         setPosterItems(null);
-        startLoader(overviewType);
+        presenter.onResume();
     }
 
     @Override

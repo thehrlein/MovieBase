@@ -1,7 +1,9 @@
 package tobiapplications.com.moviebase.ui.overview;
 
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 
 import java.util.ArrayList;
 
@@ -23,28 +25,36 @@ public interface OverviewTabFragmentContract {
         void insertLoadingItem();
         void showLoading(boolean load);
         int getCurrentMovieSize();
+        void startDetailActivity(int id, int type);
     }
 
     interface Presenter extends OnOverviewMovieLoadListener {
-        void load(int overviewType);
         void requestDownload();
         boolean noMoviesShown();
         boolean hasInternetConnection();
-        void isConnectedToInternet(boolean connected);
         void loadMore();
+        void onMovieClick(int id);
+        void getTypeAndLoadItems(Bundle arguments);
     }
 
     interface DatabaseView extends LoaderManager.LoaderCallbacks<Cursor>, OnMovieClickListener {
         void setGridViewAndAdapter();
         void setPosterItems(ArrayList<PosterOverviewItem> movies);
         void showLoading(boolean load);
+        Loader<Cursor> onCreateMovieLoader();
+        Loader<Cursor> onCreateSerieLoader();
         void startLoader(int overviewType);
         void hideNoFavoriteAvailable();
         void showNoFavoriteAvailable(String text);
+        void startDetailActivity(int id, int type);
     }
 
     interface DatabasePresenter {
         void createPosterItemsFromCursor(Cursor data);
         void onDatabaseLoadFinished(Cursor data);
+        void parseType(Bundle arguments);
+        void onMovieClick(int id);
+        void onResume();
+        Loader<Cursor> onCreateLoader(int id);
     }
 }

@@ -25,12 +25,10 @@ import tobiapplications.com.moviebase.utils.GeneralUtils;
 
 public class TopRatedFragment extends Fragment implements OverviewTabFragmentContract.View {
 
-    private final String TAG = TopRatedFragment.class.getSimpleName();
     private FragmentOverviewTabBinding bind;
     private Context context;
     private TopRatedPresenter presenter;
     private OverviewTabAdapter adapter;
-    private int overviewType;
 
     public static Fragment newInstance(int overviewType) {
         TopRatedFragment topRatedFragment = new TopRatedFragment();
@@ -51,21 +49,8 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         bind = FragmentOverviewTabBinding.inflate(inflater);
         presenter = new TopRatedPresenter(this, context);
-        overviewType = getOverviewType(getArguments());
-        presenter.load(overviewType);
+        presenter.getTypeAndLoadItems(getArguments());
         return bind.getRoot();
-    }
-
-    private int getOverviewType(Bundle arguments) {
-        if (arguments == null) {
-            return -1;
-        }
-
-        if (arguments.containsKey(Constants.TYPE)) {
-            return arguments.getInt(Constants.TYPE);
-        }
-
-        return -1;
     }
 
     @Override
@@ -126,9 +111,14 @@ public class TopRatedFragment extends Fragment implements OverviewTabFragmentCon
 
     @Override
     public void onMovieClick(int id) {
+        presenter.onMovieClick(id);
+    }
+
+    @Override
+    public void startDetailActivity(int id, int type) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
-        openMovieDetails.putExtra(Constants.TYPE, overviewType);
+        openMovieDetails.putExtra(Constants.TYPE, type);
         startActivity(openMovieDetails);
     }
 }

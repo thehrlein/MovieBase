@@ -1,6 +1,7 @@
 package tobiapplications.com.moviebase.ui.overview;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
@@ -9,6 +10,8 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
+
+import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -19,7 +22,7 @@ public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
     private OverviewTabFragmentContract.View parent;
     private Context context;
     private int pageToLoadNext = 1;
-    private int overviewType;
+    private int type;
 
     public PopularPresenter(OverviewTabFragmentContract.View parent, Context context) {
         this.parent = parent;
@@ -27,8 +30,22 @@ public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
     }
 
     @Override
-    public void load(int overviewType) {
-        this.overviewType = overviewType;
+    public void getTypeAndLoadItems(Bundle arguments) {
+        parseArguments(arguments);
+        load();
+    }
+
+    private void parseArguments(Bundle arguments) {
+        if (arguments == null) {
+            return;
+        }
+
+        if (arguments.containsKey(Constants.TYPE)) {
+            type = arguments.getInt(Constants.TYPE);
+        }
+    }
+
+    private void load() {
         if (hasInternetConnection()) {
             if (noMoviesShown()) {
                 parent.showLoading(true);
@@ -38,18 +55,16 @@ public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
         } else {
             parent.showLoading(false);
             parent.showNetworkError(true);
-            new Handler().postDelayed(()-> load(overviewType), 3000);
+            new Handler().postDelayed(this::load, 3000);
         }
     }
 
     @Override
     public void requestDownload() {
-        if (overviewType == Constants.Type.MOVIES) {
+        if (isMovie(type)) {
             requestMoviesDownload();
-        } else if (overviewType == Constants.Type.SERIES) {
+        } else if (isSerie(type)) {
             requestSeriesDownload();
-        } else {
-            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -61,11 +76,6 @@ public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
     @Override
     public boolean hasInternetConnection() {
         return NetworkUtils.isConnectedToInternet(context);
-    }
-
-    @Override
-    public void isConnectedToInternet(boolean connected) {
-        parent.showNetworkError(connected);
     }
 
     @Override
@@ -89,8 +99,12 @@ public class PopularPresenter implements OverviewTabFragmentContract.Presenter {
     @Override
     public void loadMore() {
         parent.insertLoadingItem();
-
         requestDownload();
+    }
+
+    @Override
+    public void onMovieClick(int id) {
+        parent.startDetailActivity(id, type);
     }
 
     @Override
