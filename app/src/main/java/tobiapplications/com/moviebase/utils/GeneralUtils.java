@@ -52,6 +52,9 @@ public class GeneralUtils {
     }
 
     public static String formatThousands(String number) {
+        if (StringUtils.nullOrEmpty(number)) {
+            return "";
+        }
         int value = Integer.valueOf(number);
         return NumberFormat.getNumberInstance(Locale.GERMAN).format(value);
     }

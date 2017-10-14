@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content" />
 
                 <LinearLayout
+                    android:id="@+id/thumbs_layout"
                     android:layout_marginTop="4dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
@@ -70,6 +71,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/viewcount_layout"
                     android:layout_marginTop="4dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"

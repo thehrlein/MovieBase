@@ -18,7 +18,7 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.isPopular;
  * Created by Tobias Hehrlein on 13.10.2017.
  */
 
-public class BaseTabPresenter implements OverviewTabContract.BasePresenter{
+public class BaseTabPresenter implements BaseTabContract.Presenter{
 
     public int type;
     private OverviewTabContract.View parent;

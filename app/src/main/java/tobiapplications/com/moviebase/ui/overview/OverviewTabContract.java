@@ -18,25 +18,13 @@ import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 
 public interface OverviewTabContract {
 
-    interface View extends OnLoadMoreMoviesListener, OnMovieClickListener {
-        void setGridViewAndAdapter();
+    interface View {
         void showNetworkError(boolean noNetwork);
         void setMovies(ArrayList<PosterOverviewItem> movies);
         void insertLoadingItem();
         void showLoading(boolean load);
         int getCurrentMovieSize();
         void startDetailActivity(int id, int type);
-    }
-
-    interface BasePresenter extends OnOverviewMovieLoadListener {
-        void parseArguments(Bundle arguments);
-        void getTypeAndLoadItems(Bundle arguments);
-        void load();
-        boolean noMoviesShown();
-        boolean hasInternetConnection();
-        void requestDownload();
-        void onMovieClick(int id);
-        void loadMore();
     }
 
     interface Presenter {

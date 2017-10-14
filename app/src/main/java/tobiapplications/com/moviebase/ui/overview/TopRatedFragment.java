@@ -23,12 +23,10 @@ import tobiapplications.com.moviebase.utils.GeneralUtils;
  * Created by Tobias on 09.06.2017.
  */
 
-public class TopRatedFragment extends Fragment implements OverviewTabContract.View {
+public class TopRatedFragment extends BaseTabFragment implements OverviewTabContract.View {
 
-    private FragmentOverviewTabBinding bind;
     private Context context;
     private TopRatedPresenter presenter;
-    private OverviewTabAdapter adapter;
 
     public static Fragment newInstance(int overviewType) {
         TopRatedFragment topRatedFragment = new TopRatedFragment();
@@ -47,78 +45,16 @@ public class TopRatedFragment extends Fragment implements OverviewTabContract.Vi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bind = FragmentOverviewTabBinding.inflate(inflater);
         presenter = new TopRatedPresenter(this, context);
-        presenter.getTypeAndLoadItems(getArguments());
-        return bind.getRoot();
+        super.setPresenter(presenter);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        presenter.getTypeAndLoadItems(getArguments());
 
         setGridViewAndAdapter();
-    }
-
-    @Override
-    public void setGridViewAndAdapter() {
-        int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
-        final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
-        bind.recyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new OverviewTabAdapter(bind.recyclerView, this);
-        adapter.setOnLoadMoreMoviesListener(this);
-        bind.recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void showNetworkError(boolean noNetwork) {
-        if (bind.noInternetConnectionTextView != null && bind.recyclerView != null) {
-            bind.recyclerView.setVisibility(noNetwork ? View.GONE : View.VISIBLE);
-            bind.noInternetConnectionTextView.setVisibility(noNetwork ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    @Override
-    public void setMovies(ArrayList<PosterOverviewItem> movies) {
-        adapter.removeLoadingItem();
-        adapter.setPosterItems(movies);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void showLoading(boolean load) {
-        bind.progressBarLoading.setVisibility(load ? View.VISIBLE : View.GONE);
-        bind.recyclerView.setVisibility(load ? View.GONE : View.VISIBLE);
-    }
-
-    @Override
-    public int getCurrentMovieSize() {
-        if (adapter != null) {
-            return adapter.getItemCount();
-        }
-        return 0;
-    }
-
-    @Override
-    public void insertLoadingItem() {
-        adapter.insertLoadingItem();
-    }
-
-    @Override
-    public void loadMoreMovies() {
-        presenter.loadMore();
-    }
-
-    @Override
-    public void onMovieClick(int id) {
-        presenter.onMovieClick(id);
-    }
-
-    @Override
-    public void startDetailActivity(int id, int type) {
-        Intent openMovieDetails = new Intent(context, DetailActivity.class);
-        openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
-        openMovieDetails.putExtra(Constants.TYPE, type);
-        startActivity(openMovieDetails);
     }
 }

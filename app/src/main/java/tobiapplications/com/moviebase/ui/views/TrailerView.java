@@ -16,6 +16,7 @@ import tobiapplications.com.moviebase.model.detail.YtTrailerStatistic;
 import tobiapplications.com.moviebase.model.detail.items.movie.TrailerItem;
 import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
+import tobiapplications.com.moviebase.utils.StringUtils;
 
 /**
  * Created by Tobias on 20.06.2017.
@@ -68,9 +69,24 @@ public class TrailerView extends LinearLayout implements View.OnClickListener{
             return;
         }
 
-        bind.thumbsUpCount.setText(GeneralUtils.formatThousands(statistics.getLikeCount()));
-        bind.thumbsDownCount.setText(GeneralUtils.formatThousands(statistics.getDislikeCount()));
-        bind.watchCount.setText(GeneralUtils.formatThousands(statistics.getViewCount()));
+        String thumbsUpCount = GeneralUtils.formatThousands(statistics.getLikeCount());
+        String thumbsDownCount = GeneralUtils.formatThousands(statistics.getDislikeCount());
+        String watchCount = GeneralUtils.formatThousands(statistics.getViewCount());
+
+        if (StringUtils.nullOrEmpty(thumbsUpCount) || StringUtils.nullOrEmpty(thumbsDownCount)) {
+            bind.thumbsLayout.setVisibility(View.GONE);
+        } else {
+            bind.thumbsLayout.setVisibility(View.VISIBLE);
+            bind.thumbsUpCount.setText(GeneralUtils.formatThousands(statistics.getLikeCount()));
+            bind.thumbsDownCount.setText(GeneralUtils.formatThousands(statistics.getDislikeCount()));
+        }
+
+        if (StringUtils.nullOrEmpty(watchCount)) {
+            bind.viewcountLayout.setVisibility(View.GONE);
+        } else {
+            bind.viewcountLayout.setVisibility(View.VISIBLE);
+            bind.watchCount.setText(GeneralUtils.formatThousands(statistics.getViewCount()));
+        }
     }
 
     public void hideDivider() {

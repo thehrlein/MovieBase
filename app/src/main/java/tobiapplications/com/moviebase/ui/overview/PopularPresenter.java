@@ -13,5 +13,4 @@ public class PopularPresenter extends BaseTabPresenter implements OverviewTabCon
     public PopularPresenter(OverviewTabContract.View parent, Context context) {
         super(parent, context, Constants.Category.POPULAR);
     }
-
 }
