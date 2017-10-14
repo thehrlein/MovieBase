@@ -32,7 +32,7 @@ import tobiapplications.com.moviebase.utils.SQLUtils;
  * Created by Tobias on 09.06.2017.
  */
 
-public class OwnFavoriteFragment extends Fragment implements OverviewTabFragmentContract.DatabaseView {
+public class OwnFavoriteFragment extends Fragment implements OverviewTabContract.DatabaseView {
 
     private FragmentOverviewTabBinding bind;
     private Context context;

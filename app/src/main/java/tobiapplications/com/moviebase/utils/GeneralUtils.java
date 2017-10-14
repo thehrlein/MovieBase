@@ -63,4 +63,13 @@ public class GeneralUtils {
     public static boolean isSerie(int type) {
         return type == Constants.Type.SERIES;
     }
+
+    public static boolean isPopular(int category) {
+        return category == Constants.Category.POPULAR;
+    }
+
+    public static boolean isTopRated(int category) {
+        return category == Constants.Category.TOP_RATED;
+    }
+
 }

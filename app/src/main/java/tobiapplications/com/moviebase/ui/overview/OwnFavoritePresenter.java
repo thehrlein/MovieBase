@@ -17,15 +17,15 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
  * Created by Tobias on 11.06.2017.
  */
 
-public class OwnFavoritePresenter implements OverviewTabFragmentContract.DatabasePresenter {
+public class OwnFavoritePresenter implements OverviewTabContract.DatabasePresenter {
 
-    private OverviewTabFragmentContract.DatabaseView parent;
+    private OverviewTabContract.DatabaseView parent;
     private Context context;
     private int type;
     private static final int MOVIE_CURSOR_LOADER_ID = 123;
     private static final int SERIE_CURSOR_LOADER_ID = 456;
 
-    public OwnFavoritePresenter(OverviewTabFragmentContract.DatabaseView parent, Context context) {
+    public OwnFavoritePresenter(OverviewTabContract.DatabaseView parent, Context context) {
         this.parent = parent;
         this.context = context;
     }

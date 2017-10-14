@@ -23,7 +23,7 @@ import tobiapplications.com.moviebase.utils.GeneralUtils;
  * Created by Tobias on 09.06.2017.
  */
 
-public class TopRatedFragment extends Fragment implements OverviewTabFragmentContract.View {
+public class TopRatedFragment extends Fragment implements OverviewTabContract.View {
 
     private FragmentOverviewTabBinding bind;
     private Context context;

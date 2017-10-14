@@ -16,7 +16,7 @@ import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
  * Created by Tobias on 09.06.2017.
  */
 
-public interface OverviewTabFragmentContract {
+public interface OverviewTabContract {
 
     interface View extends OnLoadMoreMoviesListener, OnMovieClickListener {
         void setGridViewAndAdapter();
@@ -28,13 +28,19 @@ public interface OverviewTabFragmentContract {
         void startDetailActivity(int id, int type);
     }
 
-    interface Presenter extends OnOverviewMovieLoadListener {
-        void requestDownload();
+    interface BasePresenter extends OnOverviewMovieLoadListener {
+        void parseArguments(Bundle arguments);
+        void getTypeAndLoadItems(Bundle arguments);
+        void load();
         boolean noMoviesShown();
         boolean hasInternetConnection();
-        void loadMore();
+        void requestDownload();
         void onMovieClick(int id);
-        void getTypeAndLoadItems(Bundle arguments);
+        void loadMore();
+    }
+
+    interface Presenter {
+
     }
 
     interface DatabaseView extends LoaderManager.LoaderCallbacks<Cursor>, OnMovieClickListener {

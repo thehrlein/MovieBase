@@ -36,4 +36,10 @@ public class Constants {
         int MOVIES = 0;
         int SERIES = 1;
     }
+
+    @IntDef({Category.POPULAR, Category.TOP_RATED})
+    public @interface Category {
+        int POPULAR = 0;
+        int TOP_RATED = 1;
+    }
 }
