@@ -23,14 +23,12 @@ import tobiapplications.com.moviebase.utils.Constants;
  * Created by Tobias on 25.06.2017.
  */
 
-public class SearchResultsFragment extends Fragment implements SearchFragmentContract.View {
+public class SearchResultsFragment extends Fragment implements SearchResultsContract.View {
 
     private FragmentSearchBinding bind;
     private SearchMovieAdapter searchMovieAdapter;
-    private SearchFragmentPresenter presenter;
+    private SearchResultsPresenter presenter;
     private Context context;
-    private int overviewType;
-    private String searchQuery;
 
     public static SearchResultsFragment newInstance(Bundle bundle) {
         SearchResultsFragment searchResultsFragment = new SearchResultsFragment();
@@ -41,8 +39,7 @@ public class SearchResultsFragment extends Fragment implements SearchFragmentCon
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        presenter = new SearchFragmentPresenter(this);
+        presenter = new SearchResultsPresenter(this);
     }
 
     @Nullable
@@ -57,47 +54,24 @@ public class SearchResultsFragment extends Fragment implements SearchFragmentCon
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context = getContext();
-        parseArguments(getArguments());
-        presenter.init(searchQuery, overviewType, context);
-    }
-
-    private void parseArguments(Bundle arguments) {
-        if (arguments == null) {
-            return;
-        }
-
-        if (arguments.containsKey(Constants.SEARCH_QUERY)) {
-            searchQuery = arguments.getString(Constants.SEARCH_QUERY);
-        }
-        if (arguments.containsKey(Constants.TYPE)) {
-            overviewType = arguments.getInt(Constants.TYPE);
-        }
+        presenter.init(getArguments(), context);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().setTitle(getTitle());
+        presenter.onResume();
     }
 
-    private String getTitle() {
-        String title;
-        String appending = ": " + searchQuery;
-        if (overviewType == Constants.Type.MOVIES) {
-            title = context.getString(R.string.movie_title);
-        } else {
-            title = context.getString(R.string.series_title);
-        }
-
-        title += appending;
-        return title;
+    @Override
+    public void setTitle(String title) {
+        getActivity().setTitle(title);
     }
 
     @Override
     public void setAdapter() {
         bind.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         searchMovieAdapter = new SearchMovieAdapter(this);
-
         bind.recyclerView.setAdapter(searchMovieAdapter);
     }
 
@@ -120,9 +94,14 @@ public class SearchResultsFragment extends Fragment implements SearchFragmentCon
 
     @Override
     public void onMovieClick(int id) {
+        presenter.onMovieClick(id);
+    }
+
+    @Override
+    public void startDetailActivity(int id, int type) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
-        openMovieDetails.putExtra(Constants.TYPE, overviewType);
+        openMovieDetails.putExtra(Constants.TYPE, type);
         startActivity(openMovieDetails);
     }
 }

@@ -24,7 +24,6 @@ import tobiapplications.com.moviebase.network.callbacks.TrailersCallback;
 import tobiapplications.com.moviebase.network.callbacks.YtTrailerCallback;
 import tobiapplications.com.moviebase.ui.detail.DetailActivityPresenter;
 import tobiapplications.com.moviebase.ui.detail.DetailFragmentContract;
-import tobiapplications.com.moviebase.ui.search.SearchFragmentPresenter;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 

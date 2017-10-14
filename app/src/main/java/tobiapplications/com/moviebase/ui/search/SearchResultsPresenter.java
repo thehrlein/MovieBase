@@ -1,10 +1,12 @@
 package tobiapplications.com.moviebase.ui.search;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import java.util.ArrayList;
 
 import timber.log.Timber;
+import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
@@ -12,33 +14,47 @@ import tobiapplications.com.moviebase.model.search.SearchMovieItem;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
 
+import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
+
 /**
  * Created by Tobias on 16.06.2017.
  */
 
-public class SearchFragmentPresenter implements SearchFragmentContract.Presenter {
+public class SearchResultsPresenter implements SearchResultsContract.Presenter {
 
-    private SearchFragmentContract.View parent;
+    private SearchResultsContract.View parent;
     private Context context;
     private String query;
-    private int overviewType;
+    private int type;
 
-    public SearchFragmentPresenter(SearchFragmentContract.View parent) {
+    public SearchResultsPresenter(SearchResultsContract.View parent) {
         this.parent = parent;
     }
 
     @Override
-    public void init(String query, int overviewType, Context context) {
+    public void init(Bundle arguments, Context context) {
         this.context = context;
-        this.query = query;
-        this.overviewType = overviewType;
+        parseArguments(arguments);
         parent.setDownloadIsActive();
         parent.setAdapter();
 
-        if (overviewType == Constants.Type.MOVIES) {
+        if (isMovie(type)) {
             requestMoviesDownload();
-        } else if (overviewType == Constants.Type.SERIES) {
+        } else if (isSerie(type)) {
             requestSeriesDownload();
+        }
+    }
+
+    private void parseArguments(Bundle arguments) {
+        if (arguments == null) {
+            return;
+        }
+
+        if (arguments.containsKey(Constants.SEARCH_QUERY)) {
+            query = arguments.getString(Constants.SEARCH_QUERY);
+        }
+        if (arguments.containsKey(Constants.TYPE)) {
+            type = arguments.getInt(Constants.TYPE);
         }
     }
 
@@ -74,7 +90,7 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
     }
 
     private String getReleaseDate(PosterOverviewItem model) {
-        if (overviewType == Constants.Type.MOVIES) {
+        if (isMovie(type)) {
             return model.getReleaseDate();
         } else {
             return model.getFirstAirDate();
@@ -82,7 +98,7 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
     }
 
     private String getTitle(PosterOverviewItem model) {
-        if (overviewType == Constants.Type.MOVIES) {
+        if (isMovie(type)) {
             return model.getTitle();
         } else {
             return model.getName();
@@ -92,5 +108,28 @@ public class SearchFragmentPresenter implements SearchFragmentContract.Presenter
     @Override
     public void displayError(String message) {
         Timber.d("Error: " + message);
+    }
+
+    @Override
+    public void onResume() {
+        parent.setTitle(getTitle());
+    }
+
+    private String getTitle() {
+        String title;
+        String appending = ": " + query;
+        if (isMovie(type)) {
+            title = context.getString(R.string.movie_title);
+        } else {
+            title = context.getString(R.string.series_title);
+        }
+
+        title += appending;
+        return title;
+    }
+
+    @Override
+    public void onMovieClick(int id) {
+        parent.startDetailActivity(id, type);
     }
 }
