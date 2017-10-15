@@ -64,8 +64,8 @@ public class AdditionalSerieInfoViewHolder extends RecyclerView.ViewHolder imple
 
     @Override
     public void onClick(View v) {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        context.startActivity(i);
+        Intent openHomepage = new Intent(Intent.ACTION_VIEW);
+        openHomepage.setData(Uri.parse(url));
+        context.startActivity(openHomepage);
     }
 }

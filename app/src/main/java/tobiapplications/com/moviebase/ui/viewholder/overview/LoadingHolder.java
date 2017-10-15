@@ -5,16 +5,18 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.databinding.ItemMovieLoadingBinding;
 
 /**
  * Created by Tobias on 15.06.2017.
  */
 
 public class LoadingHolder extends RecyclerView.ViewHolder {
-    private ProgressBar mProgressLoading;
+
+    private ItemMovieLoadingBinding bind;
 
     public LoadingHolder(View itemView) {
         super(itemView);
-        mProgressLoading = (ProgressBar) itemView.findViewById(R.id.movie_loading_progress_indicator);
+        bind = ItemMovieLoadingBinding.bind(itemView);
     }
 }

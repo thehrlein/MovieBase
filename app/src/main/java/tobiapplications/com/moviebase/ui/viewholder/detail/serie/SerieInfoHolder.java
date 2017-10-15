@@ -18,7 +18,6 @@ public class SerieInfoHolder extends RecyclerView.ViewHolder {
 
     private DetailSerieInfoHolderBinding bind;
     private Context context;
-    private SerieInfoItem serie;
 
     public SerieInfoHolder(View itemView, Context context) {
         super(itemView);
@@ -28,8 +27,6 @@ public class SerieInfoHolder extends RecyclerView.ViewHolder {
     }
 
     public void setInformation(SerieInfoItem view) {
-        this.serie = view;
-
         bind.ratingAverage.setText(String.valueOf(view.getVoteAverage() + context.getString(R.string.info_max_rating)));
         bind.ratingCount.setText(String.valueOf(view.getVoteCount()));
         bind.firstAirDate.setText(DateUtils.getDMYFromYMD(view.getFirstAirDate()));

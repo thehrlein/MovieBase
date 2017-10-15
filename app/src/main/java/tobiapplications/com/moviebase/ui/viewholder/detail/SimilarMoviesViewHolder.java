@@ -36,7 +36,6 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
         this.movies = similarMovies.getMovies();
         bind.similarTitle.setText(similarMovies.getTitle());
         for (MoviePosterItem model : movies) {
-
             MoviePosterView posterView = new MoviePosterView(context);
             bind.similarMoviesLayout.addView(posterView);
 

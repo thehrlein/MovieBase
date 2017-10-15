@@ -99,11 +99,7 @@ public class SearchQueryFragment extends Fragment implements SearchQueryContract
 
     private boolean inputInvalid() {
         String input = bind.searchEdittext.getText().toString();
-        if (StringUtils.nullOrEmpty(input)) {
-            return true;
-        }
-
-        return false;
+        return StringUtils.nullOrEmpty(input);
     }
 
     @Override

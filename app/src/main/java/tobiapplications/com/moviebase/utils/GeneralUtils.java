@@ -51,6 +51,10 @@ public class GeneralUtils {
         return NumberFormat.getNumberInstance(Locale.GERMAN).format(number);
     }
 
+    public static String formatThousands(long number) {
+        return NumberFormat.getNumberInstance(Locale.GERMAN).format(number);
+    }
+
     public static String formatThousands(String number) {
         if (StringUtils.nullOrEmpty(number)) {
             return "";

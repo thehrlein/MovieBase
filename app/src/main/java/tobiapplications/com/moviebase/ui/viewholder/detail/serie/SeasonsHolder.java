@@ -66,13 +66,11 @@ public class SeasonsHolder extends RecyclerView.ViewHolder implements OnImageCli
 
 
     private TableRow.LayoutParams getTableRowParams() {
-        TableRow.LayoutParams params = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        return params;
+        return new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     private TableRow.LayoutParams getSeasonParams() {
-        TableRow.LayoutParams params = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0.5f);
-        return params;
+        return new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0.5f);
     }
 
     @Override

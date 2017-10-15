@@ -16,6 +16,7 @@ import tobiapplications.com.moviebase.databinding.DetailAdditionalMovieInfoHolde
 import tobiapplications.com.moviebase.model.detail.Genre;
 import tobiapplications.com.moviebase.model.detail.items.movie.AdditionalMovieInfoItem;
 import tobiapplications.com.moviebase.ui.views.GenreTextView;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 
 /**
  * Created by Tobias on 15.06.2017.
@@ -65,11 +66,11 @@ public class AdditionalMovieInfoViewHolder extends RecyclerView.ViewHolder imple
     }
 
     private String formatMoney(int budget) {
-        return NumberFormat.getNumberInstance(Locale.GERMAN).format(budget) + " $";
+        return GeneralUtils.formatThousands(budget) + " $";
     }
 
     private String formatMoney(long budget) {
-        return NumberFormat.getNumberInstance(Locale.GERMAN).format(budget) + " $";
+        return GeneralUtils.formatThousands(budget) + " $";
     }
 
     private void setGenresLayout(ArrayList<Genre> genres) {
@@ -85,8 +86,8 @@ public class AdditionalMovieInfoViewHolder extends RecyclerView.ViewHolder imple
 
     @Override
     public void onClick(View v) {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        context.startActivity(i);
+        Intent openHomepage = new Intent(Intent.ACTION_VIEW);
+        openHomepage.setData(Uri.parse(url));
+        context.startActivity(openHomepage);
     }
 }

@@ -40,12 +40,10 @@ import tobiapplications.com.moviebase.utils.SettingsUtils;
 public class SettingsFragment extends PreferenceFragmentCompat implements
         SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private static String FRAGMENT_TAG;
 
-    public static SettingsFragment newInstance(String settingsTag) {
+    public static SettingsFragment newInstance() {
         SettingsFragment settingsFragment = new SettingsFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.FRAGMENT_TAG, settingsTag);
         settingsFragment.setArguments(bundle);
         return settingsFragment;
     }
@@ -58,18 +56,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        parseArguments(getArguments());
         return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    private void parseArguments(Bundle arguments) {
-        if (arguments == null) {
-            return;
-        }
-
-        if (arguments.containsKey(Constants.FRAGMENT_TAG)) {
-            FRAGMENT_TAG = arguments.getString(Constants.FRAGMENT_TAG);
-        }
     }
 
     @Override

@@ -77,7 +77,7 @@ public class ReviewsViewHolder extends RecyclerView.ViewHolder implements View.O
         }
     }
 
-    public int getDividerPosition() {
+    private int getDividerPosition() {
         return shownReviews * 2 - 1;
     }
 }

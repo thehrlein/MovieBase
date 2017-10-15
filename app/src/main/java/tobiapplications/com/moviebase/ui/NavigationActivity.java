@@ -130,7 +130,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     private void openSettings() {
         String settingsTag = getString(R.string.action_settings);
-        SettingsFragment settingsFragment = SettingsFragment.newInstance(settingsTag);
+        SettingsFragment settingsFragment = SettingsFragment.newInstance();
         replaceFragment(settingsFragment, settingsTag, true);
     }
 
