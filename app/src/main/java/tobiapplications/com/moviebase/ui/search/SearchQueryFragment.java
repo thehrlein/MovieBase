@@ -22,10 +22,12 @@ import tobiapplications.com.moviebase.utils.StringUtils;
  * Created by Tobias on 10.09.2017.
  */
 
-public class SearchQueryFragment extends Fragment {
+public class SearchQueryFragment extends Fragment implements SearchQueryContract.View {
 
     private FragmentSearchQueryBinding bind;
     private Context context;
+    private SearchQueryPresenter presenter;
+    private NavigationActivity activity;
 
     public static SearchQueryFragment newInstance() {
         SearchQueryFragment fragment = new SearchQueryFragment();
@@ -44,24 +46,19 @@ public class SearchQueryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         bind = FragmentSearchQueryBinding.inflate(inflater);
         context = bind.getRoot().getContext();
+        presenter = new SearchQueryPresenter(this, context);
+        activity = (NavigationActivity) getActivity();
         return bind.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        init();
+        presenter.init();
     }
 
-    private void init() {
-        setTitle();
-        setNavigationSelected();
-        setListener();
-        setSearchButton();
-        setSearchEditText();
-    }
-
-    private void setSearchEditText() {
+    @Override
+    public void setSearchEditText() {
         bind.searchEdittext.setOnEditorActionListener(((textView, id, keyEvent) -> onAction(id)));
         bind.searchEdittext.setHint(context.getString(R.string.search_hint));
         bind.searchEdittext.setImeAction(EditorInfo.IME_ACTION_SEARCH);
@@ -69,34 +66,31 @@ public class SearchQueryFragment extends Fragment {
     }
 
     private boolean onAction(int id) {
-        if (id == EditorInfo.IME_ACTION_SEARCH) {
-            openSearchResults(bind.searchEdittext.getText().toString());
-            return true;
-        }
-        return false;
+        return presenter.onAction(id);
     }
 
-    private void setSearchButton() {
-        String searchString = context.getString(R.string.search_title);
+    @Override
+    public void setSearchButton(String text) {
         String type = bind.radioMovies.isChecked() ? context.getString(R.string.movie_title) : context.getString(R.string.series_title);
-        String buttonText = searchString + " " + type;
-        bind.buttonSearch.setText(buttonText);
+        bind.buttonSearch.setText(text  + " " + type);
     }
 
-    private void setListener() {
+    @Override
+    public void setListener() {
         bind.radioMovies.setOnCheckedChangeListener((this::onRadioButtonCheckedChange));
         bind.radioSeries.setOnCheckedChangeListener(this::onRadioButtonCheckedChange);
-        bind.buttonSearch.setOnClickListener(view -> openSearchResults(bind.searchEdittext.getText().toString()));
+        bind.buttonSearch.setOnClickListener(view -> presenter.onSearchButtonClicked());
     }
 
-    private void openSearchResults(String text) {
+    @Override
+    public void openSearchResults(int type) {
+        String text = bind.searchEdittext.getText().toString();
         InputManager.hideKeyboardFor(bind.searchEdittext);
         if (inputInvalid()) {
             showErrorMessage();
             return;
         }
-        int overviewType = getOverviewType();
-        ((NavigationActivity) getActivity()).openSearchResults(text, overviewType);
+        activity.openSearchResults(text, type);
     }
 
     private void showErrorMessage() {
@@ -112,24 +106,13 @@ public class SearchQueryFragment extends Fragment {
         return false;
     }
 
-    private int getOverviewType() {
-        int overviewType = -1;
-        if (bind.radioMovies.isChecked()) {
-            overviewType = Constants.Type.MOVIES;
-        } else if (bind.radioSeries.isChecked()) {
-            overviewType = Constants.Type.SERIES;
-        }
-
-        return overviewType;
+    @Override
+    public void setNavigationSelected(int menuId) {
+        activity.setMenuItemChecked(menuId);
     }
 
-    private void setNavigationSelected() {
-        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
-        navigationActivity.setMenuItemChecked(R.id.menu_search);
-    }
-
-    private void setTitle() {
-        String title = context.getString(R.string.search_title);
+    @Override
+    public void setTitle(String title) {
         getActivity().setTitle(title);
     }
 
@@ -144,12 +127,26 @@ public class SearchQueryFragment extends Fragment {
     }
 
     public void onRadioButtonCheckedChange(CompoundButton compoundButton, boolean checked) {
-        if (compoundButton == bind.radioMovies) {
-            bind.radioSeries.setChecked(!checked);
-        } else if (compoundButton == bind.radioSeries) {
-            bind.radioMovies.setChecked(!checked);
-        }
+        presenter.onRadioButtonCheckedChange(compoundButton, bind, checked);
+    }
 
-        setSearchButton();
+    @Override
+    public void setMoviesSelected(boolean checked) {
+        bind.radioSeries.setChecked(!checked);
+    }
+
+    @Override
+    public void setSeriesSelected(boolean checked) {
+        bind.radioMovies.setChecked(!checked);
+    }
+
+    @Override
+    public boolean isMovieChecked() {
+        return bind.radioMovies.isChecked();
+    }
+
+    @Override
+    public boolean isSerieChecked() {
+        return bind.radioSeries.isChecked();
     }
 }
