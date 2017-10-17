@@ -34,7 +34,6 @@ public class SeasonsHolder extends RecyclerView.ViewHolder implements OnImageCli
         bind = DetailSeasonsHolderBinding.bind(itemView);
     }
 
-
     public void setSeasons(ArrayList<Season> seasons) {
         this.seasons = seasons;
         bind.table.removeAllViews();
@@ -47,10 +46,7 @@ public class SeasonsHolder extends RecyclerView.ViewHolder implements OnImageCli
             seasonsView.setOnImageClickListener(this, i);
             seasonsView.setLayoutParams(getSeasonParams());
             if (count % 2 == 0) {
-                tableRow = new TableRow(context);
-                tableRow.setLayoutParams(getTableRowParams());
-                tableRow.setWeightSum(1f);
-                tableRow.addView(seasonsView);
+                tableRow = createNewTableRow(seasonsView);
                 if (i == seasons.size() - 1) {
                     bind.table.addView(tableRow);
                 }
@@ -64,6 +60,14 @@ public class SeasonsHolder extends RecyclerView.ViewHolder implements OnImageCli
         }
     }
 
+    private TableRow createNewTableRow(SeasonsView seasonsView) {
+        TableRow tableRow = new TableRow(context);
+        tableRow.setLayoutParams(getTableRowParams());
+        tableRow.setWeightSum(1f);
+        tableRow.addView(seasonsView);
+
+        return tableRow;
+    }
 
     private TableRow.LayoutParams getTableRowParams() {
         return new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -85,7 +89,6 @@ public class SeasonsHolder extends RecyclerView.ViewHolder implements OnImageCli
 
         int howMuchWithImage = getHowMuchSeasonsWithImage();
         boolean fullListWithAndWithOutPictures[] = new boolean[seasons.size()];
-
 
         int howMuchWithOutImage = 0;
         String[] actorImages = new String[howMuchWithImage];

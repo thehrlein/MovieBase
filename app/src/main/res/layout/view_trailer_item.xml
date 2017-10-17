@@ -51,6 +51,7 @@
                     <TextView
                         android:id="@+id/thumbs_up_count"
                         tools:text="190.999"
+                        android:textSize="12sp"
                         android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -64,6 +65,7 @@
                     <TextView
                         android:id="@+id/thumbs_down_count"
                         tools:text="19.999"
+                        android:textSize="12sp"
                         android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -86,6 +88,7 @@
                     <TextView
                         android:id="@+id/watch_count"
                         tools:text="190.999"
+                        android:textSize="12sp"
                         android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

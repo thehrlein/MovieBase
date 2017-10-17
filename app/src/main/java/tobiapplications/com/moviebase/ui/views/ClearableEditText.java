@@ -33,7 +33,7 @@ public class ClearableEditText extends RelativeLayout {
         super(context);
         initViews(context);
     }
-    void initViews(Context context) {
+    private void initViews(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
         bind = ViewClearableEdittextBinding.inflate(inflater, this, true);
         bind.clearableButtonClear.setVisibility(View.INVISIBLE);
@@ -41,11 +41,11 @@ public class ClearableEditText extends RelativeLayout {
         setTextWatcher();
     }
 
-    void setClearListener() {
+    private void setClearListener() {
         bind.clearableButtonClear.setOnClickListener(view -> bind.clearableEdit.setText(""));
     }
 
-    void setTextWatcher() {
+    private void setTextWatcher() {
         bind.clearableEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {

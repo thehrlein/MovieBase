@@ -32,7 +32,6 @@ public class DividerView extends LinearLayout {
         init(context);
     }
 
-
     private void init(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
         bind = ViewDividerItemBinding.inflate(inflater, this, true);

@@ -22,7 +22,7 @@ import tobiapplications.com.moviebase.utils.StringUtils;
  * Created by Tobias on 20.06.2017.
  */
 
-public class TrailerView extends LinearLayout implements View.OnClickListener{
+public class TrailerView extends LinearLayout {
 
     private ViewTrailerItemBinding bind;
     private DividerView divider;
@@ -48,7 +48,13 @@ public class TrailerView extends LinearLayout implements View.OnClickListener{
         this.context = context;
         LayoutInflater inflater = LayoutInflater.from(context);
         bind = ViewTrailerItemBinding.inflate(inflater, this, true);
-        bind.trailerImage.setOnClickListener(this);
+        bind.trailerImage.setOnClickListener(v -> openYoutubeTrailer());
+    }
+
+    private void openYoutubeTrailer() {
+        Intent openYoutubeTrailerIntent = new Intent(Intent.ACTION_VIEW);
+        openYoutubeTrailerIntent.setData(NetworkUtils.buildYoutubeIntent(trailerKey));
+        context.startActivity(openYoutubeTrailerIntent);
     }
 
     public void setTrailerInformation(TrailerItem trailerItem) {
@@ -56,8 +62,6 @@ public class TrailerView extends LinearLayout implements View.OnClickListener{
         bind.trailerTitle.setText(trailerItem.getTitle());
 
         setUpStatistics(trailerItem.getStatistics());
-
-
         Picasso.with(context).load(trailerItem.getThumbnails().getDefaultThumb().getUrl()).into(bind.trailerImage);
 
         divider = new DividerView(context);
@@ -95,12 +99,5 @@ public class TrailerView extends LinearLayout implements View.OnClickListener{
 
     public void showDivider() {
         divider.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent openYoutubeTrailerIntent = new Intent(Intent.ACTION_VIEW);
-        openYoutubeTrailerIntent.setData(NetworkUtils.buildYoutubeIntent(trailerKey));
-        context.startActivity(openYoutubeTrailerIntent);
     }
 }

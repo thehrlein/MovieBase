@@ -33,7 +33,6 @@ public class AdditionalSerieInfoViewHolder extends RecyclerView.ViewHolder imple
         bind = DetailAdditionalSerieInfoHolderBinding.bind(itemView);
     }
 
-
     public void setAdditionalInfo(AdditionalSerieInfoItem additionalInfo) {
         bind.originalTitle.setText(additionalInfo.getOriginalTitle());
         bind.episodes.setText(additionalInfo.getEpisodes());
