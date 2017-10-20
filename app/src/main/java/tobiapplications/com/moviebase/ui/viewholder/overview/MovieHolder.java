@@ -4,12 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ItemMovieBinding;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
-import tobiapplications.com.moviebase.ui.views.MoviePosterView;
 
 /**
  * Created by Tobias on 15.06.2017.

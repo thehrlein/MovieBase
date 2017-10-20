@@ -31,6 +31,9 @@ public interface DetailActivityContract {
     interface Presenter {
         void requestSingleMovieDownload();
         void displayMovieResponse(MovieDetailResponse detailResponse);
+
+        boolean hasInternetConnection();
+
         void displayError(String message);
         void openToolbarImage();
         void handleFabClick();

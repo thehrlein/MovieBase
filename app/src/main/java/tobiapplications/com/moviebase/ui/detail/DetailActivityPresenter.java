@@ -1,17 +1,21 @@
 package tobiapplications.com.moviebase.ui.detail;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.MenuItem;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import timber.log.Timber;
+import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.listener.DialogBuilderListener;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.network.DataManager;
-import tobiapplications.com.moviebase.ui.views.SimpleDialog;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.DialogBuilderUtil;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 import tobiapplications.com.moviebase.utils.StringUtils;
@@ -108,8 +112,43 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
     }
 
     @Override
+    public boolean hasInternetConnection() {
+        return NetworkUtils.isConnectedToInternet(context);
+    }
+
+    @Override
     public void displayError(String message) {
         Timber.d("Error: " + message);
+
+        String dialogMessage;
+        if (hasInternetConnection()) {
+            dialogMessage = context.getString(R.string.unknown_error);
+        } else {
+            dialogMessage = context.getString(R.string.network_error);
+        }
+        AlertDialog errorDialog = DialogBuilderUtil.createErrorDialog(context, dialogMessage, requestDownloadOnDelay());
+
+        errorDialog.show();
+    }
+
+    private DialogBuilderListener requestDownloadOnDelay() {
+        return new DialogBuilderListener() {
+            @Override
+            public void onConfirm() {
+                new Handler().postDelayed(() -> {
+                if (hasInternetConnection()) {
+                    requestDownload();
+                } else {
+                    displayError("Error");
+                }
+            }, 2000);
+            }
+
+            @Override
+            public void onCancel() {
+                parent.onBackPressed();
+            }
+        };
     }
 
     @Override

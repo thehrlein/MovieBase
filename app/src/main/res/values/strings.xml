@@ -81,5 +81,8 @@
     <string name="seasons">Seasons</string>
     <string name="about_image_copyright">The navigation wallpaper belongs to Yesofcorsa.com</string>
     <string name="no_picture_available">No picture available</string>
+    <string name="unknown_error">Details could not be loaded :-( </string>
+    <string name="network_error">Please check your network connections </string>
+    <string name="cancel">cancel</string>
 
 </resources>
