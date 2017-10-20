@@ -1,7 +1,5 @@
 package tobiapplications.com.moviebase.model.detail;
 
-import android.widget.Toast;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;

@@ -3,6 +3,7 @@ package tobiapplications.com.moviebase.ui.detail;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
@@ -10,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -105,13 +105,13 @@ public class DetailActivity extends AppCompatActivity implements DetailActivityC
     }
 
     @Override
-    public void showMarkAsFavoriteToast(String movieTitle) {
-        Toast.makeText(this, getString(R.string.marked_as_favorite, movieTitle), Toast.LENGTH_SHORT).show();
+    public void showMarkAsFavorite(String movieTitle) {
+        Snackbar.make(bind.appBarLayout, getString(R.string.marked_as_favorite, movieTitle), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
-    public void showRemovedFromFavoriteToast(String movieTitle) {
-        Toast.makeText(this, getString(R.string.unmarked_as_favorite, movieTitle), Toast.LENGTH_SHORT).show();
+    public void showRemovedFromFavorite(String movieTitle) {
+        Snackbar.make(bind.appBarLayout, getString(R.string.unmarked_as_favorite, movieTitle), Snackbar.LENGTH_LONG).show();
     }
 
     @Override

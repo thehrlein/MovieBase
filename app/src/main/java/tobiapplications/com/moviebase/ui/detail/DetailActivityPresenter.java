@@ -209,13 +209,13 @@ public class DetailActivityPresenter implements DetailActivityContract.Presenter
 
     private void markAsFavorite(String message) {
         parent.markFabAsFavorite();
-        parent.showMarkAsFavoriteToast(message);
+        parent.showMarkAsFavorite(message);
         insertIntoDatabase(type);
     }
 
     private void unmarkFromFavorite(String message, int id) {
         parent.unMarkFabFromFavorite();
-        parent.showRemovedFromFavoriteToast(message);
+        parent.showRemovedFromFavorite(message);
 
         SQLUtils.deleteFromDataBase(context, id, type);
     }

@@ -22,8 +22,8 @@ public interface DetailActivityContract {
         void setFabButtonVisible();
         void animateFabDown(int value);
         void animateFabUp(int value);
-        void showMarkAsFavoriteToast(String movieTitle);
-        void showRemovedFromFavoriteToast(String movieTitle);
+        void showMarkAsFavorite(String movieTitle);
+        void showRemovedFromFavorite(String movieTitle);
         void showNoPictureAvailable(boolean noPicture);
         void showPosterImage(String imageUrl);
     }
