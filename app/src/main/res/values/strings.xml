@@ -85,4 +85,18 @@
     <string name="network_error">Please check your network connections </string>
     <string name="cancel">cancel</string>
 
+
+    <!-- Settings -->
+    <string name="pref_key_delete_movies">delete_all_favorite_movies</string>
+    <string name="pref_key_delete_series">delete_all_favorite_series</string>
+    <string name="pref_title_delete_movies">Delete all favorites movies?</string>
+    <string name="pref_title_delete_series">Delete all favorites series?</string>
+    <string name="pref_summary_delete">You have to confirm this action</string>
+    <string name="pref_summary_no_favorites">You currently do not have any favorites</string>
+    <string name="pref_delete_dialog_title">Are you sure?</string>
+    <string name="pref_delete_dialog_text">If you hit ok, all your favorite %1$s will be removed. This does have no affect to your favorite %2$s.</string>
+    <string name="pref_delete_dialog_movies_entry">movies</string>
+    <string name="pref_delete_dialog_series_entry">series</string>
+    <string name="pref_all_favorites_deleted_sucessfully">All your favorite %1$s are deleted successfully</string>
+
 </resources>

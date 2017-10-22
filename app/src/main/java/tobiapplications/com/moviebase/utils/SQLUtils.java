@@ -93,7 +93,7 @@ public class SQLUtils {
                 null);
     }
 
-    private static Cursor getAllFavoriteSerie(Context context) {
+    private static Cursor getAllFavoriteSeries(Context context) {
         return context.getContentResolver().query(
                 SeriesContract.SeriesEntry.CONTENT_URI,
                 SQLUtils.selectAllSeries,
@@ -118,17 +118,46 @@ public class SQLUtils {
     }
 
     public static boolean checkIfSerieIsMarkedAsFavorite(Context context, int detailMovieId) {
-        Cursor cursor = getAllFavoriteSerie(context);
+        Cursor cursor = getAllFavoriteSeries(context);
         if (cursor == null || cursor.getCount() == 0) {
             return false;
         }
 
         while(cursor.moveToNext()) {
-            int serieId = cursor.getInt(SQLUtils.INDEX_COLUMN_ID);
+            int serieId = cursor.getInt(INDEX_COLUMN_ID);
             if (detailMovieId == serieId) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static void deleteAllFavorites(Context context, @Constants.Type int type) {
+        Cursor cursor = null;
+        if (type == Constants.Type.MOVIES) {
+            cursor = getAllFavoriteMovies(context);
+        } else if (type == Constants.Type.SERIES) {
+            cursor = getAllFavoriteSeries(context);
+        }
+
+        if (cursor == null || cursor.getCount() == 0) {
+            return;
+        }
+
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(INDEX_COLUMN_ID);
+            deleteFromDataBase(context, id, type);
+        }
+    }
+
+    public static boolean areFavoritesAvailable(Context context, @Constants.Type int type) {
+        Cursor cursor = null;
+        if (type == Constants.Type.MOVIES) {
+            cursor = getAllFavoriteMovies(context);
+        } else if (type == Constants.Type.SERIES) {
+            cursor = getAllFavoriteSeries(context);
+        }
+
+        return !(cursor == null || cursor.getCount() == 0);
     }
 }
