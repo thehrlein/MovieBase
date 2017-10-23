@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import java.lang.ref.WeakReference;
 import java.text.NumberFormat;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -77,6 +79,17 @@ public class GeneralUtils {
 
     public static boolean isTopRated(int category) {
         return category == Constants.Category.TOP_RATED;
+    }
+
+    public static boolean weakReferenceIsValid(WeakReference reference) {
+        boolean valid = reference != null && reference.get() != null;
+        if (valid) {
+            if (reference.get() instanceof Fragment) {
+                return ((Fragment) reference.get()).isAdded();
+            }
+        }
+
+        return valid;
     }
 
 }
