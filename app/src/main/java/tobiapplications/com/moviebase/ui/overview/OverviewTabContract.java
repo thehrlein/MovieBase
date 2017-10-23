@@ -11,6 +11,8 @@ import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
+import tobiapplications.com.moviebase.utils.mvp.BaseMvpPresenter;
+import tobiapplications.com.moviebase.utils.mvp.BaseView;
 
 /**
  * Created by Tobias on 09.06.2017.
@@ -31,7 +33,7 @@ public interface OverviewTabContract {
 
     }
 
-    interface DatabaseView extends LoaderManager.LoaderCallbacks<Cursor>, OnMovieClickListener {
+    interface DatabaseView extends BaseView, LoaderManager.LoaderCallbacks<Cursor>, OnMovieClickListener {
         void setGridViewAndAdapter();
         void setPosterItems(ArrayList<PosterOverviewItem> movies);
         void showLoading(boolean load);
@@ -43,7 +45,7 @@ public interface OverviewTabContract {
         void startDetailActivity(int id, int type);
     }
 
-    interface DatabasePresenter {
+    interface DatabasePresenter extends BaseMvpPresenter<DatabaseView> {
         void createPosterItemsFromCursor(Cursor data);
         void onDatabaseLoadFinished(Cursor data);
         void parseType(Bundle arguments);

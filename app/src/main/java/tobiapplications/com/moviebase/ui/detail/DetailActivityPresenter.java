@@ -19,6 +19,7 @@ import tobiapplications.com.moviebase.utils.DialogBuilderUtil;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 import tobiapplications.com.moviebase.utils.StringUtils;
+import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
 
@@ -26,7 +27,7 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
  * Created by Tobias on 11.06.2017.
  */
 
-public class DetailActivityPresenter implements DetailActivityContract.Presenter {
+public class DetailActivityPresenter extends BasePresenter<DetailActivityContract.View> implements DetailActivityContract.Presenter {
 
     private DetailActivity parent;
     private int id;

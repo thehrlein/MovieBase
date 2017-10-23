@@ -46,6 +46,7 @@ public class PopularFragment extends BaseTabFragment implements OverviewTabContr
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         presenter = new PopularPresenter(this, context);
+        presenter.attach(this);
         super.setPresenter(presenter);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -56,5 +57,13 @@ public class PopularFragment extends BaseTabFragment implements OverviewTabContr
         presenter.getTypeAndLoadItems(getArguments());
 
         setGridViewAndAdapter();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (presenter != null) {
+            presenter.detach();
+        }
     }
 }

@@ -9,6 +9,7 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
+import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 import static tobiapplications.com.moviebase.utils.GeneralUtils.isMovie;
 import static tobiapplications.com.moviebase.utils.GeneralUtils.isSerie;
@@ -18,7 +19,7 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.isPopular;
  * Created by Tobias Hehrlein on 13.10.2017.
  */
 
-public class BaseTabPresenter implements BaseTabContract.Presenter{
+public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implements BaseTabContract.Presenter{
 
     public int type;
     private OverviewTabContract.View parent;

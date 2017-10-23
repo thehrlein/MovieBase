@@ -10,6 +10,8 @@ import tobiapplications.com.moviebase.model.detail.ReviewResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.model.detail.TrailersResponse;
 import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
+import tobiapplications.com.moviebase.utils.mvp.BaseMvpPresenter;
+import tobiapplications.com.moviebase.utils.mvp.BaseView;
 
 /**
  * Created by Tobias on 13.06.2017.
@@ -17,13 +19,13 @@ import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 
 public interface DetailFragmentContract {
 
-    interface View {
+    interface View extends BaseView{
         void setAdapter(int overviewType);
         void displayUiViews(ArrayList<DisplayableItem> detailItems);
         void displayUiView(DisplayableItem item);
     }
 
-    interface Presenter extends OnOverviewMovieLoadListener {
+    interface Presenter extends BaseMvpPresenter<View>, OnOverviewMovieLoadListener {
         void requestReviews();
         void displayReviews(ReviewResponse response);
         void requestActors();

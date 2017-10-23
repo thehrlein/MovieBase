@@ -68,6 +68,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         super.onViewCreated(view, savedInstanceState);
         context = getContext();
         presenter = new DetailFragmentPresenter(context, this, getArguments());
+        presenter.attach(this);
         presenter.init();
     }
 
@@ -87,5 +88,13 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     @Override
     public void displayUiView(DisplayableItem item) {
         adapter.addUiView(item);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (presenter != null) {
+            presenter.detach();
+        }
     }
 }

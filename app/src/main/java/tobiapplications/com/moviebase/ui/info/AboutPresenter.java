@@ -3,12 +3,13 @@ package tobiapplications.com.moviebase.ui.info;
 import android.content.Intent;
 
 import tobiapplications.com.moviebase.R;
+import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 /**
  * Created by Tobias Hehrlein on 13.10.2017.
  */
 
-public class AboutPresenter implements AboutContract.Presenter {
+public class AboutPresenter extends BasePresenter<AboutContract.View> implements AboutContract.Presenter {
 
     private AboutFragment fragment;
 

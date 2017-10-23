@@ -40,6 +40,7 @@ public class SearchResultsFragment extends Fragment implements SearchResultsCont
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new SearchResultsPresenter(this);
+        presenter.attach(this);
     }
 
     @Nullable
@@ -103,5 +104,13 @@ public class SearchResultsFragment extends Fragment implements SearchResultsCont
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
         openMovieDetails.putExtra(Constants.TYPE, type);
         startActivity(openMovieDetails);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (presenter != null) {
+            presenter.detach();
+        }
     }
 }

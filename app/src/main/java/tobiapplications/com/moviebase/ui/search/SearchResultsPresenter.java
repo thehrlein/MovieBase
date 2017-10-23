@@ -13,6 +13,7 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.model.search.SearchMovieItem;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
 
@@ -20,7 +21,7 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
  * Created by Tobias on 16.06.2017.
  */
 
-public class SearchResultsPresenter implements SearchResultsContract.Presenter {
+public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.View> implements SearchResultsContract.Presenter {
 
     private SearchResultsContract.View parent;
     private Context context;

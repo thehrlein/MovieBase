@@ -46,6 +46,7 @@ public class TopRatedFragment extends BaseTabFragment implements OverviewTabCont
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         presenter = new TopRatedPresenter(this, context);
+        presenter.attach(this);
         super.setPresenter(presenter);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -56,5 +57,13 @@ public class TopRatedFragment extends BaseTabFragment implements OverviewTabCont
         presenter.getTypeAndLoadItems(getArguments());
 
         setGridViewAndAdapter();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (presenter != null) {
+            presenter.detach();
+        }
     }
 }

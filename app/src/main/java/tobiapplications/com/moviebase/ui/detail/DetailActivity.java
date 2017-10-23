@@ -32,6 +32,7 @@ public class DetailActivity extends AppCompatActivity implements DetailActivityC
         init();
         setUpActionBar();
         presenter = new DetailActivityPresenter(this, this, getIntent());
+        presenter.attach(this);
     }
 
     @Override
@@ -132,5 +133,13 @@ public class DetailActivity extends AppCompatActivity implements DetailActivityC
     @Override
     public void animateFabUp(int value) {
         ViewCompat.animate(bind.detailFabButtonFavorite).translationY(value).start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (presenter != null) {
+            presenter.detach();
+        }
     }
 }

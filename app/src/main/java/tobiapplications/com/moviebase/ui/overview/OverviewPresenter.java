@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
 
@@ -11,7 +12,7 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
  * Created by Tobias Hehrlein on 13.10.2017.
  */
 
-public class OverviewPresenter implements OverviewContract.Presenter {
+public class OverviewPresenter extends BasePresenter<OverviewContract.View> implements OverviewContract.Presenter {
 
     private OverviewFragment fragment;
     private int type;

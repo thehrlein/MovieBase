@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
 
@@ -17,7 +18,7 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
  * Created by Tobias on 11.06.2017.
  */
 
-public class OwnFavoritePresenter implements OverviewTabContract.DatabasePresenter {
+public class OwnFavoritePresenter extends BasePresenter<OverviewTabContract.DatabaseView> implements OverviewTabContract.DatabasePresenter {
 
     private OverviewTabContract.DatabaseView parent;
     private Context context;

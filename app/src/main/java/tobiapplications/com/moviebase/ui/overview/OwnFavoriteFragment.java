@@ -52,6 +52,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabContract
         super.onCreate(savedInstanceState);
         context = getContext();
         presenter = new OwnFavoritePresenter(this, context);
+        presenter.attach(this);
         presenter.parseType(getArguments());
     }
 
@@ -163,6 +164,14 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabContract
         super.onStop();
         LocalBroadcastManager.getInstance(context).unregisterReceiver(movieInsertedIntoDatabase);
         LocalBroadcastManager.getInstance(context).unregisterReceiver(serieInsertedIntoDatabase);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (presenter != null) {
+            presenter.detach();
+        }
     }
 
     public void hideNoFavoriteAvailable() {

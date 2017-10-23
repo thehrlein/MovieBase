@@ -47,6 +47,7 @@ public class SearchQueryFragment extends Fragment implements SearchQueryContract
         bind = FragmentSearchQueryBinding.inflate(inflater);
         context = bind.getRoot().getContext();
         presenter = new SearchQueryPresenter(this, context);
+        presenter.attach(this);
         activity = (NavigationActivity) getActivity();
         return bind.getRoot();
     }
@@ -115,6 +116,9 @@ public class SearchQueryFragment extends Fragment implements SearchQueryContract
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (presenter != null) {
+            presenter.detach();
+        }
     }
 
     @Override
@@ -145,4 +149,6 @@ public class SearchQueryFragment extends Fragment implements SearchQueryContract
     public boolean isSerieChecked() {
         return bind.radioSeries.isChecked();
     }
+
+
 }

@@ -10,6 +10,8 @@ import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.search.SearchMovieItem;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.mvp.BaseMvpPresenter;
+import tobiapplications.com.moviebase.utils.mvp.BaseView;
 
 /**
  * Created by Tobias on 16.06.2017.
@@ -17,7 +19,7 @@ import tobiapplications.com.moviebase.utils.Constants;
 
 public interface SearchResultsContract {
 
-    interface View extends OnMovieClickListener {
+    interface View extends BaseView, OnMovieClickListener {
         void setDownloadIsActive();
         void setDownloadFinished();
         void setAdapter();
@@ -26,7 +28,7 @@ public interface SearchResultsContract {
         void startDetailActivity(int id, int type);
     }
 
-    interface Presenter extends OnOverviewMovieLoadListener {
+    interface Presenter extends BaseMvpPresenter<View>, OnOverviewMovieLoadListener {
         void init(Bundle arguments, Context context);
         void onResume();
         void onMovieClick(int id);

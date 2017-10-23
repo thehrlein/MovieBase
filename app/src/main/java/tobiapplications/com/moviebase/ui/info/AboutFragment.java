@@ -42,6 +42,7 @@ public class AboutFragment extends Fragment implements AboutContract.View {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter = new AboutPresenter(this);
+        presenter.attach(this);
         presenter.init();
         initialize();
     }
@@ -65,6 +66,9 @@ public class AboutFragment extends Fragment implements AboutContract.View {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (presenter != null) {
+            presenter.detach();
+        }
     }
 
     @Override

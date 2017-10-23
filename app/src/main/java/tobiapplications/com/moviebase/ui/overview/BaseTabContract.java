@@ -10,6 +10,8 @@ import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
+import tobiapplications.com.moviebase.utils.mvp.BaseMvpPresenter;
+import tobiapplications.com.moviebase.utils.mvp.BaseView;
 
 /**
  * Created by Tobias Hehrlein on 14.10.2017.
@@ -17,7 +19,7 @@ import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 
 public interface BaseTabContract {
 
-    interface Presenter extends OnOverviewMovieLoadListener {
+    interface Presenter extends BaseMvpPresenter<View>, OnOverviewMovieLoadListener {
         void parseArguments(Bundle arguments);
         void getTypeAndLoadItems(Bundle arguments);
         void load();
@@ -28,7 +30,7 @@ public interface BaseTabContract {
         void loadMore();
     }
 
-    interface View extends OnMovieClickListener, OnLoadMoreMoviesListener {
+    interface View extends BaseView, OnMovieClickListener, OnLoadMoreMoviesListener {
         void setGridViewAndAdapter();
         void showNetworkError(boolean noNetwork);
         void setMovies(ArrayList<PosterOverviewItem> movies);

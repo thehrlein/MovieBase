@@ -47,6 +47,7 @@ public class BaseTabFragment extends Fragment implements BaseTabContract.View{
     @Override
     public void setPresenter(BaseTabPresenter presenter) {
         this.presenter = presenter;
+        this.presenter.attach(this);
     }
 
     @Override
@@ -110,5 +111,13 @@ public class BaseTabFragment extends Fragment implements BaseTabContract.View{
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
         openMovieDetails.putExtra(Constants.TYPE, type);
         startActivity(openMovieDetails);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (presenter != null) {
+            presenter.detach();
+        }
     }
 }

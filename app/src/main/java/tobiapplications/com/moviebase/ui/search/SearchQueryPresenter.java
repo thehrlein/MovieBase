@@ -7,12 +7,13 @@ import android.widget.CompoundButton;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.FragmentSearchQueryBinding;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 /**
  * Created by Tobias Hehrlein on 14.10.2017.
  */
 
-public class SearchQueryPresenter implements SearchQueryContract.Presenter {
+public class SearchQueryPresenter extends BasePresenter<SearchQueryContract.View> implements SearchQueryContract.Presenter {
 
     private SearchQueryFragment fragment;
     private Context context;

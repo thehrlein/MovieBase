@@ -5,6 +5,8 @@ import android.view.MenuItem;
 
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
+import tobiapplications.com.moviebase.utils.mvp.BaseMvpPresenter;
+import tobiapplications.com.moviebase.utils.mvp.BaseView;
 
 /**
  * Created by Tobias on 13.06.2017.
@@ -12,7 +14,7 @@ import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 
 public interface DetailActivityContract {
 
-    interface View extends AppBarLayout.OnOffsetChangedListener{
+    interface View extends BaseView, AppBarLayout.OnOffsetChangedListener{
         void setUpActionBar();
         void setUpMovieTabFragment(MovieDetailResponse response, int overviewType);
         void setUpSeriesTabFragment(SeriesDetailResponse clickedSerie, int overviewType);
@@ -28,12 +30,10 @@ public interface DetailActivityContract {
         void showPosterImage(String imageUrl);
     }
 
-    interface Presenter {
+    interface Presenter extends BaseMvpPresenter<View> {
         void requestSingleMovieDownload();
         void displayMovieResponse(MovieDetailResponse detailResponse);
-
         boolean hasInternetConnection();
-
         void displayError(String message);
         void openToolbarImage();
         void handleFabClick();

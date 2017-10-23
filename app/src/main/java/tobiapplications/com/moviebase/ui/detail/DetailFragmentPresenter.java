@@ -33,6 +33,7 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.StringUtils;
+import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
 
@@ -40,7 +41,7 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
  * Created by Tobias on 14.06.2017.
  */
 
-public class DetailFragmentPresenter implements DetailFragmentContract.Presenter {
+public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContract.View> implements DetailFragmentContract.Presenter {
 
     private int id;
     private Context context;

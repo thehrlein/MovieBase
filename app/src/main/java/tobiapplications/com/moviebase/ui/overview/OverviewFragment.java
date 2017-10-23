@@ -45,6 +45,7 @@ public class OverviewFragment extends Fragment implements OverviewContract.View 
         bind = FragmentOverviewBinding.inflate(inflater);
         context = bind.getRoot().getContext();
         presenter = new OverviewPresenter(this, getArguments());
+        presenter.attach(this);
         return bind.getRoot();
     }
 
@@ -75,6 +76,9 @@ public class OverviewFragment extends Fragment implements OverviewContract.View 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (presenter != null) {
+            presenter.detach();
+        }
     }
 
     @Override
