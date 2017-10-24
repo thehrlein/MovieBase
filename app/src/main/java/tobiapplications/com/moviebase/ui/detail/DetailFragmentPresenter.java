@@ -3,6 +3,7 @@ package tobiapplications.com.moviebase.ui.detail;
 import android.content.Context;
 import android.os.Bundle;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import timber.log.Timber;
@@ -32,6 +33,7 @@ import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.StringUtils;
 import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
@@ -45,7 +47,7 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
 
     private int id;
     private Context context;
-    private DetailFragmentContract.View parent;
+    private WeakReference<DetailFragmentContract.View> parent;
     private int trailerResponseCount;
     private ArrayList<TrailerItem> trailerItems;
     private int type;
@@ -55,7 +57,7 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
 
     public DetailFragmentPresenter(Context context, DetailFragmentContract.View parent, Bundle arguments) {
         this.context = context;
-        this.parent = parent;
+        this.parent = new WeakReference<>(parent);
         trailerItems = new ArrayList<>();
         parseArguments(arguments);
     }
@@ -71,7 +73,9 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
 
     @Override
     public void init() {
-        parent.setAdapter(type);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().setAdapter(type);
+        }
         if (isMovie(type)) {
             initMovie(detailMovie);
         } else if (isSerie(type)) {
@@ -110,7 +114,9 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
         detailItems.add(createAdditionalInfoView(detailMovie));
         detailItems.add(createSummaryView(detailMovie.getDescription()));
 
-        parent.displayUiViews(detailItems);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().displayUiViews(detailItems);
+        }
     }
 
     private void buildUiFromResponse(SeriesDetailResponse detailSerie) {
@@ -122,7 +128,9 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
         detailItems.add(createSummaryView(detailSerie.getDescription()));
         detailItems.add(createSeriesView(detailSerie.getSeasons()));
 
-        parent.displayUiViews(detailItems);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().displayUiViews(detailItems);
+        }
     }
 
     private DisplayableItem createSeriesView(ArrayList<Season> seasons) {
@@ -230,21 +238,32 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
                 similarTitle = context.getString(R.string.similar_movies, context.getString(R.string.series_title));
             }
 
-            parent.displayUiView(new SimilarMoviesItem(moviePosters, similarTitle));
+            if (GeneralUtils.weakReferenceIsValid(parent)) {
+                parent.get().displayUiView(new SimilarMoviesItem(moviePosters, similarTitle));
+            }
         }
     }
 
     @Override
     public void displayReviews(ReviewResponse response) {
-        if (response.getTotalResults() != 0) {
-            parent.displayUiView(response);
+        if (response == null || response.getTotalResults() == 0) {
+            return;
+        }
+
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().displayUiView(response);
+
         }
     }
 
     @Override
     public void displayActors(ActorsResponse response) {
-        if (response != null && !response.getActors().isEmpty()) {
-            parent.displayUiView(response);
+        if (response == null || response.getActors() == null || response.getActors().isEmpty()) {
+            return;
+        }
+
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().displayUiView(response);
         }
     }
 
@@ -266,7 +285,9 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
         TrailerItem trailerItem = new TrailerItem(title, trailerKey, thumbnails, statistics);
         trailerItems.add(trailerItem);
         if (trailerItems.size() == trailerResponseCount) {
-            parent.displayUiView(new FullTrailerItems(trailerItems));
+            if (GeneralUtils.weakReferenceIsValid(parent)) {
+                parent.get().displayUiView(new FullTrailerItems(trailerItems));
+            }
         }
     }
 }

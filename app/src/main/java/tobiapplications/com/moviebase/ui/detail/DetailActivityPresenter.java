@@ -8,6 +8,8 @@ import android.view.MenuItem;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import java.lang.ref.WeakReference;
+
 import timber.log.Timber;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.listener.DialogBuilderListener;
@@ -16,6 +18,7 @@ import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.DialogBuilderUtil;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 import tobiapplications.com.moviebase.utils.StringUtils;
@@ -29,7 +32,7 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
 
 public class DetailActivityPresenter extends BasePresenter<DetailActivityContract.View> implements DetailActivityContract.Presenter {
 
-    private DetailActivity parent;
+    private WeakReference<DetailActivity> parent;
     private int id;
     private MovieDetailResponse clickedMovie;
     private SeriesDetailResponse clickedSerie;
@@ -41,7 +44,7 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
     private int type;
 
     public DetailActivityPresenter(DetailActivity detailActivity, Context context, Intent intent) {
-        this.parent = detailActivity;
+        this.parent = new WeakReference<>(detailActivity);
         this.context = context;
         parseIntent(intent);
         requestDownload();
@@ -80,15 +83,17 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
         }
 
         clickedMovie = detailResponse;
-        parent.displayTitle(clickedMovie.getTitle());
-        String imageUrl = NetworkUtils.getFullImageUrlHigh(clickedMovie.getBackgroundImagePath());
-        if (StringUtils.nullOrEmpty(imageUrl)) {
-            parent.showNoPictureAvailable(true);
-        } else {
-            parent.showNoPictureAvailable(false);
-            parent.showPosterImage(imageUrl);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().displayTitle(clickedMovie.getTitle());
+            String imageUrl = NetworkUtils.getFullImageUrlHigh(clickedMovie.getBackgroundImagePath());
+            if (StringUtils.nullOrEmpty(imageUrl)) {
+                parent.get().showNoPictureAvailable(true);
+            } else {
+                parent.get().showNoPictureAvailable(false);
+                parent.get().showPosterImage(imageUrl);
+            }
+            parent.get().setUpMovieTabFragment(clickedMovie, type);
         }
-        parent.setUpMovieTabFragment(clickedMovie, type);
         setFabDependingOnFavoriteStatus();
     }
 
@@ -99,16 +104,18 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
         }
 
         clickedSerie = detailResponse;
-        parent.displayTitle(clickedSerie.getName());
-        String imageUrl = clickedSerie.getBackgroundImage();
-        if (StringUtils.nullOrEmpty(imageUrl)) {
-            parent.showNoPictureAvailable(true);
-        } else {
-            parent.showNoPictureAvailable(false);
-            imageUrl = NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImage());
-            parent.showPosterImage(imageUrl);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().displayTitle(clickedSerie.getName());
+            String imageUrl = clickedSerie.getBackgroundImage();
+            if (StringUtils.nullOrEmpty(imageUrl)) {
+                parent.get().showNoPictureAvailable(true);
+            } else {
+                parent.get().showNoPictureAvailable(false);
+                imageUrl = NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImage());
+                parent.get().showPosterImage(imageUrl);
+            }
+            parent.get().setUpSeriesTabFragment(clickedSerie, type);
         }
-        parent.setUpSeriesTabFragment(clickedSerie, type);
         setFabDependingOnFavoriteStatus();
     }
 
@@ -147,7 +154,9 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
 
             @Override
             public void onCancel() {
-                parent.onBackPressed();
+                if (GeneralUtils.weakReferenceIsValid(parent)) {
+                    parent.get().onBackPressed();
+                }
             }
         };
     }
@@ -165,9 +174,11 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
             return;
         }
 
-        new ImageViewer.Builder(parent, new String[]{NetworkUtils.getFullImageUrlHigh(imageUrl)})
-                .setStartPosition(0)
-                .show();
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            new ImageViewer.Builder(parent.get(), new String[]{NetworkUtils.getFullImageUrlHigh(imageUrl)})
+                    .setStartPosition(0)
+                    .show();
+        }
     }
 
     @Override
@@ -209,14 +220,18 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
     }
 
     private void markAsFavorite(String message) {
-        parent.markFabAsFavorite();
-        parent.showMarkAsFavorite(message);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().markFabAsFavorite();
+            parent.get().showMarkAsFavorite(message);
+        }
         insertIntoDatabase(type);
     }
 
     private void unmarkFromFavorite(String message, int id) {
-        parent.unMarkFabFromFavorite();
-        parent.showRemovedFromFavorite(message);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().unMarkFabFromFavorite();
+            parent.get().showRemovedFromFavorite(message);
+        }
 
         SQLUtils.deleteFromDataBase(context, id, type);
     }
@@ -242,11 +257,13 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
             isMarkedAsFavorite = SQLUtils.checkIfSerieIsMarkedAsFavorite(context, id);
         }
 
-        parent.setFabButtonVisible();
-        if (isMarkedAsFavorite) {
-            parent.markFabAsFavorite();
-        } else {
-            parent.unMarkFabFromFavorite();
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().setFabButtonVisible();
+            if (isMarkedAsFavorite) {
+                parent.get().markFabAsFavorite();
+            } else {
+                parent.get().unMarkFabFromFavorite();
+            }
         }
     }
 
@@ -259,16 +276,18 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
         int currentScrollPercentage = (Math.abs(verticalOffset)) * 100
                 / maxScrollSize;
 
-        if (currentScrollPercentage >= PERCENTAGE_TO_SHOW_IMAGE) {
-            if (!isImageHidden) {
-                isImageHidden = true;
-                parent.animateFabDown(100);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            if (currentScrollPercentage >= PERCENTAGE_TO_SHOW_IMAGE) {
+                if (!isImageHidden) {
+                    isImageHidden = true;
+                    parent.get().animateFabDown(100);
+                }
             }
-        }
-        if (currentScrollPercentage < PERCENTAGE_TO_SHOW_IMAGE) {
-            if (isImageHidden) {
-                isImageHidden = false;
-                parent.animateFabUp(0);
+            if (currentScrollPercentage < PERCENTAGE_TO_SHOW_IMAGE) {
+                if (isImageHidden) {
+                    isImageHidden = false;
+                    parent.get().animateFabUp(0);
+                }
             }
         }
     }
@@ -276,7 +295,9 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
     @Override
     public void onMenuItemClicked(MenuItem menuItem) {
         if(menuItem.getItemId() == android.R.id.home) {
-            parent.onBackPressed();
+            if (GeneralUtils.weakReferenceIsValid(parent)) {
+                parent.get().onBackPressed();
+            }
         }
     }
 }

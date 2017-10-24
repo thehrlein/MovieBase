@@ -1,6 +1,5 @@
 package tobiapplications.com.moviebase.ui.detail;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
