@@ -13,7 +13,8 @@
     <ImageView
         android:id="@+id/image"
         android:layout_width="125dp"
-        android:layout_height="188dp" />
+        android:layout_height="188dp"
+        android:contentDescription="@string/season_image_content_description"/>
 
     <TextView
         android:id="@+id/season_number"

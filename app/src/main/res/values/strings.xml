@@ -62,6 +62,14 @@
     <string name="no_picture_available">No picture available</string>
     <string name="unknown_error">Details could not be loaded :-( </string>
     <string name="network_error">Please check your network connections </string>
+    <string name="toolbar_background_content_descrption">Background Image</string>
+    <string name="cover_image_content_descrption">Cover Image</string>
+    <string name="actor_image_content_description">Actor Image</string>
+    <string name="season_image_content_description">Season Cover Image</string>
+    <string name="trailer_image_content_description">Trailer Cover Image</string>
+    <string name="trailer_thumbs_up_content_description">Trailer Like Image</string>
+    <string name="trailer_thumbs_down_content_description">Trailer Dislike Image</string>
+    <string name="trailer_watched_content_description">Trailer Watch-Count Image</string>
 
     <!-- About -->
     <string name="about_text_first">MovieBase was created as part of an Udacity course and uses the TheMovieDB API.

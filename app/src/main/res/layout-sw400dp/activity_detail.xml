@@ -34,7 +34,8 @@
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    app:layout_collapseMode="parallax"/>
+                    app:layout_collapseMode="parallax"
+                    android:contentDescription="@string/toolbar_background_content_descrption"/>
 
                 <TextView
                     android:id="@+id/no_picture_available"
@@ -54,10 +55,10 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:fitsSystemWindows="false"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="?android:attr/actionBarSize"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     app:layout_collapseMode="pin"
-                    app:navigationIcon="?attr/homeAsUpIndicator">
+                    app:navigationIcon="?android:attr/homeAsUpIndicator">
 
 
                 </android.support.v7.widget.Toolbar>
