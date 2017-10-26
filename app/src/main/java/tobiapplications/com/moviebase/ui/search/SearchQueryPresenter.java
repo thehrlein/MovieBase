@@ -4,9 +4,12 @@ import android.content.Context;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CompoundButton;
 
+import java.lang.ref.WeakReference;
+
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.FragmentSearchQueryBinding;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 /**
@@ -15,12 +18,12 @@ import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 public class SearchQueryPresenter extends BasePresenter<SearchQueryContract.View> implements SearchQueryContract.Presenter {
 
-    private SearchQueryFragment fragment;
+    private WeakReference<SearchQueryFragment> fragment;
     private Context context;
-    private int type;
+    private @Constants.Type int type;
 
     public SearchQueryPresenter(SearchQueryFragment searchQueryFragment, Context context) {
-        this.fragment = searchQueryFragment;
+        this.fragment = new WeakReference<>(searchQueryFragment);
         this.context = context;
     }
 
@@ -29,39 +32,54 @@ public class SearchQueryPresenter extends BasePresenter<SearchQueryContract.View
         getType();
         setTitle();
         setNavigationSelected();
-        fragment.setListener();
         setSearchButton();
-        fragment.setSearchEditText();
+        if (GeneralUtils.weakReferenceIsValid(fragment)) {
+            fragment.get().setListener();
+            fragment.get().setSearchEditText();
+        }
+
     }
 
     private void getType() {
-        if (fragment.isMovieChecked()) {
-            type = Constants.Type.MOVIES;
-        } else if (fragment.isSerieChecked()) {
-            type = Constants.Type.SERIES;
+        if (GeneralUtils.weakReferenceIsValid(fragment)) {
+            if (fragment.get().isMovieChecked()) {
+                type = Constants.Type.MOVIES;
+            } else if (fragment.get().isSerieChecked()) {
+                type = Constants.Type.SERIES;
+            }
+
         }
+
     }
 
     private void setSearchButton() {
         String searchString = context.getString(R.string.search_title);
-        fragment.setSearchButton(searchString);
+        if (GeneralUtils.weakReferenceIsValid(fragment)) {
+            fragment.get().setSearchButton(searchString);
+        }
     }
 
     private void setNavigationSelected() {
-        fragment.setNavigationSelected(R.id.menu_search);
+        if (GeneralUtils.weakReferenceIsValid(fragment)) {
+            fragment.get().setNavigationSelected(R.id.menu_search);
+        }
     }
 
     private void setTitle() {
         String title = context.getString(R.string.search_title);
-        fragment.setTitle(title);
+        if (GeneralUtils.weakReferenceIsValid(fragment)) {
+            fragment.get().setTitle(title);
+        }
     }
 
     @Override
     public void onRadioButtonCheckedChange(CompoundButton compoundButton, FragmentSearchQueryBinding bind, boolean checked) {
-        if (compoundButton == bind.radioMovies) {
-            fragment.setMoviesSelected(checked);
-        } else if (compoundButton == bind.radioSeries) {
-            fragment.setSeriesSelected(checked);
+        if (GeneralUtils.weakReferenceIsValid(fragment)) {
+            if (compoundButton == bind.radioMovies) {
+                fragment.get().setMoviesSelected(checked);
+            } else if (compoundButton == bind.radioSeries) {
+                fragment.get().setSeriesSelected(checked);
+            }
         }
 
         setSearchButton();
@@ -71,7 +89,9 @@ public class SearchQueryPresenter extends BasePresenter<SearchQueryContract.View
     public boolean onAction(int id) {
         getType();
         if (id == EditorInfo.IME_ACTION_SEARCH) {
-            fragment.openSearchResults(type);
+            if (GeneralUtils.weakReferenceIsValid(fragment)) {
+                fragment.get().openSearchResults(type);
+            }
             return true;
         }
         return false;
@@ -80,6 +100,8 @@ public class SearchQueryPresenter extends BasePresenter<SearchQueryContract.View
     @Override
     public void onSearchButtonClicked() {
         getType();
-        fragment.openSearchResults(type);
+        if (GeneralUtils.weakReferenceIsValid(fragment)) {
+            fragment.get().openSearchResults(type);
+        }
     }
 }

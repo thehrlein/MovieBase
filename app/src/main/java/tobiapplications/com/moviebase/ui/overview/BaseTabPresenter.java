@@ -4,10 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 
+import java.lang.ref.WeakReference;
+
 import timber.log.Timber;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
@@ -22,13 +25,13 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.isPopular;
 public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implements BaseTabContract.Presenter{
 
     public int type;
-    private OverviewTabContract.View parent;
+    private WeakReference<OverviewTabContract.View> parent;
     private Context context;
     private int pageToLoadNext = 1;
     private int category;
 
     public BaseTabPresenter(OverviewTabContract.View parent, Context context, int category) {
-        this.parent = parent;
+        this.parent = new WeakReference<>(parent);
         this.context = context;
         this.category = category;
     }
@@ -53,21 +56,28 @@ public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implem
     @Override
     public void load() {
         if (hasInternetConnection()) {
-            if (noMoviesShown()) {
-                parent.showLoading(true);
+            if (GeneralUtils.weakReferenceIsValid(parent)) {
+                if (noMoviesShown()) {
+                    parent.get().showLoading(true);
+                }
+                parent.get().showNetworkError(false);
+                requestDownload();
             }
-            parent.showNetworkError(false);
-            requestDownload();
         } else {
-            parent.showLoading(false);
-            parent.showNetworkError(true);
-            new Handler().postDelayed(this::load, 3000);
+            if (GeneralUtils.weakReferenceIsValid(parent)) {
+                parent.get().showLoading(false);
+                parent.get().showNetworkError(true);
+                new Handler().postDelayed(this::load, 3000);
+            }
         }
     }
 
     @Override
     public boolean noMoviesShown() {
-        return parent.getCurrentMovieSize() == 0;
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            return parent.get().getCurrentMovieSize() == 0;
+        }
+        return true;
     }
 
     @Override
@@ -104,7 +114,9 @@ public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implem
 
     @Override
     public void onMovieClick(int id) {
-        parent.startDetailActivity(id, type);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().startDetailActivity(id, type);
+        }
     }
 
     @Override
@@ -114,13 +126,17 @@ public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implem
 
     @Override
     public void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
-        parent.showLoading(false);
-        parent.setMovies(movieOverviewResponse.getMovies());
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().showLoading(false);
+            parent.get().setMovies(movieOverviewResponse.getMovies());
+        }
     }
 
     @Override
     public void loadMore() {
-        parent.insertLoadingItem();
-        requestDownload();
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().insertLoadingItem();
+           requestDownload();
+        }
     }
 }

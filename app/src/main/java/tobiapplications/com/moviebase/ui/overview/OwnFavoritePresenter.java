@@ -5,11 +5,13 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.Loader;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
@@ -20,14 +22,14 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
 
 public class OwnFavoritePresenter extends BasePresenter<OverviewTabContract.DatabaseView> implements OverviewTabContract.DatabasePresenter {
 
-    private OverviewTabContract.DatabaseView parent;
+    private WeakReference<OverviewTabContract.DatabaseView> parent;
     private Context context;
     private int type;
     private static final int MOVIE_CURSOR_LOADER_ID = 123;
     private static final int SERIE_CURSOR_LOADER_ID = 456;
 
     public OwnFavoritePresenter(OverviewTabContract.DatabaseView parent, Context context) {
-        this.parent = parent;
+        this.parent = new WeakReference<>(parent);
         this.context = context;
     }
 
@@ -45,15 +47,22 @@ public class OwnFavoritePresenter extends BasePresenter<OverviewTabContract.Data
     @Override
     public void onDatabaseLoadFinished(Cursor data) {
         loadFinished(data);
-        parent.showLoading(false);
+
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().showLoading(false);
+        }
     }
 
     private void loadFinished(Cursor data) {
         if (data != null && data.getCount() > 0) {
-            parent.hideNoFavoriteAvailable();
+            if (GeneralUtils.weakReferenceIsValid(parent)) {
+                parent.get().hideNoFavoriteAvailable();
+            }
             createPosterItemsFromCursor(data);
         } else {
-            parent.showNoFavoriteAvailable(context.getString(R.string.no_favorite_movies));
+            if (GeneralUtils.weakReferenceIsValid(parent)) {
+                parent.get().showNoFavoriteAvailable(context.getString(R.string.no_favorite_movies));
+            }
         }
     }
 
@@ -67,29 +76,41 @@ public class OwnFavoritePresenter extends BasePresenter<OverviewTabContract.Data
             }
         }
 
-        parent.setPosterItems(posterItems);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().setPosterItems(posterItems);
+        }
     }
 
     @Override
     public void onMovieClick(int id) {
-        parent.startDetailActivity(id, type);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().startDetailActivity(id, type);
+        }
     }
 
     @Override
     public void onResume() {
         if (isMovie(type)) {
-            parent.startLoader(MOVIE_CURSOR_LOADER_ID);
+            startLoader(MOVIE_CURSOR_LOADER_ID);
         } else if (isSerie(type)) {
-            parent.startLoader(SERIE_CURSOR_LOADER_ID);
+            startLoader(SERIE_CURSOR_LOADER_ID);
+        }
+    }
+
+    private void startLoader(int type) {
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().startLoader(type);
         }
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id) {
-        if (id == MOVIE_CURSOR_LOADER_ID) {
-            return parent.onCreateMovieLoader();
-        } else if (id == SERIE_CURSOR_LOADER_ID) {
-            return parent.onCreateSerieLoader();
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            if (id == MOVIE_CURSOR_LOADER_ID) {
+                return parent.get().onCreateMovieLoader();
+            } else if (id == SERIE_CURSOR_LOADER_ID) {
+                return parent.get().onCreateSerieLoader();
+            }
         }
 
         return null;

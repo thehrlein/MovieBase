@@ -150,8 +150,4 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         }
         transaction.commit();
     }
-
-    public void hideNav(boolean hide) {
-        bind.appBar.toolbar.setVisibility(hide ? View.GONE : View.VISIBLE);
-    }
 }

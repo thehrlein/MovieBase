@@ -3,6 +3,7 @@ package tobiapplications.com.moviebase.ui.search;
 import android.content.Context;
 import android.os.Bundle;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import timber.log.Timber;
@@ -13,6 +14,7 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.model.search.SearchMovieItem;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
@@ -23,21 +25,24 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.*;
 
 public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.View> implements SearchResultsContract.Presenter {
 
-    private SearchResultsContract.View parent;
+    private WeakReference<SearchResultsContract.View> parent;
     private Context context;
     private String query;
     private int type;
 
     public SearchResultsPresenter(SearchResultsContract.View parent) {
-        this.parent = parent;
+        this.parent = new WeakReference<>(parent);
     }
 
     @Override
     public void init(Bundle arguments, Context context) {
         this.context = context;
         parseArguments(arguments);
-        parent.setDownloadIsActive();
-        parent.setAdapter();
+
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().setDownloadIsActive();
+            parent.get().setAdapter();
+        }
 
         if (isMovie(type)) {
             requestMoviesDownload();
@@ -71,9 +76,12 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.
 
     @Override
     public void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
-        parent.setDownloadFinished();
         ArrayList<DisplayableItem> searchMovieItems = getSearchMovieItems(movieOverviewResponse);
-        parent.setSearchMovies(searchMovieItems);
+
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().setDownloadFinished();
+            parent.get().setSearchMovies(searchMovieItems);
+        }
     }
 
     private ArrayList<DisplayableItem> getSearchMovieItems(MovieOverviewResponse movieOverviewResponse) {
@@ -113,7 +121,9 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.
 
     @Override
     public void onResume() {
-        parent.setTitle(getTitle());
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().setTitle(getTitle());
+        }
     }
 
     private String getTitle() {
@@ -131,6 +141,8 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.
 
     @Override
     public void onMovieClick(int id) {
-        parent.startDetailActivity(id, type);
+        if (GeneralUtils.weakReferenceIsValid(parent)) {
+            parent.get().startDetailActivity(id, type);
+        }
     }
 }
