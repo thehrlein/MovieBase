@@ -1,37 +1,40 @@
 <resources>
 
+    <!-- General -->
+    <string name="movie_title">Movies</string>
+    <string name="series_title">Series</string>
+    <string name="app_name" translatable="false">MovieBase</string>
+    <string name="no_network_connection">You are not connected to the internet. Please turn on to get the movies.</string>
+    <string name="about">About</string>
+    <string name="cancel">cancel</string>
+
     <!-- Navigation Drawer -->
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="navigation_tag" translatable="false">navigation_fragment</string>
     <string name="movie_tag" translatable="false">movie_fragment</string>
-    <string name="movie_title">Movies</string>
-    <string name="series_title">Series</string>
     <string name="series_tag" translatable="false">series_fragment</string>
     <string name="search_tag" translatable="false">search_fragment</string>
-    <string name="search_title">Search</string>
-    <string name="search_headline">Do you want to search for movies or series?</string>
-    <string name="search_error_not_enough_characters">Please enter at least 1 character</string>
     <string name="action_movies">Movies</string>
     <string name="action_series">Series</string>
     <string name="action_about">About</string>
     <string name="action_search">Search</string>
     <string name="action_settings">Settings</string>
 
-    <string name="app_name" translatable="false">MovieBase</string>
-    <string name="no_network_connection">You are not connected to the internet. Please turn on to get the movies.</string>
+    <!-- Overview -->
     <string name="title_popular">Popular</string>
     <string name="title_top_rated">Top Rated</string>
     <string name="title_favorite">Own Favorites</string>
-    <string name="marked_as_favorite">%s was marked as favorite</string>
-    <string name="unmarked_as_favorite">%s was unmarked as favorite</string>
     <string name="no_favorite_movies">You have not marked any movie as your favorite yet.</string>
     <string name="no_favorite_series">You have not marked any serie as your favorite yet.</string>
+    <string name="string_fasten_your_seatbelts">fasten your seatbelts ...</string>
+
+    <!-- Detail -->
+    <string name="marked_as_favorite">%s was marked as favorite</string>
+    <string name="unmarked_as_favorite">%s was unmarked as favorite</string>
     <string name="adult">Adult</string>
     <string name="actors_label">Actors</string>
     <string name="similar_movies">Similar %1$s</string>
-
-    <string name="search_hint">Search query ...</string>
     <string name="info_max_rating" translatable="false">&#160;/&#160;10</string>
     <string name="info_release_label">Release</string>
     <string name="info_runtime_label">Runtime</string>
@@ -51,44 +54,33 @@
     <string name="no">no</string>
     <string name="review_show_more">Show next review (%d remaining)</string>
     <string name="trailers_show_more">Show next trailers (%d remaining)</string>
-
-
-    <!-- preferences -->
-    <string name="pref_language_label">Language</string>
-    <string name="pref_language_key" translatable="false">language</string>
-    <string name="pref_language_default" translatable="false">en</string>
-    <string name="pref_language_en_value" translatable="false">en</string>
-    <string name="pref_language_de_value" translatable="false">de</string>
-    <string name="pref_language_en_label">English</string>
-    <string name="pref_language_de_label">German</string>
-
-
     <string name="unknown">unknown</string>
+    <string name="season_number">Season: %1$s</string>
+    <string name="episodes_count">Episodes: %1$s</string>
+    <string name="seasons_air_date">Date: %1$s</string>
+    <string name="seasons">Seasons</string>
+    <string name="no_picture_available">No picture available</string>
+    <string name="unknown_error">Details could not be loaded :-( </string>
+    <string name="network_error">Please check your network connections </string>
 
-    <string name="string_fasten_your_seatbelts">fasten your seatbelts ...</string>
-    <string name="about">About</string>
+    <!-- About -->
     <string name="about_text_first">MovieBase was created as part of an Udacity course and uses the TheMovieDB API.
     This application is not an official product or certified by Udacity or TheMovieDB.</string>
     <string name="about_text_second">For further information, questions or feedback, please use the button at the bottom to contact me.</string>
     <string name="about_creator" translatable="false">- Tobias</string>
     <string name="tobiapplications" translatable="false">tobi.applications@gmail.com</string>
     <string name="hello_tobias">Hello Tobias</string>
-    <string name="status_post_production">Close to release</string>
-    <string name="status_released">Released</string>
-    <string name="season_number">Season: %1$s</string>
-    <string name="episodes_count">Episodes: %1$s</string>
-    <string name="seasons_air_date">Date: %1$s</string>
-    <string name="seasons">Seasons</string>
     <string name="about_image_copyright">The navigation wallpaper belongs to Yesofcorsa.com</string>
-    <string name="no_picture_available">No picture available</string>
-    <string name="unknown_error">Details could not be loaded :-( </string>
-    <string name="network_error">Please check your network connections </string>
-    <string name="cancel">cancel</string>
 
+    <!-- Search -->
+    <string name="search_title">Search</string>
+    <string name="search_headline">Do you want to search for movies or series?</string>
+    <string name="search_error_not_enough_characters">Please enter at least 1 character</string>
+    <string name="search_hint">Search query ...</string>
 
     <!-- Settings -->
-    <string name="pref_key_delete_movies">delete_all_favorite_movies</string>
-    <string name="pref_key_delete_series">delete_all_favorite_series</string>
+    <string name="pref_key_delete_movies" translatable="false">delete_all_favorite_movies</string>
+    <string name="pref_key_delete_series" translatable="false">delete_all_favorite_series</string>
     <string name="pref_title_delete_movies">Delete all favorites movies?</string>
     <string name="pref_title_delete_series">Delete all favorites series?</string>
     <string name="pref_summary_delete">You have to confirm this action</string>
@@ -98,5 +90,12 @@
     <string name="pref_delete_dialog_movies_entry">movies</string>
     <string name="pref_delete_dialog_series_entry">series</string>
     <string name="pref_all_favorites_deleted_sucessfully">All your favorite %1$s are deleted successfully</string>
+    <string name="pref_language_label">Language</string>
+    <string name="pref_language_key" translatable="false">language</string>
+    <string name="pref_language_default" translatable="false">en</string>
+    <string name="pref_language_en_value" translatable="false">en</string>
+    <string name="pref_language_de_value" translatable="false">de</string>
+    <string name="pref_language_en_label">English</string>
+    <string name="pref_language_de_label">German</string>
 
 </resources>

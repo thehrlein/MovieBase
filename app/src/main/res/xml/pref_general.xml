@@ -10,12 +10,12 @@
 
     <Preference
         android:key="@string/pref_key_delete_movies"
-        android:title="Delete all favorite movies?"
+        android:title="@string/pref_title_delete_movies"
         android:summary="@string/pref_summary_delete"/>
 
     <Preference
         android:key="@string/pref_key_delete_series"
-        android:title="Delete all favorite series?"
+        android:title="@string/pref_title_delete_series"
         android:summary="@string/pref_summary_delete" />
 
 </PreferenceScreen>

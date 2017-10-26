@@ -25,8 +25,6 @@
     <string name="unknown">unbekannt</string>
     <string name="no">nein</string>
     <string name="yes">ja</string>
-    <string name="status_released">Veröffentlicht</string>
-    <string name="status_post_production">Nachproduktion</string>
     <string name="about">Info</string>
     <string name="about_text_first">MovieBase wurde im Rahmen eines Udacity-Kurses entwickelt und bezieht die Informationen aus der \"TheMovieDB API\". Diese Applikation ist weder ein offizielles Produkt noch von Udacity oder TheMovieDB zertifiziert.</string>
     <string name="hello_tobias">Hallo Tobias</string>
@@ -54,4 +52,16 @@
     <string name="action_series">Serien</string>
     <string name="action_about">Info</string>
     <string name="action_search">Suche</string>
+    <string name="pref_title_delete_movies">Alle Lieblingsfilme entfernen?</string>
+    <string name="pref_title_delete_series">Alle Lieblingsserien entfernen?</string>
+    <string name="pref_summary_delete">Du musst die Aktion bestätigen</string>
+    <string name="pref_summary_no_favorites">Du hast aktuell keine Favoriten</string>
+    <string name="pref_delete_dialog_title">Bist du sicher?</string>
+    <string name="pref_delete_dialog_text">Wenn du ok drückst, werden alle deine Lieblings%1$s aus der Liste entfernt. Dies hat jedoch keine Auswirkungen auf deine Lieblings%2$s</string>
+    <string name="pref_delete_dialog_movies_entry">filme</string>
+    <string name="pref_delete_dialog_series_entry">serien</string>
+    <string name="pref_all_favorites_deleted_sucessfully">All deine Lieblings%1$s wurdne erfolgreich entfernt</string>
+    <string name="unknown_error">Details konnten nicht geladen werden :-(</string>
+    <string name="cancel">entfernen</string>
+    <string name="network_error">Überprüfe bitte deine Internetverbindung</string>
 </resources>
