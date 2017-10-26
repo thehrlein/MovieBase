@@ -125,13 +125,13 @@ public class DetailActivity extends AppCompatActivity implements DetailActivityC
     }
 
     @Override
-    public void animateFabDown(int value) {
-        ViewCompat.animate(bind.detailFabButtonFavorite).translationY(value).start();
+    public void animateFabDown() {
+        ViewCompat.animate(bind.detailFabButtonFavorite).translationY(100).start();
     }
 
     @Override
-    public void animateFabUp(int value) {
-        ViewCompat.animate(bind.detailFabButtonFavorite).translationY(value).start();
+    public void animateFabUp() {
+        ViewCompat.animate(bind.detailFabButtonFavorite).translationY(0).start();
     }
 
     @Override

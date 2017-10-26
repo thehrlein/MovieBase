@@ -280,13 +280,13 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
             if (currentScrollPercentage >= PERCENTAGE_TO_SHOW_IMAGE) {
                 if (!isImageHidden) {
                     isImageHidden = true;
-                    parent.get().animateFabDown(100);
+                    parent.get().animateFabDown();
                 }
             }
             if (currentScrollPercentage < PERCENTAGE_TO_SHOW_IMAGE) {
                 if (isImageHidden) {
                     isImageHidden = false;
-                    parent.get().animateFabUp(0);
+                    parent.get().animateFabUp();
                 }
             }
         }
