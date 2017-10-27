@@ -12,6 +12,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabContract
     private Context context;
     private OverviewTabAdapter adapter;
     private OwnFavoritePresenter presenter;
+    private GridLayoutManager gridLayoutManager;
 
     public static Fragment newInstance(int overviewType) {
         OwnFavoriteFragment ownFavoriteFragment = new OwnFavoriteFragment();
@@ -69,12 +71,80 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabContract
         super.onViewCreated(view, savedInstanceState);
 
         setGridViewAndAdapter();
+        initCounter();
+        initFabScrollUpButton();
+    }
+
+    public void initCounter() {
+        setCounterTotal();
+        bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                updateCounter(dy > 0);
+                updateScrollUpButton(dy >= 0);
+            }
+        });
+    }
+
+    private void updateScrollUpButton(boolean scrollDown) {
+        if (scrollDown) {
+            bind.scrollUpButton.hide();
+        } else {
+            bind.scrollUpButton.show();
+        }
+    }
+
+    private void setCounterTotal() {
+        if (adapter == null) {
+            bind.counterLayout.setVisibility(View.GONE);
+            return;
+        }
+
+        int totalItems = adapter.getMoviePosterCount();
+        if (totalItems == 0) {
+            bind.counterLayout.setVisibility(View.GONE);
+            return;
+        }
+
+        bind.counterLayout.setVisibility(View.VISIBLE);
+        bind.counterTotal.setText(String.valueOf(adapter.getMoviePosterCount()));
+    }
+
+    private int currentCounter = 0;
+    private void updateCounter(boolean scrollDown) {
+        int offSet = scrollDown ? GeneralUtils.pxFromDp(context, 5) : -bind.counterLayout.getHeight();
+        int counterLayoutMarginTop = bind.counterLayout.getTop() - offSet;
+        int counter = getCurrentVisiblePosterItem(counterLayoutMarginTop);
+
+        if (counter != currentCounter) {
+            currentCounter = counter;
+            bind.counter.setText(String.valueOf(counter));
+            setCounterTotal();
+        }
+    }
+
+    private int getCurrentVisiblePosterItem(int counterLayoutMarginTop) {
+        int pos = gridLayoutManager.findFirstVisibleItemPosition();
+        View firstVisibleView = gridLayoutManager.findViewByPosition(pos);
+        int addition;
+        if (adapter.getItemCount() % 2 == 0) {
+            addition = 2;
+        } else {
+            addition = 1;
+        }
+
+        if (firstVisibleView.getBottom() < counterLayoutMarginTop) {
+            pos += addition;
+        }
+
+        return pos + addition;
     }
 
     @Override
     public void setGridViewAndAdapter() {
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
-        final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
+        gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         bind.recyclerView.setLayoutManager(gridLayoutManager);
         adapter = new OverviewTabAdapter(bind.recyclerView, this);
         bind.recyclerView.setAdapter(adapter);
@@ -197,4 +267,12 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabContract
             onResume();
         }
     };
+
+    public void initFabScrollUpButton() {
+        bind.scrollUpButton.setOnClickListener(v -> scrollSmoothToTop());
+    }
+
+    private void scrollSmoothToTop() {
+        bind.recyclerView.smoothScrollToPosition(0);
+    }
 }

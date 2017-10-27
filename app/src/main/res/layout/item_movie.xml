@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:elevation="3dp"
+            card_view:cardElevation="3dp"
             card_view:cardCornerRadius="5dp">
 
             <RelativeLayout
@@ -26,7 +26,6 @@
                     android:layout_height="wrap_content">
 
                 </tobiapplications.com.moviebase.ui.views.MoviePosterView>
-
 
             </RelativeLayout>
 

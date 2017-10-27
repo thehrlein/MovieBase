@@ -1,6 +1,7 @@
 package tobiapplications.com.moviebase.ui.overview;
 
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public interface BaseTabContract {
 
     interface View extends BaseView, OnMovieClickListener, OnLoadMoreMoviesListener {
         void setGridViewAndAdapter();
+        void initCounter();
         void showNetworkError(boolean noNetwork);
         void setMovies(ArrayList<PosterOverviewItem> movies);
         void showLoading(boolean load);
@@ -39,8 +41,8 @@ public interface BaseTabContract {
         void insertLoadingItem();
         void loadMoreMovies();
         void onMovieClick(int id);
+        void initFabScrollUpButton();
         void startDetailActivity(int id, int type);
-
         void setPresenter(BaseTabPresenter presenter);
     }
 

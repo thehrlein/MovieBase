@@ -57,6 +57,8 @@ public class TopRatedFragment extends BaseTabFragment implements OverviewTabCont
         presenter.getTypeAndLoadItems(getArguments());
 
         setGridViewAndAdapter();
+        initCounter();
+        initFabScrollUpButton();
     }
 
     @Override

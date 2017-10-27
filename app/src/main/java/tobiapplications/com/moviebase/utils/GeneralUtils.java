@@ -92,4 +92,8 @@ public class GeneralUtils {
         return valid;
     }
 
+    public static int pxFromDp(Context context, int dp) {
+        return (int) (dp * context.getResources().getDisplayMetrics().density);
+    }
+
 }

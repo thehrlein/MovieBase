@@ -14,6 +14,7 @@ import tobiapplications.com.moviebase.adapter.delegates.PosterDelegate;
 import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
+import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.LoadingItem;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 
@@ -141,5 +142,25 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 notifyItemRangeChanged(index, itemList.size() - index);
             }
         }
+    }
+
+    public int getMoviePosterCount() {
+        if (itemList == null || itemList.isEmpty()) {
+            return 0;
+        }
+
+        int total = itemList.size();
+        for (DisplayableItem item : itemList) {
+            if (!(item instanceof PosterOverviewItem)) {
+                total--;
+            }
+        }
+        return total;
+    }
+
+    public int getDurationDependingOnItemCount() {
+        int itemCount = getItemCount();
+
+        return itemCount * 100;
     }
 }

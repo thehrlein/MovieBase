@@ -28,6 +28,7 @@
     <string name="no_favorite_movies">You have not marked any movie as your favorite yet.</string>
     <string name="no_favorite_series">You have not marked any serie as your favorite yet.</string>
     <string name="string_fasten_your_seatbelts">fasten your seatbelts ...</string>
+    <string name="counter_slash" translatable="false">&#160;/&#160;</string>
 
     <!-- Detail -->
     <string name="marked_as_favorite">%s was marked as favorite</string>

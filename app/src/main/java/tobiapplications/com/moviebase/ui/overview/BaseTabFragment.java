@@ -1,17 +1,29 @@
 package tobiapplications.com.moviebase.ui.overview;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
+import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.OverviewTabAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentOverviewTabBinding;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
@@ -23,12 +35,14 @@ import tobiapplications.com.moviebase.utils.GeneralUtils;
  * Created by Tobias Hehrlein on 14.10.2017.
  */
 
-public class BaseTabFragment extends Fragment implements BaseTabContract.View{
+public class BaseTabFragment extends Fragment implements BaseTabContract.View {
 
     private FragmentOverviewTabBinding bind;
     private OverviewTabAdapter adapter;
     private Context context;
     private BaseTabPresenter presenter;
+    private GridLayoutManager gridLayoutManager;
+    private int currentCounter = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,11 +67,74 @@ public class BaseTabFragment extends Fragment implements BaseTabContract.View{
     @Override
     public void setGridViewAndAdapter() {
         int howMuchColumns = GeneralUtils.getHowMuchColumnsForOverviewMovies(context);
-        final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
+        gridLayoutManager = new GridLayoutManager(context, howMuchColumns);
         bind.recyclerView.setLayoutManager(gridLayoutManager);
         adapter = new OverviewTabAdapter(bind.recyclerView, this);
         adapter.setOnLoadMoreMoviesListener(this);
         bind.recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void initCounter() {
+        setCounterTotal();
+        bind.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                updateCounter(dy > 0);
+                updateScrollUpButton(dy >= 0);
+            }
+        });
+    }
+
+    private void updateScrollUpButton(boolean scrollDown) {
+        if (scrollDown) {
+            bind.scrollUpButton.hide();
+        } else {
+            bind.scrollUpButton.show();
+        }
+    }
+
+    private void setCounterTotal() {
+        if (adapter == null) {
+            bind.counterLayout.setVisibility(View.GONE);
+            return;
+        }
+
+        int totalItems = adapter.getMoviePosterCount();
+        if (totalItems == 0) {
+            bind.counterLayout.setVisibility(View.GONE);
+            return;
+        }
+
+        bind.counterLayout.setVisibility(View.VISIBLE);
+        bind.counterTotal.setText(String.valueOf(adapter.getMoviePosterCount()));
+    }
+
+    private void updateCounter(boolean scrollDown) {
+        int offSet = scrollDown ? GeneralUtils.pxFromDp(context, 5) : -bind.counterLayout.getHeight();
+        int counterLayoutMarginTop = bind.counterLayout.getTop() - offSet;
+        int counter = getCurrentVisiblePosterItem(counterLayoutMarginTop);
+
+        if (counter != currentCounter) {
+            currentCounter = counter;
+            bind.counter.setText(String.valueOf(counter));
+            setCounterTotal();
+        }
+    }
+
+    private int getCurrentVisiblePosterItem(int counterLayoutMarginTop) {
+        int pos = gridLayoutManager.findFirstVisibleItemPosition();
+        View firstVisibleView = gridLayoutManager.findViewByPosition(pos);
+        if (firstVisibleView.getBottom() < counterLayoutMarginTop) {
+            if (adapter.getItemCount() % 2 == 0) {
+                pos += 2;
+            } else {
+                pos++;
+            }
+        }
+
+        return pos + 2;
     }
 
     @Override
@@ -106,6 +183,15 @@ public class BaseTabFragment extends Fragment implements BaseTabContract.View{
     }
 
     @Override
+    public void initFabScrollUpButton() {
+        bind.scrollUpButton.setOnClickListener(v -> scrollSmoothToTop());
+    }
+
+    private void scrollSmoothToTop() {
+        bind.recyclerView.smoothScrollToPosition(0);
+    }
+
+    @Override
     public void startDetailActivity(int id, int type) {
         Intent openMovieDetails = new Intent(context, DetailActivity.class);
         openMovieDetails.putExtra(Constants.CLICKED_MOVIE, id);
@@ -119,5 +205,6 @@ public class BaseTabFragment extends Fragment implements BaseTabContract.View{
         if (presenter != null) {
             presenter.detach();
         }
+        gridLayoutManager = null;
     }
 }

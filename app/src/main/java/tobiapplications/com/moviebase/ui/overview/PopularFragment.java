@@ -57,6 +57,8 @@ public class PopularFragment extends BaseTabFragment implements OverviewTabContr
         presenter.getTypeAndLoadItems(getArguments());
 
         setGridViewAndAdapter();
+        initCounter();
+        initFabScrollUpButton();
     }
 
     @Override
