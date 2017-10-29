@@ -88,7 +88,13 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabContract
     }
 
     private void updateScrollUpButton(boolean scrollDown) {
-        if (scrollDown) {
+        if (gridLayoutManager == null) {
+            return;
+        }
+
+        if (gridLayoutManager.findFirstVisibleItemPosition() < 5) {
+            bind.scrollUpButton.hide();
+        } else if (scrollDown) {
             bind.scrollUpButton.hide();
         } else {
             bind.scrollUpButton.show();
@@ -128,12 +134,15 @@ public class OwnFavoriteFragment extends Fragment implements OverviewTabContract
         int pos = gridLayoutManager.findFirstVisibleItemPosition();
         View firstVisibleView = gridLayoutManager.findViewByPosition(pos);
         int addition;
-        if (adapter.getItemCount() % 2 == 0) {
-            addition = 2;
-        } else {
+        if ((pos == adapter.getItemCount() - 2 || pos == adapter.getItemCount() - 1) && adapter.getItemCount() % 2 != 0) {
             addition = 1;
+        } else {
+            addition = 2;
         }
 
+        if (firstVisibleView == null) {
+            return pos;
+        }
         if (firstVisibleView.getBottom() < counterLayoutMarginTop) {
             pos += addition;
         }
