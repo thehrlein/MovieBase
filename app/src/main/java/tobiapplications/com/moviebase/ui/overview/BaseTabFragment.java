@@ -159,7 +159,6 @@ public class BaseTabFragment extends Fragment implements BaseTabContract.View {
 
     @Override
     public void setMovies(ArrayList<PosterOverviewItem> movies) {
-        bind.loadingTextview.setVisibility(View.GONE);
         adapter.removeLoadingItem();
         adapter.setPosterItems(movies);
         adapter.notifyDataSetChanged();

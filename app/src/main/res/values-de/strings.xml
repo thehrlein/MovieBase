@@ -13,7 +13,6 @@
     <string name="pref_language_de_label">Deutsch</string>
     <string name="pref_language_en_label">Englisch</string>
     <string name="pref_language_label">Sprache</string>
-    <string name="info_release_label">Veröffentlichung</string>
     <string name="unmarked_as_favorite">%s wurde von deinen Favoriten entfernt</string>
     <string name="reviews_label">Rezensionen</string>
     <string name="search_hint">Suchbegriff ...</string>

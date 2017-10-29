@@ -13,6 +13,7 @@ import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.ui.detail.DetailActivity;
 import tobiapplications.com.moviebase.ui.views.MoviePosterView;
 import tobiapplications.com.moviebase.utils.Constants;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 
 /**
  * Created by Tobias on 15.06.2017.
@@ -38,8 +39,9 @@ public class SimilarMoviesViewHolder extends RecyclerView.ViewHolder {
         for (MoviePosterItem model : movies) {
             MoviePosterView posterView = new MoviePosterView(context);
             bind.similarMoviesLayout.addView(posterView);
-
-            posterView.setMovieInformation(model, 600, 400);
+            int height = GeneralUtils.pxFromDp(context, 150);
+            int width = GeneralUtils.pxFromDp(context, 100);
+            posterView.setMovieInformation(model, height, width);
             posterView.setOnClickListener((View v)-> openDetails(model.getId()));
         }
 }

@@ -37,7 +37,7 @@
     <string name="actors_label">Actors</string>
     <string name="similar_movies">Similar %1$s</string>
     <string name="info_max_rating" translatable="false">&#160;/&#160;10</string>
-    <string name="info_release_label">Release</string>
+    <string name="info_release_label" translatable="false">Release</string>
     <string name="info_runtime_label">Runtime</string>
     <string name="info_first_air_date_label">First date on tv</string>
     <string name="info_last_air_date_label">Last date on tv</string>

@@ -14,6 +14,7 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ItemActorsPosterBinding;
 import tobiapplications.com.moviebase.listener.OnImageClickListener;
 import tobiapplications.com.moviebase.model.detail.Actor;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**
@@ -55,10 +56,10 @@ public class ActorsPosterView extends LinearLayout {
             } else {
                 bind.actorsImage.setImageResource(R.drawable.no_picture);
             }
-            bind.actorsImage.getLayoutParams().height = 450;
-            bind.actorsImage.getLayoutParams().width = 300;
-            getLayoutParams().height = LayoutParams.WRAP_CONTENT;
-            getLayoutParams().width = 300;
+
+            int width = GeneralUtils.pxFromDp(context, 100);
+            bind.actorsImage.getLayoutParams().height = LayoutParams.WRAP_CONTENT;
+            bind.actorsImage.getLayoutParams().width = width;
             bind.actorCharacter.setText(actor.getCharacter());
             bind.actorName.setText(actor.getName());
 
