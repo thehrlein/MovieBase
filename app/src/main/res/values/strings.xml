@@ -73,13 +73,16 @@
     <string name="trailer_watched_content_description">Trailer Watch-Count Image</string>
 
     <!-- About -->
-    <string name="about_text_first">MovieBase was created as part of an Udacity course and uses the TheMovieDB API.
-    This application is not an official product or certified by Udacity or TheMovieDB.</string>
     <string name="about_text_second">For further information, questions or feedback, please use the button at the bottom to contact me.</string>
     <string name="about_creator" translatable="false">- Tobias</string>
     <string name="tobiapplications" translatable="false">tobi.applications@gmail.com</string>
     <string name="hello_tobias">Hello Tobias</string>
-    <string name="about_image_copyright">The navigation wallpaper belongs to Yesofcorsa.com</string>
+
+    <string name="about_credits" translatable="false">Credits:</string>
+    <string name="about_udacity" translatable="false">- Udacity</string>
+    <string name="about_themoviedp" translatable="false">- TheMovieDB</string>
+    <string name="about_yesofcorsa" translatable="false">- Yesofcorsa</string>
+    <string name="about_iconfinder" translatable="false">- Iconfinder</string>
 
     <!-- Search -->
     <string name="search_title">Search</string>

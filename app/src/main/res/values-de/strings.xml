@@ -26,7 +26,6 @@
     <string name="no">nein</string>
     <string name="yes">ja</string>
     <string name="about">Info</string>
-    <string name="about_text_first">MovieBase wurde im Rahmen eines Udacity-Kurses entwickelt und bezieht die Informationen aus der \"TheMovieDB API\". Diese Applikation ist weder ein offizielles Produkt noch von Udacity oder TheMovieDB zertifiziert.</string>
     <string name="hello_tobias">Hallo Tobias</string>
     <string name="about_text_second">Für weitere Informationen, Fragen oder Feedback, nutzen Sie bitte den unten stehenden Button um mich zu kontaktieren.</string>
     <string name="review_show_more">Weitere anzeigen (%d verbelbend)</string>
@@ -46,7 +45,6 @@
     <string name="episodes_count">Episoden: %1$s</string>
     <string name="seasons_air_date">Datum: %1$s</string>
     <string name="seasons">Staffeln</string>
-    <string name="about_image_copyright">Das Bild im Navigationsmenü stammt von Yesofcorsa.com</string>
     <string name="no_picture_available">Kein Bild verfügbar</string>
     <string name="action_movies">Filme</string>
     <string name="action_series">Serien</string>
@@ -64,4 +62,12 @@
     <string name="unknown_error">Details konnten nicht geladen werden :-(</string>
     <string name="cancel">entfernen</string>
     <string name="network_error">Überprüfe bitte deine Internetverbindung</string>
+    <string name="toolbar_background_content_descrption">Hintergrundbild</string>
+    <string name="cover_image_content_descrption">Titlebild</string>
+    <string name="actor_image_content_description">Schauspielerfoto</string>
+    <string name="season_image_content_description">Staffelcover</string>
+    <string name="trailer_image_content_description">Trailercover</string>
+    <string name="trailer_thumbs_up_content_description">Trailer gefällt mir Bild</string>
+    <string name="trailer_thumbs_down_content_description">Trailer gefällt mir nicht Bild</string>
+    <string name="trailer_watched_content_description">Trailer Aufrufe Bild</string>
 </resources>
