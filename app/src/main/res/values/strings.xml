@@ -75,14 +75,14 @@
     <!-- About -->
     <string name="about_text_second">For further information, questions or feedback, please use the button at the bottom to contact me.</string>
     <string name="about_creator" translatable="false">- Tobias</string>
-    <string name="tobiapplications" translatable="false">tobi.applications@gmail.com</string>
-    <string name="hello_tobias">Hello Tobias</string>
-
+    <string name="about_email" translatable="false">tobi.applications@gmail.com</string>
+    <string name="about_email_text">Hello Tobias, \n\n</string>
     <string name="about_credits" translatable="false">Credits:</string>
     <string name="about_udacity" translatable="false">- Udacity</string>
     <string name="about_themoviedp" translatable="false">- TheMovieDB</string>
     <string name="about_yesofcorsa" translatable="false">- Yesofcorsa</string>
     <string name="about_iconfinder" translatable="false">- Iconfinder</string>
+    <string name="about_email_chooser_title">Choose your email client</string>
 
     <!-- Search -->
     <string name="search_title">Search</string>

@@ -26,7 +26,7 @@
     <string name="no">nein</string>
     <string name="yes">ja</string>
     <string name="about">Info</string>
-    <string name="hello_tobias">Hallo Tobias</string>
+    <string name="about_email_text">Hallo Tobias</string>
     <string name="about_text_second">Für weitere Informationen, Fragen oder Feedback, nutzen Sie bitte den unten stehenden Button um mich zu kontaktieren.</string>
     <string name="review_show_more">Weitere anzeigen (%d verbelbend)</string>
     <string name="string_fasten_your_seatbelts" translatable="false">schnallen Sie sich an ...</string>
@@ -70,4 +70,5 @@
     <string name="trailer_thumbs_up_content_description">Trailer gefällt mir Bild</string>
     <string name="trailer_thumbs_down_content_description">Trailer gefällt mir nicht Bild</string>
     <string name="trailer_watched_content_description">Trailer Aufrufe Bild</string>
+    <string name="about_email_chooser_title">Wählen Sie Ihr E-Mail Client</string>
 </resources>

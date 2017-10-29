@@ -30,10 +30,10 @@ public class AboutPresenter extends BasePresenter<AboutContract.View> implements
     @Override
     public void fabButtonClicked() {
         if (GeneralUtils.weakReferenceIsValid(fragment)) {
-            String text = fragment.get().getString(R.string.hello_tobias);
-            String email = fragment.get().getString(R.string.tobiapplications);
+            String text = fragment.get().getString(R.string.about_email_text);
+            String email = fragment.get().getString(R.string.about_email);
 
-            Intent intent = new Intent(Intent.ACTION_SEND);
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setType("message/rfc822");
             intent.putExtra(Intent.EXTRA_SUBJECT, fragment.get().getString(R.string.app_name));
             intent.putExtra(Intent.EXTRA_TEXT, text);
