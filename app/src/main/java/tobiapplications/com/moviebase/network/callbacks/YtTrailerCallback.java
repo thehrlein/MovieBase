@@ -28,10 +28,7 @@ public class YtTrailerCallback implements Callback<YtSingleTrailerResponse> {
     }
 
     private boolean trailerItemAvailable(YtSingleTrailerResponse body) {
-        if (body.getItem() == null) {
-            return false;
-        }
-        return true;
+        return body.getItem() != null;
     }
 
     @Override

@@ -21,10 +21,7 @@ public class YtSingleTrailerResponse implements Serializable {
     }
 
     private boolean itemNullOrEmpty() {
-        if (item == null || item.length == 0) {
-            return true;
-        }
-        return false;
+        return item == null || item.length == 0;
     }
 
     private boolean snippetNullOrEmpty() {
@@ -32,10 +29,7 @@ public class YtSingleTrailerResponse implements Serializable {
             return true;
         }
         YtTrailerItem.YtSnippet snippet = getItem().getSnippet();
-        if (snippet == null) {
-            return true;
-        }
-        return false;
+        return snippet == null;
     }
 
     public YtThumbnailObject getThumbnails() {

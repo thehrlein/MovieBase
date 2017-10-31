@@ -5,7 +5,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="match_parent"
@@ -13,8 +13,7 @@
             android:id="@+id/actors_image"
             android:scaleType="fitXY"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:adjustViewBounds="true"
-            android:contentDescription=""/>
+            android:adjustViewBounds="true"/>
 
         <TextView
             android:id="@+id/actor_character"
