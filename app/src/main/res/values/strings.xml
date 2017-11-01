@@ -27,7 +27,6 @@
     <string name="title_favorite">Own Favorites</string>
     <string name="no_favorite_movies">You have not marked any movie as your favorite yet.</string>
     <string name="no_favorite_series">You have not marked any serie as your favorite yet.</string>
-    <string name="string_fasten_your_seatbelts">fasten your seatbelts ...</string>
     <string name="counter_slash" translatable="false">&#160;/&#160;</string>
 
     <!-- Detail -->

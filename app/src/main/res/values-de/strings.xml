@@ -28,7 +28,6 @@
     <string name="about_email_text">Hallo Tobias</string>
     <string name="about_text_second">Für weitere Informationen, Fragen oder Feedback, nutzen Sie bitte den unten stehenden Button um mir eine E-Mail zu schreiben.</string>
     <string name="review_show_more">Weitere anzeigen (%d verbelbend)</string>
-    <string name="string_fasten_your_seatbelts" translatable="false">schnallen Sie sich an ...</string>
     <string name="trailers_show_more">Weitere anzeigen (%d verbleibend)</string>
     <string name="additional_info_number_of_episodes_label">Episoden</string>
     <string name="additional_info_number_of_seasons_label">Staffeln</string>
