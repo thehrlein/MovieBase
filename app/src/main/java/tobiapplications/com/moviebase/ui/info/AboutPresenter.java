@@ -1,6 +1,8 @@
 package tobiapplications.com.moviebase.ui.info;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
 import java.lang.ref.WeakReference;
 
@@ -32,14 +34,12 @@ public class AboutPresenter extends BasePresenter<AboutContract.View> implements
         if (GeneralUtils.weakReferenceIsValid(fragment)) {
             String text = fragment.get().getString(R.string.about_email_text);
             String email = fragment.get().getString(R.string.about_email);
-
-            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("message/rfc822");
             intent.putExtra(Intent.EXTRA_SUBJECT, fragment.get().getString(R.string.app_name));
             intent.putExtra(Intent.EXTRA_TEXT, text);
             intent.putExtra(Intent.EXTRA_EMAIL, new String[] {email});
-            Intent mailer = Intent.createChooser(intent, null);
-            fragment.get().sendEmail(mailer);
+            fragment.get().sendEmail(intent);
         }
     }
 }

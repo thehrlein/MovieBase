@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.FragmentAboutBinding;
@@ -59,8 +60,14 @@ public class AboutFragment extends Fragment implements AboutContract.View {
     }
 
     @Override
-    public void sendEmail(Intent mailer) {
-        startActivity(mailer);
+    public void sendEmail(Intent email) {
+        Intent mailer  = Intent.createChooser(email, getContext().getString(R.string.about_email_chooser_title));
+        try {
+            startActivity(mailer);
+            Toast.makeText(getContext(), getContext().getString(R.string.about_send_email_loading), Toast.LENGTH_SHORT).show();
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getContext(), getContext().getString(R.string.about_no_email_clients), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
