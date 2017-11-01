@@ -17,6 +17,7 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ActivityDetailBinding;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
+import tobiapplications.com.moviebase.utils.GeneralUtils;
 
 public class DetailActivity extends AppCompatActivity implements DetailActivityContract.View {
 
@@ -126,7 +127,8 @@ public class DetailActivity extends AppCompatActivity implements DetailActivityC
 
     @Override
     public void animateFabDown() {
-        ViewCompat.animate(bind.detailFabButtonFavorite).translationY(100).start();
+        int translation = GeneralUtils.pxFromDp(this, 35);
+        ViewCompat.animate(bind.detailFabButtonFavorite).translationY(translation).start();
     }
 
     @Override

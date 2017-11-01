@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import net.hockeyapp.android.CrashManager;
+import net.hockeyapp.android.UpdateManager;
+
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ActivityNavigationBinding;
 import tobiapplications.com.moviebase.network.DataManager;
@@ -45,7 +48,27 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     @Override
     protected void onResume() {
         super.onResume();
+        checkForCrashes();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterManagers();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterManagers();
+    }
+
+    private void unregisterManagers() {
+        UpdateManager.unregister();
+    }
+
+    private void checkForCrashes() {
+        CrashManager.register(this);
     }
 
     private void init() {

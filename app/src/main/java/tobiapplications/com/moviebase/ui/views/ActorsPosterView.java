@@ -58,7 +58,8 @@ public class ActorsPosterView extends LinearLayout {
             }
 
             int width = GeneralUtils.pxFromDp(context, 100);
-            bind.actorsImage.getLayoutParams().height = LayoutParams.WRAP_CONTENT;
+            int height = GeneralUtils.pxFromDp(context, 150);
+            bind.actorsImage.getLayoutParams().height = height;
             bind.actorsImage.getLayoutParams().width = width;
             bind.actorCharacter.setWidth(width);
             bind.actorCharacter.setText(actor.getCharacter());
