@@ -9,7 +9,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:id="@+id/movie_image"
             android:scaleType="fitXY"
             android:background="?android:attr/selectableItemBackgroundBorderless"
@@ -28,9 +28,7 @@
             android:layout_below="@id/movie_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
             android:paddingStart="10dp"
-            android:paddingRight="15dp"
             android:paddingEnd="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="5dp"
