@@ -18,10 +18,11 @@ public class DateUtils {
     private static final int HOUR = 60;
     private static final String HOUR_TEXT = "h";
     private static final String MINUTE_TEXT = "min";
+    private static final String EMPTY_STRING = "";
 
     public static String getDMYFromYMD(String oldDateString) {
         if (StringUtils.nullOrEmpty(oldDateString)) {
-            return "";
+            return EMPTY_STRING;
         }
         SimpleDateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
         SimpleDateFormat newFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN);
@@ -31,13 +32,16 @@ public class DateUtils {
             newDateString = newFormat.format(oldDate);
         } catch (ParseException e) {
             Timber.d("Error parsing " + oldDateString + " to the new format!");
-            newDateString = oldDateString;
+            newDateString = EMPTY_STRING;
         }
 
         return newDateString;
     }
 
     public static String getHourMinuteStringFromInt(int minutes) {
+        if (minutes < 0) {
+            return "Unknown";
+        }
         int hours = minutes / HOUR;
         int min = minutes - (hours * HOUR);
         return String.valueOf(hours + HOUR_TEXT + " " + min + MINUTE_TEXT);
