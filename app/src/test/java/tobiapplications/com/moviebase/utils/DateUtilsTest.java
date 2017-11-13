@@ -11,18 +11,20 @@ import static org.junit.Assert.assertThat;
 
 public class DateUtilsTest {
 
+    private final String EMPTY_STRING = "";
+
     /**
      * Testing getDMYFromYMD. Parses date from yyyy-mm-dd into dd.mm.yyyy.
      * If input is null, empty or can not be parsed, empty string will be returned.
      */
     @Test
     public void getDMYFromYMD_nullInput_returns_emptyString() {
-        assertThat(DateUtils.getDMYFromYMD(null), is(""));
+        assertThat(DateUtils.getDMYFromYMD(null), is(EMPTY_STRING));
     }
 
     @Test
     public void getDMYFromYMD_emptyInput_returns_emptyString() {
-        assertThat(DateUtils.getDMYFromYMD(null), is(""));
+        assertThat(DateUtils.getDMYFromYMD(null), is(EMPTY_STRING));
     }
 
     @Test
@@ -37,17 +39,17 @@ public class DateUtilsTest {
 
     @Test
     public void getDMYFromYMD_19960706dotted_returns_emptyString() {
-        assertThat(DateUtils.getDMYFromYMD("1996.07.06"), is(""));
+        assertThat(DateUtils.getDMYFromYMD("1996.07.06"), is(EMPTY_STRING));
     }
 
     @Test
     public void getDMYFromYMD_invalidString_returns_emptyString() {
-        assertThat(DateUtils.getDMYFromYMD("invalidDate"), is(""));
+        assertThat(DateUtils.getDMYFromYMD("invalidDate"), is(EMPTY_STRING));
     }
 
     @Test
     public void getDMYFromYMD_07101994dotted_returns_emptyString() {
-        assertThat(DateUtils.getDMYFromYMD("07.10.1993"), is(""));
+        assertThat(DateUtils.getDMYFromYMD("07.10.1993"), is(EMPTY_STRING));
     }
 
     /**

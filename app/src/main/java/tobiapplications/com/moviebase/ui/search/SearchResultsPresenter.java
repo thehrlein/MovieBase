@@ -6,6 +6,10 @@ import android.os.Bundle;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.DisplayableItem;
@@ -29,9 +33,11 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.
     private Context context;
     private String query;
     private int type;
+    private DataManager dataManager;
 
     public SearchResultsPresenter(SearchResultsContract.View parent) {
         this.parent = new WeakReference<>(parent);
+        this.dataManager = DataManager.getInstance();
     }
 
     @Override
@@ -66,12 +72,20 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.
 
     @Override
     public void requestMoviesDownload() {
-        DataManager.getInstance().requestSearchMovie(this, query);
+        dataManager.requestSearchMovie(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayPosterItems,
+                        throwable -> Timber.d("Error: Search Movies"));
     }
 
     @Override
     public void requestSeriesDownload() {
-        DataManager.getInstance().requestSearchSerie(this, query);
+        dataManager.requestSearchSerie(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayPosterItems,
+                        throwable -> Timber.d("Error: Search Series"));
     }
 
     @Override
@@ -112,11 +126,6 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.
         } else {
             return model.getName();
         }
-    }
-
-    @Override
-    public void displayError(String message) {
-        Timber.d("Error: " + message);
     }
 
     @Override

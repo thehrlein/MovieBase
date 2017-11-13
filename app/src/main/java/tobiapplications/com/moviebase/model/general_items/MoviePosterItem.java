@@ -1,7 +1,5 @@
 package tobiapplications.com.moviebase.model.general_items;
 
-import java.util.ArrayList;
-
 /**
  * Created by Tobias on 18.06.2017.
  */

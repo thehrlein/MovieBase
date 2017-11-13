@@ -6,6 +6,10 @@ import android.os.Handler;
 
 import java.lang.ref.WeakReference;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.network.DataManager;
@@ -22,18 +26,20 @@ import static tobiapplications.com.moviebase.utils.GeneralUtils.isPopular;
  * Created by Tobias Hehrlein on 13.10.2017.
  */
 
-public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implements BaseTabContract.Presenter{
+public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implements BaseTabContract.Presenter {
 
     public int type;
     private WeakReference<OverviewTabContract.View> parent;
     private Context context;
     private int pageToLoadNext = 1;
     private int category;
+    private DataManager dataManager;
 
     public BaseTabPresenter(OverviewTabContract.View parent, Context context, int category) {
         this.parent = new WeakReference<>(parent);
         this.context = context;
         this.category = category;
+        this.dataManager = DataManager.getInstance();
     }
 
     @Override
@@ -94,20 +100,36 @@ public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implem
         }
     }
 
-    public void requestMoviesDownload() {
+    private void requestMoviesDownload() {
         if (isPopular(category)) {
-            DataManager.getInstance().requestPopularMovies(this, pageToLoadNext);
+            dataManager.requestPopularMovies(pageToLoadNext)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::displayPosterItems,
+                            throwable -> Timber.d("Error: Overview Popular Movies"));
         } else {
-            DataManager.getInstance().requestTopRatedMovies(this, pageToLoadNext);
+            dataManager.requestTopRatedMovies(pageToLoadNext)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::displayPosterItems,
+                            throwable -> Timber.d("Error: Overview Top Movies"));
         }
         pageToLoadNext++;
     }
 
-    public void requestSeriesDownload() {
+    private void requestSeriesDownload() {
         if (isPopular(category)) {
-            DataManager.getInstance().requestPopularSeries(this, pageToLoadNext);
+            dataManager.requestPopularSeries(pageToLoadNext)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::displayPosterItems,
+                            throwable -> Timber.d("Error: Overview Popular Series"));
         } else {
-            DataManager.getInstance().requestTopRatedSeries(this, pageToLoadNext);
+            dataManager.requestTopRatedSeries(pageToLoadNext)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::displayPosterItems,
+                            throwable -> Timber.d("Error: Overview Top Series"));
         }
         pageToLoadNext++;
     }
@@ -119,13 +141,7 @@ public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implem
         }
     }
 
-    @Override
-    public void displayError(String message) {
-        Timber.d("Error: " + message);
-    }
-
-    @Override
-    public void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
+    private void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
         if (GeneralUtils.weakReferenceIsValid(parent)) {
             parent.get().showLoading(false);
             parent.get().setMovies(movieOverviewResponse.getMovies());
@@ -136,7 +152,7 @@ public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implem
     public void loadMore() {
         if (GeneralUtils.weakReferenceIsValid(parent)) {
             parent.get().insertLoadingItem();
-           requestDownload();
+            requestDownload();
         }
     }
 }

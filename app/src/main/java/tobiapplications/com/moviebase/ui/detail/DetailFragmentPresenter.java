@@ -6,6 +6,11 @@ import android.os.Bundle;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.DisplayableItem;
@@ -53,11 +58,12 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
     private int type;
     private MovieDetailResponse detailMovie;
     private SeriesDetailResponse detailSerie;
-
+    private DataManager dataManager;
 
     public DetailFragmentPresenter(Context context, DetailFragmentContract.View parent, Bundle arguments) {
         this.context = context;
         this.parent = new WeakReference<>(parent);
+        this.dataManager = DataManager.getInstance();
         trailerItems = new ArrayList<>();
         parseArguments(arguments);
     }
@@ -190,42 +196,55 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
         return new SerieInfoItem(voteAverage, voteCount, firstAirDate, lastAirTime, adult);
     }
 
-    @Override
-    public void requestMoviesDownload() {
-        DataManager.getInstance().requestSimilarMovies(this, id);
+    private void requestMoviesDownload() {
+        dataManager.requestSimilarMovies(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayPosterItems,
+                        throwable -> Timber.d("Error: Similar Movies"));
     }
 
-    @Override
-    public void requestSeriesDownload() {
-        DataManager.getInstance().requestSimilarSeries(this, id);
+    private void requestSeriesDownload() {
+        dataManager.requestSimilarSeries(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayPosterItems,
+                        throwable -> Timber.d("Error: Similar Series"));
     }
 
-    @Override
-    public void requestReviews() {
-        DataManager.getInstance().requestReviews(this, id);
+    private void requestReviews() {
+        dataManager.requestReviews(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayReviews,
+                        throwable -> Timber.d("Error: Reviews"));
     }
 
-    @Override
-    public void requestActors() {
-        DataManager.getInstance().requestActors(this, id);
+    private void requestActors() {
+        dataManager.requestActors(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayActors,
+                        throwable -> Timber.d("Error: Actors"));
     }
-
 
     private void requestTrailers() {
         if (isMovie(type)) {
-            DataManager.getInstance().requestMovieTrailers(this, id);
+            dataManager.requestMovieTrailers(id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::displayTrailers,
+                            throwable -> Timber.d("Error: Movie Trailers"));
         } else if (isSerie(type)) {
-            DataManager.getInstance().requestSerieTrailer(this, id);
+            dataManager.requestSerieTrailer(id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::displayTrailers,
+                            throwable -> Timber.d("Error: Serie Trailers"));
         }
     }
 
-    @Override
-    public void displayError(String message) {
-        Timber.d("Error: " + message);
-    }
-
-    @Override
-    public void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
+    private void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
         if (movieOverviewResponse.getTotalResults() != 0) {
             ArrayList<MoviePosterItem> moviePosters = null;
             String similarTitle = "";
@@ -244,8 +263,7 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
         }
     }
 
-    @Override
-    public void displayReviews(ReviewResponse response) {
+    private void displayReviews(ReviewResponse response) {
         if (response == null || response.getTotalResults() == 0) {
             return;
         }
@@ -256,8 +274,7 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
         }
     }
 
-    @Override
-    public void displayActors(ActorsResponse response) {
+    private void displayActors(ActorsResponse response) {
         if (response == null || response.getActors() == null || response.getActors().isEmpty()) {
             return;
         }
@@ -267,17 +284,19 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
         }
     }
 
-    @Override
-    public void displayTrailers(TrailersResponse body) {
+    private void displayTrailers(TrailersResponse body) {
         ArrayList<Trailer> trailers = body.getTrailers();
         trailerResponseCount = trailers.size();
         for (Trailer trailer : trailers) {
-            DataManager.getInstance().requestYoutubeTrailerInformation(this, trailer.getKey());
+            dataManager.requestYoutubeTrailerInformation(trailer.getKey())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(ytSingleTrailerResponse -> displaySingleYoutubeTrailer(ytSingleTrailerResponse, trailer.getKey()),
+                            throwable -> Timber.d("Error: Youtube Trailer"));
         }
     }
 
-    @Override
-    public void displaySingleYoutubeTrailer(YtSingleTrailerResponse body, String trailerKey) {
+    private void displaySingleYoutubeTrailer(YtSingleTrailerResponse body, String trailerKey) {
         String title = body.getTitle();
         YtThumbnailObject thumbnails = body.getThumbnails();
         YtTrailerStatistic statistics = body.getStatistics();

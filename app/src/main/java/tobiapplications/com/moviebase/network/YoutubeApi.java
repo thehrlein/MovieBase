@@ -1,8 +1,7 @@
 package tobiapplications.com.moviebase.network;
 
-import retrofit2.Call;
+import io.reactivex.Single;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 
@@ -13,5 +12,5 @@ import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 public interface YoutubeApi {
 
     @GET("videos")
-    Call<YtSingleTrailerResponse> requestSingleTrailer(@Query("id") String trailerKey);
+    Single<YtSingleTrailerResponse> requestSingleTrailer(@Query("id") String trailerKey);
 }

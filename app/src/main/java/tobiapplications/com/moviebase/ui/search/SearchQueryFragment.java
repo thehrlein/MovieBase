@@ -14,7 +14,6 @@ import android.widget.CompoundButton;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.FragmentSearchQueryBinding;
 import tobiapplications.com.moviebase.ui.NavigationActivity;
-import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.InputManager;
 import tobiapplications.com.moviebase.utils.StringUtils;
 
@@ -149,6 +148,4 @@ public class SearchQueryFragment extends Fragment implements SearchQueryContract
     public boolean isSerieChecked() {
         return bind.radioSeries.isChecked();
     }
-
-
 }

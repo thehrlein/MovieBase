@@ -10,6 +10,11 @@ import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.lang.ref.WeakReference;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.listener.DialogBuilderListener;
@@ -42,10 +47,12 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
     private boolean isImageHidden;
     private Context context;
     private int type;
+    private DataManager dataManager;
 
     public DetailActivityPresenter(DetailActivity detailActivity, Context context, Intent intent) {
         this.parent = new WeakReference<>(detailActivity);
         this.context = context;
+        this.dataManager = DataManager.getInstance();
         parseIntent(intent);
         requestDownload();
     }
@@ -68,16 +75,22 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
     }
 
     private void requestSingleSerieDownload() {
-        DataManager.getInstance().requestSingleSerie(this, id);
+        dataManager.requestSingleSerie(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displaySeriesResponse,
+                        throwable -> displayError("Series"));
     }
 
-    @Override
-    public void requestSingleMovieDownload() {
-        DataManager.getInstance().requestSingleMovie(this, id);
+    private void requestSingleMovieDownload() {
+        dataManager.requestSingleMovie(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayMovieResponse,
+                        throwable -> displayError("Movies"));
     }
 
-    @Override
-    public void displayMovieResponse(MovieDetailResponse detailResponse) {
+    private void displayMovieResponse(MovieDetailResponse detailResponse) {
         if (detailResponse == null) {
             return;
         }
@@ -97,8 +110,7 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
         setFabDependingOnFavoriteStatus();
     }
 
-    @Override
-    public void displaySeriesResponse(SeriesDetailResponse detailResponse) {
+    private void displaySeriesResponse(SeriesDetailResponse detailResponse) {
         if (detailResponse == null) {
             return;
         }
@@ -124,8 +136,7 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
         return NetworkUtils.isConnectedToInternet(context);
     }
 
-    @Override
-    public void displayError(String message) {
+    private void displayError(String message) {
         Timber.d("Error: " + message);
 
         String dialogMessage;

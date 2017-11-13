@@ -1,10 +1,7 @@
 
 package tobiapplications.com.moviebase.model.detail.items.movie;
 
-import java.util.LinkedHashMap;
-
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.utils.GeneralUtils;
 
 /**
  * Created by Tobias on 15.06.2017.

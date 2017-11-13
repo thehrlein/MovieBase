@@ -1,8 +1,6 @@
 package tobiapplications.com.moviebase.ui.info;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 
 import java.lang.ref.WeakReference;
 

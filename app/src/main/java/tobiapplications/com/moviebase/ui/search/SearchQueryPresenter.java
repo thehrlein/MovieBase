@@ -37,7 +37,6 @@ public class SearchQueryPresenter extends BasePresenter<SearchQueryContract.View
             fragment.get().setListener();
             fragment.get().setSearchEditText();
         }
-
     }
 
     private void getType() {
@@ -47,9 +46,7 @@ public class SearchQueryPresenter extends BasePresenter<SearchQueryContract.View
             } else if (fragment.get().isSerieChecked()) {
                 type = Constants.Type.SERIES;
             }
-
         }
-
     }
 
     private void setSearchButton() {

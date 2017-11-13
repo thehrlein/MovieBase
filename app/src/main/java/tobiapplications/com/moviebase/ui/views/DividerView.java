@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ViewDividerItemBinding;
 
 /**

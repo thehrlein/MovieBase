@@ -31,16 +31,12 @@ public interface DetailActivityContract {
     }
 
     interface Presenter extends BaseMvpPresenter<View> {
-        void requestSingleMovieDownload();
-        void displayMovieResponse(MovieDetailResponse detailResponse);
         boolean hasInternetConnection();
-        void displayError(String message);
         void openToolbarImage();
         void handleFabClick();
         void insertIntoDatabase(int overviewType);
         void setFabDependingOnFavoriteStatus();
         void setAppBarOffsetChanged(int totalScrollRange, int verticalOffset);
-        void displaySeriesResponse(SeriesDetailResponse body);
         void onMenuItemClicked(MenuItem menuItem);
     }
 

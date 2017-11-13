@@ -14,7 +14,6 @@ import tobiapplications.com.moviebase.adapter.delegates.PosterDelegate;
 import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
 import tobiapplications.com.moviebase.model.overview.LoadingItem;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 

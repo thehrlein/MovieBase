@@ -13,7 +13,6 @@ import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
 import tobiapplications.com.moviebase.ui.viewholder.detail.SimilarMoviesViewHolder;
-import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 06.09.2017.

@@ -1,6 +1,5 @@
 package tobiapplications.com.moviebase.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
@@ -20,9 +19,6 @@ import tobiapplications.com.moviebase.adapter.delegates.SimilarMovieDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.SummaryViewDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.movie.TrailersDelegate;
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.detail.items.SimilarMoviesItem;
-import tobiapplications.com.moviebase.ui.viewholder.detail.serie.AdditionalSerieInfoViewHolder;
-import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 14.06.2017.

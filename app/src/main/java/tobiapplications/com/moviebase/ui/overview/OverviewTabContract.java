@@ -7,9 +7,7 @@ import android.support.v4.content.Loader;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
-import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 import tobiapplications.com.moviebase.utils.mvp.BaseMvpPresenter;
 import tobiapplications.com.moviebase.utils.mvp.BaseView;

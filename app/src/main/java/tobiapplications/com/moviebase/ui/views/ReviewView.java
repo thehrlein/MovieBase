@@ -5,9 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ViewReviewItemBinding;
 
 /**

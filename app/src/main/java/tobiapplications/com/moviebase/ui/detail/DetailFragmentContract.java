@@ -2,14 +2,7 @@ package tobiapplications.com.moviebase.ui.detail;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.DisplayableItem;
-import tobiapplications.com.moviebase.model.detail.ActorsResponse;
-import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
-import tobiapplications.com.moviebase.model.detail.ReviewResponse;
-import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
-import tobiapplications.com.moviebase.model.detail.TrailersResponse;
-import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 import tobiapplications.com.moviebase.utils.mvp.BaseMvpPresenter;
 import tobiapplications.com.moviebase.utils.mvp.BaseView;
 
@@ -25,13 +18,7 @@ public interface DetailFragmentContract {
         void displayUiView(DisplayableItem item);
     }
 
-    interface Presenter extends BaseMvpPresenter<View>, OnOverviewMovieLoadListener {
-        void requestReviews();
-        void displayReviews(ReviewResponse response);
-        void requestActors();
-        void displayActors(ActorsResponse body);
-        void displayTrailers(TrailersResponse body);
-        void displaySingleYoutubeTrailer(YtSingleTrailerResponse body, String trailerKey);
+    interface Presenter extends BaseMvpPresenter<View> {
         void init();
     }
 }

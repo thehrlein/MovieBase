@@ -2,14 +2,10 @@ package tobiapplications.com.moviebase.utils;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 import java.text.NumberFormat;
-import java.util.LinkedHashMap;
 import java.util.Locale;
 
 import tobiapplications.com.moviebase.R;

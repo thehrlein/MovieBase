@@ -1,15 +1,11 @@
 package tobiapplications.com.moviebase.ui.overview;
 
 import android.os.Bundle;
-import android.view.View;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.databinding.FragmentOverviewBinding;
-import tobiapplications.com.moviebase.databinding.FragmentOverviewTabBinding;
 import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;
-import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;
 import tobiapplications.com.moviebase.utils.mvp.BaseMvpPresenter;
 import tobiapplications.com.moviebase.utils.mvp.BaseView;
@@ -20,7 +16,7 @@ import tobiapplications.com.moviebase.utils.mvp.BaseView;
 
 public interface BaseTabContract {
 
-    interface Presenter extends BaseMvpPresenter<View>, OnOverviewMovieLoadListener {
+    interface Presenter extends BaseMvpPresenter<View> {
         void parseArguments(Bundle arguments);
         void getTypeAndLoadItems(Bundle arguments);
         void load();

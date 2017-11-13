@@ -1,6 +1,6 @@
 package tobiapplications.com.moviebase.network;
 
-import retrofit2.Call;
+import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -18,45 +18,45 @@ import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 public interface TheMovieApi {
 
     @GET("movie/popular")
-    Call<MovieOverviewResponse> requestPopularMovies(@Query("page") int pageToLoad);
+    Single<MovieOverviewResponse> requestPopularMovies(@Query("page") int pageToLoad);
 
     @GET("tv/popular")
-    Call<MovieOverviewResponse> requestPopularSeries(@Query("page") int pageToLoad);
+    Single<MovieOverviewResponse> requestPopularSeries(@Query("page") int pageToLoad);
 
     @GET("movie/top_rated")
-    Call<MovieOverviewResponse> requestTopRatedMovies(@Query("page") int pageToLoad);
+    Single<MovieOverviewResponse> requestTopRatedMovies(@Query("page") int pageToLoad);
 
     @GET("tv/top_rated")
-    Call<MovieOverviewResponse> requestTopRatedSeries(@Query("page") int pageToLoad);
+    Single<MovieOverviewResponse> requestTopRatedSeries(@Query("page") int pageToLoad);
 
     @GET("movie/{id}")
-    Call<MovieDetailResponse> requestMovieDetails(@Path("id") int movieId);
+    Single<MovieDetailResponse> requestMovieDetails(@Path("id") int movieId);
 
     @GET("tv/{id}")
-    Call<SeriesDetailResponse> requestSeriesDetails(@Path("id") int movieId);
+    Single<SeriesDetailResponse> requestSeriesDetails(@Path("id") int movieId);
 
     @GET("movie/{id}/similar")
-    Call<MovieOverviewResponse> requestSimilarMovies(@Path("id") int movieId);
+    Single<MovieOverviewResponse> requestSimilarMovies(@Path("id") int movieId);
 
     @GET("tv/{id}/similar")
-    Call<MovieOverviewResponse> requestSimilarSeries(@Path("id") int movieId);
+    Single<MovieOverviewResponse> requestSimilarSeries(@Path("id") int movieId);
 
     @GET("movie/{id}/reviews")
-    Call<ReviewResponse> requestMovieReviews(@Path("id") int movieId);
+    Single<ReviewResponse> requestMovieReviews(@Path("id") int movieId);
 
     @GET("search/movie")
-    Call<MovieOverviewResponse> requestSearchMovie(@Query("query") String query);
+    Single<MovieOverviewResponse> requestSearchMovie(@Query("query") String query);
 
     @GET("search/tv")
-    Call<MovieOverviewResponse> requestSearchSerie(@Query("query") String query);
+    Single<MovieOverviewResponse> requestSearchSerie(@Query("query") String query);
 
     @GET("movie/{id}/credits")
-    Call<ActorsResponse> requestActors(@Path("id") int movieId);
+    Single<ActorsResponse> requestActors(@Path("id") int movieId);
 
     @GET("movie/{id}/videos")
-    Call<TrailersResponse> requestMovieTrailers(@Path("id") int movieId);
+    Single<TrailersResponse> requestMovieTrailers(@Path("id") int movieId);
 
     @GET("tv/{id}/videos")
-    Call<TrailersResponse> requestSerieTrailers(@Path("id") int serieId);
+    Single<TrailersResponse> requestSerieTrailers(@Path("id") int serieId);
 
 }

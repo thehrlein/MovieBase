@@ -3,7 +3,6 @@ package tobiapplications.com.moviebase.ui.viewholder.overview;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 import tobiapplications.com.moviebase.databinding.ItemMovieBinding;
 import tobiapplications.com.moviebase.listener.OnMovieClickListener;

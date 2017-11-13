@@ -10,5 +10,4 @@ public interface OnOverviewMovieLoadListener {
     void requestMoviesDownload();
     void requestSeriesDownload();
     void displayPosterItems(MovieOverviewResponse movieOverviewResponse);
-    void displayError(String message);
 }

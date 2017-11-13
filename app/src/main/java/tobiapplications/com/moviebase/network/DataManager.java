@@ -2,12 +2,12 @@ package tobiapplications.com.moviebase.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import io.reactivex.Single;
 import okhttp3.OkHttpClient;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import tobiapplications.com.moviebase.listener.OnOverviewMovieLoadListener;
 import tobiapplications.com.moviebase.model.detail.ActorsResponse;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.ReviewResponse;
@@ -15,15 +15,6 @@ import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.model.detail.TrailersResponse;
 import tobiapplications.com.moviebase.model.detail.YtSingleTrailerResponse;
 import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
-import tobiapplications.com.moviebase.network.callbacks.ActorsCallback;
-import tobiapplications.com.moviebase.network.callbacks.DetailMovieCallback;
-import tobiapplications.com.moviebase.network.callbacks.DetailSerieCallback;
-import tobiapplications.com.moviebase.network.callbacks.OverviewCallback;
-import tobiapplications.com.moviebase.network.callbacks.ReviewCallback;
-import tobiapplications.com.moviebase.network.callbacks.TrailersCallback;
-import tobiapplications.com.moviebase.network.callbacks.YtTrailerCallback;
-import tobiapplications.com.moviebase.ui.detail.DetailActivityPresenter;
-import tobiapplications.com.moviebase.ui.detail.DetailFragmentContract;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
@@ -60,6 +51,7 @@ public class DataManager {
                 .baseUrl(NetworkUtils.getApiBaseUrl(apiKey))
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         if (apiKey.equals(Constants.THE_MOVIE_DB)) {
@@ -69,79 +61,63 @@ public class DataManager {
         }
     }
 
-    public void requestPopularMovies(OnOverviewMovieLoadListener listener, int pageToLoad) {
-        Call<MovieOverviewResponse> popularMovieCall = movieApi.requestPopularMovies(pageToLoad);
-        popularMovieCall.enqueue(new OverviewCallback(listener));
+    public Single<MovieOverviewResponse> requestPopularMovies(int pageToLoad) {
+        return movieApi.requestPopularMovies(pageToLoad);
     }
 
-    public void requestPopularSeries(OnOverviewMovieLoadListener listener, int pageToLoad) {
-        Call<MovieOverviewResponse> popularSeriesCall = movieApi.requestPopularSeries(pageToLoad);
-        popularSeriesCall.enqueue(new OverviewCallback(listener));
+    public Single<MovieOverviewResponse> requestPopularSeries(int pageToLoad) {
+        return movieApi.requestPopularSeries(pageToLoad);
     }
 
-    public void requestTopRatedMovies(OnOverviewMovieLoadListener listener, int pageToLoad) {
-        Call<MovieOverviewResponse> topRatedMovieCall = movieApi.requestTopRatedMovies(pageToLoad);
-        topRatedMovieCall.enqueue(new OverviewCallback(listener));
+    public Single<MovieOverviewResponse> requestTopRatedMovies(int pageToLoad) {
+        return movieApi.requestTopRatedMovies(pageToLoad);
     }
 
-    public void requestTopRatedSeries(OnOverviewMovieLoadListener listener, int pageToLoad) {
-        Call<MovieOverviewResponse> topRatedSeriesCall = movieApi.requestTopRatedSeries(pageToLoad);
-        topRatedSeriesCall.enqueue(new OverviewCallback(listener));
+    public Single<MovieOverviewResponse> requestTopRatedSeries(int pageToLoad) {
+        return movieApi.requestTopRatedSeries(pageToLoad);
     }
 
-    public void requestSingleMovie(DetailActivityPresenter presenter, int movieId) {
-        Call<MovieDetailResponse> singleMovieCall = movieApi.requestMovieDetails(movieId);
-        singleMovieCall.enqueue(new DetailMovieCallback(presenter));
+    public Single<MovieDetailResponse> requestSingleMovie(int movieId) {
+        return movieApi.requestMovieDetails(movieId);
     }
 
-    public void requestSingleSerie(DetailActivityPresenter presenter, int serieId) {
-        Call<SeriesDetailResponse> singleSerieCall = movieApi.requestSeriesDetails(serieId);
-        singleSerieCall.enqueue(new DetailSerieCallback(presenter));
+    public Single<SeriesDetailResponse> requestSingleSerie(int serieId) {
+        return movieApi.requestSeriesDetails(serieId);
     }
 
-    public void requestSimilarMovies(OnOverviewMovieLoadListener listener, int movieId) {
-        Call<MovieOverviewResponse> similarMovieCall = movieApi.requestSimilarMovies(movieId);
-        similarMovieCall.enqueue(new OverviewCallback(listener));
+    public Single<MovieOverviewResponse> requestSimilarMovies(int movieId) {
+        return movieApi.requestSimilarMovies(movieId);
     }
 
-    public void requestSimilarSeries(OnOverviewMovieLoadListener listener, int movieId) {
-        Call<MovieOverviewResponse> similarSerieCall = movieApi.requestSimilarSeries(movieId);
-        similarSerieCall.enqueue(new OverviewCallback(listener));
+    public Single<MovieOverviewResponse> requestSimilarSeries(int movieId) {
+        return movieApi.requestSimilarSeries(movieId);
     }
 
-    public void requestReviews(DetailFragmentContract.Presenter presenter, int movieId) {
-        Call<ReviewResponse> reviewResponseCall = movieApi.requestMovieReviews(movieId);
-        reviewResponseCall.enqueue(new ReviewCallback(presenter));
+    public Single<ReviewResponse> requestReviews(int movieId) {
+        return movieApi.requestMovieReviews(movieId);
     }
 
-    public void requestSearchMovie(OnOverviewMovieLoadListener listener, String query) {
-        Call<MovieOverviewResponse> searchMovieCall = movieApi.requestSearchMovie(query);
-        searchMovieCall.enqueue(new OverviewCallback(listener));
+    public Single<MovieOverviewResponse> requestSearchMovie(String query) {
+        return movieApi.requestSearchMovie(query);
     }
 
-    public void requestSearchSerie(OnOverviewMovieLoadListener listener, String query) {
-        Call<MovieOverviewResponse> searchSerieCall = movieApi.requestSearchSerie(query);
-        searchSerieCall.enqueue(new OverviewCallback(listener));
+    public Single<MovieOverviewResponse> requestSearchSerie(String query) {
+        return movieApi.requestSearchSerie(query);
     }
 
-    public void requestActors(DetailFragmentContract.Presenter presenter, int movieId) {
-        Call<ActorsResponse> actorsResponseCall = movieApi.requestActors(movieId);
-        actorsResponseCall.enqueue(new ActorsCallback(presenter));
+    public Single<ActorsResponse> requestActors(int movieId) {
+        return movieApi.requestActors(movieId);
     }
 
-    public void requestMovieTrailers(DetailFragmentContract.Presenter presenter, int movieId) {
-        Call<TrailersResponse> trailerResponseCall = movieApi.requestMovieTrailers(movieId);
-        trailerResponseCall.enqueue(new TrailersCallback(presenter));
+    public Single<TrailersResponse> requestMovieTrailers(int movieId) {
+        return movieApi.requestMovieTrailers(movieId);
     }
 
-    public void requestSerieTrailer(DetailFragmentContract.Presenter presenter, int serieId) {
-        Call<TrailersResponse> trailersResponseCall = movieApi.requestSerieTrailers(serieId);
-        trailersResponseCall.enqueue(new TrailersCallback(presenter));
+    public Single<TrailersResponse> requestSerieTrailer(int serieId) {
+        return movieApi.requestSerieTrailers(serieId);
     }
 
-    public void requestYoutubeTrailerInformation(DetailFragmentContract.Presenter presenter, String trailerKey) {
-        Call<YtSingleTrailerResponse> youtubeSingleTrailerResponseCall = youtubeApi.requestSingleTrailer(trailerKey);
-        youtubeSingleTrailerResponseCall.enqueue(new YtTrailerCallback(presenter, trailerKey));
+    public Single<YtSingleTrailerResponse> requestYoutubeTrailerInformation(String trailerKey) {
+        return youtubeApi.requestSingleTrailer(trailerKey);
     }
-
 }

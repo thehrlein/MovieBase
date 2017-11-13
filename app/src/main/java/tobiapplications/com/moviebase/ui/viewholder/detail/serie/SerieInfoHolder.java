@@ -7,7 +7,6 @@ import android.view.View;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.DetailSerieInfoHolderBinding;
 import tobiapplications.com.moviebase.model.detail.items.serie.SerieInfoItem;
-import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.DateUtils;
 
 /**

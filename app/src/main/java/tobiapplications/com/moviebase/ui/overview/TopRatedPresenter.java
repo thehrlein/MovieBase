@@ -2,8 +2,6 @@ package tobiapplications.com.moviebase.ui.overview;
 
 import android.content.Context;
 
-import timber.log.Timber;
-import tobiapplications.com.moviebase.model.overview.MovieOverviewResponse;
 import tobiapplications.com.moviebase.utils.Constants;
 
 /**

@@ -8,13 +8,11 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.ui.overview.OwnFavoriteFragment;
 import tobiapplications.com.moviebase.ui.overview.PopularFragment;
 import tobiapplications.com.moviebase.ui.overview.TopRatedFragment;
-import tobiapplications.com.moviebase.utils.Constants;
 
 /**
  * Created by Tobias on 13.09.2017.

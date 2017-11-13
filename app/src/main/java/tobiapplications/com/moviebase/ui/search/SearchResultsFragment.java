@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.SearchMovieAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentSearchBinding;
 import tobiapplications.com.moviebase.model.DisplayableItem;

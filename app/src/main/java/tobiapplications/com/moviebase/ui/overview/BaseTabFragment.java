@@ -1,29 +1,18 @@
 package tobiapplications.com.moviebase.ui.overview;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ScrollView;
 
 import java.util.ArrayList;
 
-import timber.log.Timber;
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.adapter.OverviewTabAdapter;
 import tobiapplications.com.moviebase.databinding.FragmentOverviewTabBinding;
 import tobiapplications.com.moviebase.model.overview.PosterOverviewItem;

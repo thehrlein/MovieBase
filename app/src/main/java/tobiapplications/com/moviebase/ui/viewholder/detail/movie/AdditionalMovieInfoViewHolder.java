@@ -7,9 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.DetailAdditionalMovieInfoHolderBinding;

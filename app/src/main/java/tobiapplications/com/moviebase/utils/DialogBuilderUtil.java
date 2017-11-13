@@ -2,7 +2,6 @@ package tobiapplications.com.moviebase.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.listener.DialogBuilderListener;

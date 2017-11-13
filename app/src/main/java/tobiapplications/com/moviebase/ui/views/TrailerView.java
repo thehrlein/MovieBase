@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
 
-import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ViewTrailerItemBinding;
 import tobiapplications.com.moviebase.model.detail.YtTrailerStatistic;
 import tobiapplications.com.moviebase.model.detail.items.movie.TrailerItem;
