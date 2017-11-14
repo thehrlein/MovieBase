@@ -10,3 +10,4 @@
 .idea/
 app/release/output.json
 app/release/app-release.apk
+gradle/properties

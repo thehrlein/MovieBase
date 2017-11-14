@@ -11,6 +11,9 @@ import tobiapplications.com.moviebase.database.SeriesContract;
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 
+import static tobiapplications.com.moviebase.utils.GeneralUtils.isMovie;
+import static tobiapplications.com.moviebase.utils.GeneralUtils.isSerie;
+
 /**
  * Created by Tobias on 12.06.2017.
  */
@@ -63,9 +66,9 @@ public class SQLUtils {
     }
 
     public static void deleteFromDataBase(Context context, int id, int overviewType) {
-        if (overviewType == Constants.Type.MOVIES) {
+        if (isMovie(overviewType)) {
             deleteCurrentMovieFromFavoriteDatabase(context, id);
-        } else if (overviewType == Constants.Type.SERIES) {
+        } else if (isSerie(overviewType)) {
             deleteCurrentSerieFromFavoriteDatabase(context, id);
         }
     }
@@ -134,9 +137,9 @@ public class SQLUtils {
 
     public static void deleteAllFavorites(Context context, @Constants.Type int type) {
         Cursor cursor = null;
-        if (type == Constants.Type.MOVIES) {
+        if (isMovie(type)) {
             cursor = getAllFavoriteMovies(context);
-        } else if (type == Constants.Type.SERIES) {
+        } else if (isSerie(type)) {
             cursor = getAllFavoriteSeries(context);
         }
 
@@ -152,9 +155,9 @@ public class SQLUtils {
 
     public static boolean areFavoritesAvailable(Context context, @Constants.Type int type) {
         Cursor cursor = null;
-        if (type == Constants.Type.MOVIES) {
+        if (isMovie(type)) {
             cursor = getAllFavoriteMovies(context);
-        } else if (type == Constants.Type.SERIES) {
+        } else if (isSerie(type)) {
             cursor = getAllFavoriteSeries(context);
         }
 

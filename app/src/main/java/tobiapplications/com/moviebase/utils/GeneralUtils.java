@@ -24,6 +24,10 @@ public class GeneralUtils {
         int orientation = context.getResources().getConfiguration().orientation;
         boolean isLandscape = orientation == LANDSCAPE;
 
+        return getHowMuchColumnsForOverviewMovies(isTablet, isLandscape);
+    }
+
+    public static int getHowMuchColumnsForOverviewMovies(boolean isTablet, boolean isLandscape) {
         if (isTablet && isLandscape) {
             return 6;
         } else if (isTablet) {
@@ -46,20 +50,20 @@ public class GeneralUtils {
         return goBackCounter;
     }
 
-    public static String formatThousands(int number) {
-        return NumberFormat.getNumberInstance(Locale.GERMAN).format(number);
-    }
-
-    public static String formatThousands(long number) {
-        return NumberFormat.getNumberInstance(Locale.GERMAN).format(number);
-    }
-
     public static String formatThousands(String number) {
         if (StringUtils.nullOrEmpty(number)) {
             return "";
         }
         int value = Integer.valueOf(number);
         return NumberFormat.getNumberInstance(Locale.GERMAN).format(value);
+    }
+
+    public static String formatThousands(long number) {
+        return NumberFormat.getNumberInstance(Locale.GERMAN).format(number);
+    }
+
+    public static String formatThousands(int number) {
+        return NumberFormat.getNumberInstance(Locale.GERMAN).format(number);
     }
 
     public static boolean isMovie(int type) {

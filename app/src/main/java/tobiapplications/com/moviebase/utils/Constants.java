@@ -39,7 +39,7 @@ public class Constants {
 
     @IntDef({Category.POPULAR, Category.TOP_RATED})
     public @interface Category {
-        int POPULAR = 0;
-        int TOP_RATED = 1;
+        int POPULAR = 10;
+        int TOP_RATED = 11;
     }
 }
