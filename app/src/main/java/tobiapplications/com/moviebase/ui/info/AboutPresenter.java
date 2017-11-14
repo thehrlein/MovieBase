@@ -22,22 +22,22 @@ public class AboutPresenter extends BasePresenter<AboutContract.View> implements
 
     @Override
     public void init() {
-        if (GeneralUtils.weakReferenceIsValid(fragment)) {
-          fragment.get().setNavigationSelected();
+        if (isAttached()) {
+          getView().setNavigationSelected();
         }
     }
 
     @Override
     public void fabButtonClicked() {
-        if (GeneralUtils.weakReferenceIsValid(fragment)) {
-            String text = fragment.get().getString(R.string.about_email_text);
-            String email = fragment.get().getString(R.string.about_email);
+        if (isAttached()) {
+            String text = ((AboutFragment)getView()).getString(R.string.about_email_text);
+            String email = ((AboutFragment)getView()).getString(R.string.about_email);
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("message/rfc822");
-            intent.putExtra(Intent.EXTRA_SUBJECT, fragment.get().getString(R.string.app_name));
+            intent.putExtra(Intent.EXTRA_SUBJECT, ((AboutFragment)getView()).getString(R.string.app_name));
             intent.putExtra(Intent.EXTRA_TEXT, text);
             intent.putExtra(Intent.EXTRA_EMAIL, new String[] {email});
-            fragment.get().sendEmail(intent);
+            getView().sendEmail(intent);
         }
     }
 }

@@ -45,9 +45,9 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.
         this.context = context;
         parseArguments(arguments);
 
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().setDownloadIsActive();
-            parent.get().setAdapter();
+        if (isAttached()) {
+            getView().setDownloadIsActive();
+            getView().setAdapter();
         }
 
         if (isMovie(type)) {
@@ -92,9 +92,9 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.
     public void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
         ArrayList<DisplayableItem> searchMovieItems = getSearchMovieItems(movieOverviewResponse);
 
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().setDownloadFinished();
-            parent.get().setSearchMovies(searchMovieItems);
+        if (isAttached()) {
+            getView().setDownloadFinished();
+            getView().setSearchMovies(searchMovieItems);
         }
     }
 
@@ -130,8 +130,8 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.
 
     @Override
     public void onResume() {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().setTitle(getTitle());
+        if (isAttached()) {
+            getView().setTitle(getTitle());
         }
     }
 
@@ -150,8 +150,8 @@ public class SearchResultsPresenter extends BasePresenter<SearchResultsContract.
 
     @Override
     public void onMovieClick(int id) {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().startDetailActivity(id, type);
+        if (isAttached()) {
+            getView().startDetailActivity(id, type);
         }
     }
 }

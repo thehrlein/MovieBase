@@ -64,7 +64,7 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 super.onScrolled(recyclerView, dx, dy);
                 if (isListEndReached(gridLayoutManager)) {
                     if (triggerLoadMoreMovies) {
-                        loadMoreMovies();
+                        recyclerView.post(() -> loadMoreMovies());
                     }
                 }
             }

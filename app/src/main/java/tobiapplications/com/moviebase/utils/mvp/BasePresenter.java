@@ -9,7 +9,7 @@ import java.lang.ref.WeakReference;
 
 public abstract class BasePresenter<V extends BaseView> implements BaseMvpPresenter<V> {
 
-    private WeakReference<V> view = new WeakReference((Object) null);
+    private WeakReference<V> view;
 
     public BasePresenter() {
 
@@ -27,6 +27,11 @@ public abstract class BasePresenter<V extends BaseView> implements BaseMvpPresen
 
     @Override
     public boolean isAttached() {
-        return this.view.get() != null;
+        return this.view != null && this.view.get() != null;
+    }
+
+    @Override
+    public V getView() {
+        return view.get();
     }
 }

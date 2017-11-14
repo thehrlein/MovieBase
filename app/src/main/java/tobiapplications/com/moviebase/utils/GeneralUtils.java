@@ -8,6 +8,7 @@ import java.lang.ref.WeakReference;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import timber.log.Timber;
 import tobiapplications.com.moviebase.R;
 
 /**
@@ -75,17 +76,6 @@ public class GeneralUtils {
 
     public static boolean isTopRated(int category) {
         return category == Constants.Category.TOP_RATED;
-    }
-
-    public static boolean weakReferenceIsValid(WeakReference reference) {
-        boolean valid = reference != null && reference.get() != null;
-        if (valid) {
-            if (reference.get() instanceof Fragment) {
-                return ((Fragment) reference.get()).isAdded();
-            }
-        }
-
-        return valid;
     }
 
     public static int pxFromDp(Context context, int dp) {

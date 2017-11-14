@@ -62,17 +62,17 @@ public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implem
     @Override
     public void load() {
         if (hasInternetConnection()) {
-            if (GeneralUtils.weakReferenceIsValid(parent)) {
+            if (isAttached()) {
                 if (noMoviesShown()) {
-                    parent.get().showLoading(true);
+                    getView().showLoading(true);
                 }
-                parent.get().showNetworkError(false);
+                getView().showNetworkError(false);
                 requestDownload();
             }
         } else {
-            if (GeneralUtils.weakReferenceIsValid(parent)) {
-                parent.get().showLoading(false);
-                parent.get().showNetworkError(true);
+            if (isAttached()) {
+                getView().showLoading(false);
+                getView().showNetworkError(true);
                 new Handler().postDelayed(this::load, 3000);
             }
         }
@@ -80,8 +80,8 @@ public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implem
 
     @Override
     public boolean noMoviesShown() {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            return parent.get().getCurrentMovieSize() == 0;
+        if (isAttached()) {
+            return getView().getCurrentMovieSize() == 0;
         }
         return true;
     }
@@ -136,22 +136,22 @@ public class BaseTabPresenter extends BasePresenter<BaseTabContract.View> implem
 
     @Override
     public void onMovieClick(int id) {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().startDetailActivity(id, type);
+        if (isAttached()) {
+            getView().startDetailActivity(id, type);
         }
     }
 
     private void displayPosterItems(MovieOverviewResponse movieOverviewResponse) {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().showLoading(false);
-            parent.get().setMovies(movieOverviewResponse.getMovies());
+        if (isAttached()) {
+            getView().showLoading(false);
+            getView().setMovies(movieOverviewResponse.getMovies());
         }
     }
 
     @Override
     public void loadMore() {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().insertLoadingItem();
+        if (isAttached()) {
+            getView().insertLoadingItem();
             requestDownload();
         }
     }

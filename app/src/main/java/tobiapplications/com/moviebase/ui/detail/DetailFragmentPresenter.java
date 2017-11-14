@@ -79,8 +79,8 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
 
     @Override
     public void init() {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().setAdapter(type);
+        if (isAttached()) {
+            getView().setAdapter(type);
         }
         if (isMovie(type)) {
             initMovie(detailMovie);
@@ -120,8 +120,8 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
         detailItems.add(createAdditionalInfoView(detailMovie));
         detailItems.add(createSummaryView(detailMovie.getDescription()));
 
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().displayUiViews(detailItems);
+        if (isAttached()) {
+            getView().displayUiViews(detailItems);
         }
     }
 
@@ -134,8 +134,8 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
         detailItems.add(createSummaryView(detailSerie.getDescription()));
         detailItems.add(createSeriesView(detailSerie.getSeasons()));
 
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().displayUiViews(detailItems);
+        if (isAttached()) {
+            getView().displayUiViews(detailItems);
         }
     }
 
@@ -257,8 +257,8 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
                 similarTitle = context.getString(R.string.similar_movies, context.getString(R.string.series_title));
             }
 
-            if (GeneralUtils.weakReferenceIsValid(parent)) {
-                parent.get().displayUiView(new SimilarMoviesItem(moviePosters, similarTitle));
+            if (isAttached()) {
+                getView().displayUiView(new SimilarMoviesItem(moviePosters, similarTitle));
             }
         }
     }
@@ -268,8 +268,8 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
             return;
         }
 
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().displayUiView(response);
+        if (isAttached()) {
+            getView().displayUiView(response);
 
         }
     }
@@ -279,8 +279,8 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
             return;
         }
 
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().displayUiView(response);
+        if (isAttached()) {
+            getView().displayUiView(response);
         }
     }
 
@@ -304,8 +304,8 @@ public class DetailFragmentPresenter extends BasePresenter<DetailFragmentContrac
         TrailerItem trailerItem = new TrailerItem(title, trailerKey, thumbnails, statistics);
         trailerItems.add(trailerItem);
         if (trailerItems.size() == trailerResponseCount) {
-            if (GeneralUtils.weakReferenceIsValid(parent)) {
-                parent.get().displayUiView(new FullTrailerItems(trailerItems));
+            if (isAttached()) {
+                getView().displayUiView(new FullTrailerItems(trailerItems));
             }
         }
     }

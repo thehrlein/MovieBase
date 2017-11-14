@@ -38,11 +38,11 @@ public class OverviewPresenter extends BasePresenter<OverviewContract.View> impl
 
     @Override
     public void init() {
-        if (GeneralUtils.weakReferenceIsValid(fragment)) {
-            fragment.get().init(type);
+        if (isAttached()) {
+            getView().init(type);
             int menuId = isMovie(type) ? R.id.menu_movies : R.id.menu_series;
-            fragment.get().setNavigationSelected(menuId);
-            fragment.get().setTitle(isMovie(type));
+            getView().setNavigationSelected(menuId);
+            getView().setTitle(isMovie(type));
         }
     }
 }

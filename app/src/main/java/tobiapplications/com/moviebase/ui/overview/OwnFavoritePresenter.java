@@ -48,20 +48,20 @@ public class OwnFavoritePresenter extends BasePresenter<OverviewTabContract.Data
     public void onDatabaseLoadFinished(Cursor data) {
         loadFinished(data);
 
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().showLoading(false);
+        if (isAttached()) {
+            getView().showLoading(false);
         }
     }
 
     private void loadFinished(Cursor data) {
         if (data != null && data.getCount() > 0) {
-            if (GeneralUtils.weakReferenceIsValid(parent)) {
-                parent.get().hideNoFavoriteAvailable();
+            if (isAttached()) {
+                getView().hideNoFavoriteAvailable();
             }
             createPosterItemsFromCursor(data);
         } else {
-            if (GeneralUtils.weakReferenceIsValid(parent)) {
-                parent.get().showNoFavoriteAvailable(context.getString(R.string.no_favorite_movies));
+            if (isAttached()) {
+                getView().showNoFavoriteAvailable(context.getString(R.string.no_favorite_movies));
             }
         }
     }
@@ -76,15 +76,15 @@ public class OwnFavoritePresenter extends BasePresenter<OverviewTabContract.Data
             }
         }
 
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().setPosterItems(posterItems);
+        if (isAttached()) {
+            getView().setPosterItems(posterItems);
         }
     }
 
     @Override
     public void onMovieClick(int id) {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().startDetailActivity(id, type);
+        if (isAttached()) {
+            getView().startDetailActivity(id, type);
         }
     }
 
@@ -98,18 +98,18 @@ public class OwnFavoritePresenter extends BasePresenter<OverviewTabContract.Data
     }
 
     private void startLoader(int type) {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().startLoader(type);
+        if (isAttached()) {
+            getView().startLoader(type);
         }
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id) {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
+        if (isAttached()) {
             if (id == MOVIE_CURSOR_LOADER_ID) {
-                return parent.get().onCreateMovieLoader();
+                return getView().onCreateMovieLoader();
             } else if (id == SERIE_CURSOR_LOADER_ID) {
-                return parent.get().onCreateSerieLoader();
+                return getView().onCreateSerieLoader();
             }
         }
 

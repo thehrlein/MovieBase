@@ -1,5 +1,6 @@
 package tobiapplications.com.moviebase.ui.detail;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -96,16 +97,16 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
         }
 
         clickedMovie = detailResponse;
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().displayTitle(clickedMovie.getTitle());
+        if (isAttached()) {
+            getView().displayTitle(clickedMovie.getTitle());
             String imageUrl = NetworkUtils.getFullImageUrlHigh(clickedMovie.getBackgroundImagePath());
             if (StringUtils.nullOrEmpty(imageUrl)) {
-                parent.get().showNoPictureAvailable(true);
+                getView().showNoPictureAvailable(true);
             } else {
-                parent.get().showNoPictureAvailable(false);
-                parent.get().showPosterImage(imageUrl);
+                getView().showNoPictureAvailable(false);
+                getView().showPosterImage(imageUrl);
             }
-            parent.get().setUpMovieTabFragment(clickedMovie, type);
+            getView().setUpMovieTabFragment(clickedMovie, type);
         }
         setFabDependingOnFavoriteStatus();
     }
@@ -116,17 +117,17 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
         }
 
         clickedSerie = detailResponse;
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().displayTitle(clickedSerie.getName());
+        if (isAttached()) {
+            getView().displayTitle(clickedSerie.getName());
             String imageUrl = clickedSerie.getBackgroundImage();
             if (StringUtils.nullOrEmpty(imageUrl)) {
-                parent.get().showNoPictureAvailable(true);
+                getView().showNoPictureAvailable(true);
             } else {
-                parent.get().showNoPictureAvailable(false);
+                getView().showNoPictureAvailable(false);
                 imageUrl = NetworkUtils.getFullImageUrlHigh(clickedSerie.getBackgroundImage());
-                parent.get().showPosterImage(imageUrl);
+                getView().showPosterImage(imageUrl);
             }
-            parent.get().setUpSeriesTabFragment(clickedSerie, type);
+            getView().setUpSeriesTabFragment(clickedSerie, type);
         }
         setFabDependingOnFavoriteStatus();
     }
@@ -165,8 +166,8 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
 
             @Override
             public void onCancel() {
-                if (GeneralUtils.weakReferenceIsValid(parent)) {
-                    parent.get().onBackPressed();
+                if (isAttached()) {
+                    ((Activity) getView()).onBackPressed();
                 }
             }
         };
@@ -185,8 +186,8 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
             return;
         }
 
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            new ImageViewer.Builder(parent.get(), new String[]{NetworkUtils.getFullImageUrlHigh(imageUrl)})
+        if (isAttached()) {
+            new ImageViewer.Builder(((Activity) getView()), new String[]{NetworkUtils.getFullImageUrlHigh(imageUrl)})
                     .setStartPosition(0)
                     .show();
         }
@@ -231,17 +232,17 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
     }
 
     private void markAsFavorite(String message) {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().markFabAsFavorite();
-            parent.get().showMarkAsFavorite(message);
+        if (isAttached()) {
+            getView().markFabAsFavorite();
+            getView().showMarkAsFavorite(message);
         }
         insertIntoDatabase(type);
     }
 
     private void unmarkFromFavorite(String message, int id) {
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().unMarkFabFromFavorite();
-            parent.get().showRemovedFromFavorite(message);
+        if (isAttached()) {
+            getView().unMarkFabFromFavorite();
+            getView().showRemovedFromFavorite(message);
         }
 
         SQLUtils.deleteFromDataBase(context, id, type);
@@ -268,12 +269,12 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
             isMarkedAsFavorite = SQLUtils.checkIfSerieIsMarkedAsFavorite(context, id);
         }
 
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
-            parent.get().setFabButtonVisible();
+        if (isAttached()) {
+            getView().setFabButtonVisible();
             if (isMarkedAsFavorite) {
-                parent.get().markFabAsFavorite();
+                getView().markFabAsFavorite();
             } else {
-                parent.get().unMarkFabFromFavorite();
+                getView().unMarkFabFromFavorite();
             }
         }
     }
@@ -287,17 +288,17 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
         int currentScrollPercentage = (Math.abs(verticalOffset)) * 100
                 / maxScrollSize;
 
-        if (GeneralUtils.weakReferenceIsValid(parent)) {
+        if (isAttached()) {
             if (currentScrollPercentage >= PERCENTAGE_TO_SHOW_IMAGE) {
                 if (!isImageHidden) {
                     isImageHidden = true;
-                    parent.get().animateFabDown();
+                    getView().animateFabDown();
                 }
             }
             if (currentScrollPercentage < PERCENTAGE_TO_SHOW_IMAGE) {
                 if (isImageHidden) {
                     isImageHidden = false;
-                    parent.get().animateFabUp();
+                    getView().animateFabUp();
                 }
             }
         }
@@ -306,8 +307,8 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
     @Override
     public void onMenuItemClicked(MenuItem menuItem) {
         if(menuItem.getItemId() == android.R.id.home) {
-            if (GeneralUtils.weakReferenceIsValid(parent)) {
-                parent.get().onBackPressed();
+            if (isAttached()) {
+                ((Activity) getView()).onBackPressed();
             }
         }
     }

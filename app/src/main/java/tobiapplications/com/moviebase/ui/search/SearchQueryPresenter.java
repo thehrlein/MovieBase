@@ -33,17 +33,17 @@ public class SearchQueryPresenter extends BasePresenter<SearchQueryContract.View
         setTitle();
         setNavigationSelected();
         setSearchButton();
-        if (GeneralUtils.weakReferenceIsValid(fragment)) {
-            fragment.get().setListener();
-            fragment.get().setSearchEditText();
+        if (isAttached()) {
+            getView().setListener();
+            getView().setSearchEditText();
         }
     }
 
     private void getType() {
-        if (GeneralUtils.weakReferenceIsValid(fragment)) {
-            if (fragment.get().isMovieChecked()) {
+        if (isAttached()) {
+            if (getView().isMovieChecked()) {
                 type = Constants.Type.MOVIES;
-            } else if (fragment.get().isSerieChecked()) {
+            } else if (getView().isSerieChecked()) {
                 type = Constants.Type.SERIES;
             }
         }
@@ -51,31 +51,31 @@ public class SearchQueryPresenter extends BasePresenter<SearchQueryContract.View
 
     private void setSearchButton() {
         String searchString = context.getString(R.string.search_title);
-        if (GeneralUtils.weakReferenceIsValid(fragment)) {
-            fragment.get().setSearchButton(searchString);
+        if (isAttached()) {
+            getView().setSearchButton(searchString);
         }
     }
 
     private void setNavigationSelected() {
-        if (GeneralUtils.weakReferenceIsValid(fragment)) {
-            fragment.get().setNavigationSelected(R.id.menu_search);
+        if (isAttached()) {
+            getView().setNavigationSelected(R.id.menu_search);
         }
     }
 
     private void setTitle() {
         String title = context.getString(R.string.search_title);
-        if (GeneralUtils.weakReferenceIsValid(fragment)) {
-            fragment.get().setTitle(title);
+        if (isAttached()) {
+            getView().setTitle(title);
         }
     }
 
     @Override
     public void onRadioButtonCheckedChange(CompoundButton compoundButton, FragmentSearchQueryBinding bind, boolean checked) {
-        if (GeneralUtils.weakReferenceIsValid(fragment)) {
+        if (isAttached()) {
             if (compoundButton == bind.radioMovies) {
-                fragment.get().setMoviesSelected(checked);
+                getView().setMoviesSelected(checked);
             } else if (compoundButton == bind.radioSeries) {
-                fragment.get().setSeriesSelected(checked);
+                getView().setSeriesSelected(checked);
             }
         }
 
@@ -86,8 +86,8 @@ public class SearchQueryPresenter extends BasePresenter<SearchQueryContract.View
     public boolean onAction(int id) {
         getType();
         if (id == EditorInfo.IME_ACTION_SEARCH) {
-            if (GeneralUtils.weakReferenceIsValid(fragment)) {
-                fragment.get().openSearchResults(type);
+            if (isAttached()) {
+                getView().openSearchResults(type);
             }
             return true;
         }
@@ -97,8 +97,8 @@ public class SearchQueryPresenter extends BasePresenter<SearchQueryContract.View
     @Override
     public void onSearchButtonClicked() {
         getType();
-        if (GeneralUtils.weakReferenceIsValid(fragment)) {
-            fragment.get().openSearchResults(type);
+        if (isAttached()) {
+            getView().openSearchResults(type);
         }
     }
 }
