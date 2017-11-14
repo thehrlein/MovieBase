@@ -41,7 +41,8 @@
 
         <!-- HockeyApp -->
         <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
-
+        <!-- Fabric -->
+        <meta-data android:name="io.fabric.ApiKey" android:value="cb067624f4391de0e2250d9459d7be8690fa3c8a" />
     </application>
 
 </manifest>

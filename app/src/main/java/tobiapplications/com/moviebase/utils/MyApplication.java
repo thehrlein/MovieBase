@@ -3,8 +3,11 @@ package tobiapplications.com.moviebase.utils;
 import android.app.Application;
 import android.content.Context;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Tobi-Laptop on 23.01.2017.
@@ -18,6 +21,7 @@ public class MyApplication extends Application {
 
         Fresco.initialize(this);
         connectWithStetho(this);
+        Fabric.with(this, new Crashlytics());
     }
 
     public static void connectWithStetho(Context context) {
