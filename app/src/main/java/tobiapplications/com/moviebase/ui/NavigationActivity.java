@@ -12,6 +12,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
+
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.UpdateManager;
 
@@ -124,12 +127,14 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
     private void openSearchRequestFragment() {
+        trackViewOpening(getString(R.string.search_query_fragment_identifier));
         String searchTag = getString(R.string.search_tag);
         SearchQueryFragment searchQueryFragment = SearchQueryFragment.newInstance();
         replaceFragment(searchQueryFragment, searchTag, true);
     }
 
     public void openSearchResults(String text, int overviewType) {
+        trackViewOpening(getString(R.string.search_results_fragment_identifier));
         String searchTag = getString(R.string.search_tag);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.SEARCH_QUERY, text);
@@ -139,24 +144,28 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
     private void openSeries() {
+        trackViewOpening(getString(R.string.series_fragment_identifier));
         String seriesTag = getString(R.string.series_tag);
         OverviewFragment overviewFragment = OverviewFragment.newInstance(Constants.Type.SERIES);
         replaceFragment(overviewFragment, seriesTag, true);
     }
 
     private void openMovies(boolean addToBackStack) {
+        trackViewOpening(getString(R.string.movies_fragment_identifier));
         String movieTag = getString(R.string.movie_tag);
         OverviewFragment overviewFragment = OverviewFragment.newInstance(Constants.Type.MOVIES);
         replaceFragment(overviewFragment, movieTag, addToBackStack);
     }
 
     private void openSettings() {
+        trackViewOpening(getString(R.string.settings_fragment_identifier));
         String settingsTag = getString(R.string.action_settings);
         SettingsFragment settingsFragment = SettingsFragment.newInstance();
         replaceFragment(settingsFragment, settingsTag, true);
     }
 
     private void openAbout() {
+        trackViewOpening(getString(R.string.about_fragment_identifier));
         String aboutTag = getString(R.string.about);
         AboutFragment aboutFragment = AboutFragment.newInstance();
         replaceFragment(aboutFragment, aboutTag, true);
@@ -171,5 +180,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             transaction.replace(R.id.fragment_container, fragment, fragmentTag);
         }
         transaction.commit();
+    }
+
+    private void trackViewOpening(String tag) {
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName(tag));
     }
 }

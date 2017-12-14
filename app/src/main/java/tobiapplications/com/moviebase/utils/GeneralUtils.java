@@ -86,4 +86,12 @@ public class GeneralUtils {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
 
+    public static String getTypeString(Context context, @Constants.Category int type) {
+        if (isMovie(type)) {
+            return context.getString(R.string.movie_identifier);
+        } else if(isSerie(type)) {
+            return context.getString(R.string.serie_identifier);
+        }
+        return context.getString(R.string.unknown_identifier);
+    }
 }

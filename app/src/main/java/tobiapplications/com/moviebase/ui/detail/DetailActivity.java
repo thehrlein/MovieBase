@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ContentViewEvent;
 import com.squareup.picasso.Picasso;
 
 import tobiapplications.com.moviebase.R;
@@ -29,10 +31,17 @@ public class DetailActivity extends AppCompatActivity implements DetailActivityC
         super.onCreate(savedInstanceState);
         bind = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 
+        trackViewOpening(getString(R.string.detail_fragment_identifier));
+
         init();
         setUpActionBar();
         presenter = new DetailActivityPresenter(this, this, getIntent());
         presenter.attach(this);
+    }
+
+    private void trackViewOpening(String tag) {
+        Answers.getInstance().logContentView(new ContentViewEvent()
+                .putContentName(tag));
     }
 
     @Override

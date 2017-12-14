@@ -111,4 +111,19 @@
     <string name="pref_language_en_label">English</string>
     <string name="pref_language_de_label">German</string>
 
+    <!-- Crashlytics -->
+    <string name="type_identifier" translatable="false">Type</string>
+    <string name="movie_identifier" translatable="false">Movie</string>
+    <string name="serie_identifier" translatable="false">Serie</string>
+    <string name="unknown_identifier" translatable="false">Unknown</string>
+    <string name="content_view_identifier" translatable="false">View</string>
+    <string name="about_fragment_identifier" translatable="false">About Fragment</string>
+    <string name="settings_fragment_identifier" translatable="false">Settings Fragment</string>
+    <string name="movies_fragment_identifier" translatable="false">Movie Overview</string>
+    <string name="series_fragment_identifier" translatable="false">Serie Overview</string>
+    <string name="detail_fragment_identifier" translatable="false">Detail Fragment</string>
+    <string name="search_query_fragment_identifier" translatable="false">Search Query Fragment</string>
+    <string name="search_results_fragment_identifier" translatable="false">Search Results Fragment</string>
+
+
 </resources>
