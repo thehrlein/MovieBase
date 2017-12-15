@@ -205,7 +205,6 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
             return;
         }
 
-        trackFavButtonClick(clickedMovie.getTitle(), isMarkedAsFavorite);
 
         if (!isMarkedAsFavorite) {
             isMarkedAsFavorite = true;
@@ -214,6 +213,8 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
             isMarkedAsFavorite = false;
             unmarkFromFavorite(clickedMovie.getTitle(), clickedMovie.getId());
         }
+
+        trackFavButtonClick(clickedMovie.getTitle(), isMarkedAsFavorite);
     }
 
     private void handleFabClickForSerie() {
@@ -221,7 +222,6 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
             return;
         }
 
-        trackFavButtonClick(clickedSerie.getName(), isMarkedAsFavorite);
 
         if (!isMarkedAsFavorite) {
             isMarkedAsFavorite = true;
@@ -231,6 +231,8 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
             isMarkedAsFavorite = false;
             unmarkFromFavorite(clickedSerie.getName(), clickedSerie.getId());
         }
+        
+        trackFavButtonClick(clickedSerie.getName(), isMarkedAsFavorite);
     }
 
     private void markAsFavorite(String message) {
