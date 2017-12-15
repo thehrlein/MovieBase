@@ -124,6 +124,9 @@
     <string name="detail_fragment_identifier" translatable="false">Detail Fragment</string>
     <string name="search_query_fragment_identifier" translatable="false">Search Query Fragment</string>
     <string name="search_results_fragment_identifier" translatable="false">Search Results Fragment</string>
+    <string name="favorite_identifier" translatable="false">Fav Event</string>
+    <string name="mark_favorite_identifier" translatable="false">Marked favorite</string>
+    <string name="unmark_favorite_identifier" translatable="false">Unmarked favorite</string>
 
 
 </resources>

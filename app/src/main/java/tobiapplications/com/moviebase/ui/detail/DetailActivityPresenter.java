@@ -7,14 +7,13 @@ import android.content.Intent;
 import android.os.Handler;
 import android.view.MenuItem;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.lang.ref.WeakReference;
 
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 import tobiapplications.com.moviebase.R;
@@ -24,7 +23,6 @@ import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;
 import tobiapplications.com.moviebase.network.DataManager;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.DialogBuilderUtil;
-import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 import tobiapplications.com.moviebase.utils.SQLUtils;
 import tobiapplications.com.moviebase.utils.StringUtils;
@@ -207,6 +205,8 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
             return;
         }
 
+        trackFavButtonClick(clickedMovie.getTitle(), isMarkedAsFavorite);
+
         if (!isMarkedAsFavorite) {
             isMarkedAsFavorite = true;
             markAsFavorite(clickedMovie.getTitle());
@@ -220,6 +220,8 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
         if (clickedSerie == null) {
             return;
         }
+
+        trackFavButtonClick(clickedSerie.getName(), isMarkedAsFavorite);
 
         if (!isMarkedAsFavorite) {
             isMarkedAsFavorite = true;
@@ -237,6 +239,8 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
             getView().showMarkAsFavorite(message);
         }
         insertIntoDatabase(type);
+
+
     }
 
     private void unmarkFromFavorite(String message, int id) {
@@ -246,6 +250,12 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
         }
 
         SQLUtils.deleteFromDataBase(context, id, type);
+    }
+
+    private void trackFavButtonClick(String title, boolean isMarkedAsFavorite) {
+        String value = isMarkedAsFavorite ? context.getString(R.string.mark_favorite_identifier) : context.getString(R.string.unmark_favorite_identifier);
+        Answers.getInstance().logCustom(new CustomEvent(value)
+            .putCustomAttribute(context.getString(R.string.favorite_identifier), title));
     }
 
     @Override
