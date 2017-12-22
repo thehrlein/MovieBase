@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegatesManager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
 import tobiapplications.com.moviebase.adapter.delegates.LoadingMovieDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.PosterDelegate;
 import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;
@@ -134,10 +136,14 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void removeLoadingItem() {
-        for (DisplayableItem item : itemList) {
+        Iterator<DisplayableItem> iterator = itemList.iterator();
+
+        while (iterator.hasNext()) {
+            DisplayableItem item = iterator.next();
+
             if (item instanceof LoadingItem) {
                 int index = itemList.indexOf(item);
-                itemList.remove(index);
+                iterator.remove();
                 notifyItemRangeChanged(index, itemList.size() - index);
             }
         }
@@ -155,11 +161,5 @@ public class OverviewTabAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         }
         return total;
-    }
-
-    public int getDurationDependingOnItemCount() {
-        int itemCount = getItemCount();
-
-        return itemCount * 100;
     }
 }

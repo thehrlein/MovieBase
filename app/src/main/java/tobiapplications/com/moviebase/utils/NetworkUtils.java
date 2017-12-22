@@ -52,14 +52,15 @@ public class NetworkUtils {
     }
 
     public static boolean isConnectedToInternet(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager != null) {
-            //Check Mobile data or Wifi net is present
-            return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
-        } else  {
+        if (context == null) {
             return false;
         }
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        //Check Mobile data or Wifi net is present
+        return connectivityManager != null && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null
+                && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null
+                && (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED
+                    || connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
     }
 
     public static String getFullImageUrlLow(String url) {

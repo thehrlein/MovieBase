@@ -9,10 +9,9 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:id="@+id/movie_image"
             android:scaleType="fitXY"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:adjustViewBounds="true"
             android:contentDescription="@string/cover_image_content_descrption"/>
 
