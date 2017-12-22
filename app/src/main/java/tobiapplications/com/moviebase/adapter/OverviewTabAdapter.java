@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import io.reactivex.disposables.Disposable;
 import tobiapplications.com.moviebase.adapter.delegates.LoadingMovieDelegate;
 import tobiapplications.com.moviebase.adapter.delegates.PosterDelegate;
 import tobiapplications.com.moviebase.listener.OnLoadMoreMoviesListener;

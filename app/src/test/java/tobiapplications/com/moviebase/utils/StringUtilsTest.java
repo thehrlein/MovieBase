@@ -3,7 +3,6 @@ package tobiapplications.com.moviebase.utils;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import static tobiapplications.com.moviebase.utils.StringUtils.*;

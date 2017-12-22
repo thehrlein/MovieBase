@@ -5,7 +5,6 @@ import android.content.Intent;
 import java.lang.ref.WeakReference;
 
 import tobiapplications.com.moviebase.R;
-import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 /**

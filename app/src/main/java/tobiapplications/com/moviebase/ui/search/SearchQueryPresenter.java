@@ -9,7 +9,6 @@ import java.lang.ref.WeakReference;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.FragmentSearchQueryBinding;
 import tobiapplications.com.moviebase.utils.Constants;
-import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.mvp.BasePresenter;
 
 /**

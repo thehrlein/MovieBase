@@ -2,13 +2,10 @@ package tobiapplications.com.moviebase.utils;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.support.v4.app.Fragment;
 
-import java.lang.ref.WeakReference;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import timber.log.Timber;
 import tobiapplications.com.moviebase.R;
 
 /**

@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ItemMoviePosterBinding;
 import tobiapplications.com.moviebase.model.general_items.MoviePosterItem;
-import tobiapplications.com.moviebase.utils.GeneralUtils;
 import tobiapplications.com.moviebase.utils.NetworkUtils;
 
 /**

@@ -1,11 +1,6 @@
 package tobiapplications.com.moviebase.utils;
 
-import android.app.Dialog;
-import android.content.Context;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
