@@ -2,13 +2,13 @@ package tobiapplications.com.moviebase.ui.views;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import tobiapplications.com.moviebase.databinding.ViewTrailerItemBinding;
 import tobiapplications.com.moviebase.model.detail.YtTrailerStatistic;
@@ -61,7 +61,9 @@ public class TrailerView extends LinearLayout {
         bind.trailerTitle.setText(trailerItem.getTitle());
 
         setUpStatistics(trailerItem.getStatistics());
-        Picasso.with(context).load(trailerItem.getThumbnails().getDefaultThumb().getUrl()).into(bind.trailerImage);
+        if (trailerItem.getThumbnails() != null && trailerItem.getThumbnails().getDefaultThumb() != null) {
+            Glide.with(context).load(trailerItem.getThumbnails().getDefaultThumb().getUrl()).into(bind.trailerImage);
+        }
 
         divider = new DividerView(context);
         bind.trailerViewLayout.addView(divider);

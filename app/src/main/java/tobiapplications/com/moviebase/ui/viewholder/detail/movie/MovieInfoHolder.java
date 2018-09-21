@@ -1,12 +1,12 @@
 package tobiapplications.com.moviebase.ui.viewholder.detail.movie;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import androidx.recyclerview.widget.RecyclerView;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.DetailMovieInfoHolderBinding;
 import tobiapplications.com.moviebase.model.detail.items.movie.MovieInfoItem;
@@ -35,7 +35,7 @@ public class MovieInfoHolder extends RecyclerView.ViewHolder implements View.OnC
     public void setInformation(MovieInfoItem view) {
         this.movie = view;
         if (view.getImagePath() != null) {
-            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(view.getImagePath())).into(bind.image);
+            Glide.with(context).load(NetworkUtils.getFullImageUrlLow(view.getImagePath())).into(bind.image);
         } else {
             bind.image.setImageResource(R.drawable.no_picture);
         }

@@ -1,19 +1,19 @@
 package tobiapplications.com.moviebase.ui.detail;
 
-import android.databinding.DataBindingUtil;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.ViewCompat;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ContentViewEvent;
-import com.squareup.picasso.Picasso;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.snackbar.Snackbar;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ActivityDetailBinding;
@@ -95,7 +95,7 @@ public class DetailActivity extends AppCompatActivity implements DetailActivityC
 
     @Override
     public void showPosterImage(String imageUrl) {
-        Picasso.with(this).load(imageUrl).into(bind.toolbarBackgroundImage);
+        Glide.with(this).load(imageUrl).into(bind.toolbarBackgroundImage);
     }
 
     @Override

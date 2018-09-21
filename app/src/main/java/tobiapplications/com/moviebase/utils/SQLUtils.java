@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import tobiapplications.com.moviebase.database.MoviesContract;
 import tobiapplications.com.moviebase.database.SeriesContract;

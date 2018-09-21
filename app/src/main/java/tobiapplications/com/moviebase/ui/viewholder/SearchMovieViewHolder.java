@@ -1,10 +1,10 @@
 package tobiapplications.com.moviebase.ui.viewholder;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.SearchListItemBinding;
@@ -38,7 +38,7 @@ public class SearchMovieViewHolder extends RecyclerView.ViewHolder implements Vi
 
         bind.searchMovieTitle.setText(movie.getTitle());
         if (movie.getImagePath() != null) {
-            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(movie.getImagePath())).into(bind.searchMovieImageView);
+            Glide.with(context).load(NetworkUtils.getFullImageUrlLow(movie.getImagePath())).into(bind.searchMovieImageView);
         } else {
             bind.searchMovieImageView.setImageResource(R.drawable.no_picture);
         }

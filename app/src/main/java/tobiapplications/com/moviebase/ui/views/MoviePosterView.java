@@ -1,14 +1,14 @@
 package tobiapplications.com.moviebase.ui.views;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ItemMoviePosterBinding;
@@ -59,7 +59,7 @@ public class MoviePosterView extends LinearLayout {
             }
 
             if (!TextUtils.isEmpty(movieInformation.getImagePath())) {
-                Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(movieInformation.getImagePath())).into(bind.movieImage);
+                Glide.with(context).load(NetworkUtils.getFullImageUrlLow(movieInformation.getImagePath())).into(bind.movieImage);
                 bind.movieImage.setScaleType(ImageView.ScaleType.FIT_XY);
             } else {
                 bind.movieImage.setImageResource(R.drawable.no_picture);

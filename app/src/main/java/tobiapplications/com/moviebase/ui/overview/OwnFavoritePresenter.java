@@ -3,7 +3,7 @@ package tobiapplications.com.moviebase.ui.overview;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.content.Loader;
+import androidx.loader.content.Loader;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

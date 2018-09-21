@@ -1,6 +1,6 @@
 package tobiapplications.com.moviebase.ui.viewholder.detail;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import tobiapplications.com.moviebase.databinding.DetailSummaryHolderBinding;

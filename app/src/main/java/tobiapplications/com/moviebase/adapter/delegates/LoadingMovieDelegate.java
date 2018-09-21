@@ -1,7 +1,6 @@
 package tobiapplications.com.moviebase.adapter.delegates;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -9,6 +8,7 @@ import com.hannesdorfmann.adapterdelegates3.AdapterDelegate;
 
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.model.DisplayableItem;
 import tobiapplications.com.moviebase.model.overview.LoadingItem;

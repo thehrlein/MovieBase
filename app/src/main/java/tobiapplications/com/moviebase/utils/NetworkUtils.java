@@ -14,7 +14,7 @@ import tobiapplications.com.moviebase.BuildConfig;
 public class NetworkUtils {
 
     private static final String MOVIE_BASE_URL = "https://api.themoviedb.org/3/";
-    private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
+    private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/";
     private static final String YOUTUBE_API_BASE_URL = "https://www.googleapis.com/youtube/v3/";
     private static final String YOUTUBE_WATCH_BASE_URL = "https://www.youtube.com/watch?v=";
     private static final String IMAGE_HIGH_SUFFIX = "w500";

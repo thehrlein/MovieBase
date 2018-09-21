@@ -1,7 +1,8 @@
 package tobiapplications.com.moviebase.ui.detail;
 
-import android.support.design.widget.AppBarLayout;
 import android.view.MenuItem;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 import tobiapplications.com.moviebase.model.detail.MovieDetailResponse;
 import tobiapplications.com.moviebase.model.detail.SeriesDetailResponse;

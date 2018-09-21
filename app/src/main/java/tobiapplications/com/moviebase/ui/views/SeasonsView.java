@@ -1,12 +1,12 @@
 package tobiapplications.com.moviebase.ui.views;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.ViewSeasonBinding;
@@ -49,7 +49,7 @@ public class SeasonsView extends LinearLayout {
 
     public void setSeason(Season season) {
         if (season.getPosterPath() != null) {
-            Picasso.with(context).load(NetworkUtils.getFullImageUrlLow(season.getPosterPath())).into(bind.image);
+            Glide.with(context).load(NetworkUtils.getFullImageUrlLow(season.getPosterPath())).into(bind.image);
             bind.image.setOnClickListener(v -> {
                 if (listener != null) {
                     listener.onImageClick(seasonPosition);

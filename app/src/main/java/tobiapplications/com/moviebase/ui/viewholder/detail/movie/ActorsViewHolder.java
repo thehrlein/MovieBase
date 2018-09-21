@@ -1,7 +1,6 @@
 package tobiapplications.com.moviebase.ui.viewholder.detail.movie;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -9,6 +8,7 @@ import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.RecyclerView;
 import tobiapplications.com.moviebase.databinding.DetailActorsHolderBinding;
 import tobiapplications.com.moviebase.listener.OnImageClickListener;
 import tobiapplications.com.moviebase.model.detail.Actor;

@@ -2,7 +2,7 @@ package tobiapplications.com.moviebase.ui.viewholder.detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import java.util.ArrayList;

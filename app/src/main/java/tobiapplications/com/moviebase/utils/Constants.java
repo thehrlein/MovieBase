@@ -1,6 +1,6 @@
 package tobiapplications.com.moviebase.utils;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 
 /**
