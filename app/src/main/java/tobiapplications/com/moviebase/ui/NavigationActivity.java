@@ -3,12 +3,16 @@ package tobiapplications.com.moviebase.ui;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+
+import android.graphics.Point;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.view.GravityCompat;
+
+import android.view.Display;
 import android.view.MenuItem;
 
 import com.crashlytics.android.answers.Answers;
@@ -26,6 +30,7 @@ import tobiapplications.com.moviebase.ui.search.SearchQueryFragment;
 import tobiapplications.com.moviebase.ui.settings.SettingsFragment;
 import tobiapplications.com.moviebase.utils.Constants;
 import tobiapplications.com.moviebase.utils.SettingsUtils;
+import tobiapplications.com.moviebase.utils.Store;
 
 /**
  * Created by Tobias on 10.09.2017.
@@ -45,8 +50,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         init();
     }
 
-
     private void init() {
+        Display display = getWindowManager(). getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        Store.getInstance().setScreenWidth(size.x);
+
         DataManager.getInstance().buildApi(Constants.THE_MOVIE_DB);
         DataManager.getInstance().buildApi(Constants.YOUTUBE);
 

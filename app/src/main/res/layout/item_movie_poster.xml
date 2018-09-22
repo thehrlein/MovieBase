@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="200dp">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:id="@+id/movie_image"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/cover_image_content_descrption"/>
+            android:contentDescription="@string/cover_image_content_descrption" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerInParent="true"/>
 
         <TextView
             android:id="@+id/movie_title_no_picture"
             android:padding="16dp"
             android:visibility="gone"
+            tools:text="Spiderman"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -27,6 +36,7 @@
             android:layout_below="@id/movie_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:text="Spiderman"
             android:paddingStart="10dp"
             android:paddingEnd="15dp"
             android:paddingTop="10dp"

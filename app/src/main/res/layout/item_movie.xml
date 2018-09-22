@@ -23,7 +23,8 @@
                 <tobiapplications.com.moviebase.ui.views.MoviePosterView
                     android:id="@+id/movie_poster_item"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:minHeight="200dp">
 
                 </tobiapplications.com.moviebase.ui.views.MoviePosterView>
 
