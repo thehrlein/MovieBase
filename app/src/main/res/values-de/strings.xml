@@ -71,4 +71,5 @@
     <string name="about_email_chooser_title">Wählen Sie Ihr E-Mail Client</string>
     <string name="about_no_email_clients">Sie haben keinen E-Mail Client installiert</string>
     <string name="about_send_email_loading">Eine Sekunde ...</string>
+    <string name="about_privacy_policy">Datenschutzerklärung</string>
 </resources>

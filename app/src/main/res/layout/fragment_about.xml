@@ -25,7 +25,7 @@
                 android:gravity="center"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="32dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/about_credits" />
@@ -79,6 +79,18 @@
                 android:layout_height="wrap_content"
                 android:text="@string/about_creator"
                 android:textSize="16sp" />
+
+
+            <Button
+                android:id="@+id/privacyPolicy"
+                android:text="@string/about_privacy_policy"
+                android:background="@color/colorPrimary"
+                android:padding="16dp"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="32dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

@@ -84,6 +84,7 @@
     <string name="about_email_chooser_title">Choose your email client</string>
     <string name="about_no_email_clients">There are no email clients installed</string>
     <string name="about_send_email_loading">One second ...</string>
+    <string name="about_privacy_policy">Privacy Policy</string>
 
     <!-- Search -->
     <string name="search_title">Search</string>

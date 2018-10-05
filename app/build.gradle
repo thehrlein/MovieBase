@@ -11,7 +11,6 @@ android {
         versionCode 5
         versionName "1.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [HOCKEYAPP_APP_ID: "9f5aa58003e64836a230f6a78714d9b0"]
     }
     buildTypes {
         release {
