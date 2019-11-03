@@ -2,10 +2,8 @@ package tobiapplications.com.moviebase.utils;
 
 import android.app.Application;
 
-import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
-import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 import tobiapplications.com.moviebase.BuildConfig;
 
@@ -20,7 +18,6 @@ public class MyApplication extends Application {
         super.onCreate();
 
         Fresco.initialize(this);
-        Fabric.with(this, new Crashlytics());
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());

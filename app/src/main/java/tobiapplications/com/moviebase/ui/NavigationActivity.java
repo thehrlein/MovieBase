@@ -15,9 +15,8 @@ import androidx.core.view.GravityCompat;
 import android.view.Display;
 import android.view.MenuItem;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ContentViewEvent;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 
 import tobiapplications.com.moviebase.R;
@@ -46,7 +45,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         SettingsUtils.updateApplicationLanguage(this);
 
         bind = DataBindingUtil.setContentView(this, R.layout.activity_navigation);
-
         init();
     }
 
@@ -165,7 +163,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
     private void trackViewOpening(String tag) {
-        Answers.getInstance().logContentView(new ContentViewEvent()
-                .putContentName(tag));
+//        Answers.getInstance().logContentView(new ContentViewEvent()
+//                .putContentName(tag));
     }
 }

@@ -30,12 +30,12 @@ public class QueryAppendingInterceptor implements Interceptor {
 
         if (apiFlag.equals(Constants.THE_MOVIE_DB)) {
             url = originalHttpUrl.newBuilder()
-                    .addQueryParameter(Constants.THE_MOVIE_QUERY_API_LABEL, NetworkUtils.getMovieApiKey())
+                    .addQueryParameter(Constants.THE_MOVIE_QUERY_API_LABEL, NetworkUtils.getMovieKey())
                     .addQueryParameter(Constants.THE_MOVIE_QUERY_LANGUAGE_LABEL, SettingsUtils.getAppLanguage())
                     .build();
         } else if (apiFlag.equals(Constants.YOUTUBE)) {
             url = originalHttpUrl.newBuilder()
-                    .addQueryParameter(Constants.YOUTUBE_API_QUERY_LABEL, NetworkUtils.getYoutubeApiKey())
+                    .addQueryParameter(Constants.YOUTUBE_API_QUERY_LABEL, NetworkUtils.getYoutubeKey())
                     .addQueryParameter(Constants.YOUTUBE_API_INFO_LABEL, Constants.YOUTUBE_API_INFO_VALUE)
                     .build();
         }

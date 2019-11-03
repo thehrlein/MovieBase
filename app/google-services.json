@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "86736619946",
+    "firebase_url": "https://moviebase-4c4e8.firebaseio.com",
+    "project_id": "moviebase-4c4e8",
+    "storage_bucket": "moviebase-4c4e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86736619946:android:cce1fc39b7fe9c213b83d3",
+        "android_client_info": {
+          "package_name": "tobiapplications.com.moviebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86736619946-95gp0bmuaj1db2lau39dgie9962okphk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvpeuOHZVE_Tm9S0BQKvUP9t6AFnxTc_Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86736619946-95gp0bmuaj1db2lau39dgie9962okphk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

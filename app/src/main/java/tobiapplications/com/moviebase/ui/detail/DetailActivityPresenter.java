@@ -6,9 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.MenuItem;
-
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.lang.ref.WeakReference;
@@ -255,9 +252,9 @@ public class DetailActivityPresenter extends BasePresenter<DetailActivityContrac
     }
 
     private void trackFavButtonClick(String title, boolean isMarkedAsFavorite) {
-        String value = isMarkedAsFavorite ? context.getString(R.string.mark_favorite_identifier) : context.getString(R.string.unmark_favorite_identifier);
-        Answers.getInstance().logCustom(new CustomEvent(value)
-            .putCustomAttribute(context.getString(R.string.favorite_identifier), title));
+//        String value = isMarkedAsFavorite ? context.getString(R.string.mark_favorite_identifier) : context.getString(R.string.unmark_favorite_identifier);
+//        Answers.getInstance().logCustom(new CustomEvent(value)
+//            .putCustomAttribute(context.getString(R.string.favorite_identifier), title));
     }
 
     @Override

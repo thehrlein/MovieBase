@@ -20,9 +20,9 @@ public class NetworkUtils {
     private static final String IMAGE_HIGH_SUFFIX = "w500";
     private static final String IMAGE_LOW_SUFFIX = "w185";
     private static final String API_PREFIX = "?api_key=";
-    private static final String MOVIE_DB_API_KEY = BuildConfig.MY_MOVIE_DB_API_KEY;
-    private static final String API_KEY_FULL = API_PREFIX + MOVIE_DB_API_KEY;
-    private static final String YOUTUBE_API_KEY = BuildConfig.MY_YOUTUBE_API_KEY;
+    private static final String MOVIE_DB_KEY = BuildConfig.MY_MOVIE_DB_KEY;
+    private static final String KEY_FULL = API_PREFIX + MOVIE_DB_KEY;
+    private static final String YOUTUBE_KEY = BuildConfig.MY_YOUTUBE_KEY;
 
     public static String getApiBaseUrl(String apiKey) {
         if (apiKey.equals(Constants.THE_MOVIE_DB)) {
@@ -33,15 +33,15 @@ public class NetworkUtils {
         return "";
     }
 
-    public static String appendApiKey() {
-        return API_KEY_FULL;
+    public static String appendKey() {
+        return KEY_FULL;
     }
 
-    public static String getMovieApiKey() {
-        return MOVIE_DB_API_KEY;
+    public static String getMovieKey() {
+        return MOVIE_DB_KEY;
     }
 
-    public static String getYoutubeApiKey() { return YOUTUBE_API_KEY; }
+    public static String getYoutubeKey() { return YOUTUBE_KEY; }
 
     public static String getImageBaseUrlHigh() {
         return IMAGE_BASE_URL + IMAGE_HIGH_SUFFIX;
@@ -64,11 +64,11 @@ public class NetworkUtils {
     }
 
     public static String getFullImageUrlLow(String url) {
-        return getImageBaseUrlLow() + url + appendApiKey();
+        return getImageBaseUrlLow() + url + appendKey();
     }
 
     public static String getFullImageUrlHigh(String url) {
-        return getImageBaseUrlHigh() + url + appendApiKey();
+        return getImageBaseUrlHigh() + url + appendKey();
     }
 
     public static Uri buildYoutubeIntent(String trailerId) {

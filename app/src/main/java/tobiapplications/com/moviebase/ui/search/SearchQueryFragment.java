@@ -11,9 +11,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CompoundButton;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.SearchEvent;
-
 import tobiapplications.com.moviebase.R;
 import tobiapplications.com.moviebase.databinding.FragmentSearchQueryBinding;
 import tobiapplications.com.moviebase.ui.NavigationActivity;
@@ -95,9 +92,9 @@ public class SearchQueryFragment extends Fragment implements SearchQueryContract
             return;
         }
 
-        Answers.getInstance().logSearch(new SearchEvent()
-                .putCustomAttribute(context.getString(R.string.type_identifier), GeneralUtils.getTypeString(context, type))
-                .putQuery(text));
+//        Answers.getInstance().logSearch(new SearchEvent()
+//                .putCustomAttribute(context.getString(R.string.type_identifier), GeneralUtils.getTypeString(context, type))
+//                .putQuery(text));
 
         activity.openSearchResults(text, type);
     }

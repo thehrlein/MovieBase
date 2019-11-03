@@ -10,8 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ContentViewEvent;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -40,8 +38,8 @@ public class DetailActivity extends AppCompatActivity implements DetailActivityC
     }
 
     private void trackViewOpening(String tag) {
-        Answers.getInstance().logContentView(new ContentViewEvent()
-                .putContentName(tag));
+//        Answers.getInstance().logContentView(new ContentViewEvent()
+//                .putContentName(tag));
     }
 
     @Override
